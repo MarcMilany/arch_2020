@@ -70,7 +70,7 @@ pacman -Syy
 echo "Куда устанавливем Arch Linux на виртуальную машину?"
 read -p "1 - Да, 0 - Нет: " vm_setting
 if [[ $vm_setting == 0 ]]; then
-  gui_install="xorg-server xorg-drivers xorg-xinit xorg-server-utils mesa"
+  gui_install="xorg-server xorg-drivers xorg-xinit mesa"
 elif [[ $vm_setting == 1 ]]; then
   gui_install="xorg-server xorg-drivers xorg-xinit virtualbox-guest-utils"
 fi
@@ -109,7 +109,10 @@ echo 'Установка завершена! Перезагрузите сист
 echo 'Если хотите подключить AUR, установить мои конфиги XFCE, тогда после перезагрузки и входа в систему, установите wget (sudo pacman -S wget) и выполните команду:'
 echo 'wget git.io/archmy3.sh && sh archmy3.sh'
 
-echo 'Далее отмонтируем все ранее монтируемые разделы'
+echo 'Выйдем из установленной системы'
+exit
+
+#echo 'Далее отмонтируем все ранее монтируемые разделы'
 #При желании можно вручную размонтировать все разделы с помощью umount -R /mnt: это позволяет заметить любые «занятые» разделы и найти причину с помощью
 #umount /mnt/{boot,home,}
 #или
@@ -117,11 +120,8 @@ echo 'Далее отмонтируем все ранее монтируемые
 #umount /mnt/boot
 #umount /mnt
 
-umount -R /mnt/boot
-umount -R /mnt/home
-umount -R /mnt
-
-echo 'Выйдем из установленной системы'
-exit
-reboot
+#umount -R /mnt/boot
+#umount -R /mnt/home
+#umount -R /mnt
+#reboot
 
