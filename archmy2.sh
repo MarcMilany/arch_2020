@@ -41,11 +41,11 @@ pacman -Syy
 pacman -S grub --noconfirm 
 grub-install /dev/sda
 
-echo 'Если в системе будут несколько ОС, то это также ставим'
-pacman -S os-prober mtools fus
-
 echo 'Обновляем grub.cfg (Сгенерируем grub.cfg)'
 grub-mkconfig -o /boot/grub/grub.cfg
+
+echo 'Если в системе будут несколько ОС, то это также ставим'
+pacman -S os-prober mtools fuse
 
 echo 'Ставим программу для Wi-fi'
 pacman -S dialog wpa_supplicant --noconfirm 
