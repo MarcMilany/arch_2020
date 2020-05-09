@@ -27,7 +27,7 @@ echo 'Вписываем KEYMAP=ru FONT=cyr-sun16'
 echo 'KEYMAP=ru' >> /etc/vconsole.conf
 echo 'FONT=cyr-sun16' >> /etc/vconsole.conf
 echo 'FONT_MAP=' >> /etc/vconsole.conf
-echo 'CONSOLEMAP' >>> /etc/vconsole.conf
+echo 'CONSOLEMAP' >> /etc/vconsole.conf
 
 echo 'Создадим загрузочный RAM диск'
 mkinitcpio -p linux
