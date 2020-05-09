@@ -128,12 +128,8 @@ swapon /dev/sda2
 mount /dev/sda4 /mnt/home
 
 echo '3.1 Выбор зеркал для загрузки. Ставим зеркало от Яндекс'
-echo "## Russia" > /etc/pacman.d/mirrorlist
-echo "#Server = http://mirror.rol.ru/archlinux/\$repo/os/\$arch" >> /etc/pacman.d/mirrorlist
 echo "Server = https://mirror.rol.ru/archlinux/\$repo/os/\$arch" >> /etc/pacman.d/mirrorlist
-echo "#Server = http://mirror.truenetwork.ru/archlinux/\$repo/os/\$arch" >> /etc/pacman.d/mirrorlist
 echo "Server = https://mirror.yandex.ru/archlinux/\$repo/os/\$arch" >> /etc/pacman.d/mirrorlist
-echo "#Server = http://archlinux.zepto.cloud/\$repo/os/\$arch" >> /etc/pacman.d/mirrorlist
 echo "Server = http://mirror.yandex.ru/archlinux/\$repo/os/\$arch" >> /etc/pacman.d/mirrorlist
 
 echo 'Активируем новые репы (зеркала) от Яндекс' 
@@ -147,8 +143,8 @@ pacstrap /mnt base base-devel linux-lts linux-firmware nano dhcpcd netctl vim
 echo '3.3 Настройка системы, генерируем fstab'
 genfstab -pU /mnt >> /mnt/etc/fstab
 
-echo 'Прокидываем правильные быстрые репы (зеркала) внутрь'
-cp /etc/pacman.d/mirrorlist /mnt/etc/pacman.d/mirrorlist
+#echo 'Прокидываем правильные быстрые репы (зеркала) внутрь'
+#cp /etc/pacman.d/mirrorlist /mnt/etc/pacman.d/mirrorlist
 
 echo 'Меняем корень и переходим в нашу недавно скачанную систему'
 arch-chroot /mnt sh -c "$(curl -fsSL git.io/archmy2)"

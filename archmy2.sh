@@ -63,7 +63,7 @@ echo 'Раскомментируем репозиторий multilib Для ра
 echo '[multilib]' >> /etc/pacman.conf
 echo 'Include = /etc/pacman.d/mirrorlist' >> /etc/pacman.conf
 sed -i 's/#Color/Color/' /etc/pacman.conf
-echo 'ILoveCandy' >> /etc/pacman.conf
+#echo 'ILoveCandy' >> /etc/pacman.conf
 pacman -Syy
 
 echo "Куда устанавливем Arch Linux на виртуальную машину?"
@@ -86,6 +86,9 @@ pacman -S lightdm lightdm-gtk-greeter lightdm-gtk-greeter-settings --noconfirm
 echo 'Ставим шрифты'
 pacman -S ttf-liberation ttf-dejavu --noconfirm 
 
+echo 'Подключаем автозагрузку менеджера входа и интернет'
+systemctl enable lightdm.service NetworkManager
+
 echo 'Ставим Bluetooth and Sound support'
 pacman -S bluez bluez-libs bluez-cups bluez-utils --noconfirm
 pacman -S alsa-utils alsa-plugins alsa-firmware alsa-lib alsa-utils --noconfirm 
@@ -99,9 +102,6 @@ sudo pacman -S cups ghostscript cups-pdf --noconfirm
 
 echo 'Установка базовых программ и пакетов'
 sudo pacman -S firefox firefox-i18n-ru audacious audacious-plugins transmission-gtk transmission-cli gedit gedit-plugins geany geany-plugins bash-completion pidgin ufw onboard iftop htop nmap sane testdisk vlc pv f2fs-tools dosfstools ntfs-3g file-roller gvfs aspell-ru --noconfirm
-
-echo 'Подключаем автозагрузку менеджера входа и интернет'
-systemctl enable lightdm.service NetworkManager
 
 echo 'Установка завершена! Перезагрузите систему.'
 echo 'Если хотите подключить AUR, установить мои конфиги XFCE, тогда после перезагрузки и входа в систему, установите wget (sudo pacman -S wget) и выполните команду:'
