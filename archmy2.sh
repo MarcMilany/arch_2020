@@ -30,7 +30,8 @@ echo 'FONT_MAP=' >> /etc/vconsole.conf
 echo 'CONSOLEMAP' >> /etc/vconsole.conf
 
 echo 'Создадим загрузочный RAM диск'
-mkinitcpio -p linux
+#mkinitcpio -p linux
+mkinitcpio -P linux
 
 echo 'Создаем root пароль'
 passwd
@@ -87,7 +88,8 @@ echo 'Ставим шрифты'
 pacman -S ttf-liberation ttf-dejavu --noconfirm 
 
 echo 'Подключаем автозагрузку менеджера входа и интернет'
-systemctl enable lightdm.service NetworkManager
+systemctl enable lightdm.service 
+systemctl enable NetworkManager
 
 echo 'Ставим Bluetooth and Sound support'
 pacman -S bluez bluez-libs bluez-cups bluez-utils --noconfirm
@@ -106,8 +108,6 @@ sudo pacman -S firefox firefox-i18n-ru audacious audacious-plugins transmission-
 echo 'Установка завершена! Перезагрузите систему.'
 echo 'Если хотите подключить AUR, установить мои конфиги XFCE, тогда после перезагрузки и входа в систему, установите wget (sudo pacman -S wget) и выполните команду:'
 echo 'wget git.io/archmy3.sh && sh archmy3.sh'
-echo 'Выйдем из установленной системы'
-exit
 
 echo 'Далее отмонтируем все ранее монтируемые разделы'
 #При желании можно вручную размонтировать все разделы с помощью umount -R /mnt: это позволяет заметить любые «занятые» разделы и найти причину с помощью
@@ -121,5 +121,7 @@ umount -R /mnt/boot
 umount -R /mnt/home
 umount -R /mnt
 
+echo 'Выйдем из установленной системы'
+exit
 reboot
 
