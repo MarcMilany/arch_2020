@@ -136,8 +136,5 @@ pacstrap /mnt base base-devel linux-lts linux-firmware nano dhcpcd netctl vim
 echo '3.3 Настройка системы, генерируем fstab'
 genfstab -pU /mnt >> /mnt/etc/fstab
 
-#echo 'Прокидываем правильные быстрые репы (зеркала) внутрь'
-#cp /etc/pacman.d/mirrorlist /mnt/etc/pacman.d/mirrorlist
-
 echo 'Меняем корень и переходим в нашу недавно скачанную систему'
 arch-chroot /mnt sh -c "$(curl -fsSL git.io/archmy2)"
