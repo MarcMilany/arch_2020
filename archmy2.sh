@@ -103,7 +103,11 @@ echo 'Ставим Драйвера принтера (Print support)'
 sudo pacman -S cups ghostscript cups-pdf --noconfirm
 
 echo 'Установка базовых программ и пакетов'
-sudo pacman -S aspell-ru audacity audacious audacious-plugins bleachbit bash-completion dosfstools f2fs-tools file-roller filezilla firefox firefox-i18n-ru geany geany-plugins gedit gedit-plugins git gnome-calculator gnome-system-monitor gvfs htop iftop nmap ntfs-3g onboard pidgin pv sane screenfetch testdisk thunderbird thunderbird-i18n-ru transmission-gtk transmission-cli ufw vlc --noconfirm     
+sudo pacman -S aspell-ru audacity audacious audacious-plugins bleachbit bash-completion dosfstools f2fs-tools file-roller filezilla firefox firefox-i18n-ru geany geany-plugins gedit gedit-plugins git gnome-calculator gnome-system-monitor gvfs gparted htop iftop nmap ntfs-3g onboard pidgin pv sane screenfetch testdisk thunderbird thunderbird-i18n-ru transmission-gtk transmission-cli ufw vlc --noconfirm 
+
+echo 'Создаем нужные директории'
+sudo pacman -S xdg-user-dirs --noconfirm
+xdg-user-dirs-update    
 
 echo 'Установка завершена! Перезагрузите систему.'
 echo 'Если хотите подключить AUR, установить мои конфиги XFCE, тогда после перезагрузки и входа в систему, установите wget (sudo pacman -S wget) и выполните команду:'
