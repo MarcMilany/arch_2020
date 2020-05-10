@@ -109,7 +109,7 @@ echo 'Ставим Драйвера принтера (Print support)'
 sudo pacman -S cups ghostscript cups-pdf --noconfirm
 
 echo 'Установка базовых программ и пакетов'
-sudo pacman -S aspell-ru audacity audacious audacious-plugins archey3 bleachbit bash-completion conky conky-manager clamav clamtk clonezilla cmake dosfstools dconf-editor f2fs-tools file-roller filezilla firefox firefox-i18n-ru firefox-spell-ru fetchmirrors geany geany-plugins gedit gedit-plugins git gconf-editor glances gnome-calculator gnome-system-monitor gnome-disks gsmartcontrol gvfs gparted gufw htop hydra iftop mc meld python2-meld3 mintstick neofetch nmap ntfs-3g onboard pidgin pv sane screenfetch sox testdisk thunderbird thunderbird-i18n-ru transmission-gtk transmission-cli ufw gpm vlc youtube-dl wget speedtest-cli python-pip --noconfirm 
+sudo pacman -S aspell-ru audacity audacious audacious-plugins archey3 bleachbit bash-completion conky conky-manager clamav clamtk clonezilla cmake dosfstools dconf-editor f2fs-tools file-roller filezilla firefox firefox-i18n-ru firefox-spell-ru  geany geany-plugins gedit gedit-plugins git glances gnome-calculator  screenfetch sane  gparted gnome-system-monitor gsmartcontrol gvfs gufw htop hydra iftop mc meld neofetch nmap ntfs-3g onboard pidgin pv sox testdisk thunderbird thunderbird-i18n-ru transmission-gtk transmission-cli ufw vlc youtube-dl wget speedtest-cli python-pip --noconfirm 
 
 echo 'Создаем нужные директории'
 sudo pacman -S xdg-user-dirs --noconfirm
