@@ -1,6 +1,7 @@
- 
+Если возникнут проблемы с сетью (интернет), после установки Arch'a !
+
 Попробуйте все сначала:
-скрытый текст
+
 1.Проверьте все ли пакеты установлены:
 pacman -Qi wpa_supplicant wireless_tools networkmanager network-manager-applet
 Также не лишними будут пакеты для openvpn:
