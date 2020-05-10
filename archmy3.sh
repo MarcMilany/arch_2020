@@ -16,7 +16,7 @@ echo 'Установка Мультимедиа кодеков (multimedia codec
 sudo pacman -S a52dec faac faad2 flac jasper lame libdca libdv libmad libmpeg2 libtheora libvorbis libxv wavpack x264 xvidcore gst-plugins-base gst-plugins-base-libs gst-plugins-good gst-plugins-bad gst-plugins-ugly flashplugin libdvdcss libdvdread libdvdnav dvd+rw-tools dvdauthor dvgrab cdrdao gst-libav gst-libav --noconfirm
 
 echo 'Установка программ'
-sudo pacman -S wget cmake git curl firefox ufw qt4 f2fs-tools dosfstools ntfs-3g alsa-lib alsa-utils file-roller p7zip unrar gvfs aspell-ru pulseaudio --noconfirm
+sudo pacman -S wget cmake git curl fetchmirrors gconf-editor gnome-disks python2-meld3 mintstick firefox ufw qt4 f2fs-tools dosfstools ntfs-3g alsa-lib alsa-utils file-roller p7zip unrar gvfs aspell-ru pulseaudio --noconfirm
 
 echo 'Форматируем флешки с файловой системой exFAT в Linux'
 sudo pacman -S exfat-utils fuse-exfat --noconfirm 
