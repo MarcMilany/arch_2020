@@ -102,6 +102,9 @@ pacman -S pulseaudio pulseaudio-alsa pavucontrol pulseaudio-zeroconf pulseaudio-
 echo 'Ставим Архиваторы "Compression Tools"'
 pacman -S zip unzip unrar p7zip zlib zziplib --noconfirm
 
+echo 'Ставим дополнения к Архиваторам'
+pacman -S unace sharutils uudeview arj cabextract --noconfirm
+
 echo 'Ставим Драйвера принтера (Print support)'
 sudo pacman -S cups ghostscript cups-pdf --noconfirm
 
