@@ -103,7 +103,7 @@ echo 'Ставим Драйвера принтера (Print support)'
 sudo pacman -S cups ghostscript cups-pdf --noconfirm
 
 echo 'Установка базовых программ и пакетов'
-sudo pacman -S aspell-ru audacity audacious audacious-plugins bleachbit bash-completion dosfstools f2fs-tools file-roller filezilla firefox firefox-i18n-ru geany geany-plugins gedit gedit-plugins git gnome-calculator gnome-system-monitor gvfs gparted htop iftop nmap ntfs-3g onboard pidgin pv sane screenfetch testdisk thunderbird thunderbird-i18n-ru transmission-gtk transmission-cli ufw vlc --noconfirm 
+sudo pacman -S aspell-ru audacity audacious audacious-plugins bleachbit bash-completion dosfstools f2fs-tools file-roller filezilla firefox firefox-i18n-ru geany geany-plugins gedit gedit-plugins git gnome-calculator gnome-system-monitor gvfs gparted gufw htop iftop mc nmap ntfs-3g onboard pidgin pv sane screenfetch testdisk thunderbird thunderbird-i18n-ru transmission-gtk transmission-cli ufw vlc --noconfirm 
 
 echo 'Создаем нужные директории'
 sudo pacman -S xdg-user-dirs --noconfirm
@@ -116,16 +116,4 @@ echo 'wget git.io/archmy3 && sh archmy3'
 echo 'Выйдем из установленной системы'
 exit
 
-#echo 'Далее отмонтируем все ранее монтируемые разделы'
-#При желании можно вручную размонтировать все разделы с помощью umount -R /mnt: это позволяет заметить любые «занятые» разделы и найти причину с помощью
-#umount /mnt/{boot,home,}
-#или
-#umount /mnt/home
-#umount /mnt/boot
-#umount /mnt
-
-#umount -R /mnt/boot
-#umount -R /mnt/home
-#umount -R /mnt
-#reboot
 
