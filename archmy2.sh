@@ -65,6 +65,9 @@ echo '[multilib]' >> /etc/pacman.conf
 echo 'Include = /etc/pacman.d/mirrorlist' >> /etc/pacman.conf
 sed -i 's/#Color/Color/' /etc/pacman.conf
 #echo 'ILoveCandy' >> /etc/pacman.conf
+#[archlinuxfr]
+#SigLevel = Never
+#Server = http://repo.archlinux.fr/$arch
 pacman -Syy
 
 echo "Куда устанавливем Arch Linux на виртуальную машину?"
