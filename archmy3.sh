@@ -2,6 +2,7 @@
 #rm -rf ~/.config/xfce4/*
 mkdir ~/Downloads
 cd ~/Downloads
+
 echo 'Установка AUR (yay)'
 sudo pacman -Syu
 sudo pacman -S wget --noconfirm
@@ -12,7 +13,7 @@ sudo pacman -S xdg-user-dirs --noconfirm
 xdg-user-dirs-update
 
 echo 'Установка программ'
-sudo pacman -S firefox ufw qt4 f2fs-tools dosfstools ntfs-3g alsa-lib alsa-utils file-roller p7zip unrar gvfs aspell-ru pulseaudio --noconfirm
+sudo pacman -S wget cmake git curl firefox ufw qt4 f2fs-tools dosfstools ntfs-3g alsa-lib alsa-utils file-roller p7zip unrar gvfs aspell-ru pulseaudio --noconfirm
 
 echo 'Установить рекомендумые программы?'
 read -p "1 - Да, 0 - Нет: " prog_set
