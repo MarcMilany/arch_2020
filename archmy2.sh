@@ -88,7 +88,7 @@ echo 'Ставим менеджера входа'
 pacman -S lightdm lightdm-gtk-greeter lightdm-gtk-greeter-settings --noconfirm
 
 echo 'Ставим шрифты'
-pacman -S ttf-liberation ttf-dejavu --noconfirm 
+pacman -S ttf-liberation ttf-dejavu opendesktop-fonts ttf-bitstream-vera ttf-arphic-ukai ttf-arphic-uming ttf-hanazono --noconfirm 
 
 echo 'Подключаем автозагрузку менеджера входа и интернет'
 systemctl enable lightdm.service 
