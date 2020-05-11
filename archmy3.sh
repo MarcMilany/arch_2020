@@ -15,6 +15,12 @@ echo "Обновление баз данных пакетов..."
 sudo pacman -Sy
 }
 
+echo 'Обновим информацию о шрифтах'
+sudo fc-cache -f -v
+
+echo 'Применяем настройки TLP (управления питанием) в зависимости от источника питания (батарея или от сети)'
+sudo tlp start
+
 #rm -rf ~/.config/xfce4/*
 mkdir ~/Downloads
 cd ~/Downloads
@@ -46,7 +52,7 @@ elif [[ $prog_set == 0 ]]; then
 fi
 
 echo 'Установка Мультимедиа утилит AUR'
-yay -S radiotray spotify vlc-tunein-radio audiobook-git cozy-audiobooks --noconfirm  
+yay -S radiotray spotify vlc-tunein-radio audiobook-git cozy-audiobooks m4baker-git --noconfirm  
 
 echo 'Установка программ'
 sudo pacman -S galculator-gtk2 qt4 --noconfirm
@@ -62,7 +68,7 @@ fi
 echo 'Установить рекомендумые программы из AUR?'
 read -p "1 - Да, 0 - Нет: " prog_set
 if [[ $prog_set == 1 ]]; then
-yay -S gksu caffeine-ng fsearch-git cherrytree timeshift mocicon pidgin-extprefs multiload-ng-indicator-gtk xfce4-multiload-ng-plugin-gtk2 xflux sublime-text-dev dropbox flameshot-git hunspell-ru --noconfirm
+yay -S gksu caffeine-ng fsearch-git cherrytree timeshift mocicon pidgin-extprefs multiload-ng-indicator-gtk xfce4-multiload-ng-plugin-gtk2 debtap xflux sublime-text-dev dropbox flameshot-git hunspell-ru --noconfirm
 elif [[ $prog_set == 0 ]]; then
   echo 'Установка программ пропущена.'
 fi
@@ -84,6 +90,9 @@ sudo ufw enable
 
 echo 'Добавляем в автозагрузку:'
 sudo systemctl enable ufw
+
+echo 'Прверим статус запуска сетевой экран UFW'
+sudo ufw status
 
 sudo rm -rf ~/Downloads
 sudo rm -rf ~/arch3my.sh
