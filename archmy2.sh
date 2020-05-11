@@ -29,7 +29,7 @@ echo 'FONT=cyr-sun16' >> /etc/vconsole.conf
 echo 'FONT_MAP=' >> /etc/vconsole.conf
 echo 'CONSOLEMAP' >> /etc/vconsole.conf
 
-echo 'Создадим загрузочный RAM диск'
+echo 'Создадим загрузочный RAM диск (initial RAM disk)'
 #mkinitcpio -p linux
 mkinitcpio -P linux
 
