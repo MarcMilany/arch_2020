@@ -64,11 +64,11 @@ yay -S osx-arc-shadow papirus-maia-icon-theme-git breeze-default-cursor-theme --
 #sudo rm -rf /usr/share/backgrounds/xfce/* #Удаляем стандартрые обои
 #sudo mv -f ~/Downloads/bg.jpg /usr/share/backgrounds/xfce/bg.jpg
 
-#echo 'Включаем сетевой экран'
-#sudo ufw enable
+echo 'Включаем сетевой экран'
+sudo ufw enable
 
-#echo 'Добавляем в автозагрузку:'
-#sudo systemctl enable ufw
+echo 'Добавляем в автозагрузку:'
+sudo systemctl enable ufw
 
 sudo rm -rf ~/Downloads
 sudo rm -rf ~/arch3my.sh
