@@ -116,7 +116,7 @@ echo 'Ставим Драйвера принтера (Print support)'
 sudo pacman -S cups ghostscript cups-pdf --noconfirm
 
 echo 'Установка базовых программ и пакетов'
-sudo pacman -S aspell-ru arch-install-scripts bash-completion dosfstools f2fs-tools sane gsmartcontrol testdisk gvfs htop iftop inxi iotop nmap ntfs-3g ntp hydra mc pv sox youtube-dl speedtest-cli python-pip wget git curl xsel --noconfirm 
+sudo pacman -S aspell-ru arch-install-scripts bash-completion dosfstools f2fs-tools sane gsmartcontrol testdisk gvfs htop iftop inxi iotop nmap ntfs-3g ntp hydra mc pv sox youtube-dl speedtest-cli python-pip pwgen wget git curl xsel --noconfirm 
 
 echo 'Установка терминальных утилит для вывода информации о системе'
 sudo pacman -S screenfetch glances archey3 neofetch --noconfirm  
@@ -127,7 +127,7 @@ sudo pacman -S a52dec faac faad2 flac jasper lame libdca libdv libmad libmpeg2 l
 echo 'Установка Мультимедиа утилит'
 sudo pacman -S audacity audacious audacious-plugins smplayer smplayer-skins smplayer-themes smtube deadbeef easytag vlc --noconfirm
 
-echo 'Установка Браузеры и плагины'
+echo 'Установка Браузеров и медиа-плагинов'
 sudo pacman -S firefox firefox-i18n-ru firefox-spell-ru flashplugin pepper-flash --noconfirm
 
 echo 'Установка Текстовые редакторы и утилиты разработки'
@@ -201,7 +201,7 @@ fi
 echo 'Установить рекомендумые программы?'
 read -p "1 - Да, 0 - Нет: " prog_set
 if [[ $prog_set == 1 ]]; then
-  sudo pacman -S bleachbit gparted conky conky-manager dconf-editor doublecmd-gtk2 gnome-system-monitor obs-studio redshift veracrypt onboard clonezilla moc freemind filezilla gnome-calculator nomacs keepass tlp tlp-rdw --noconfirm
+  sudo pacman -S bleachbit gparted conky conky-manager dconf-editor doublecmd-gtk2 gnome-system-monitor obs-studio redshift veracrypt onboard clonezilla moc freemind filezilla gnome-calculator nomacs keepass uget tlp tlp-rdw --noconfirm
 elif [[ $prog_set == 0 ]]; then
   echo 'Установка программ пропущена.'
 fi
