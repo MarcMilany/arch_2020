@@ -35,6 +35,7 @@ yay -Syy
 yay -Syu
 
 echo 'Установка "Pacmangui","Octopi" (AUR) (GTK) (QT)'
+echo 'Установка Производится в порядке перечесления'
 echo 'Установить "pamac-aur" "(AUR) (GTK)"?'
 read -p "1 - Да, 0 - Нет: " prog_set
 if [[ $prog_set == 1 ]]; then
