@@ -97,10 +97,6 @@ echo 'Подключаем автозагрузку менеджера вход�
 systemctl enable lightdm.service 
 systemctl enable NetworkManager
 
-echo 'Создаем нужные директории'
-sudo pacman -S xdg-user-dirs --noconfirm
-xdg-user-dirs-update 
-
 echo 'Ставим Bluetooth and Sound support'
 pacman -S bluez bluez-libs bluez-cups bluez-utils --noconfirm
 pacman -S alsa-utils alsa-plugins alsa-firmware alsa-lib alsa-utils --noconfirm 
@@ -116,7 +112,7 @@ echo 'Ставим Драйвера принтера (Print support)'
 sudo pacman -S cups ghostscript cups-pdf --noconfirm
 
 echo 'Установка базовых программ и пакетов'
-sudo pacman -S aspell-ru arch-install-scripts bash-completion dosfstools f2fs-tools sane gvfs htop iftop inxi iotop nmap ntfs-3g ntp ncdu hydra isomd5sum python-isomd5sum translate-shell mc pv sox youtube-dl speedtest-cli python-pip pwgen scrot wget git curl xsel --noconfirm 
+sudo pacman -S aspell-ru arch-install-scripts bash-completion dosfstools f2fs-tools sane gvfs htop iftop inxi iotop nmap ntfs-3g ntp ncdu hydra isomd5sum python-isomd5sum translate-shell mc pv sox youtube-dl speedtest-cli python-pip pwgen scrot git curl xsel --noconfirm 
 
 echo 'Установка терминальных утилит для вывода информации о системе'
 sudo pacman -S screenfetch glances archey3 neofetch --noconfirm  
@@ -135,9 +131,6 @@ sudo pacman -S gedit gedit-plugins geany geany-plugins meld cmake --noconfirm
 
 echo 'Управления электронной почтой, новостными лентами, чатом и группам'
 sudo pacman -S thunderbird thunderbird-i18n-ru pidgin pidgin-hotkeys --noconfirm
-
-echo 'Форматируем флешки с файловой системой exFAT в Linux'
-sudo pacman -S exfat-utils fuse-exfat --noconfirm 
 
 echo 'Установка Брандмауэра и Антивирусного пакета (GUI)(GTK+)'
 echo 'Установить UFW (Uncomplicated Firewall) (GTK)?'
@@ -198,13 +191,20 @@ elif [[ $prog_set == 0 ]]; then
   echo 'Установка программ пропущена.'
 fi
 
+echo 'Форматируем флешки с файловой системой exFAT в Linux'
+sudo pacman -S exfat-utils fuse-exfat --noconfirm 
+
 echo 'Установить рекомендумые программы?'
 read -p "1 - Да, 0 - Нет: " prog_set
 if [[ $prog_set == 1 ]]; then
-  sudo pacman -S bleachbit gparted grub-customizer conky conky-manager dconf-editor doublecmd-gtk2 gnome-system-monitor obs-studio openshot frei0r-plugins simplescreenrecorder redshift veracrypt onboard clonezilla moc freemind filezilla gnome-calculator nomacs osmo synapse telegram-desktop plank psensor keepass copyq variety grsync numlockx modem-manager-gui uget xarchiver-gtk2 rofi gsmartcontrol testdisk tlp tlp-rdw --noconfirm
+  sudo pacman -S bleachbit gparted grub-customizer conky conky-manager dconf-editor doublecmd-gtk2 gnome-system-monitor obs-studio openshot frei0r-plugins simplescreenrecorder redshift veracrypt onboard clonezilla moc filezilla gnome-calculator nomacs osmo synapse telegram-desktop plank psensor keepass copyq variety grsync numlockx modem-manager-gui uget xarchiver-gtk2 rofi gsmartcontrol testdisk tlp tlp-rdw wget --noconfirm
 elif [[ $prog_set == 0 ]]; then
   echo 'Установка программ пропущена.'
 fi
+
+echo 'Создаем нужные директории'
+sudo pacman -S xdg-user-dirs --noconfirm
+xdg-user-dirs-update 
 
 echo 'Установка завершена! Перезагрузите систему.'
 echo 'Если хотите подключить AUR, установить мои конфиги XFCE, тогда после перезагрузки и входа в систему, установите wget (sudo pacman -S wget) и выполните команду:'
