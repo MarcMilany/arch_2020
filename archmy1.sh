@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#echo 'Arch Linux Fast Install - Быстрая установка Arch Linux'
+#Arch Linux Fast Install - Быстрая установка Arch Linux https://github.com/ordanax/arch2018
 # Цель скрипта - быстрое развертывание системы с вашими персональными настройками (конфиг XFCE, темы, программы и т.д.).
 
 echo 'Installation guide - Arch Wiki'
@@ -11,20 +11,7 @@ echo 'https://wiki.archlinux.org/index.php/Installation_guide'
 # Степан Скрябин https://vk.com/zurg3
 # Михаил Сарвилин https://vk.com/michael170707
 # Данил Антошкин https://vk.com/danil.antoshkin
-
-# Команды по установке :
-# archiso login: root (automatic login)
-# Терминальный Мануал Arch Wiki :
-# Мы можем просмотреть какие файлы сейчас находятся катологе пользователя root ls -la
-# ls -la
-# В пользовательском катологе пользователя root есть файл install.txt, если его открыть мы увидем тот же мануал 
-# Arch Wiki, как и на официальном сайте Arch'a .
-# less install.txt
-
-# Этот мануал можно не закрывать, если у вас нет распечатанного Wiki по установке, или планшета, или второго компьютера, где можно посмотреть в шпаргалку , то нужно нажать Alt + F2 и откроется вторая консоль установки .
-# Сейчас мы находимся в первой консоле Alt + F1 , и можем переключаться между консолями командами Alt + F* , где + F* - нужная вам консоль. Всего вроде там 6 консолей (менеджеров интепретации).
-# Если во второй консоли запросит логин (login) просто введите - root , пример : "archiso login : root ".
-# Перемещаться и читать в мануале можно с помощью стрелочек (вверх или вниз) , допустим Alt + F1 читать мануал , а Alt + F2 продолжаем установку Arch'a . 
+# Юрий Порунцов https://vk.com/poruncov
 
 # Важно !!! 
 # При установке системы Arch Linux наличие подключения к интернету обязательно.
@@ -66,6 +53,9 @@ echo 'https://wiki.archlinux.org/index.php/Installation_guide'
 # ping -c 5 ya.ru
 # ping -c 2 archlinux.org
 # ping -c 5 google.com
+
+# Команды по установке :
+# archiso login: root (automatic login)
 
 echo 'Для проверки интернета можно пропинговать какой-либо сервис'
 ping -c2 archlinux.org
