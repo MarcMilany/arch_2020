@@ -116,16 +116,16 @@ echo 'Ставим Драйвера принтера (Print support)'
 sudo pacman -S cups ghostscript cups-pdf --noconfirm
 
 echo 'Установка базовых программ и пакетов'
-sudo pacman -S aspell-ru arch-install-scripts bash-completion dosfstools f2fs-tools sane gsmartcontrol testdisk gvfs htop iftop inxi iotop nmap ntfs-3g ntp hydra mc pv sox youtube-dl speedtest-cli python-pip pwgen wget git curl xsel --noconfirm 
+sudo pacman -S aspell-ru arch-install-scripts bash-completion dosfstools f2fs-tools sane gvfs htop iftop inxi iotop nmap ntfs-3g ntp ncdu hydra isomd5sum python-isomd5sum translate-shell mc pv sox youtube-dl speedtest-cli python-pip pwgen scrot wget git curl xsel --noconfirm 
 
 echo 'Установка терминальных утилит для вывода информации о системе'
 sudo pacman -S screenfetch glances archey3 neofetch --noconfirm  
 
 echo 'Установка Мультимедиа кодеков (multimedia codecs), и утилит'
-sudo pacman -S a52dec faac faad2 flac jasper lame libdca libdv libmad libmpeg2 libtheora libvorbis libxv wavpack x264 xvidcore gst-plugins-base gst-plugins-base-libs gst-plugins-good gst-plugins-bad gst-plugins-ugly libdvdcss libdvdread libdvdnav dvd+rw-tools dvdauthor dvgrab cdrdao gst-libav gst-libav --noconfirm
+sudo pacman -S a52dec faac faad2 flac jasper lame libdca libdv libmad libmpeg2 libtheora libvorbis libxv wavpack x264 xvidcore gst-plugins-base gst-plugins-base-libs gst-plugins-good gst-plugins-bad gst-plugins-ugly libdvdcss libdvdread libdvdnav dvd+rw-tools dvdauthor dvgrab cdrdao gst-libav gst-libav gpac --noconfirm
 
 echo 'Установка Мультимедиа утилит'
-sudo pacman -S audacity audacious audacious-plugins smplayer smplayer-skins smplayer-themes smtube deadbeef easytag vlc --noconfirm
+sudo pacman -S audacity audacious audacious-plugins smplayer smplayer-skins smplayer-themes smtube deadbeef easytag subdownloader mediainfo-gui vlc --noconfirm
 
 echo 'Установка Браузеров и медиа-плагинов'
 sudo pacman -S firefox firefox-i18n-ru firefox-spell-ru flashplugin pepper-flash --noconfirm
@@ -201,7 +201,7 @@ fi
 echo 'Установить рекомендумые программы?'
 read -p "1 - Да, 0 - Нет: " prog_set
 if [[ $prog_set == 1 ]]; then
-  sudo pacman -S bleachbit gparted conky conky-manager dconf-editor doublecmd-gtk2 gnome-system-monitor obs-studio redshift veracrypt onboard clonezilla moc freemind filezilla gnome-calculator nomacs keepass uget tlp tlp-rdw --noconfirm
+  sudo pacman -S bleachbit gparted grub-customizer conky conky-manager dconf-editor doublecmd-gtk2 gnome-system-monitor obs-studio openshot frei0r-plugins simplescreenrecorder redshift veracrypt onboard clonezilla moc freemind filezilla gnome-calculator nomacs osmo synapse telegram-desktop plank psensor keepass copyq variety grsync numlockx modem-manager-gui uget xarchiver-gtk2 rofi gsmartcontrol testdisk tlp tlp-rdw --noconfirm
 elif [[ $prog_set == 0 ]]; then
   echo 'Установка программ пропущена.'
 fi
