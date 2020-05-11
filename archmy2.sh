@@ -149,7 +149,8 @@ elif [[ $prog_set == 0 ]]; then
   echo 'Установка программ пропущена.'
 fi
 
-echo 'Установка Torrent клинтов (GTK) (Qt)'
+echo 'Установка Torrent клиентов - Transmission, qBittorrent, Deluge (GTK) (Qt)'
+echo 'Установка Производится в порядке перечесления'
 echo 'Установить Transmission (GTK)?'
 read -p "1 - Да, 0 - Нет: " prog_set
 if [[ $prog_set == 1 ]]; then
@@ -175,6 +176,7 @@ elif [[ $prog_set == 0 ]]; then
 fi
 
 echo 'Установка Офиса (LibreOffice still, или fresh)'
+echo 'Установка Производится в порядке перечесления'
 echo 'Установить LibreOffice still?'
 read -p "1 - Да, 0 - Нет: " prog_set
 if [[ $prog_set == 1 ]]; then
