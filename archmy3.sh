@@ -1,4 +1,20 @@
 #!/bin/bash
+#Если возникли проблемы с обновлением, или установкой пакетов 
+#Выполните данные рекомендации:
+#author: 
+
+echo 'Обновление ключей системы'
+{
+echo "Создаётся генерация мастер-ключа (брелка) pacman, введите пароль (не отображается)..."
+sudo pacman-key --init
+echo "Далее идёт поиск ключей..."
+sudo pacman-key --populate archlinux
+echo "Обновление ключей..."
+sudo pacman-key --refresh-keys
+echo "Обновление баз данных пакетов..."
+sudo pacman -Sy
+}
+
 #rm -rf ~/.config/xfce4/*
 mkdir ~/Downloads
 cd ~/Downloads
@@ -29,39 +45,11 @@ elif [[ $prog_set == 0 ]]; then
   echo 'Установка программ пропущена.'
 fi
 
-echo 'Создаем нужные директории'
-sudo pacman -S xdg-user-dirs --noconfirm
-xdg-user-dirs-update
-
-echo 'Установка Мультимедиа кодеков (multimedia codecs), и утилит'
-sudo pacman -S a52dec faac faad2 flac jasper lame libdca libdv libmad libmpeg2 libtheora libvorbis libxv wavpack x264 xvidcore gst-plugins-base gst-plugins-base-libs gst-plugins-good gst-plugins-bad gst-plugins-ugly flashplugin libdvdcss libdvdread libdvdnav dvd+rw-tools dvdauthor dvgrab cdrdao gst-libav gst-libav --noconfirm
-
 echo 'Установка Мультимедиа утилит AUR'
 yay -S radiotray spotify vlc-tunein-radio --noconfirm  
 
-echo 'Установка Офиса (LibreOffice still, или fresh)'
-echo 'Установить LibreOffice still?'
-read -p "1 - Да, 0 - Нет: " prog_set
-if [[ $prog_set == 1 ]]; then
-sudo pacman -S libreoffice-still libreoffice-still-ru --noconfirm
-elif [[ $prog_set == 0 ]]; then
-  echo 'Установка программ пропущена.'
-fi
-
-echo 'Установить LibreOffice fresh?'
-read -p "1 - Да, 0 - Нет: " prog_set
-if [[ $prog_set == 1 ]]; then
-sudo pacman -S libreoffice libreoffice-fresh-ru --noconfirm
-elif [[ $prog_set == 0 ]]; then
-  echo 'Установка программ пропущена.'
-fi
-
 echo 'Установка программ'
 sudo pacman -S galculator-gtk2 qt4 --noconfirm
-yay -S  --noconfirm
-
-echo 'Форматируем флешки с файловой системой exFAT в Linux'
-sudo pacman -S exfat-utils fuse-exfat --noconfirm 
 
 echo 'Установить рекомендумые программы?'
 read -p "1 - Да, 0 - Нет: " prog_set
@@ -79,8 +67,8 @@ elif [[ $prog_set == 0 ]]; then
   echo 'Установка программ пропущена.'
 fi
 
-echo 'Установка тем'
-yay -S osx-arc-shadow papirus-maia-icon-theme-git breeze-default-cursor-theme --noconfirm
+#echo 'Установка тем'
+#yay -S osx-arc-shadow papirus-maia-icon-theme-git breeze-default-cursor-theme --noconfirm
 
 #echo 'Ставим лого ArchLinux в меню'
 #wget git.io/arch_logo.png
