@@ -95,6 +95,9 @@ sudo systemctl enable ufw
 echo 'Прверим статус запуска сетевой экран UFW'
 sudo ufw status
 
+echo 'Создать backup (дубликат) файла grub.cfg'
+cp grub.cfg grub.cfg.backup
+
 sudo rm -rf ~/Downloads
 sudo rm -rf ~/arch3my.sh
 
