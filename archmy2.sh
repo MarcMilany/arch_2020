@@ -73,7 +73,7 @@ pacman -Syy
 echo "Куда устанавливем Arch Linux на виртуальную машину?"
 read -p "1 - Да, 0 - Нет: " vm_setting
 if [[ $vm_setting == 0 ]]; then
-  gui_install="xorg-server xorg-drivers xorg-xinit mesa"
+  gui_install="xorg-server xorg-drivers xorg-xinit mesa xterm xf86-input-synaptics"
 elif [[ $vm_setting == 1 ]]; then
   gui_install="xorg-server xorg-drivers xorg-xinit virtualbox-guest-utils"
 fi
@@ -116,19 +116,16 @@ echo 'Ставим Драйвера принтера (Print support)'
 sudo pacman -S cups ghostscript cups-pdf --noconfirm
 
 echo 'Установка базовых программ и пакетов'
-sudo pacman -S aspell-ru arch-install-scripts bash-completion dosfstools f2fs-tools sane gsmartcontrol testdisk gvfs htop iftop mc nmap ntfs-3g hydra pv sox youtube-dl speedtest-cli python-pip wget git curl xsel --noconfirm 
+sudo pacman -S aspell-ru arch-install-scripts bash-completion dosfstools f2fs-tools sane gsmartcontrol testdisk gvfs htop iftop inxi iotop nmap ntfs-3g ntp hydra mc pv sox youtube-dl speedtest-cli python-pip wget git curl xsel --noconfirm 
 
 echo 'Установка терминальных утилит для вывода информации о системе'
 sudo pacman -S screenfetch glances archey3 neofetch --noconfirm  
 
-echo 'Установка Мультимедиа утилит'
-sudo pacman -S audacity audacious audacious-plugins smplayer smplayer-skins smplayer-themes smtube deadbeef easytag vlc --noconfirm
-
 echo 'Установка Мультимедиа кодеков (multimedia codecs), и утилит'
 sudo pacman -S a52dec faac faad2 flac jasper lame libdca libdv libmad libmpeg2 libtheora libvorbis libxv wavpack x264 xvidcore gst-plugins-base gst-plugins-base-libs gst-plugins-good gst-plugins-bad gst-plugins-ugly libdvdcss libdvdread libdvdnav dvd+rw-tools dvdauthor dvgrab cdrdao gst-libav gst-libav --noconfirm
 
-echo 'Установка Утилиты по Безопасности'
-sudo pacman -S ufw gufw clamav clamtk --noconfirm
+echo 'Установка Мультимедиа утилит'
+sudo pacman -S audacity audacious audacious-plugins smplayer smplayer-skins smplayer-themes smtube deadbeef easytag vlc --noconfirm
 
 echo 'Установка Браузеры и плагины'
 sudo pacman -S firefox firefox-i18n-ru firefox-spell-ru flashplugin pepper-flash --noconfirm
@@ -141,6 +138,23 @@ sudo pacman -S thunderbird thunderbird-i18n-ru pidgin pidgin-hotkeys --noconfirm
 
 echo 'Форматируем флешки с файловой системой exFAT в Linux'
 sudo pacman -S exfat-utils fuse-exfat --noconfirm 
+
+echo 'Установка Брандмауэра и Антивирусного пакета (GUI)(GTK+)'
+echo 'Установить UFW (Uncomplicated Firewall) (GTK)?'
+read -p "1 - Да, 0 - Нет: " prog_set
+if [[ $prog_set == 1 ]]; then
+sudo pacman -S ufw gufw --noconfirm
+elif [[ $prog_set == 0 ]]; then
+  echo 'Установка программ пропущена.'
+fi
+
+echo 'Установить Clam AntiVirus (GTK)?'
+read -p "1 - Да, 0 - Нет: " prog_set
+if [[ $prog_set == 1 ]]; then
+sudo pacman -S clamav clamtk --noconfirm
+elif [[ $prog_set == 0 ]]; then
+  echo 'Установка программ пропущена.'
+fi
 
 echo 'Установка Torrent клинтов (GTK) (Qt)'
 echo 'Установить Transmission (GTK)?'
@@ -155,6 +169,14 @@ echo 'Установить qBittorrent (Qt)?'
 read -p "1 - Да, 0 - Нет: " prog_set
 if [[ $prog_set == 1 ]]; then
 sudo pacman -S qbittorrent --noconfirm
+elif [[ $prog_set == 0 ]]; then
+  echo 'Установка программ пропущена.'
+fi
+
+echo 'Установить Deluge (GTK+)?'
+read -p "1 - Да, 0 - Нет: " prog_set
+if [[ $prog_set == 1 ]]; then
+sudo pacman -S deluge --noconfirm
 elif [[ $prog_set == 0 ]]; then
   echo 'Установка программ пропущена.'
 fi
@@ -179,7 +201,7 @@ fi
 echo 'Установить рекомендумые программы?'
 read -p "1 - Да, 0 - Нет: " prog_set
 if [[ $prog_set == 1 ]]; then
-  sudo pacman -S bleachbit gparted conky conky-manager dconf-editor doublecmd-gtk2 gnome-system-monitor obs-studio redshift veracrypt onboard clonezilla freemind filezilla gimp kdenlive gnome-calculator --noconfirm
+  sudo pacman -S bleachbit gparted conky conky-manager dconf-editor doublecmd-gtk2 gnome-system-monitor obs-studio redshift veracrypt onboard clonezilla moc freemind filezilla gnome-calculator nomacs tlp tlp-rdw --noconfirm
 elif [[ $prog_set == 0 ]]; then
   echo 'Установка программ пропущена.'
 fi
