@@ -81,11 +81,14 @@ fi
 echo 'Ставим иксы и драйвера'
 pacman -S $gui_install
 
-echo 'Ставим Xfce, LXDM и сеть'
-pacman -S xfce4 xfce4-goodies networkmanager network-manager-applet ppp --noconfirm
+echo 'Ставим DE Xfce'
+pacman -S xfce4 xfce4-goodies --noconfirm
 
-echo 'Ставим менеджера входа'
-pacman -S lightdm lightdm-gtk-greeter lightdm-gtk-greeter-settings --noconfirm
+echo 'Ставим DM менеджера входа'
+pacman -S lightdm lightdm-gtk-greeter lightdm-gtk-greeter-settings --noconfir
+
+echo 'Ставим сеть "Networkmanager"'
+pacman -S networkmanager network-manager-applet ppp --noconfirm
 
 echo 'Ставим шрифты'
 pacman -S ttf-liberation ttf-dejavu opendesktop-fonts ttf-bitstream-vera ttf-arphic-ukai ttf-arphic-uming ttf-hanazono --noconfirm 
@@ -109,11 +112,11 @@ echo 'Ставим Драйвера принтера (Print support)'
 sudo pacman -S cups ghostscript cups-pdf --noconfirm
 
 echo 'Установка базовых программ и пакетов'
-sudo pacman -S aspell-ru audacity audacious audacious-plugins archey3 bleachbit bash-completion conky conky-manager clamav clamtk clonezilla cmake dosfstools dconf-editor f2fs-tools file-roller filezilla firefox firefox-i18n-ru firefox-spell-ru  geany geany-plugins gedit gedit-plugins git glances gnome-calculator  screenfetch sane  gparted gnome-system-monitor gsmartcontrol gvfs gufw htop hydra iftop mc meld neofetch nmap ntfs-3g onboard pidgin pv sox testdisk thunderbird thunderbird-i18n-ru transmission-gtk transmission-cli ufw vlc youtube-dl wget speedtest-cli python-pip --noconfirm 
+sudo pacman -S aspell-ru audacity audacious audacious-plugins archey3 bleachbit bash-completion conky conky-manager clamav clamtk clonezilla cmake dosfstools dconf-editor f2fs-tools file-roller filezilla firefox firefox-i18n-ru firefox-spell-ru  geany geany-plugins gedit gedit-plugins git glances gnome-calculator screenfetch sane gparted gnome-system-monitor gsmartcontrol gvfs gufw htop hydra iftop mc meld neofetch nmap ntfs-3g obs-studio onboard pidgin pv sox testdisk thunderbird thunderbird-i18n-ru transmission-gtk transmission-cli ufw vlc veracrypt youtube-dl wget redshift speedtest-cli python-pip pidgin-extprefs pidgin-hotkeys --noconfirm 
 
 echo 'Создаем нужные директории'
 sudo pacman -S xdg-user-dirs --noconfirm
-xdg-user-dirs-update    
+xdg-user-dirs-update 
 
 echo 'Установка завершена! Перезагрузите систему.'
 echo 'Если хотите подключить AUR, установить мои конфиги XFCE, тогда после перезагрузки и входа в систему, установите wget (sudo pacman -S wget) и выполните команду:'
