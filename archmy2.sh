@@ -112,13 +112,19 @@ echo 'Ставим Драйвера принтера (Print support)'
 sudo pacman -S cups ghostscript cups-pdf --noconfirm
 
 echo 'Установка базовых программ и пакетов'
-sudo pacman -S aspell-ru arch-install-scripts archey3 bleachbit bash-completion conky conky-manager clamav clamtk clonezilla cmake dosfstools dconf-editor f2fs-tools file-roller filezilla firefox firefox-i18n-ru firefox-spell-ru geany geany-plugins gedit gedit-plugins git glances gnome-calculator screenfetch sane gparted gnome-system-monitor gsmartcontrol gvfs gufw htop hydra iftop mc meld neofetch nmap ntfs-3g obs-studio onboard pidgin pidgin-hotkeys pv sox testdisk thunderbird thunderbird-i18n-ru transmission-gtk transmission-cli ufw veracrypt youtube-dl wget redshift speedtest-cli python-pip doublecmd-gtk2 --noconfirm 
+sudo pacman -S aspell-ru arch-install-scripts archey3 bleachbit bash-completion conky conky-manager clonezilla cmake dosfstools dconf-editor f2fs-tools file-roller filezilla geany geany-plugins gedit gedit-plugins git glances gnome-calculator screenfetch sane gparted gnome-system-monitor gsmartcontrol gvfs htop hydra iftop mc meld neofetch nmap ntfs-3g obs-studio onboard pidgin pidgin-hotkeys pv sox testdisk thunderbird thunderbird-i18n-ru transmission-gtk transmission-cli veracrypt youtube-dl wget redshift speedtest-cli python-pip doublecmd-gtk2 --noconfirm 
 
 echo 'Установка Мультимедиа утилит'
 sudo pacman -S audacity audacious audacious-plugins smplayer smplayer-skins smplayer-themes smtube deadbeef easytag vlc --noconfirm
 
 echo 'Установка Мультимедиа кодеков (multimedia codecs), и утилит'
 sudo pacman -S a52dec faac faad2 flac jasper lame libdca libdv libmad libmpeg2 libtheora libvorbis libxv wavpack x264 xvidcore gst-plugins-base gst-plugins-base-libs gst-plugins-good gst-plugins-bad gst-plugins-ugly flashplugin libdvdcss libdvdread libdvdnav dvd+rw-tools dvdauthor dvgrab cdrdao gst-libav gst-libav --noconfirm
+
+echo 'Установка Утилиты по Безопасности'
+sudo pacman -S  ufw gufw clamav clamtk --noconfirm
+
+echo 'Установка Браузеры и плагины'
+sudo pacman -S firefox firefox-i18n-ru firefox-spell-ru flashplugin pepper-flash --noconfirm
 
 echo 'Создаем нужные директории'
 sudo pacman -S xdg-user-dirs --noconfirm
