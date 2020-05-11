@@ -105,23 +105,32 @@ echo '2.4 создание разделов'
 echo 'Ваша разметка диска'
 fdisk -l
 
-echo '2.4.2 Форматирование дисков'
+echo '2.4.2 Форматирование разделов диска'
 mkfs.ext2  /dev/sda1 -L boot
 mkswap /dev/sda2 -L swap
 mkfs.ext4  /dev/sda3 -L root
 mkfs.ext4  /dev/sda4 -L home
 
-echo '2.4.3 Монтирование дисков'
+echo 'Посмотрим все идентификаторы наших разделов'
+blkid
+
+echo '2.4.3 Монтирование разделов диска'
 mount /dev/sda3 /mnt
 mkdir /mnt/{boot,home}
 mount /dev/sda1 /mnt/boot
 swapon /dev/sda2
 mount /dev/sda4 /mnt/home
 
-echo '3.1 Выбор зеркал для загрузки. Ставим зеркало от Яндекс'
+echo 'Посмотрим информацию'
+free -h
+
+echo 'Посмотрим куда был примонтирован sda'
+mount | grep sda
+
+echo '3.1 Выбор серверов-зеркал для загрузки. Ставим зеркало от Яндекс'
 echo "Server = http://mirror.yandex.ru/archlinux/\$repo/os/\$arch" > /etc/pacman.d/mirrorlist
 
-echo '3.2 Установка основных пакетов'
+echo '3.2 Установка основных пакетов (base)'
 pacstrap /mnt base base-devel linux-lts linux-firmware nano dhcpcd netctl vim
 
 echo '3.3 Настройка системы, генерируем fstab'
