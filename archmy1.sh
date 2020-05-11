@@ -13,7 +13,7 @@ echo 'https://wiki.archlinux.org/index.php/Installation_guide'
 # Данил Антошкин https://vk.com/danil.antoshkin
 # Юрий Порунцов https://vk.com/poruncov
 
-# Важно !!! 
+# Важно ! 
 # При установке системы Arch Linux наличие подключения к интернету обязательно.
 # Служба DHCP уже запущена при загрузке для найденных Ethernet-адаптеров. 
 # Для беспроводных сетевых адаптеров запустите wifi-menu. 
