@@ -97,6 +97,10 @@ echo 'Подключаем автозагрузку менеджера вход�
 systemctl enable lightdm.service 
 systemctl enable NetworkManager
 
+echo 'Создаем нужные директории'
+sudo pacman -S xdg-user-dirs --noconfirm
+xdg-user-dirs-update 
+
 echo 'Ставим Bluetooth and Sound support'
 pacman -S bluez bluez-libs bluez-cups bluez-utils --noconfirm
 pacman -S alsa-utils alsa-plugins alsa-firmware alsa-lib alsa-utils --noconfirm 
@@ -106,29 +110,79 @@ echo 'Ставим Архиваторы "Compression Tools"'
 pacman -S zip unzip unrar p7zip zlib zziplib --noconfirm
 
 echo 'Ставим дополнения к Архиваторам'
-pacman -S unace sharutils uudeview arj cabextract --noconfirm
+pacman -S unace sharutils uudeview arj cabextract file-roller --noconfirm
 
 echo 'Ставим Драйвера принтера (Print support)'
 sudo pacman -S cups ghostscript cups-pdf --noconfirm
 
 echo 'Установка базовых программ и пакетов'
-sudo pacman -S aspell-ru arch-install-scripts archey3 bleachbit bash-completion conky conky-manager clonezilla cmake dosfstools dconf-editor f2fs-tools file-roller filezilla geany geany-plugins gedit gedit-plugins git glances gnome-calculator screenfetch sane gparted gnome-system-monitor gsmartcontrol gvfs htop hydra iftop mc meld neofetch nmap ntfs-3g obs-studio onboard pidgin pidgin-hotkeys pv sox testdisk thunderbird thunderbird-i18n-ru transmission-gtk transmission-cli veracrypt youtube-dl wget redshift speedtest-cli python-pip doublecmd-gtk2 --noconfirm 
+sudo pacman -S aspell-ru arch-install-scripts bash-completion dosfstools f2fs-tools sane gsmartcontrol testdisk gvfs htop iftop mc nmap ntfs-3g hydra pv sox youtube-dl speedtest-cli python-pip wget git curl xsel --noconfirm 
+
+echo 'Установка терминальных утилит для вывода информации о системе'
+sudo pacman -S screenfetch glances archey3 neofetch --noconfirm  
 
 echo 'Установка Мультимедиа утилит'
 sudo pacman -S audacity audacious audacious-plugins smplayer smplayer-skins smplayer-themes smtube deadbeef easytag vlc --noconfirm
 
 echo 'Установка Мультимедиа кодеков (multimedia codecs), и утилит'
-sudo pacman -S a52dec faac faad2 flac jasper lame libdca libdv libmad libmpeg2 libtheora libvorbis libxv wavpack x264 xvidcore gst-plugins-base gst-plugins-base-libs gst-plugins-good gst-plugins-bad gst-plugins-ugly flashplugin libdvdcss libdvdread libdvdnav dvd+rw-tools dvdauthor dvgrab cdrdao gst-libav gst-libav --noconfirm
+sudo pacman -S a52dec faac faad2 flac jasper lame libdca libdv libmad libmpeg2 libtheora libvorbis libxv wavpack x264 xvidcore gst-plugins-base gst-plugins-base-libs gst-plugins-good gst-plugins-bad gst-plugins-ugly libdvdcss libdvdread libdvdnav dvd+rw-tools dvdauthor dvgrab cdrdao gst-libav gst-libav --noconfirm
 
 echo 'Установка Утилиты по Безопасности'
-sudo pacman -S  ufw gufw clamav clamtk --noconfirm
+sudo pacman -S ufw gufw clamav clamtk --noconfirm
 
 echo 'Установка Браузеры и плагины'
 sudo pacman -S firefox firefox-i18n-ru firefox-spell-ru flashplugin pepper-flash --noconfirm
 
-echo 'Создаем нужные директории'
-sudo pacman -S xdg-user-dirs --noconfirm
-xdg-user-dirs-update 
+echo 'Установка Текстовые редакторы и утилиты разработки'
+sudo pacman -S gedit gedit-plugins geany geany-plugins meld cmake --noconfirm
+
+echo 'Управления электронной почтой, новостными лентами, чатом и группам'
+sudo pacman -S thunderbird thunderbird-i18n-ru pidgin pidgin-hotkeys --noconfirm
+
+echo 'Форматируем флешки с файловой системой exFAT в Linux'
+sudo pacman -S exfat-utils fuse-exfat --noconfirm 
+
+echo 'Установка Torrent клинтов (GTK) (Qt)'
+echo 'Установить Transmission (GTK)?'
+read -p "1 - Да, 0 - Нет: " prog_set
+if [[ $prog_set == 1 ]]; then
+sudo pacman -S transmission-gtk transmission-cli --noconfirm
+elif [[ $prog_set == 0 ]]; then
+  echo 'Установка программ пропущена.'
+fi
+
+echo 'Установить qBittorrent (Qt)?'
+read -p "1 - Да, 0 - Нет: " prog_set
+if [[ $prog_set == 1 ]]; then
+sudo pacman -S qbittorrent --noconfirm
+elif [[ $prog_set == 0 ]]; then
+  echo 'Установка программ пропущена.'
+fi
+
+echo 'Установка Офиса (LibreOffice still, или fresh)'
+echo 'Установить LibreOffice still?'
+read -p "1 - Да, 0 - Нет: " prog_set
+if [[ $prog_set == 1 ]]; then
+sudo pacman -S libreoffice-still libreoffice-still-ru --noconfirm
+elif [[ $prog_set == 0 ]]; then
+  echo 'Установка программ пропущена.'
+fi
+
+echo 'Установить LibreOffice fresh?'
+read -p "1 - Да, 0 - Нет: " prog_set
+if [[ $prog_set == 1 ]]; then
+sudo pacman -S libreoffice libreoffice-fresh-ru --noconfirm
+elif [[ $prog_set == 0 ]]; then
+  echo 'Установка программ пропущена.'
+fi
+
+echo 'Установить рекомендумые программы?'
+read -p "1 - Да, 0 - Нет: " prog_set
+if [[ $prog_set == 1 ]]; then
+  sudo pacman -S bleachbit gparted conky conky-manager dconf-editor doublecmd-gtk2 gnome-system-monitor obs-studio redshift veracrypt onboard clonezilla freemind filezilla gimp kdenlive gnome-calculator --noconfirm
+elif [[ $prog_set == 0 ]]; then
+  echo 'Установка программ пропущена.'
+fi
 
 echo 'Установка завершена! Перезагрузите систему.'
 echo 'Если хотите подключить AUR, установить мои конфиги XFCE, тогда после перезагрузки и входа в систему, установите wget (sudo pacman -S wget) и выполните команду:'
