@@ -132,7 +132,8 @@ sudo pacman -S gedit gedit-plugins geany geany-plugins meld cmake --noconfirm
 echo 'Управления электронной почтой, новостными лентами, чатом и группам'
 sudo pacman -S thunderbird thunderbird-i18n-ru pidgin pidgin-hotkeys --noconfirm
 
-echo 'Установка Брандмауэра и Антивирусного пакета (GUI)(GTK+)'
+echo 'Установка Брандмауэра UFW и Антивирусного пакета ClamAV (GUI)(GTK+)'
+echo 'Установка Производится в порядке перечесления'
 echo 'Установить UFW (Uncomplicated Firewall) (GTK)?'
 read -p "1 - Да, 0 - Нет: " prog_set
 if [[ $prog_set == 1 ]]; then
@@ -175,9 +176,9 @@ elif [[ $prog_set == 0 ]]; then
   echo 'Установка программ пропущена.'
 fi
 
-echo 'Установка Офиса (LibreOffice still, или fresh)'
+echo 'Установка Офиса (LibreOffice-still, или LibreOffice-fresh)'
 echo 'Установка Производится в порядке перечесления'
-echo 'Установить LibreOffice still?'
+echo 'Установить LibreOffice-still?'
 read -p "1 - Да, 0 - Нет: " prog_set
 if [[ $prog_set == 1 ]]; then
 sudo pacman -S libreoffice-still libreoffice-still-ru --noconfirm
@@ -185,7 +186,7 @@ elif [[ $prog_set == 0 ]]; then
   echo 'Установка программ пропущена.'
 fi
 
-echo 'Установить LibreOffice fresh?'
+echo 'Установить LibreOffice-fresh?'
 read -p "1 - Да, 0 - Нет: " prog_set
 if [[ $prog_set == 1 ]]; then
 sudo pacman -S libreoffice libreoffice-fresh-ru --noconfirm
