@@ -46,7 +46,7 @@ elif [[ $prog_set == 0 ]]; then
 fi
 
 echo 'Установка Мультимедиа утилит AUR'
-yay -S radiotray spotify vlc-tunein-radio --noconfirm  
+yay -S radiotray spotify vlc-tunein-radio audiobook-git cozy-audiobooks --noconfirm  
 
 echo 'Установка программ'
 sudo pacman -S galculator-gtk2 qt4 --noconfirm
@@ -62,7 +62,7 @@ fi
 echo 'Установить рекомендумые программы из AUR?'
 read -p "1 - Да, 0 - Нет: " prog_set
 if [[ $prog_set == 1 ]]; then
-yay -S dropbox flameshot-git cherrytree pidgin-extprefs xflux sublime-text-dev hunspell-ru --noconfirm
+yay -S gksu caffeine-ng fsearch-git cherrytree timeshift mocicon pidgin-extprefs multiload-ng-indicator-gtk xfce4-multiload-ng-plugin-gtk2 xflux sublime-text-dev dropbox flameshot-git hunspell-ru --noconfirm
 elif [[ $prog_set == 0 ]]; then
   echo 'Установка программ пропущена.'
 fi
