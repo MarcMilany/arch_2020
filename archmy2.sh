@@ -197,10 +197,13 @@ sudo pacman -S exfat-utils fuse-exfat --noconfirm
 echo 'Установить рекомендумые программы?'
 read -p "1 - Да, 0 - Нет: " prog_set
 if [[ $prog_set == 1 ]]; then
-  sudo pacman -S bleachbit gparted grub-customizer conky conky-manager dconf-editor doublecmd-gtk2 gnome-system-monitor obs-studio openshot frei0r-plugins simplescreenrecorder redshift veracrypt onboard clonezilla moc filezilla gnome-calculator nomacs osmo synapse telegram-desktop plank psensor keepass copyq variety grsync numlockx modem-manager-gui uget xarchiver-gtk2 rofi gsmartcontrol testdisk tlp tlp-rdw wget --noconfirm
+  gui_install="bleachbit gparted grub-customizer conky conky-manager dconf-editor doublecmd-gtk2 gnome-system-monitor obs-studio openshot frei0r-plugins simplescreenrecorder redshift veracrypt onboard clonezilla moc filezilla gnome-calculator nomacs osmo synapse telegram-desktop plank psensor keepass copyq variety grsync numlockx modem-manager-gui uget xarchiver-gtk2 rofi gsmartcontrol testdisk tlp tlp-rdw wget"
 elif [[ $prog_set == 0 ]]; then
   echo 'Установка программ пропущена.'
 fi
+
+echo 'Ставим рекомендумые программы'
+pacman -S $gui_install
 
 echo 'Создаем нужные директории'
 sudo pacman -S xdg-user-dirs --noconfirm
