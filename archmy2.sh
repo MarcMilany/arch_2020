@@ -81,13 +81,13 @@ fi
 echo 'Ставим иксы и драйвера'
 pacman -S $gui_install
 
-echo 'Ставим DE Xfce'
+echo 'Ставим DE (от англ. desktop environment — среда рабочего стола) Xfce'
 pacman -S xfce4 xfce4-goodies --noconfirm
 
-echo 'Ставим DM менеджера входа'
+echo 'Ставим DM (Display manager) менеджера входа'
 pacman -S lightdm lightdm-gtk-greeter lightdm-gtk-greeter-settings --noconfir
 
-echo 'Ставим сеть "Networkmanager"'
+echo 'Ставим сетевые утилиты "Networkmanager"'
 pacman -S networkmanager network-manager-applet ppp --noconfirm
 
 echo 'Ставим шрифты'
