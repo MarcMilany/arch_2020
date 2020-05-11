@@ -1,9 +1,10 @@
 #!/bin/bash
 
-#echo 'Скрипт сделан на основе чеклиста Бойко Алексея по Установке ArchLinux'
-#echo 'Ссылка на чек лист есть в группе vk.com/arch4u'
-# Arch Linux Fast Install - Быстрая установка Arch Linux
+#echo 'Arch Linux Fast Install - Быстрая установка Arch Linux'
 # Цель скрипта - быстрое развертывание системы с вашими персональными настройками (конфиг XFCE, темы, программы и т.д.).
+
+echo 'Installation guide - Arch Wiki'
+echo 'https://wiki.archlinux.org/index.php/Installation_guide'
 
 # В разработке принимали участие:
 # Алексей Бойко https://vk.com/ordanax
@@ -24,9 +25,6 @@
 # Сейчас мы находимся в первой консоле Alt + F1 , и можем переключаться между консолями командами Alt + F* , где + F* - нужная вам консоль. Всего вроде там 6 консолей (менеджеров интепретации).
 # Если во второй консоли запросит логин (login) просто введите - root , пример : "archiso login : root ".
 # Перемещаться и читать в мануале можно с помощью стрелочек (вверх или вниз) , допустим Alt + F1 читать мануал , а Alt + F2 продолжаем установку Arch'a . 
-
-# Installation guide - Arch Wiki
-# https://wiki.archlinux.org/index.php/Installation_guide
 
 # Важно !!! 
 # При установке системы Arch Linux наличие подключения к интернету обязательно.
@@ -75,6 +73,9 @@ ping -c2 archlinux.org
 echo 'Настроим русский язык, изменим консольный шрифт на тот, который поддерживает кириллицу для удобства работы'
 loadkeys ru
 setfont cyr-sun16
+
+echo 'Скрипт сделан на основе чеклиста Бойко Алексея по Установке ArchLinux'
+echo 'Ссылка на чек лист есть в группе vk.com/arch4u'
 
 echo '2.3 Синхронизация системных часов'
 timedatectl set-ntp true
