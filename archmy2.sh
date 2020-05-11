@@ -201,7 +201,7 @@ fi
 echo 'Установить рекомендумые программы?'
 read -p "1 - Да, 0 - Нет: " prog_set
 if [[ $prog_set == 1 ]]; then
-  sudo pacman -S bleachbit gparted conky conky-manager dconf-editor doublecmd-gtk2 gnome-system-monitor obs-studio redshift veracrypt onboard clonezilla moc freemind filezilla gnome-calculator nomacs tlp tlp-rdw --noconfirm
+  sudo pacman -S bleachbit gparted conky conky-manager dconf-editor doublecmd-gtk2 gnome-system-monitor obs-studio redshift veracrypt onboard clonezilla moc freemind filezilla gnome-calculator nomacs keepass tlp tlp-rdw --noconfirm
 elif [[ $prog_set == 0 ]]; then
   echo 'Установка программ пропущена.'
 fi
