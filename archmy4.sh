@@ -56,7 +56,7 @@ echo 'Установка Мультимедиа утилит AUR'
 yay -S radiotray spotify vlc-tunein-radio vlc-pause-click-plugin audiobook-git cozy-audiobooks m4baker-git mp3gain easymp3gain-gtk2 myrulib-git --noconfirm  
 
 echo 'Установка программ'
-sudo pacman -S gpac freemind galculator-gtk2 --noconfirm
+sudo pacman -S xterm xf86-input-synaptics mesa freemind galculator-gtk2 --noconfirm
 
 echo 'Установить рекомендумые программы?'
 read -p "1 - Да, 0 - Нет: " prog_set
