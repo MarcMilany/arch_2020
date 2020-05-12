@@ -1,58 +1,19 @@
 #!/bin/bash
 
-#Arch Linux Fast Install - Быстрая установка Arch Linux https://github.com/ordanax/arch2018
+# Arch Linux Fast Install (arch2018) - Быстрая установка Arch Linux 
+# Проект (project): https://github.com/ordanax/arch2018
 # Цель скрипта - быстрое развертывание системы с вашими персональными настройками (конфиг XFCE, темы, программы и т.д.).
 
-# В разработке принимали участие:
+# В разработке принимали участие (author) :
 # Алексей Бойко https://vk.com/ordanax
 # Степан Скрябин https://vk.com/zurg3
 # Михаил Сарвилин https://vk.com/michael170707
 # Данил Антошкин https://vk.com/danil.antoshkin
 # Юрий Порунцов https://vk.com/poruncov
 
-#Installation guide - Arch Wiki
-#https://wiki.archlinux.org/index.php/Installation_guide
-
-# Важно ! 
-# При установке системы Arch Linux наличие подключения к интернету обязательно.
-# Служба DHCP уже запущена при загрузке для найденных Ethernet-адаптеров. 
-# Для беспроводных сетевых адаптеров запустите wifi-menu. 
-# Если необходимо настроить статический IP или использовать другие средства настройки сети, остановите службу DHCP командой systemctl stop dhcpcd.service и используйте netctl.
-# Подключаем интернет (пункт для тех у кого автоматически не подключился интернет):
-# Если у вас проводной интернет - dhcpcd  проводное соединение подхватится автоматом
-# Если выпадает ошибка с номером 213 или др.,то выполните следующие команды:
-# kill 213 и вновь запускаем dhcpcd
-
-# Если вы подключаетесь к интернет по WiFi, то нужно подключиться к вашей WiFi-сети. 
-# Я не пробовал устанавливать ArchLinux на компьютере с WiFi, но приведу выдержки из руководства (отпишитесь, пожалуйста, в комментариях, работает ли этот способ). 
-# Сначала необходимо определить название WiFi интерфейса, для этого выполняем команду:
-# iwconfig
-# Затем воспользуемся утилитой wifi-menu: 
-# wifi-menu имя_интерфейса
-# wifi-menu
-
-# Если в результате выходит ошибка о не существовании wlan0, то узнайте как 
-# называется ваш сетевой интерфейс с помощью iwconfig и введите wifi-menu <интерфейс>
-# Статья по настройке Wi-fi - wifi-menu:
-# http://rus-linux.net/MyLDP/consol/setup-wifi-in-command-line.html
-
-# Подключение через PPPoE: 
-# используйте для настройки программу pppoe-setup, для запуска — pppoe-start
-
-# Проверим получены ли сетевые настройки:
-# ipddr
-
-# Посмотрим наши DNC сервера:
-# cat /etc/resolv.conf
-
-# Подключаем wifi
-# wifi-menu
-# Или если у вас проводной интернет, то подключаем службы DHCP
-# dhcpcd
-# ping -c 5 8.8.8.8
-# ping -c 5 ya.ru
-# ping -c 2 archlinux.org
-# ping -c 5 google.com
+# Лицензия (license): LGPL-3.0 (http://opensource.org/licenses/lgpl-3.0.html
+# Installation guide - Arch Wiki
+# (referance): https://wiki.archlinux.org/index.php/Installation_guide
 
 # Команды по установке :
 # archiso login: root (automatic login)
