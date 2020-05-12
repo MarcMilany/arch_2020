@@ -18,6 +18,10 @@
 # Команды по установке :
 # archiso login: root (automatic login)
 
+apptitle="Arch Linux Fast Install (arch2018) - Version: v1.6 LegasyBIOS (GPLv3)"
+baseurl=https://github.com/ordanax/arch2018
+skipfont="0"
+
 echo 'Для проверки интернета можно пропинговать какой-либо сервис'
 ping -c2 archlinux.org
 
