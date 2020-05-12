@@ -1,6 +1,5 @@
 ##############################################
-# ArchLinux Fast Install v1.6
-  ArchLinux Fast Install v1.6 LegasyBIOS
+# ArchLinux Fast Install v1.6 LegasyBIOS
 ##############################################
 
 # Описание
