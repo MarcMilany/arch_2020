@@ -106,7 +106,7 @@ echo 'Ставим Архиваторы "Compression Tools"'
 pacman -S zip unzip unrar p7zip zlib zziplib --noconfirm
 
 echo 'Ставим дополнения к Архиваторам'
-pacman -S unace sharutils uudeview arj cabextract file-roller --noconfirm
+pacman -S unace sharutils uudeview arj cabextract --noconfirm
 
 echo 'Ставим Драйвера принтера (Print support)'
 sudo pacman -S cups ghostscript cups-pdf --noconfirm
@@ -118,7 +118,7 @@ echo 'Установка терминальных утилит для вывод
 sudo pacman -S screenfetch glances archey3 neofetch --noconfirm  
 
 echo 'Установка Мультимедиа кодеков (multimedia codecs), и утилит'
-sudo pacman -S a52dec faac faad2 flac jasper lame libdca libdv libmad libmpeg2 libtheora libvorbis libxv wavpack x264 xvidcore gst-plugins-base gst-plugins-base-libs gst-plugins-good gst-plugins-bad gst-plugins-ugly libdvdcss libdvdread libdvdnav dvd+rw-tools dvdauthor dvgrab cdrdao gst-libav gst-libav gpac --noconfirm
+sudo pacman -S a52dec faac faad2 flac jasper lame libdca libdv libmad libmpeg2 libtheora libvorbis libxv wavpack x264 xvidcore gst-plugins-base gst-plugins-base-libs gst-plugins-good gst-plugins-bad gst-plugins-ugly libdvdcss libdvdread libdvdnav dvd+rw-tools dvdauthor dvgrab cdrdao gst-libav gst-libav --noconfirm
 
 echo 'Установка Мультимедиа утилит'
 sudo pacman -S audacity audacious audacious-plugins smplayer smplayer-skins smplayer-themes smtube deadbeef easytag subdownloader mediainfo-gui vlc --noconfirm
@@ -194,19 +194,19 @@ elif [[ $prog_set == 0 ]]; then
   echo 'Установка программ пропущена.'
 fi
 
-echo 'Форматируем флешки с файловой системой exFAT в Linux'
-sudo pacman -S exfat-utils fuse-exfat --noconfirm 
-
 echo 'Установить рекомендумые программы?'
 read -p "1 - Да, 0 - Нет: " prog_set
 if [[ $prog_set == 1 ]]; then
-  gui_install="bleachbit gparted grub-customizer conky conky-manager dconf-editor doublecmd-gtk2 gnome-system-monitor obs-studio openshot frei0r-plugins simplescreenrecorder redshift veracrypt onboard clonezilla moc filezilla gnome-calculator nomacs osmo synapse telegram-desktop plank psensor keepass copyq variety grsync numlockx modem-manager-gui uget xarchiver-gtk2 rofi gsmartcontrol testdisk tlp tlp-rdw wget"
+  gui_install="bleachbit gparted grub-customizer conky conky-manager dconf-editor doublecmd-gtk2 gnome-system-monitor obs-studio openshot frei0r-plugins simplescreenrecorder redshift veracrypt onboard clonezilla moc filezilla gnome-calculator nomacs osmo synapse telegram-desktop plank psensor keepass copyq variety grsync numlockx modem-manager-gui uget xarchiver-gtk2 rofi gsmartcontrol testdisk tlp tlp-rdw file-roller wget"
 elif [[ $prog_set == 0 ]]; then
   echo 'Установка программ пропущена.'
 fi
 
 echo 'Ставим рекомендумые программы'
 pacman -S $gui_install
+
+echo 'Форматируем флешки с файловой системой exFAT в Linux'
+sudo pacman -S exfat-utils fuse-exfat --noconfirm 
 
 echo 'Создаем нужные директории'
 sudo pacman -S xdg-user-dirs --noconfirm
