@@ -69,7 +69,7 @@ fi
 echo 'Установить рекомендумые программы из AUR?'
 read -p "1 - Да, 0 - Нет: " prog_set
 if [[ $prog_set == 1 ]]; then
-yay -S gksu debtap caffeine-ng fsearch-git cherrytree timeshift mocicon pidgin-extprefs multiload-ng-indicator-gtk xfce4-multiload-ng-plugin-gtk2 keepass2-plugin-tray-icon mintstick woeusb-git gconf-editor unetbootin masterpdfeditor font-manager sublime-text-dev webtorrent-desktop skypeforlinux-stable-bin skype-call-recorder vk-messenger viber megasync thunar-megasync yandex-disk yandex-disk-indicator unoconv qt4 dropbox xflux flameshot-git hunspell-ru --noconfirm
+yay -S gksu debtap caffeine-ng fsearch-git cherrytree timeshift mocicon pidgin-extprefs multiload-ng-indicator-gtk xfce4-multiload-ng-plugin-gtk2 keepass2-plugin-tray-icon mintstick woeusb-git gconf-editor unetbootin masterpdfeditor font-manager sublime-text-dev webtorrent-desktop skypeforlinux-stable-bin skype-call-recorder vk-messenger viber megasync thunar-megasync yandex-disk yandex-disk-indicator unoconv xorg-xkill pamac-aur-git qt4 dropbox xflux flameshot-git hunspell-ru --noconfirm
 elif [[ $prog_set == 0 ]]; then
   echo 'Установка программ пропущена.'
 fi
