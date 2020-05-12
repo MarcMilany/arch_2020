@@ -12,19 +12,13 @@ echo 'Обновим всю систему включая AUR пакеты'
 yay -Syy
 yay -Syu
 
-echo 'Установка "Pacmangui","Octopi" (AUR) (GTK) (QT)'
+echo 'Установка "Pacmangui","Octopi" (AUR)(GTK)(QT)'
 echo 'Установка Производится в порядке перечесления'
-echo 'Установить "pamac-aur" "(AUR) (GTK)"?'
-read -p "1 - Да, 0 - Нет: " prog_set
+echo 'Установить "pamac-aur", "octopi"?'
+read -p "1 - Pacmanc-aur, 2 - Octopi, 0 - Нет: " prog_set
 if [[ $prog_set == 1 ]]; then
 yay -S pamac-aur --noconfirm
-elif [[ $prog_set == 0 ]]; then
-  echo 'Установка программ пропущена.'
-fi
-
-echo 'Установить "octopi" "(AUR) (QT)"?'
-read -p "1 - Да, 0 - Нет: " prog_set
-if [[ $prog_set == 1 ]]; then
+elif [[ $prog_set == 2 ]]; then
 yay -S octopi --noconfirm
 elif [[ $prog_set == 0 ]]; then
   echo 'Установка программ пропущена.'
@@ -83,27 +77,15 @@ elif [[ $prog_set == 0 ]]; then
   echo 'Установка программ пропущена.'
 fi
 
-echo 'Установка Torrent клиентов - Transmission, qBittorrent, Deluge (GTK) (Qt)'
+echo 'Установка Torrent клиентов - Transmission, qBittorrent, Deluge (GTK)(Qt)(GTK+)'
 echo 'Установка Производится в порядке перечесления'
-echo 'Установить Transmission (GTK)?'
-read -p "1 - Да, 0 - Нет: " prog_set
+echo 'Установить Transmission, qBittorrent, Deluge?'
+read -p "1 - Transmission, 2 - qBittorrent, 3 - Deluge, 0 - Нет: " prog_set
 if [[ $prog_set == 1 ]]; then
 sudo pacman -S transmission-gtk transmission-cli --noconfirm
-elif [[ $prog_set == 0 ]]; then
-  echo 'Установка программ пропущена.'
-fi
-
-echo 'Установить qBittorrent (Qt)?'
-read -p "1 - Да, 0 - Нет: " prog_set
-if [[ $prog_set == 1 ]]; then
+elif [[ $prog_set == 2 ]]; then
 sudo pacman -S qbittorrent --noconfirm
-elif [[ $prog_set == 0 ]]; then
-  echo 'Установка программ пропущена.'
-fi
-
-echo 'Установить Deluge (GTK+)?'
-read -p "1 - Да, 0 - Нет: " prog_set
-if [[ $prog_set == 1 ]]; then
+elif [[ $prog_set == 3 ]]; then
 sudo pacman -S deluge --noconfirm
 elif [[ $prog_set == 0 ]]; then
   echo 'Установка программ пропущена.'
@@ -111,17 +93,11 @@ fi
 
 echo 'Установка Офиса (LibreOffice-still, или LibreOffice-fresh)'
 echo 'Установка Производится в порядке перечесления'
-echo 'Установить LibreOffice-still?'
-read -p "1 - Да, 0 - Нет: " prog_set
+echo 'Установить LibreOffice-still, LibreOffice-fresh?'
+read -p "1 - LibreOffice-still, 2 - LibreOffice-fresh, 0 - Нет: " prog_set
 if [[ $prog_set == 1 ]]; then
 sudo pacman -S libreoffice-still libreoffice-still-ru --noconfirm
-elif [[ $prog_set == 0 ]]; then
-  echo 'Установка программ пропущена.'
-fi
-
-echo 'Установить LibreOffice-fresh?'
-read -p "1 - Да, 0 - Нет: " prog_set
-if [[ $prog_set == 1 ]]; then
+elif [[ $prog_set == 2 ]]; then
 sudo pacman -S libreoffice libreoffice-fresh-ru --noconfirm
 elif [[ $prog_set == 0 ]]; then
   echo 'Установка программ пропущена.'
