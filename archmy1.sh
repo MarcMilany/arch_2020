@@ -37,6 +37,7 @@ ${BOLD}For more information, see the wiki: \
 ${GREY}<https://wiki.archlinux.org/index.php/Installation_guide>${NC}"
 }
 
+### SHARED VARIABLES AND FUNCTIONS (ОБЩИЕ ПЕРЕМЕННЫЕ И ФУНКЦИИ)
 ### Shell color codes (Цветовые коды оболочки)
 RED="\e[1;31m"; GREEN="\e[1;32m"; YELLOW="\e[1;33m"; GREY="\e[3;93m"
 BLUE="\e[1;34m"; CYAN="\e[1;36m"; BOLD="\e[1;37m"; NC="\e[0m"
@@ -51,6 +52,46 @@ _info() {
     echo -e "${YELLOW}\n==> ${CYAN}${1}...${NC}"; sleep 1
 }
 
+### Ask some information (Спросите немного информации)
+_prompt() {
+    LENTH=${*}; COUNT=${#LENTH}
+    echo -ne "\n${YELLOW}==> ${GREEN}${1} ${RED}${2}"
+    echo -ne "${YELLOW}\n==> "
+    for (( CHAR=1; CHAR<=COUNT; CHAR++ )); do echo -ne "-"; done
+    echo -ne "\n==> ${NC}"
+}
+
+### Ask confirmation (Yes/No) (Запросите подтверждение (да / нет))
+_confirm() {
+    unset CONFIRM; COUNT=$(( ${#1} + 6 ))
+    until [[ ${CONFIRM} =~ ^(y|n|Y|N|yes|no|Yes|No|YES|NO)$ ]]; do
+        echo -ne "${YELLOW}\n==> ${GREEN}${1} ${RED}[y/n]${YELLOW}\n==> "
+        for (( CHAR=1; CHAR<=COUNT; CHAR++ )); do echo -ne "-"; done
+        echo -ne "\n==> ${NC}"
+        read -r CONFIRM
+    done
+}
+
+### Select an option (Выбрать параметр)
+_select() {
+    COUNT=0
+    echo -ne "${YELLOW}\n==> "
+    for ENTRY in "${@}"; do
+        echo -ne "${RED}[$(( ++COUNT ))] ${GREEN}${ENTRY} ${NC}"
+    done
+    LENTH=${*}; NUMBER=$(( ${#*} * 4 ))
+    COUNT=$(( ${#LENTH} + NUMBER + 1 ))
+    echo -ne "${YELLOW}\n==> "
+    for (( CHAR=1; CHAR<=COUNT; CHAR++ )); do echo -ne "-"; done
+    echo -ne "\n==> ${NC}"
+}
+
+### Download show progress bar only (Скачать показывать только индикатор выполнения)
+_wget() {
+    wget "${1}" --quiet --show-progress
+}
+
+# ============================================================================
 # Arch Linux Fast Install (arch2018) - Быстрая установка Arch Linux 
 # Цель скрипта - быстрое развертывание системы с вашими персональными настройками (конфиг XFCE, темы, программы и т.д.).
 # Проект (project): https://github.com/ordanax/arch2018
@@ -65,7 +106,7 @@ _info() {
 # Лицензия (license): LGPL-3.0 (http://opensource.org/licenses/lgpl-3.0.html
 # Installation guide - Arch Wiki
 # (referance): https://wiki.archlinux.org/index.php/Installation_guide
-
+# ============================================================================
 # Команды по установке :
 # archiso login: root (automatic login)
 echo 'Для проверки интернета можно пропинговать какой-либо сервис'
