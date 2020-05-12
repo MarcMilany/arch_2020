@@ -8,7 +8,7 @@ AUTHOR="ordanax"
 LICENSE="GNU General Public License 3.0"
 
 ### Description
-_archboot_banner() {
+_arch_fast_install_banner() {
     echo -e "${BLUE}
 ┌─┐┬─┐┌─┐┬ ┬  ┬  ┬ ┬ ┬┬ ┬┌┌┐  ┬─┐┌─┐┌─┐┌┬┐  ┬ ┬ ┬┌─┐┌┬┐┌─┐┬  ┬  
 ├─┤├┬┘│  ├─┤  │  │ │\││ │ │   │─ ├─┤└─┐ │   │ │\│└─┐ │ ├─┤│  │  
