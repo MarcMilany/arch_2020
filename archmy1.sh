@@ -3,15 +3,15 @@
 #Arch Linux Fast Install - Быстрая установка Arch Linux https://github.com/ordanax/arch2018
 # Цель скрипта - быстрое развертывание системы с вашими персональными настройками (конфиг XFCE, темы, программы и т.д.).
 
-echo 'Installation guide - Arch Wiki'
-echo 'https://wiki.archlinux.org/index.php/Installation_guide'
-
 # В разработке принимали участие:
 # Алексей Бойко https://vk.com/ordanax
 # Степан Скрябин https://vk.com/zurg3
 # Михаил Сарвилин https://vk.com/michael170707
 # Данил Антошкин https://vk.com/danil.antoshkin
 # Юрий Порунцов https://vk.com/poruncov
+
+#Installation guide - Arch Wiki
+#https://wiki.archlinux.org/index.php/Installation_guide
 
 # Важно ! 
 # При установке системы Arch Linux наличие подключения к интернету обязательно.
@@ -111,21 +111,12 @@ mkswap /dev/sda2 -L swap
 mkfs.ext4  /dev/sda3 -L root
 mkfs.ext4  /dev/sda4 -L home
 
-echo 'Посмотрим все идентификаторы наших разделов'
-blkid
-
 echo '2.4.3 Монтирование разделов диска'
 mount /dev/sda3 /mnt
 mkdir /mnt/{boot,home}
 mount /dev/sda1 /mnt/boot
 swapon /dev/sda2
 mount /dev/sda4 /mnt/home
-
-echo 'Посмотрим информацию'
-free -h
-
-echo 'Посмотрим куда был примонтирован sda'
-mount | grep sda
 
 echo '3.1 Выбор серверов-зеркал для загрузки. Ставим зеркало от Яндекс'
 echo "Server = http://mirror.yandex.ru/archlinux/\$repo/os/\$arch" > /etc/pacman.d/mirrorlist
