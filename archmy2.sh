@@ -31,8 +31,8 @@ echo 'CONSOLEMAP' >> /etc/vconsole.conf
 
 echo 'Создадим загрузочный RAM диск (initial RAM disk)'
 mkinitcpio -p linux-lts
-#mkinitcpio -p linux
-#mkinitcpio -P linux
+# mkinitcpio -p linux
+# mkinitcpio -P linux
 
 echo 'Создаем root пароль'
 passwd
