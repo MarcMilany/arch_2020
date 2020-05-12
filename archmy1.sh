@@ -1,7 +1,8 @@
 #!/bin/bash
+#_arch_fast_install_banner
 set > old_vars.log
 
-APPNAME="arch_fast_install "
+APPNAME="arch_fast_install"
 VERSION="v1.6 LegasyBIOS"
 BRANCH="master"
 AUTHOR="ordanax"
@@ -24,6 +25,32 @@ Arch Linux - это дистрибутив общего назначения. П
 Автор не несет ответственности за любое нанесение вреда при использовании скрипта. Используйте его на свой страх и риск или изменяйте под свои личные нужды."
 }
 
+### Help and usage (--help or -h) (Справка)
+_help() {
+    echo -e "${BLUE}
+Installation guide - Arch Wiki
+
+    ${BOLD}Options${NC}
+        -h, --help          show this help message
+
+${BOLD}For more information, see the wiki: \
+${GREY}<https://wiki.archlinux.org/index.php/Installation_guide>${NC}"
+}
+
+### Shell color codes (Цветовые коды оболочки)
+RED="\e[1;31m"; GREEN="\e[1;32m"; YELLOW="\e[1;33m"; GREY="\e[3;93m"
+BLUE="\e[1;34m"; CYAN="\e[1;36m"; BOLD="\e[1;37m"; NC="\e[0m"
+
+### Display some notes (Дисплей некоторые заметки)
+_note() {
+    echo -e "${RED}\nNote: ${BLUE}${1}${NC}"
+}
+
+### Display install steps (Отображение шагов установки)
+_info() {
+    echo -e "${YELLOW}\n==> ${CYAN}${1}...${NC}"; sleep 1
+}
+
 # Arch Linux Fast Install (arch2018) - Быстрая установка Arch Linux 
 # Цель скрипта - быстрое развертывание системы с вашими персональными настройками (конфиг XFCE, темы, программы и т.д.).
 # Проект (project): https://github.com/ordanax/arch2018
@@ -41,30 +68,15 @@ Arch Linux - это дистрибутив общего назначения. П
 
 # Команды по установке :
 # archiso login: root (automatic login)
-
-apptitle="Arch Linux Fast Install (arch2018) - Version: v1.6 LegasyBIOS (GPLv3)"
-baseurl=https://github.com/ordanax/arch2018
-skipfont="0"
-
 echo 'Для проверки интернета можно пропинговать какой-либо сервис'
-_info "${MSG_INTERNET}"
-INTERNET=$( ping -c2 archlinux.org )
-
-if [[ ${INTERNET} ]]; then
-    _note "congratulations, you are connected to Internet!"
-else
-    _error "you are not connected to Internet!"
-fi
+ping -c2 archlinux.org 
 
 echo 'Настроим русский язык, изменим консольный шрифт на тот, который поддерживает кириллицу для удобства работы'
 loadkeys ru
 setfont cyr-sun16
 
-### Display banner
+### Display banner (Дисплей баннер)
 _arch_fast_install_banner
-
-echo 'Скрипт сделан на основе чеклиста Бойко Алексея по Установке ArchLinux'
-echo 'Ссылка на чек лист есть в группе vk.com/arch4u'
 
 echo '2.3 Синхронизация системных часов'
 timedatectl set-ntp true
