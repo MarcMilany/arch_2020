@@ -1,8 +1,11 @@
 #!/bin/bash
+# Enter the computer name
+# Enter your username
 read -p "Введите имя компьютера: " hostname
 read -p "Введите имя пользователя: " username
 
 echo 'Прописываем имя компьютера'
+# Entering the computer name
 echo $hostname > /etc/hostname
 ln -svf /usr/share/zoneinfo/Europe/Moscow /etc/localtime
 
