@@ -3,26 +3,15 @@
 mkdir ~/downloads
 cd ~/downloads
 
-echo 'Установка AUR (yay)'
+echo -e "${BLUE}
+'Установка AUR (yay)'
+${NC}"
 sudo pacman -Syu
-sudo pacman -S wget --noconfirm
 wget git.io/yay-install.sh && sh yay-install.sh --noconfirm
 
 echo 'Обновим всю систему включая AUR пакеты'
 yay -Syy
 yay -Syu
-
-echo 'Установка "Pacmangui","Octopi" (AUR)(GTK)(QT)'
-echo 'Установка Производится в порядке перечесления'
-echo 'Установить "pamac-aur", "octopi"?'
-read -p "1 - Pacmanc-aur, 2 - Octopi, 0 - Нет: " prog_set
-if [[ $prog_set == 1 ]]; then
-yay -S pamac-aur --noconfirm
-elif [[ $prog_set == 2 ]]; then
-yay -S octopi --noconfirm
-elif [[ $prog_set == 0 ]]; then
-  echo 'Установка программ пропущена.'
-fi
 
 echo 'Ставим Bluetooth and Sound support'
 pacman -S bluez bluez-libs bluez-cups bluez-utils --noconfirm
@@ -39,10 +28,10 @@ echo 'Ставим Драйвера принтера (Print support)'
 sudo pacman -S cups ghostscript cups-pdf --noconfirm
 
 echo 'Установка базовых программ и пакетов'
-sudo pacman -S aspell-ru arch-install-scripts bash-completion dosfstools f2fs-tools sane gvfs htop iftop inxi iotop nmap ntfs-3g ntp ncdu hydra isomd5sum python-isomd5sum translate-shell mc pv sox youtube-dl speedtest-cli python-pip pwgen scrot git curl xsel cmake --noconfirm 
+sudo pacman -S aspell-ru arch-install-scripts bash-completion dosfstools f2fs-tools sane gvfs htop iftop inxi iotop nmap ntfs-3g ntp ncdu hydra isomd5sum python-isomd5sum translate-shell mc pv sox youtube-dl speedtest-cli python-pip pwgen scrot git curl xsel --noconfirm 
 
 echo 'Установка терминальных утилит для вывода информации о системе'
-sudo pacman -S screenfetch glances archey3 neofetch --noconfirm  
+sudo pacman -S screenfetch archey3 neofetch --noconfirm  
 
 echo 'Установка Мультимедиа кодеков (multimedia codecs), и утилит'
 sudo pacman -S a52dec faac faad2 flac jasper lame libdca libdv libmad libmpeg2 libtheora libvorbis libxv wavpack x264 xvidcore gst-plugins-base gst-plugins-base-libs gst-plugins-good gst-plugins-bad gst-plugins-ugly libdvdcss libdvdread libdvdnav dvd+rw-tools dvdauthor dvgrab cdrdao gst-libav gst-libav gpac --noconfirm
@@ -50,14 +39,14 @@ sudo pacman -S a52dec faac faad2 flac jasper lame libdca libdv libmad libmpeg2 l
 echo 'Установка Мультимедиа утилит'
 sudo pacman -S audacity audacious audacious-plugins smplayer smplayer-skins smplayer-themes smtube deadbeef easytag subdownloader mediainfo-gui vlc --noconfirm
 
-echo 'Установка Браузеров и медиа-плагинов'
-sudo pacman -S firefox firefox-i18n-ru firefox-spell-ru flashplugin pepper-flash --noconfirm
-
 echo 'Установка Текстовые редакторы и утилиты разработки'
-sudo pacman -S gedit gedit-plugins geany geany-plugins meld --noconfirm
+sudo pacman -S gedit gedit-plugins geany geany-plugins --noconfirm
 
 echo 'Управления электронной почтой, новостными лентами, чатом и группам'
 sudo pacman -S thunderbird thunderbird-i18n-ru pidgin pidgin-hotkeys --noconfirm
+
+echo 'Установка Браузеров и медиа-плагинов'
+sudo pacman -S firefox firefox-i18n-ru firefox-spell-ru flashplugin pepper-flash --noconfirm
 
 echo 'Установка Брандмауэра UFW и Антивирусного пакета ClamAV (GUI)(GTK+)'
 echo 'Установка Производится в порядке перечесления'
@@ -106,13 +95,25 @@ fi
 echo 'Установить рекомендумые программы?'
 read -p "1 - Да, 0 - Нет: " prog_set
 if [[ $prog_set == 1 ]]; then
-sudo pacman -S bleachbit gparted grub-customizer conky conky-manager dconf-editor doublecmd-gtk2 gnome-system-monitor obs-studio openshot frei0r-plugins simplescreenrecorder redshift veracrypt onboard clonezilla moc filezilla gnome-calculator nomacs osmo synapse telegram-desktop plank psensor keepass copyq variety grsync numlockx modem-manager-gui uget xarchiver-gtk2 rofi gsmartcontrol testdisk tlp tlp-rdw file-roller --noconfirm 
+sudo pacman -S bleachbit gparted grub-customizer conky conky-manager dconf-editor doublecmd-gtk2 gnome-system-monitor obs-studio openshot frei0r-plugins lib32-simplescreenrecorder simplescreenrecorder redshift veracrypt onboard clonezilla moc filezilla gnome-calculator nomacs osmo synapse telegram-desktop plank psensor keepass copyq variety grsync numlockx modem-manager-gui uget xarchiver-gtk2 rofi gsmartcontrol testdisk glances tlp tlp-rdw file-roller meld cmake --noconfirm 
 elif [[ $prog_set == 0 ]]; then
   echo 'Установка программ пропущена.'
 fi
 
 echo 'Форматируем флешки с файловой системой exFAT в Linux'
 sudo pacman -S exfat-utils fuse-exfat --noconfirm 
+
+echo 'Установка "Pacmangui","Octopi" (AUR)(GTK)(QT)'
+echo 'Установка Производится в порядке перечесления'
+echo 'Установить "pamac-aur", "octopi"?'
+read -p "1 - Pacmanc-aur, 2 - Octopi, 0 - Нет: " prog_set
+if [[ $prog_set == 1 ]]; then
+yay -S pamac-aur --noconfirm
+elif [[ $prog_set == 2 ]]; then
+yay -S octopi --noconfirm
+elif [[ $prog_set == 0 ]]; then
+  echo 'Установка программ пропущена.'
+fi
 
 echo 'Обновим информацию о шрифтах'
 sudo fc-cache -f -v
@@ -130,7 +131,7 @@ echo 'Прверим статус запуска сетевой экран UFW'
 sudo ufw status
 
 echo 'Создать backup (дубликат) файла grub.cfg'
-cp grub.cfg grub.cfg.backup
+cp /boot/grub/grub.cfg grub.cfg.backup
 
 #echo 'Добавить репозиторий archlinuxfr и вписать тему для Color.'
 #echo '[multilib]' >> /etc/pacman.conf
@@ -151,6 +152,6 @@ cp grub.cfg grub.cfg.backup
 # Defaults  badpass_message="Ты не администратор, придурок."
 
 sudo rm -R ~/downloads/
-sudo rm -rf ~/arch3my.sh
+sudo rm -rf ~/arch3my
 
 echo 'Установка завершена!'
