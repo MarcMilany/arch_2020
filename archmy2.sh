@@ -114,10 +114,6 @@ echo 'Ставим шрифты'
 # Put the fonts
 pacman -S ttf-liberation ttf-dejavu opendesktop-fonts ttf-arphic-ukai ttf-arphic-uming ttf-hanazono --noconfirm 
 
-echo 'Установка базовых программ и пакетов'
-# Installing basic programs and packages
-sudo pacman -S wget --noconfirm
-
 echo 'Подключаем автозагрузку менеджера входа и интернет'
 # Enabling auto-upload of the login Manager and the Internet
 systemctl enable lightdm.service 
@@ -133,6 +129,10 @@ echo 'Установка завершена! Перезагрузите сист
 echo 'Если хотите подключить AUR, установить мои конфиги XFCE, тогда после перезагрузки и входа в систему, установите wget (sudo pacman -S wget) и выполните команду:'
 # If you want to connect AUR, install my Xfce configs, then after restarting and logging in, install wget (sudo pacman -S wget) and run the command:
 echo 'wget git.io/archmy3 && sh archmy3'
+
+echo 'Установка базовых программ и пакетов'
+# Installing basic programs and packages
+sudo pacman -S wget --noconfirm
 
 echo 'Выйдем из установленной системы'
 # Log out of the installed system
