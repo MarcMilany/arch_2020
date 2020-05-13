@@ -10,30 +10,38 @@ sudo pacman -Syu
 wget git.io/yay-install.sh && sh yay-install.sh --noconfirm
 
 echo 'Обновим всю систему включая AUR пакеты'
+# Update the entire system including AUR packages
 yay -Syy
 yay -Syu
 
-echo 'Ставим Bluetooth and Sound support'
+echo 'Ставим Bluetooth and Поддержка звука'
+# Setting Bluetooth and Sound support
 pacman -S bluez bluez-libs bluez-cups bluez-utils --noconfirm
 pacman -S alsa-utils alsa-plugins alsa-firmware alsa-lib alsa-utils --noconfirm 
 pacman -S pulseaudio pulseaudio-alsa pavucontrol pulseaudio-zeroconf pulseaudio-bluetooth xfce4-pulseaudio-plugin --noconfirm
 
-echo 'Ставим Архиваторы "Compression Tools"'
+echo 'Ставим Архиваторы "Компрессионные Инструменты"'
+# Putting Archivers "Compression Tools
 pacman -S zip unzip unrar p7zip zlib zziplib --noconfirm
 
 echo 'Ставим дополнения к Архиваторам'
+# Adding extensions to Archivers
 pacman -S unace sharutils uudeview arj cabextract --noconfirm
 
-echo 'Ставим Драйвера принтера (Print support)'
+echo 'Ставим Драйвера принтера (Поддержка печати)'
+# Putting the printer Drivers (Print support)
 sudo pacman -S cups ghostscript cups-pdf --noconfirm
 
 echo 'Установка базовых программ и пакетов'
+# # Installing basic programs and packages
 sudo pacman -S aspell-ru arch-install-scripts bash-completion dosfstools f2fs-tools sane gvfs htop iftop inxi iotop nmap ntfs-3g ntp ncdu hydra isomd5sum python-isomd5sum translate-shell mc pv sox youtube-dl speedtest-cli python-pip pwgen scrot git curl xsel --noconfirm 
 
 echo 'Установка терминальных утилит для вывода информации о системе'
+# Installing terminal utilities for displaying system information
 sudo pacman -S screenfetch archey3 neofetch --noconfirm  
 
 echo 'Установка Мультимедиа кодеков (multimedia codecs), и утилит'
+# Installing Multimedia codecs and utilities
 sudo pacman -S a52dec faac faad2 flac jasper lame libdca libdv libmad libmpeg2 libtheora libvorbis libxv wavpack x264 xvidcore gst-plugins-base gst-plugins-base-libs gst-plugins-good gst-plugins-bad gst-plugins-ugly libdvdcss libdvdread libdvdnav dvd+rw-tools dvdauthor dvgrab cdrdao gst-libav gst-libav gpac --noconfirm
 
 echo 'Установка Мультимедиа утилит'
