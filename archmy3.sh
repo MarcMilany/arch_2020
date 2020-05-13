@@ -1,4 +1,80 @@
 #!/bin/bash
+# ============================================================================
+### Help and usage (--help or -h) (Справка)
+_help() {
+    echo -e "${BLUE}
+Installation guide - Arch Wiki
+
+    ${BOLD}Options${NC}
+        -h, --help          show this help message
+
+${BOLD}For more information, see the wiki: \
+${GREY}<https://wiki.archlinux.org/index.php/Installation_guide>${NC}"
+}
+
+### SHARED VARIABLES AND FUNCTIONS (ОБЩИЕ ПЕРЕМЕННЫЕ И ФУНКЦИИ)
+### Shell color codes (Цветовые коды оболочки)
+RED="\e[1;31m"; GREEN="\e[1;32m"; YELLOW="\e[1;33m"; GREY="\e[3;93m"
+BLUE="\e[1;34m"; CYAN="\e[1;36m"; BOLD="\e[1;37m"; NC="\e[0m"
+
+### Display some notes (Дисплей некоторые заметки)
+_note() {
+    echo -e "${RED}\nNote: ${BLUE}${1}${NC}"
+}
+
+### Display install steps (Отображение шагов установки)
+_info() {
+    echo -e "${YELLOW}\n==> ${CYAN}${1}...${NC}"; sleep 1
+}
+
+### Ask some information (Спросите немного информации)
+_prompt() {
+    LENTH=${*}; COUNT=${#LENTH}
+    echo -ne "\n${YELLOW}==> ${GREEN}${1} ${RED}${2}"
+    echo -ne "${YELLOW}\n==> "
+    for (( CHAR=1; CHAR<=COUNT; CHAR++ )); do echo -ne "-"; done
+    echo -ne "\n==> ${NC}"
+}
+
+### Ask confirmation (Yes/No) (Запросите подтверждение (да / нет))
+_confirm() {
+    unset CONFIRM; COUNT=$(( ${#1} + 6 ))
+    until [[ ${CONFIRM} =~ ^(y|n|Y|N|yes|no|Yes|No|YES|NO)$ ]]; do
+        echo -ne "${YELLOW}\n==> ${GREEN}${1} ${RED}[y/n]${YELLOW}\n==> "
+        for (( CHAR=1; CHAR<=COUNT; CHAR++ )); do echo -ne "-"; done
+        echo -ne "\n==> ${NC}"
+        read -r CONFIRM
+    done
+}
+
+### Select an option (Выбрать параметр)
+_select() {
+    COUNT=0
+    echo -ne "${YELLOW}\n==> "
+    for ENTRY in "${@}"; do
+        echo -ne "${RED}[$(( ++COUNT ))] ${GREEN}${ENTRY} ${NC}"
+    done
+    LENTH=${*}; NUMBER=$(( ${#*} * 4 ))
+    COUNT=$(( ${#LENTH} + NUMBER + 1 ))
+    echo -ne "${YELLOW}\n==> "
+    for (( CHAR=1; CHAR<=COUNT; CHAR++ )); do echo -ne "-"; done
+    echo -ne "\n==> ${NC}"
+}
+
+### Download show progress bar only (Скачать показывать только индикатор выполнения)
+_wget() {
+    wget "${1}" --quiet --show-progress
+}
+
+# ============================================================================
+
+echo 'Для проверки интернета можно пропинговать какой-либо сервис'
+# To check the Internet, you can ping a service
+ping -c2 archlinux.org
+
+
+echo 'Создадим папку (downloads), и переходим в созданную папку'
+# Create a folder (downloads), and go to the created folder
 #rm -rf ~/.config/xfce4/*
 mkdir ~/downloads
 cd ~/downloads
@@ -127,9 +203,12 @@ echo 'Утилиты для форматируем флеш-накопителя
 # Utilities for formatting a flash drive with the exFAT file system in Linux
 sudo pacman -S exfat-utils fuse-exfat --noconfirm 
 
-echo 'Установка "Pacmangui","Octopi" (AUR)(GTK)(QT)'
-echo 'Установка Производится в порядке перечесления'
+echo 'Установка "Pacman gui","Octopi" (AUR)(GTK)(QT)'
+# Installing "Pacman gui", "Octopi" (AUR)(GTK) (QT)
+echo 'Установка Производится в порядке перечисления'
+# Installation Is performed in the order listed
 echo 'Установить "pamac-aur", "octopi"?'
+# Install "pacman-aur", "octopi"?
 read -p "1 - Pacmanc-aur, 2 - Octopi, 0 - Нет: " prog_set
 if [[ $prog_set == 1 ]]; then
 yay -S pamac-aur --noconfirm
@@ -192,12 +271,13 @@ echo 'Установка завершена!'
 echo 'Желательно перезагрузить систему для применения изменений'
 # It is advisable to restart the system to apply the changes
 
-echo 'Скачать и произвести запуск скрипта (archmy4)'
-# Download and run the script (archmy4)
+echo 'Скачать и произвести запуск скрипта (archmy4)?'
+# Download and run the script (archmy4)?
 # echo 'wget git.io/archmy4 && sh archmy4'
 echo 'wget git.io/archmy4'
-wget git.io/archmy4 
-# wget git.io/yay-install.sh && sh yay-install.sh --noconfirm
+# Команды по установке :
+# wget git.io/archmy4 
+# wget git.io/archmy4 && sh archmy4 --noconfirm
 
 
 
