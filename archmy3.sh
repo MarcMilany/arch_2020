@@ -110,7 +110,7 @@ sudo pacman -S cups ghostscript cups-pdf --noconfirm
 
 echo 'Установка базовых программ и пакетов'
 # # Installing basic programs and packages
-sudo pacman -S aspell-ru arch-install-scripts bash-completion dosfstools f2fs-tools sane gvfs htop iftop inxi iotop nmap ntfs-3g ntp ncdu hydra isomd5sum python-isomd5sum translate-shell mc pv sox youtube-dl speedtest-cli python-pip pwgen scrot git curl xsel --noconfirm 
+sudo pacman -S aspell-ru arch-install-scripts bash-completion dosfstools f2fs-tools sane gvfs htop iftop iotop nmap ntfs-3g ntp ncdu hydra isomd5sum python-isomd5sum translate-shell mc pv sox youtube-dl speedtest-cli python-pip pwgen scrot git curl xsel --noconfirm 
 
 echo 'Установка терминальных утилит для вывода информации о системе'
 # Installing terminal utilities for displaying system information
@@ -240,7 +240,7 @@ sudo ufw status
 
 echo 'Создать резервную копию (дубликат) файла grub.cfg'
 # Create a backup (duplicate) of the grub.cfg file
-cp /boot/grub/grub.cfg grub.cfg.backup
+sudo cp /boot/grub/grub.cfg grub.cfg.backup
 
 # ============================================================================
 
@@ -255,15 +255,16 @@ cp /boot/grub/grub.cfg grub.cfg.backup
 # echo 'Добавить оскорбительное выражение после неверного ввода пароля в терминале'
 # Откройте на редактирование файл sudoers следующей командой в терминале:
 # sudo nano /etc/sudoers
-# Когда откроется файл sudoers на редактирование, стрелками вниз/вверх переместитесь до строки:
-## Defaults env_keep += "QTDIR KDEDIR"
+# Когда откроется файл sudoers на редактирование, переместитесь до строки:
+#   # Defaults env_keep += "QTDIR KDEDIR"
 # и ниже скопипастите следующую стоку:
-# Defaults  badpass_message="Ты не администратор, придурок."
+#     Defaults  badpass_message="Ты не администратор, придурок."
 
 # ============================================================================
-#Если возникли проблемы с обновлением, или установкой пакетов 
-#Выполните данные рекомендации:
-#author: 
+
+# Если возникли проблемы с обновлением, или установкой пакетов 
+# Выполните данные рекомендации:
+# author: 
 
 # echo 'Обновление ключей системы'
 # {
@@ -276,6 +277,7 @@ cp /boot/grub/grub.cfg grub.cfg.backup
 # echo "Обновление баз данных пакетов..."
 # sudo pacman -Sy
 # }
+
 # ============================================================================
 
 echo 'Удаление созданной папки (downloads), и скрипта установки программ (arch3my)'
