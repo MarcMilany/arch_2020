@@ -261,6 +261,22 @@ cp /boot/grub/grub.cfg grub.cfg.backup
 # Defaults  badpass_message="Ты не администратор, придурок."
 
 # ============================================================================
+#Если возникли проблемы с обновлением, или установкой пакетов 
+#Выполните данные рекомендации:
+#author: 
+
+# echo 'Обновление ключей системы'
+# {
+# echo "Создаётся генерация мастер-ключа (брелка) pacman, введите пароль (не отображается)..."
+# sudo pacman-key --init
+# echo "Далее идёт поиск ключей..."
+# sudo pacman-key --populate archlinux
+# echo "Обновление ключей..."
+# sudo pacman-key --refresh-keys
+# echo "Обновление баз данных пакетов..."
+# sudo pacman -Sy
+# }
+# ============================================================================
 
 echo 'Удаление созданной папки (downloads), и скрипта установки программ (arch3my)'
 # Deleting the created folder (downloads) and the program installation script (arch3my)
@@ -281,6 +297,9 @@ echo 'wget git.io/archmy4'
 # wget git.io/archmy4 
 # wget git.io/archmy4 && sh archmy4 --noconfirm
 
-
-
+# ============================================================================
+# echo 'Установка базовых программ и пакетов'
+# Installing basic programs and packages
+# sudo pacman -S wget --noconfirm
+# ============================================================================
 
