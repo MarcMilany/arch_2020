@@ -14,7 +14,7 @@ echo 'Обновим всю систему включая AUR пакеты'
 yay -Syy
 yay -Syu
 
-echo 'Ставим Bluetooth and Поддержка звука'
+echo 'Ставим Bluetooth и Поддержка звука'
 # Setting Bluetooth and Sound support
 pacman -S bluez bluez-libs bluez-cups bluez-utils --noconfirm
 pacman -S alsa-utils alsa-plugins alsa-firmware alsa-lib alsa-utils --noconfirm 
@@ -45,18 +45,23 @@ echo 'Установка Мультимедиа кодеков (multimedia codec
 sudo pacman -S a52dec faac faad2 flac jasper lame libdca libdv libmad libmpeg2 libtheora libvorbis libxv wavpack x264 xvidcore gst-plugins-base gst-plugins-base-libs gst-plugins-good gst-plugins-bad gst-plugins-ugly libdvdcss libdvdread libdvdnav dvd+rw-tools dvdauthor dvgrab cdrdao gst-libav gst-libav gpac --noconfirm
 
 echo 'Установка Мультимедиа утилит'
+# Installing Multimedia utilities
 sudo pacman -S audacity audacious audacious-plugins smplayer smplayer-skins smplayer-themes smtube deadbeef easytag subdownloader mediainfo-gui vlc --noconfirm
 
 echo 'Установка Текстовые редакторы и утилиты разработки'
+# Installation Text editors and development tools
 sudo pacman -S gedit gedit-plugins geany geany-plugins --noconfirm
 
 echo 'Управления электронной почтой, новостными лентами, чатом и группам'
+# Manage email, news feeds, chat, and groups
 sudo pacman -S thunderbird thunderbird-i18n-ru pidgin pidgin-hotkeys --noconfirm
 
 echo 'Установка Браузеров и медиа-плагинов'
+# Installing Browsers and media plugins
 sudo pacman -S firefox firefox-i18n-ru firefox-spell-ru flashplugin pepper-flash --noconfirm
 
 echo 'Установка Брандмауэра UFW и Антивирусного пакета ClamAV (GUI)(GTK+)'
+# Installing the UFW Firewall and clamav Antivirus package (GUI) (GTK+)
 echo 'Установка Производится в порядке перечесления'
 echo 'Установить UFW (Uncomplicated Firewall) (GTK)?'
 read -p "1 - Да, 0 - Нет: " prog_set
@@ -100,7 +105,8 @@ elif [[ $prog_set == 0 ]]; then
   echo 'Установка программ пропущена.'
 fi
 
-echo 'Установить рекомендумые программы?'
+echo 'Установить рекомендованные программы?'
+# Install the recommended programs
 read -p "1 - Да, 0 - Нет: " prog_set
 if [[ $prog_set == 1 ]]; then
 sudo pacman -S bleachbit gparted grub-customizer conky conky-manager dconf-editor doublecmd-gtk2 gnome-system-monitor obs-studio openshot frei0r-plugins lib32-simplescreenrecorder simplescreenrecorder redshift veracrypt onboard clonezilla moc filezilla gnome-calculator nomacs osmo synapse telegram-desktop plank psensor keepass copyq variety grsync numlockx modem-manager-gui uget xarchiver-gtk2 rofi gsmartcontrol testdisk glances tlp tlp-rdw file-roller meld cmake xterm --noconfirm 
@@ -108,7 +114,8 @@ elif [[ $prog_set == 0 ]]; then
   echo 'Установка программ пропущена.'
 fi
 
-echo 'Форматируем флешки с файловой системой exFAT в Linux'
+echo 'Утилиты для форматируем флеш-накопителя с файловой системой exFAT в Linux'
+# Utilities for formatting a flash drive with the exFAT file system in Linux
 sudo pacman -S exfat-utils fuse-exfat --noconfirm 
 
 echo 'Установка "Pacmangui","Octopi" (AUR)(GTK)(QT)'
@@ -124,21 +131,27 @@ elif [[ $prog_set == 0 ]]; then
 fi
 
 echo 'Обновим информацию о шрифтах'
+# Update information about fonts
 sudo fc-cache -f -v
 
 echo 'Применяем настройки TLP (управления питанием) в зависимости от источника питания (батарея или от сети)'
+# Apply TLP (power management) settings depending on the power source (battery or mains)
 sudo tlp start
 
 echo 'Включаем сетевой экран'
+# Enabling the network screen
 sudo ufw enable
 
-echo 'Добавляем в автозагрузку:'
+echo 'Добавляем в автозагрузку сетевой экран'
+# Adding the network screen to auto-upload
 sudo systemctl enable ufw
 
-echo 'Прверим статус запуска сетевой экран UFW'
+echo 'Проверим статус запуска сетевой экран UFW'
+# Check the startup status of the UFW network screen
 sudo ufw status
 
-echo 'Создать backup (дубликат) файла grub.cfg'
+echo 'Создать резервную копию (дубликат) файла grub.cfg'
+# Create a backup (duplicate) of the grub.cfg file
 cp /boot/grub/grub.cfg grub.cfg.backup
 
 #echo 'Добавить репозиторий archlinuxfr и вписать тему для Color.'
@@ -159,7 +172,19 @@ cp /boot/grub/grub.cfg grub.cfg.backup
 # и ниже скопипастите следующую стоку:
 # Defaults  badpass_message="Ты не администратор, придурок."
 
+echo 'Удаление созданной папки (downloads), и скрипта установки программ (arch3my)'
+# Deleting the created folder (downloads) and the program installation script (arch3my)
 sudo rm -R ~/downloads/
 sudo rm -rf ~/arch3my
 
 echo 'Установка завершена!'
+# The installation is now complete!
+
+echo 'Желательно перезагрузить систему для применения изменений'
+# It is advisable to restart the system to apply the changes
+
+
+
+
+
+
