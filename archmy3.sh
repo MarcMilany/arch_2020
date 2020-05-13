@@ -92,17 +92,17 @@ yay -Syu
 
 echo 'Ставим Bluetooth и Поддержка звука'
 # Setting Bluetooth and Sound support
-pacman -S bluez bluez-libs bluez-cups bluez-utils --noconfirm
-pacman -S alsa-utils alsa-plugins alsa-firmware alsa-lib alsa-utils --noconfirm 
-pacman -S pulseaudio pulseaudio-alsa pavucontrol pulseaudio-zeroconf pulseaudio-bluetooth xfce4-pulseaudio-plugin --noconfirm
+sudo pacman -S bluez bluez-libs bluez-cups bluez-utils --noconfirm
+sudo pacman -S alsa-utils alsa-plugins alsa-firmware alsa-lib alsa-utils --noconfirm 
+sudo pacman -S pulseaudio pulseaudio-alsa pavucontrol pulseaudio-zeroconf pulseaudio-bluetooth xfce4-pulseaudio-plugin --noconfirm
 
 echo 'Ставим Архиваторы "Компрессионные Инструменты"'
 # Putting Archivers "Compression Tools
-pacman -S zip unzip unrar p7zip zlib zziplib --noconfirm
+sudo pacman -S zip unzip unrar p7zip zlib zziplib --noconfirm
 
 echo 'Ставим дополнения к Архиваторам'
 # Adding extensions to Archivers
-pacman -S unace sharutils uudeview arj cabextract --noconfirm
+sudo pacman -S unace sharutils uudeview arj cabextract --noconfirm
 
 echo 'Ставим Драйвера принтера (Поддержка печати)'
 # Putting the printer Drivers (Print support)
@@ -192,6 +192,10 @@ fi
 
 echo 'Установить рекомендованные программы?'
 # Install the recommended programs
+echo -e "${BLUE}
+'Список программ рекомендованных к установке:
+bleachbit gparted grub-customizer conky conky-manager dconf-editor doublecmd-gtk2 gnome-system-monitor obs-studio openshot frei0r-plugins lib32-simplescreenrecorder simplescreenrecorder redshift veracrypt onboard clonezilla moc filezilla gnome-calculator nomacs osmo synapse telegram-desktop plank psensor keepass copyq variety grsync numlockx modem-manager-gui uget xarchiver-gtk2 rofi gsmartcontrol testdisk glances tlp tlp-rdw file-roller meld cmake xterm'
+${NC}"
 read -p "1 - Да, 0 - Нет: " prog_set
 if [[ $prog_set == 1 ]]; then
 sudo pacman -S bleachbit gparted grub-customizer conky conky-manager dconf-editor doublecmd-gtk2 gnome-system-monitor obs-studio openshot frei0r-plugins lib32-simplescreenrecorder simplescreenrecorder redshift veracrypt onboard clonezilla moc filezilla gnome-calculator nomacs osmo synapse telegram-desktop plank psensor keepass copyq variety grsync numlockx modem-manager-gui uget xarchiver-gtk2 rofi gsmartcontrol testdisk glances tlp tlp-rdw file-roller meld cmake xterm --noconfirm 
@@ -243,7 +247,7 @@ echo 'Создать резервную копию (дубликат) файла
 sudo cp /boot/grub/grub.cfg grub.cfg.backup
 
 # ============================================================================
-
+#
 # !'Добавить репозиторий archlinuxfr и вписать тему для Color.'
 # sed -i 's/#Color/Color/' /etc/pacman.conf
 # ILoveCandy  >> /etc/pacman.conf
@@ -259,13 +263,13 @@ sudo cp /boot/grub/grub.cfg grub.cfg.backup
 #   # Defaults env_keep += "QTDIR KDEDIR"
 # и ниже скопипастите следующую стоку:
 #     Defaults  badpass_message="Ты не администратор, придурок."
-
+#
 # ============================================================================
-
+#
 # Если возникли проблемы с обновлением, или установкой пакетов 
 # Выполните данные рекомендации:
 # author: 
-
+#
 # echo 'Обновление ключей системы'
 # {
 # echo "Создаётся генерация мастер-ключа (брелка) pacman, введите пароль (не отображается)..."
@@ -277,7 +281,7 @@ sudo cp /boot/grub/grub.cfg grub.cfg.backup
 # echo "Обновление баз данных пакетов..."
 # sudo pacman -Sy
 # }
-
+#
 # ============================================================================
 
 echo 'Удаление созданной папки (downloads), и скрипта установки программ (arch3my)'
