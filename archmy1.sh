@@ -8,7 +8,7 @@ BRANCH="master"
 AUTHOR="ordanax"
 LICENSE="GNU General Public License 3.0"
 
-### Description
+### Description (Описание)
 _arch_fast_install_banner() {
     echo -e "${BLUE}
 ┌─┐┬─┐┌─┐┬ ┬  ┬  ┬ ┬ ┬┬ ┬┌┌┐  ┬─┐┌─┐┌─┐┌┬┐  ┬ ┬ ┬┌─┐┌┬┐┌─┐┬  ┬  
@@ -110,10 +110,12 @@ _wget() {
 # Команды по установке :
 # archiso login: root (automatic login)
 
-echo 'Для проверки интернета можно пропинговать какой-либо сервис'
+echo 'To check the Internet, you can ping a service'
+# Для проверки интернета можно пропинговать какой-либо сервис
 ping -c2 archlinux.org 
 
-echo 'Настроим русский язык, изменим консольный шрифт на тот, который поддерживает кириллицу для удобства работы'
+echo 'Setting up the Russian language, changing the console font to one that supports Cyrillic for ease of use'
+ # Настроим русский язык, изменим консольный шрифт на тот, который поддерживает кириллицу для удобства работы
 loadkeys ru
 setfont cyr-sun16
 
@@ -121,9 +123,11 @@ setfont cyr-sun16
 _arch_fast_install_banner
 
 echo '2.3 Синхронизация системных часов'
+# Syncing the system clock
 timedatectl set-ntp true
 
-echo '2.4 создание разделов'
+echo '2.4 Создание разделов'
+# Create partitions
 (
   echo o;
 
@@ -156,15 +160,18 @@ echo '2.4 создание разделов'
 ) | fdisk /dev/sda
 
 echo 'Ваша разметка диска'
+# Your disk markup
 fdisk -l
 
 echo '2.4.2 Форматирование разделов диска'
+# Formatting disk partitions
 mkfs.ext2  /dev/sda1 -L boot
 mkswap /dev/sda2 -L swap
 mkfs.ext4  /dev/sda3 -L root
 mkfs.ext4  /dev/sda4 -L home
 
 echo '2.4.3 Монтирование разделов диска'
+# Mounting disk partitions
 mount /dev/sda3 /mnt
 mkdir /mnt/{boot,home}
 mount /dev/sda1 /mnt/boot
@@ -172,13 +179,17 @@ swapon /dev/sda2
 mount /dev/sda4 /mnt/home
 
 echo '3.1 Выбор серверов-зеркал для загрузки. Ставим зеркало от Яндекс'
+# The choice of mirror sites to download. Putting a mirror from Yandex
 echo "Server = http://mirror.yandex.ru/archlinux/\$repo/os/\$arch" > /etc/pacman.d/mirrorlist
 
-echo '3.2 Установка основных пакетов (base)'
+echo '3.2 Установка основных пакетов (base base-devel)'
+# Installing basic packages (base base-devel)
 pacstrap /mnt base base-devel linux-lts linux-firmware nano dhcpcd netctl vim
 
 echo '3.3 Настройка системы, генерируем fstab'
+# Configuring the system, generating fstab
 genfstab -pU /mnt >> /mnt/etc/fstab
 
 echo 'Меняем корень и переходим в нашу недавно скачанную систему'
+# Change the root and go to our recently downloaded system
 arch-chroot /mnt sh -c "$(curl -fsSL git.io/archmy2)"
