@@ -62,8 +62,10 @@ sudo pacman -S firefox firefox-i18n-ru firefox-spell-ru flashplugin pepper-flash
 
 echo 'Установка Брандмауэра UFW и Антивирусного пакета ClamAV (GUI)(GTK+)'
 # Installing the UFW Firewall and clamav Antivirus package (GUI) (GTK+)
-echo 'Установка Производится в порядке перечесления'
-echo 'Установить UFW (Uncomplicated Firewall) (GTK)?'
+echo 'Установка Производится в порядке перечисления'
+# Installation Is performed in the order listed
+echo 'Установить UFW (Несложный Брандмауэр) (GTK)?'
+# Install UFW (Uncomplicated Firewall) (GTK)?
 read -p "1 - Да, 0 - Нет: " prog_set
 if [[ $prog_set == 1 ]]; then
 sudo pacman -S ufw gufw --noconfirm
@@ -72,6 +74,7 @@ elif [[ $prog_set == 0 ]]; then
 fi
 
 echo 'Установить Clam AntiVirus (GTK)?'
+# Install Clam AntiVirus (GTK)?
 read -p "1 - Да, 0 - Нет: " prog_set
 if [[ $prog_set == 1 ]]; then
 sudo pacman -S clamav clamtk --noconfirm
@@ -80,8 +83,11 @@ elif [[ $prog_set == 0 ]]; then
 fi
 
 echo 'Установка Torrent клиентов - Transmission, qBittorrent, Deluge (GTK)(Qt)(GTK+)'
-echo 'Установка Производится в порядке перечесления'
+# Installing Torrent clients - Transmission, qBittorrent, Deluge (GTK) (Qt) (GTK+)
+echo 'Установка Производится в порядке перечисления'
+# Installation Is performed in the order listed
 echo 'Установить Transmission, qBittorrent, Deluge?'
+# Install Transmission, qBittorrent, Deluge?
 read -p "1 - Transmission, 2 - qBittorrent, 3 - Deluge, 0 - Нет: " prog_set
 if [[ $prog_set == 1 ]]; then
 sudo pacman -S transmission-gtk transmission-cli --noconfirm
@@ -94,8 +100,11 @@ elif [[ $prog_set == 0 ]]; then
 fi
 
 echo 'Установка Офиса (LibreOffice-still, или LibreOffice-fresh)'
-echo 'Установка Производится в порядке перечесления'
+# Office installation (LibreOffice-still, or LibreOffice-fresh)
+echo 'Установка Производится в порядке перечисления'
+# Installation Is performed in the order listed
 echo 'Установить LibreOffice-still, LibreOffice-fresh?'
+# Install the LibreOffice-still and LibreOffice-fresh?
 read -p "1 - LibreOffice-still, 2 - LibreOffice-fresh, 0 - Нет: " prog_set
 if [[ $prog_set == 1 ]]; then
 sudo pacman -S libreoffice-still libreoffice-still-ru --noconfirm
@@ -154,20 +163,20 @@ echo 'Создать резервную копию (дубликат) файла
 # Create a backup (duplicate) of the grub.cfg file
 cp /boot/grub/grub.cfg grub.cfg.backup
 
-#echo 'Добавить репозиторий archlinuxfr и вписать тему для Color.'
-#echo '[multilib]' >> /etc/pacman.conf
-#echo 'Include = /etc/pacman.d/mirrorlist' >> /etc/pacman.conf
-#sed -i 's/#Color/Color/' /etc/pacman.conf
-#echo 'ILoveCandy' >> /etc/pacman.conf
-#[archlinuxfr]
-#SigLevel = Never
-#Server = http://repo.archlinux.fr/$arch
-#pacman -Syy
+# echo 'Добавить репозиторий archlinuxfr и вписать тему для Color.'
+# echo '[multilib]' >> /etc/pacman.conf
+# echo 'Include = /etc/pacman.d/mirrorlist' >> /etc/pacman.conf
+# sed -i 's/#Color/Color/' /etc/pacman.conf
+# echo 'ILoveCandy' >> /etc/pacman.conf
+# [archlinuxfr]
+# SigLevel = Never
+# Server = http://repo.archlinux.fr/$arch
+# pacman -Syy
 
-#echo 'Добавить оскорбительное выражение после неверного ввода пароля в терминале'
-#Откройте на редактирование файл sudoers следующей командой в терминале:
-#sudo nano /etc/sudoers
-#Когда откроется файл sudoers на редактирование, стрелками вниз/вверх переместитесь до строки:
+# echo 'Добавить оскорбительное выражение после неверного ввода пароля в терминале'
+# Откройте на редактирование файл sudoers следующей командой в терминале:
+# sudo nano /etc/sudoers
+# Когда откроется файл sudoers на редактирование, стрелками вниз/вверх переместитесь до строки:
 ## Defaults env_keep += "QTDIR KDEDIR"
 # и ниже скопипастите следующую стоку:
 # Defaults  badpass_message="Ты не администратор, придурок."
@@ -183,7 +192,12 @@ echo 'Установка завершена!'
 echo 'Желательно перезагрузить систему для применения изменений'
 # It is advisable to restart the system to apply the changes
 
-
+echo 'Скачать и произвести запуск скрипта (archmy4)'
+# Download and run the script (archmy4)
+# echo 'wget git.io/archmy4 && sh archmy4'
+echo 'wget git.io/archmy4'
+wget git.io/archmy4 
+# wget git.io/yay-install.sh && sh yay-install.sh --noconfirm
 
 
 
