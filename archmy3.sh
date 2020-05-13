@@ -199,12 +199,12 @@ elif [[ $prog_set == 0 ]]; then
   echo 'Установка программ пропущена.'
 fi
 
-echo 'Утилиты для форматируем флеш-накопителя с файловой системой exFAT в Linux'
+echo 'Утилиты для форматирования флэш-накопителя с файловой системой exFAT в Linux'
 # Utilities for formatting a flash drive with the exFAT file system in Linux
 sudo pacman -S exfat-utils fuse-exfat --noconfirm 
 
 echo 'Установка "Pacman gui","Octopi" (AUR)(GTK)(QT)'
-# Installing "Pacman gui", "Octopi" (AUR)(GTK) (QT)
+# Installing "Pacman gui", "Octopi" (AUR)(GTK)(QT)
 echo 'Установка Производится в порядке перечисления'
 # Installation Is performed in the order listed
 echo 'Установить "pamac-aur", "octopi"?'
@@ -242,15 +242,15 @@ echo 'Создать резервную копию (дубликат) файла
 # Create a backup (duplicate) of the grub.cfg file
 cp /boot/grub/grub.cfg grub.cfg.backup
 
-# echo 'Добавить репозиторий archlinuxfr и вписать тему для Color.'
-# echo '[multilib]' >> /etc/pacman.conf
-# echo 'Include = /etc/pacman.d/mirrorlist' >> /etc/pacman.conf
+# ============================================================================
+
+# !'Добавить репозиторий archlinuxfr и вписать тему для Color.'
 # sed -i 's/#Color/Color/' /etc/pacman.conf
-# echo 'ILoveCandy' >> /etc/pacman.conf
+# ILoveCandy  >> /etc/pacman.conf
 # [archlinuxfr]
 # SigLevel = Never
 # Server = http://repo.archlinux.fr/$arch
-# pacman -Syy
+# sudo pacman -Syy
 
 # echo 'Добавить оскорбительное выражение после неверного ввода пароля в терминале'
 # Откройте на редактирование файл sudoers следующей командой в терминале:
@@ -259,6 +259,8 @@ cp /boot/grub/grub.cfg grub.cfg.backup
 ## Defaults env_keep += "QTDIR KDEDIR"
 # и ниже скопипастите следующую стоку:
 # Defaults  badpass_message="Ты не администратор, придурок."
+
+# ============================================================================
 
 echo 'Удаление созданной папки (downloads), и скрипта установки программ (arch3my)'
 # Deleting the created folder (downloads) and the program installation script (arch3my)
