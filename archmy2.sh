@@ -90,6 +90,9 @@ pacman -S networkmanager network-manager-applet ppp --noconfirm
 echo 'Ставим шрифты'
 pacman -S ttf-liberation ttf-dejavu opendesktop-fonts ttf-bitstream-vera ttf-arphic-ukai ttf-arphic-uming ttf-hanazono --noconfirm 
 
+echo 'Установка базовых программ и пакетов'
+sudo pacman -S wget --noconfirm
+
 echo 'Подключаем автозагрузку менеджера входа и интернет'
 systemctl enable lightdm.service 
 systemctl enable NetworkManager
