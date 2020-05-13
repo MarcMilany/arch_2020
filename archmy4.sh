@@ -124,6 +124,18 @@ echo 'Онлайн мессенжеры и Телефония, Управлен�
 #
 yay -S skypeforlinux-stable-bin skype-call-recorder vk-messenger viber pidgin-extprefs --noconfirm 
 
+echo 'Утилиты для работы с CD,DVD, создание ISO образов, запись на флеш-накопители AUR'
+#
+yay -S woeusb-git mintstick unetbootin --noconfirm 
+
+echo 'Сетевые утилиты, Tor, VPN, SSH, Samba и тд...'
+#
+sudo pacman -S --noconfirm
+
+echo 'Сетевые утилиты, Tor, VPN, SSH, Samba и тд... AUR'
+#
+yay -S --noconfirm 
+
 echo 'Установить рекомендумые программы?'
 #
 echo -e "${BLUE}
@@ -179,7 +191,7 @@ echo -e "${BLUE}
 ${NC}"
 read -p "1 - Да, 0 - Нет: " prog_set
 if [[ $prog_set == 1 ]]; then
-yay -S gksu debtap caffeine-ng inxi xneur fsearch-git cherrytree timeshift mocicon multiload-ng-indicator-gtk xfce4-multiload-ng-plugin-gtk2 keepass2-plugin-tray-icon gconf-editor webtorrent-desktop xorg-xkill teamviewer corectrl qt4 xflux flameshot-git --noconfirm
+yay -S --noconfirm
 elif [[ $prog_set == 0 ]]; then
   echo 'Установка программ пропущена.'
 fi
