@@ -85,6 +85,8 @@ sleep 1
 echo 'Указываем язык системы'
 # Specify the system language
 echo 'LANG="ru_RU.UTF-8"' > /etc/locale.conf
+#export LANG=ru_RU.UTF-8
+#export LANG=en_US.UTF-8
 
 echo 'Вписываем KEYMAP=ru FONT=cyr-sun16'
 # Enter KEYMAP=ru FONT=cyr-sun16
