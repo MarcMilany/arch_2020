@@ -8,6 +8,8 @@ echo 'Прописываем имя компьютера'
 # Entering the computer name
 echo $hostname > /etc/hostname
 ln -svf /usr/share/zoneinfo/Europe/Moscow /etc/localtime
+#ln -sf /usr/share/zoneinfo/Europe/Moscow /etc/localtime
+#ln -s /usr/share/zoneinfo/Europe/Moscow /etc/localtime
 hwclock --systohc --utc
 
 echo 'Измените имя хоста'
@@ -54,6 +56,7 @@ echo '3.5 Устанавливаем загрузчик (grub)'
 pacman -Syy
 pacman -S grub --noconfirm 
 grub-install /dev/sda
+#grub-install --recheck /dev/sda
 
 echo 'Обновляем grub.cfg (Сгенерируем grub.cfg)'
 # Updating grub.cfg (Generating grub.cfg)
@@ -78,7 +81,9 @@ passwd $username
 echo 'Устанавливаем SUDO'
 # Installing SUDO
 pacman -S sudo --noconfirm
-echo '%wheel ALL=(ALL) ALL' >> /etc/sudoers
+#echo '%wheel ALL=(ALL) ALL' >> /etc/sudoers
+sed -i 's/# %wheel ALL=(ALL) ALL/%wheel ALL=(ALL) ALL/' /etc/sudoers
+#sed -i 's/# %wheel ALL=(ALL) NOPASSWD: ALL/%wheel ALL=(ALL) NOPASSWD: ALL/' /etc/sudoers
 
 echo 'Раскомментируем репозиторий multilib Для работы 32-битных приложений в 64-битной системе.'
 # Uncomment the multilib repository For running 32-bit applications on a 64-bit system
