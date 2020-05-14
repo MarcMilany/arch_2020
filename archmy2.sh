@@ -8,6 +8,7 @@ echo 'Прописываем имя компьютера'
 # Entering the computer name
 echo $hostname > /etc/hostname
 ln -svf /usr/share/zoneinfo/Europe/Moscow /etc/localtime
+hwclock --systohc --utc
 
 echo 'Измените имя хоста'
 # Change the host name
