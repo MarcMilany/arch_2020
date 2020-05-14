@@ -220,7 +220,7 @@ fi
 echo 'Установить рекомендумые программы из AUR?'
 #
 echo -e "${BLUE}
-'Список программ рекомендованных к установке:
+'Список программ рекомендованных к установке:${GREEN}
 gksu debtap caffeine-ng inxi xneur fsearch-git cherrytree timeshift mocicon multiload-ng-indicator-gtk xfce4-multiload-ng-plugin-gtk2 keepass2-plugin-tray-icon gconf-editor webtorrent-desktop xorg-xkill teamviewer corectrl'
 ${NC}"
 read -p "1 - Да, 0 - Нет: " prog_set
