@@ -122,6 +122,7 @@ setfont cyr-sun16
 ### Display banner (Дисплей баннер)
 _arch_fast_install_banner
 
+sleep 1
 echo '2.3 Синхронизация системных часов'
 # Syncing the system clock
 timedatectl set-ntp true
