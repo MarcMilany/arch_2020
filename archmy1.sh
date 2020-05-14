@@ -185,7 +185,32 @@ mount /dev/sda4 /mnt/home
 
 echo '3.1 Выбор серверов-зеркал для загрузки. Ставим зеркало от Яндекс'
 # The choice of mirror sites to download. Putting a mirror from Yandex
-echo "Server = http://mirror.yandex.ru/archlinux/\$repo/os/\$arch" > /etc/pacman.d/mirrorlist
+#echo "Server = http://mirror.yandex.ru/archlinux/\$repo/os/\$arch" > /etc/pacman.d/mirrorlist
+> /etc/pacman.d/mirrorlist
+cat <<EOF >>/etc/pacman.d/mirrorlist
+
+##
+## Arch Linux repository mirrorlist
+## Generated on 2020-05-14
+## HTTP IPv4 HTTPS
+##
+
+## Russia
+Server = https://mirror.rol.ru/archlinux/\$repo/os/\$arch
+Server = https://mirror.yandex.ru/archlinux/\$repo/os/\$arch
+#Server = http://mirror.rol.ru/archlinux/\$repo/os/\$arch
+#Server = http://mirror.truenetwork.ru/archlinux/\$repo/os/\$arch
+#Server = http://mirror.yandex.ru/archlinux/\$repo/os/\$arch
+#Server = http://archlinux.zepto.cloud/\$repo/os/\$arch
+
+EOF
+
+# Pacman Mirrorlist Generator
+# https://www.archlinux.org/mirrorlist/
+
+echo 'Обновление баз данных пакетов'
+# Update the databases of packages
+sudo pacman -Sy        
 
 echo '3.2 Установка основных пакетов (base base-devel)'
 # Installing basic packages (base base-devel)
