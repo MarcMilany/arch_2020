@@ -144,6 +144,12 @@ sudo pacman -S wget --noconfirm
 
 echo 'Выйдем из установленной системы'
 # Log out of the installed system
-exit
-
+### Reboot with 10s timeout
+_reboot() {
+    for (( SECOND=10; SECOND>=1; SECOND-- )); do
+        echo -ne "\r\033[K${GREEN}${MSG_REBOOT} ${SECOND}s...${NC}"
+        sleep 1
+    done
+    reboot; exit 0
+}
 
