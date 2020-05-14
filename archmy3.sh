@@ -193,7 +193,7 @@ fi
 echo 'Установить рекомендованные программы?'
 # Install the recommended programs
 echo -e "${BLUE}
-'Список программ рекомендованных к установке:
+'Список программ рекомендованных к установке:${GREEN}
 bleachbit gparted grub-customizer conky conky-manager dconf-editor doublecmd-gtk2 gnome-system-monitor obs-studio openshot frei0r-plugins lib32-simplescreenrecorder simplescreenrecorder redshift veracrypt onboard clonezilla moc filezilla gnome-calculator nomacs osmo synapse telegram-desktop plank psensor keepass copyq variety grsync numlockx modem-manager-gui uget xarchiver-gtk2 rofi gsmartcontrol testdisk glances tlp tlp-rdw file-roller meld cmake xterm'
 ${NC}"
 read -p "1 - Да, 0 - Нет: " prog_set
@@ -265,29 +265,11 @@ sudo cp /boot/grub/grub.cfg grub.cfg.backup
 #     Defaults  badpass_message="Ты не администратор, придурок."
 #
 # ============================================================================
-#
-# Если возникли проблемы с обновлением, или установкой пакетов 
-# Выполните данные рекомендации:
-# author: 
-#
-# echo 'Обновление ключей системы'
-# {
-# echo "Создаётся генерация мастер-ключа (брелка) pacman, введите пароль (не отображается)..."
-# sudo pacman-key --init
-# echo "Далее идёт поиск ключей..."
-# sudo pacman-key --populate archlinux
-# echo "Обновление ключей..."
-# sudo pacman-key --refresh-keys
-# echo "Обновление баз данных пакетов..."
-# sudo pacman -Sy
-# }
-#
-# ============================================================================
 
-echo 'Удаление созданной папки (downloads), и скрипта установки программ (arch3my)'
-# Deleting the created folder (downloads) and the program installation script (arch3my)
+echo 'Удаление созданной папки (downloads), и скрипта установки программ (archmy3)'
+# Deleting the created folder (downloads) and the program installation script (archmy3)
 sudo rm -R ~/downloads/
-sudo rm -rf ~/arch3my
+sudo rm -rf ~/archmy3
 
 echo 'Установка завершена!'
 # The installation is now complete!
