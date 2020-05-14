@@ -50,11 +50,11 @@ fi
 # Команды для исправления уже в установленной системе:
 # Исправим ошибку времени, если она есть
 #sudo timedatectl set-local-rtc 1 --adjust-system-clock
-# Как вернуть обратно
+# Как вернуть обратно -
 #sudo timedatectl set-local-rtc 0
 # Для понимания сути команд статья с примерами -
-#https://losst.ru/sbivaetsya-vremya-v-ubuntu-i-windows
-#https://www.ekzorchik.ru/2012/04/hardware-time-settings-hwclock/
+# https://losst.ru/sbivaetsya-vremya-v-ubuntu-i-windows
+# https://www.ekzorchik.ru/2012/04/hardware-time-settings-hwclock/
 
 echo 'Проверим аппаратное время' 
 # Check the hardware time
@@ -97,11 +97,13 @@ echo 'Создадим загрузочный RAM диск (начальный R
 # Creating a bootable RAM disk (initial RAM disk)
 mkinitcpio -p linux-lts
 # Команда: mkinitcpio -p linux-lts  - применяется, если Вы устанавливаете
-# стабильное ядро (linux-ltc), иначе вай..вай... может быть ошибка !  
+# стабильное ядро (linux-ltc), иначе вай..вай... может быть ошибка!  
 # В остальных случаях при установке Arch'a с ядром (linux) идущим вместе   
-# с устанавливаемым релизом применяется команда : mkinitcpio -p linux .
-# mkinitcpio -p linux
-# mkinitcpio -P linux
+# с устанавливаемым релизом применяется команда : mkinitcpio -p linux.
+# Ошибки при создании RAM mkinitcpio -p linux. Как исправить?
+# https://qna.habr.com/q/545694
+#mkinitcpio -p linux
+#mkinitcpio -P linux
 
 echo 'Создаем root пароль'
 # Creating a root password
@@ -126,9 +128,12 @@ echo 'Ставим программу для Wi-fi'
 # Install the program for Wi-fi
 pacman -S dialog wpa_supplicant --noconfirm 
 
-echo 'Добавляем пользователя'
-# Adding a user
+echo 'Добавляем пользователя и прописываем права, группы'
+# Adding a user and prescribing rights, groups
+#useradd -m -g users -G wheel -s /bin/bash $username
 useradd -m -g users -G wheel,audio,games,lp,optical,power,scanner,storage,video,sys -s /bin/bash $username
+# или есть команда с правами 'админа' :
+#useradd -m -g users -G adm,audio,games,lp,optical,power,scanner,storage,video,sys,wheel -s /bin/bash $username
 
 echo 'Устанавливаем пароль пользователя'
 # Setting the user password
