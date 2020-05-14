@@ -16,8 +16,19 @@ ln -svf /usr/share/zoneinfo/Europe/Moscow /etc/localtime
 #ln -svf /usr/share/zoneinfo/Asia/Yekaterinburg /etc/localtime
 #ln -svf /usr/share/zoneinfo/Europe/Kiev /etc/localtime
 
-
+echo 'Установить рекомендованные программы?'
+# Install the recommended programs
+echo -e "${BLUE}
+'Список программ рекомендованных к установке:'${GREEN}
+read -p "1 - UTC, 2 - Localtime, 0 - Пропустить: "${NC}" prog_set
+if [[ $prog_set == 1 ]]; then
 hwclock --systohc --utc
+elif [[ $prog_set == 2 ]]; then
+hwclock --systohc --local
+elif [[ $prog_set == 0 ]]; then
+  echo 'Установка программ пропущена.'
+fi
+#hwclock --systohc --utc
 #hwclock --systohc --local
 # Команды дляисправления уже в установленной системе:
 # Исправим ошибку времени, если она есть
