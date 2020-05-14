@@ -222,6 +222,14 @@ elif [[ $prog_set == 0 ]]; then
   echo 'Установка программ пропущена.'
 fi
 
+echo 'Добавим новый репозиторий [archlinuxfr], и пропишем тему для Color в pacman.conf'
+# Add a new repository [archlinuxfr], and write the theme for Color in pacman.conf
+echo 'ILoveCandy' >> /etc/pacman.conf
+echo '[archlinuxfr]' >> /etc/pacman.conf
+echo '[SigLevel = Never]' >> /etc/pacman.conf
+echo 'Server = http://repo.archlinux.fr/$arch' >> /etc/pacman.conf
+pacman -Syy
+
 echo 'Обновим информацию о шрифтах'
 # Update information about fonts
 sudo fc-cache -f -v
@@ -238,6 +246,7 @@ echo 'Добавляем в автозагрузку сетевой экран'
 # Adding the network screen to auto-upload
 sudo systemctl enable ufw
 
+sleep 1
 echo 'Проверим статус запуска сетевой экран UFW'
 # Check the startup status of the UFW network screen
 sudo ufw status
@@ -247,15 +256,6 @@ echo 'Создать резервную копию (дубликат) файла
 sudo cp /boot/grub/grub.cfg grub.cfg.backup
 
 # ============================================================================
-#
-# !'Добавить репозиторий archlinuxfr и вписать тему для Color.'
-# sed -i 's/#Color/Color/' /etc/pacman.conf
-# ILoveCandy  >> /etc/pacman.conf
-# [archlinuxfr]
-# SigLevel = Never
-# Server = http://repo.archlinux.fr/$arch
-# sudo pacman -Syy
-
 # echo 'Добавить оскорбительное выражение после неверного ввода пароля в терминале'
 # Откройте на редактирование файл sudoers следующей командой в терминале:
 # sudo nano /etc/sudoers
@@ -263,7 +263,6 @@ sudo cp /boot/grub/grub.cfg grub.cfg.backup
 #   # Defaults env_keep += "QTDIR KDEDIR"
 # и ниже скопипастите следующую стоку:
 #     Defaults  badpass_message="Ты не администратор, придурок."
-#
 # ============================================================================
 
 echo 'Удаление созданной папки (downloads), и скрипта установки программ (archmy3)'
