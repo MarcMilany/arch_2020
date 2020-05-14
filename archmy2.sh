@@ -26,6 +26,7 @@ echo 'Обновим текущую локаль системы'
 # Update the current system locale
 locale-gen
 
+sleep 1
 echo 'Указываем язык системы'
 # Specify the system language
 echo 'LANG="ru_RU.UTF-8"' > /etc/locale.conf
@@ -122,7 +123,8 @@ pacman -S ttf-liberation ttf-dejavu opendesktop-fonts ttf-arphic-ukai ttf-arphic
 
 echo 'Подключаем автозагрузку менеджера входа и интернет'
 # Enabling auto-upload of the login Manager and the Internet
-systemctl enable lightdm.service 
+systemctl enable lightdm.service
+sleep 1 
 systemctl enable NetworkManager
 
 echo 'Создаем нужные директории'
