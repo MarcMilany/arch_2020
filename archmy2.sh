@@ -18,6 +18,9 @@ ln -svf /usr/share/zoneinfo/Europe/Moscow /etc/localtime
 
 echo 'Настроим состояние аппаратных и программных часов'
 # Setting up the state of the hardware and software clock
+echo 'Показать аппаратное время' 
+# Show hardware time
+hwclock     
 echo -e "${BLUE}
 'Windows и Linux работают по-разному с этими двумя часами. 
 Есть два способа работы:${GREEN}
@@ -51,6 +54,11 @@ fi
 #sudo timedatectl set-local-rtc 0
 # Для понимания сути команд статья с примерами -
 #https://losst.ru/sbivaetsya-vremya-v-ubuntu-i-windows
+#https://www.ekzorchik.ru/2012/04/hardware-time-settings-hwclock/
+
+echo 'Проверим аппаратное время' 
+# Check the hardware time
+hwclock
 
 echo 'Посмотрим текущее состояние аппаратных и программных часов'
 # Let's see the current state of the hardware and software clock
