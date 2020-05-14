@@ -88,6 +88,10 @@ echo 'CONSOLEMAP' >> /etc/vconsole.conf
 echo 'Создадим загрузочный RAM диск (начальный RAM-диск)'
 # Creating a bootable RAM disk (initial RAM disk)
 mkinitcpio -p linux-lts
+# Команда: mkinitcpio -p linux-lts  - применяется, если Вы устанавливаете
+# стабильное ядро (linux-ltc), иначе вай..вай... может быть ошибка !  
+# В остальных случаях при установке Arch'a с ядром (linux) идущим вместе   
+# с устанавливаемым релизом применяется команда : mkinitcpio -p linux .
 # mkinitcpio -p linux
 # mkinitcpio -P linux
 
