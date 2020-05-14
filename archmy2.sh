@@ -80,9 +80,15 @@ echo '%wheel ALL=(ALL) ALL' >> /etc/sudoers
 
 echo 'Раскомментируем репозиторий multilib Для работы 32-битных приложений в 64-битной системе.'
 # Uncomment the multilib repository For running 32-bit applications on a 64-bit system
-echo '[multilib]' >> /etc/pacman.conf
-echo 'Include = /etc/pacman.d/mirrorlist' >> /etc/pacman.conf
+#echo '[multilib]' >> /etc/pacman.conf
+#echo 'Include = /etc/pacman.d/mirrorlist' >> /etc/pacman.conf
+sed -i 's/#[multilib]/[multilib]/' /etc/pacman.conf
+sed -i 's/#Include = /etc/pacman.d/mirrorlist/Include = /etc/pacman.d/mirrorlist/' /etc/pacman.conf
 sed -i 's/#Color/Color/' /etc/pacman.conf
+#echo 'ILoveCandy' >> /etc/pacman.conf
+#echo '[archlinuxfr]' >> /etc/pacman.conf
+#echo '[SigLevel = Never]' >> /etc/pacman.conf
+#echo 'Server = http://repo.archlinux.fr/$arch' >> /etc/pacman.conf
 pacman -Syy
 
 echo "Куда устанавливем Arch Linux на виртуальную машину?"
