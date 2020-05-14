@@ -13,12 +13,17 @@ echo 'Установите ваш часовой пояс'
 ln -svf /usr/share/zoneinfo/Europe/Moscow /etc/localtime
 #ln -sf /usr/share/zoneinfo/Europe/Moscow /etc/localtime
 #ln -s /usr/share/zoneinfo/Europe/Moscow /etc/localtime
-#
-#
+#ln -svf /usr/share/zoneinfo/Asia/Yekaterinburg /etc/localtime
+#ln -svf /usr/share/zoneinfo/Europe/Kiev /etc/localtime
 
 
 hwclock --systohc --utc
 #hwclock --systohc --local
+# 
+
+echo 'Посмотрим текущее состояние аппаратных и программных часов'
+# Let's see the current state of the hardware and software clock
+sudo timedatectl
 
 echo 'Измените имя хоста'
 # Change the host name
