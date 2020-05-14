@@ -7,10 +7,18 @@ read -p "Введите имя пользователя: " username
 echo 'Прописываем имя компьютера'
 # Entering the computer name
 echo $hostname > /etc/hostname
+
+echo 'Установите ваш часовой пояс'
+# Set your time zone
 ln -svf /usr/share/zoneinfo/Europe/Moscow /etc/localtime
 #ln -sf /usr/share/zoneinfo/Europe/Moscow /etc/localtime
 #ln -s /usr/share/zoneinfo/Europe/Moscow /etc/localtime
+#
+#
+
+
 hwclock --systohc --utc
+#hwclock --systohc --local
 
 echo 'Измените имя хоста'
 # Change the host name
