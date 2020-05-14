@@ -19,7 +19,10 @@ ln -svf /usr/share/zoneinfo/Europe/Moscow /etc/localtime
 
 hwclock --systohc --utc
 #hwclock --systohc --local
-# 
+# Исправим ошибку времени, если она есть
+#timedatectl set-local-rtc 1 --adjust-system-clock
+# Как вернуть обратно
+#sudo timedatectl set-local-rtc 0
 
 echo 'Посмотрим текущее состояние аппаратных и программных часов'
 # Let's see the current state of the hardware and software clock
