@@ -284,7 +284,7 @@ echo 'wget git.io/archmy4'
 # Команды по установке :
 # wget git.io/archmy4 
 # wget git.io/archmy4 && sh archmy4 --noconfirm
-
+time
 # ============================================================================
 # echo 'Установка базовых программ и пакетов'
 # Installing basic programs and packages
