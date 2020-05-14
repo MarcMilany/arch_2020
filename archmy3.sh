@@ -264,6 +264,10 @@ sudo cp /boot/grub/grub.cfg grub.cfg.backup
 # и ниже скопипастите следующую стоку:
 #     Defaults  badpass_message="Ты не администратор, придурок."
 # ============================================================================
+echo 'Запуск звуковой системы PulseAudio'
+# Starting the PulseAudio sound system
+sudo start-pulseaudio-x11
+# Выполнить эту команду только после установки утилит 'Поддержка звука' и перезагрузки системы, если сервис 'Запуск системы PulseAudio (Запуск звуковой системы PulseAudio)'не включился, и не появился в автозапуске. Это можно посмотреть через диспетчер настроек, в пункте меню 'Сеансы и автозапуск'.
 
 echo 'Удаление созданной папки (downloads), и скрипта установки программ (archmy3)'
 # Deleting the created folder (downloads) and the program installation script (archmy3)
