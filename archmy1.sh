@@ -186,6 +186,7 @@ echo "Server = http://mirror.yandex.ru/archlinux/\$repo/os/\$arch" > /etc/pacman
 echo '3.2 Установка основных пакетов (base base-devel)'
 # Installing basic packages (base base-devel)
 pacstrap /mnt base base-devel linux-lts linux-firmware nano dhcpcd netctl vim
+#pacstrap -i /mnt base base-devel linux linux-firmware nano dhcpcd netctl vim --noconfirm
 
 echo '3.3 Настройка системы, генерируем fstab'
 # Configuring the system, generating fstab
