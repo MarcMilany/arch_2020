@@ -1,5 +1,20 @@
 #!/bin/bash
 # ============================================================================
+### Warning (Предупреждение)
+_warning_banner() {
+    echo -e "${RED}
+# ====================== ♥ Предупреждение ====================== ${BLUE} 
+
+Цель сценария (скрипта) - это установка необходимого софта (пакетов) и запуск необходимых служб. 
+Смысл в том, что все изменения вы делаете предварительно в самом скрипте и получаете возможность быстрой установки утилит (пакетов), которые Вы решили установить (при условии, что Вы его изменили под себя, в противном случае скрипт установит софт (пакеты) прописанный изначально.
+В процессе работы сценария (скрипта) Вам будут задаваться вопросы на установку той, или иной утилиты (пакета) - будьте внимательными! Остальной софт (пакеты) скачивается и устанавливается из 'Официальных репозиториев Arch Linux'. Если Вы сомневаетесь в своих действиях, скриптом можно пользоваться как шпаргалкой, открыв его в текстовом редакторе, копируя команды по установке необходимых пакетов, и запуска необходимых служб. В любой ситуации выбор всегда за вами. Вы либо гуляете под дождем, либо просто под ним мокнете.${RED}
+
+# ====================== ВНИМАНИЕ! ====================== #${NC}
+Автор не несет ответственности за любое нанесение вреда при использовании скрипта. 
+Вы используйте его на свой страх и риск, или изменяйте под свои личные нужды."
+}
+
+# ============================================================================
 ### Help and usage (--help or -h) (Справка)
 _help() {
     echo -e "${BLUE}
@@ -67,14 +82,18 @@ _wget() {
 }
 
 # ============================================================================
-# Если возникли проблемы с обновлением, или установкой пакетов 
-# Выполните данные рекомендации:
-# author:
 
+### Display banner (Дисплей баннер)
+_warning_banner
+
+sleep 4
 echo 'Для проверки интернета можно пропинговать какой-либо сервис'
 # To check the Internet, you can ping a service
 ping -c2 archlinux.org
 
+# Если возникли проблемы с обновлением, или установкой пакетов 
+# Выполните данные рекомендации:
+# author:
 echo 'Обновление ключей системы'
 # Updating of keys of a system
 {
@@ -212,7 +231,7 @@ keepass2-plugin-tray-icon'
 ${NC}"
 read -p "1 - Да, 0 - Нет: " prog_set
 if [[ $prog_set == 1 ]]; then
-  sudo pacman -S keepass2-plugin-tray-icon --noconfirm 
+sudo pacman -S keepass2-plugin-tray-icon --noconfirm 
 elif [[ $prog_set == 0 ]]; then
   echo 'Установка программ пропущена.'
 fi
@@ -246,7 +265,7 @@ galculator-gtk2'
 ${NC}"
 read -p "1 - Да, 0 - Нет: " prog_set
 if [[ $prog_set == 1 ]]; then
-  sudo pacman -S galculator-gtk2 --noconfirm 
+sudo pacman -S galculator-gtk2 --noconfirm 
 elif [[ $prog_set == 0 ]]; then
   echo 'Установка программ пропущена.'
 fi
@@ -264,6 +283,10 @@ elif [[ $prog_set == 0 ]]; then
   echo 'Установка программ пропущена.'
 fi
 
+echo 'Обновим информацию о шрифтах'
+# Update information about fonts
+sudo fc-cache -f -v
+
 #echo 'Установка тем'
 #yay -S osx-arc-shadow papirus-maia-icon-theme-git breeze-default-cursor-theme --noconfirm
 
@@ -276,14 +299,54 @@ fi
 #sudo rm -rf /usr/share/backgrounds/xfce/* #Удаляем стандартрые обои
 #sudo mv -f ~/Downloads/bg.jpg /usr/share/backgrounds/xfce/bg.jpg
 
-echo 'Удаление созданной папки (downloads), и скрипта установки программ (arch3my)'
-# Deleting the created folder (downloads) and the program installation script (arch3my)
-sudo rm -R ~/downloads/
-sudo rm -rf ~/arch4my
+echo 'Список всех пакетов-сирот'
+# List of all orphan packages
+sudo pacman -Qdt 
 
+sleep 5
+echo 'Удаление всех пакетов-сирот?'
+# Deleting all orphaned packages?
+read -p "1 - Да, 0 - Нет: " prog_set
+if [[ $prog_set == 1 ]]; then
+sudo pacman -Qdtq
+elif [[ $prog_set == 0 ]]; then
+  echo 'Удаление пакетов-сирот пропущено.'
+fi    
+
+echo 'Очистка кэша неустановленных пакетов'
+# Clearing the cache of uninstalled packages
+read -p "1 - Да, 0 - Нет: " prog_set
+if [[ $prog_set == 1 ]]; then
+sudo pacman -Sc 
+elif [[ $prog_set == 0 ]]; then
+  echo 'Очистка кэша пропущена.'
+fi  
+
+echo 'Очистка кэша пакетов'
+# Clearing the package cache
+read -p "1 - Да, 0 - Нет: " prog_set
+if [[ $prog_set == 1 ]]; then
+sudo pacman -Scc 
+elif [[ $prog_set == 0 ]]; then
+  echo 'Очистка кэша пропущена.'
+fi 
+
+echo 'Список Установленного софта (пакетов)'
+#List of Installed software (packages)
+sudo pacman -Qqe
+
+sleep 5
 echo 'Установка завершена!'
 # The installation is now complete!
 
 echo 'Желательно перезагрузить систему для применения изменений'
 # It is advisable to restart the system to apply the changes
+# ============================================================================
+time
+
+echo 'Удаление созданной папки (downloads), и скрипта установки программ (arch3my)'
+# Deleting the created folder (downloads) and the program installation script (arch3my)
+sudo rm -R ~/downloads/
+sudo rm -rf ~/arch4my
+
 
