@@ -66,6 +66,20 @@ _wget() {
     wget "${1}" --quiet --show-progress
 }
 
+### Reboot with 10s timeout
+_reboot() {
+    for (( SECOND=10; SECOND>=1; SECOND-- )); do
+        echo -ne "\r\033[K${GREEN}${MSG_REBOOT} ${SECOND}s...${NC}"
+        sleep 1
+    done
+    reboot; exit 0
+}
+### Say goodbye
+_exit_msg() {
+    echo -e "\n${GREEN}<<< ${BLUE}${APPNAME} ${VERSION} ${BOLD}by \
+${AUTHOR} ${RED}under ${LICENSE} ${GREEN}>>>${NC}"""
+}
+
 # ============================================================================
 
 # Enter the computer name
@@ -280,16 +294,4 @@ sudo pacman -S wget --noconfirm
 echo 'Выйдем из установленной системы'
 # Log out of the installed system
 #exit
-### Reboot with 10s timeout
-_reboot() {
-    for (( SECOND=10; SECOND>=1; SECOND-- )); do
-        echo -ne "\r\033[K${GREEN}${MSG_REBOOT} ${SECOND}s...${NC}"
-        sleep 1
-    done
-    reboot; exit 0
-}
-### Say goodbye
-_exit_msg() {
-    echo -e "\n${GREEN}<<< ${BLUE}${APPNAME} ${VERSION} ${BOLD}by \
-${AUTHOR} ${RED}under ${LICENSE} ${GREEN}>>>${NC}"""
-}
+
