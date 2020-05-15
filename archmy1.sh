@@ -187,7 +187,7 @@ setfont cyr-sun16
 ### Display banner (Дисплей баннер)
 _arch_fast_install_banner
 
-sleep 1
+sleep 05
 echo -e "${GREEN}
 'Начинается установка минимальной системы Arch Linux'
 ${NC}"
