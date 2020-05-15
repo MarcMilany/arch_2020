@@ -66,6 +66,50 @@ _wget() {
     wget "${1}" --quiet --show-progress
 }
 
+### Execute action in chrooted environment
+_chroot() {
+    arch-chroot /mnt <<EOF "${1}"
+EOF
+}
+
+### Check command status and exit on error
+_check() {
+    "${@}"
+    local STATUS=$?
+    if [[ ${STATUS} -ne 0 ]]; then _error "${@}"; fi
+    return "${STATUS}"
+}
+
+### Display error, cleanup and kill
+_error() {
+    echo -e "\n${RED}Error: ${YELLOW}${*}${NC}"
+    _note "${MSG_ERROR}"
+    sleep 1; _cleanup; _exit_msg; kill -9 $$
+}
+
+### Cleanup on keyboard interrupt
+trap '_error ${MSG_KEYBOARD}' 1 2 3 6
+
+### Delete sources and umount partitions
+_cleanup() {
+    _info "${MSG_CLEANUP}"
+    SRC=(base bootloader desktop display firmware gpu_driver mirrorlist \
+mounting partitioning user desktop_apps display_apps gpu_apps system_apps \
+00-keyboard.conf language loader.conf timezone xinitrc xprofile \
+background.png Grub2-themes archboot* *.log english french german)
+
+    # Sources (rm)
+    for SOURCE in "${SRC[@]}"; do
+        if [[ -f "${SOURCE}" ]]; then rm -rfv "${SOURCE}"; fi
+    done
+
+    # Swap (swapoff)
+    CHECK_SWAP=$( swapon -s ); if [[ ${CHECK_SWAP} ]]; then swapoff -av; fi
+
+    # Partitions (umount)
+    if mount | grep /mnt; then umount -Rfv /mnt; fi
+}
+
 ### Reboot with 10s timeout
 _reboot() {
     for (( SECOND=10; SECOND>=1; SECOND-- )); do
@@ -74,6 +118,7 @@ _reboot() {
     done
     reboot; exit 0
 }
+
 ### Say goodbye
 _exit_msg() {
     echo -e "\n${GREEN}<<< ${BLUE}${APPNAME} ${VERSION} ${BOLD}by \
@@ -294,4 +339,9 @@ sudo pacman -S wget --noconfirm
 echo 'Выйдем из установленной системы'
 # Log out of the installed system
 #exit
+_confirm "${MSG_CONFIRM_REBOOT}"
 
+case ${CONFIRM} in
+    y|Y|yes|Yes|YES) _exit_msg; _reboot;;
+    *) _exit_msg; exit 0
+esac
