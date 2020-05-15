@@ -124,14 +124,10 @@ setfont cyr-sun16
 ### Display banner (Дисплей баннер)
 _arch_fast_install_banner
 
-sleep 4
+sleep 5
 echo '2.3 Синхронизация системных часов'
 # Syncing the system clock
 timedatectl set-ntp true
-
-echo 'Посмотрим текущее состояние аппаратных и программных часов'
-# Let's see the current state of the hardware and software clock
-timedatectl
 
 echo '2.4 Создание разделов'
 # Create partitions
