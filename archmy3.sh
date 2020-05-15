@@ -306,11 +306,6 @@ echo 'Запуск звуковой системы PulseAudio'
 sudo start-pulseaudio-x11
 # Выполнить эту команду только после установки утилит 'Поддержка звука' и перезагрузки системы, если сервис 'Запуск системы PulseAudio (Запуск звуковой системы PulseAudio)'не включился, и не появился в автозапуске. Это можно посмотреть через, диспетчер настроек, в пункте меню 'Сеансы и автозапуск'.
 
-echo 'Удаление созданной папки (downloads), и скрипта установки программ (archmy3)'
-# Deleting the created folder (downloads) and the program installation script (archmy3)
-sudo rm -R ~/downloads/
-sudo rm -rf ~/archmy3
-
 echo 'Установка завершена!'
 # The installation is now complete!
 
@@ -327,3 +322,9 @@ echo 'wget git.io/archmy4'
 echo '♥ Либо ты идешь вперед... либо в зад.' 
 # ============================================================================
 time
+
+echo 'Удаление созданной папки (downloads), и скрипта установки программ (archmy3)'
+# Deleting the created folder (downloads) and the program installation script (archmy3)
+sudo rm -R ~/downloads/
+sudo rm -rf ~/archmy3
+
