@@ -27,6 +27,8 @@ Arch Linux - это дистрибутив общего назначения. П
 Вы используйте его на свой страх и риск, или изменяйте под свои личные нужды."
 }
 
+# ============================================================================
+
 ### Help and usage (--help or -h) (Справка)
 _help() {
     echo -e "${BLUE}
@@ -91,6 +93,65 @@ _select() {
 ### Download show progress bar only (Скачать показывать только индикатор выполнения)
 _wget() {
     wget "${1}" --quiet --show-progress
+}
+
+### Execute action in chrooted environment (Выполнение действия в хромированной среде)
+_chroot() {
+    arch-chroot /mnt <<EOF "${1}"
+EOF
+}
+
+### Check command status and exit on error (Проверьте состояние команды и завершите работу с ошибкой)
+_check() {
+    "${@}"
+    local STATUS=$?
+    if [[ ${STATUS} -ne 0 ]]; then _error "${@}"; fi
+    return "${STATUS}"
+}
+
+### Display error, cleanup and kill (Ошибка отображения, очистка и убийство)
+_error() {
+    echo -e "\n${RED}Error: ${YELLOW}${*}${NC}"
+    _note "${MSG_ERROR}"
+    sleep 1; _cleanup; _exit_msg; kill -9 $$
+}
+
+### Cleanup on keyboard interrupt (Очистка при прерывании работы клавиатуры)
+#trap '_error ${MSG_KEYBOARD}' 1 2 3 6
+
+### Delete sources and umount partitions (Удаление источников и размонтирование разделов)
+_cleanup() {
+    _info "${MSG_CLEANUP}"
+    SRC=(base bootloader desktop display firmware gpu_driver mirrorlist \
+mounting partitioning user desktop_apps display_apps gpu_apps system_apps \
+00-keyboard.conf language loader.conf timezone xinitrc xprofile \
+background.png Grub2-themes archboot* *.log english french german)
+
+    # Sources (rm) (Источники (rm))
+    for SOURCE in "${SRC[@]}"; do
+        if [[ -f "${SOURCE}" ]]; then rm -rfv "${SOURCE}"; fi
+    done
+
+    # Swap (swapoff) Своп (swapoff)
+    CHECK_SWAP=$( swapon -s ); if [[ ${CHECK_SWAP} ]]; then swapoff -av; fi
+
+    # Partitions (umount) Разделы (umount)
+    if mount | grep /mnt; then umount -Rfv /mnt; fi
+}
+
+### Reboot with 10s timeout Перезагрузка с таймаутом 10 секунд
+_reboot() {
+    for (( SECOND=10; SECOND>=1; SECOND-- )); do
+        echo -ne "\r\033[K${GREEN}${MSG_REBOOT} ${SECOND}s...${NC}"
+        sleep 1
+    done
+    reboot; exit 0
+}
+
+### Say goodbye (Распрощаться)
+_exit_msg() {
+    echo -e "\n${GREEN}<<< ${BLUE}${APPNAME} ${VERSION} ${BOLD}by \
+${AUTHOR} ${RED}under ${LICENSE} ${GREEN}>>>${NC}"""
 }
 
 # ============================================================================
