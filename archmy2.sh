@@ -146,7 +146,7 @@ ${AUTHOR} ${RED}under ${LICENSE} ${GREEN}>>>${NC}"""
 ### Display banner (Дисплей баннер)
 _arch_fast_install_banner_2
 
-sleep 05
+sleep 1
 # Enter the computer name
 # Enter your username
 read -p "Введите имя компьютера: " hostname
