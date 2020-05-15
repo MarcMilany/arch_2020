@@ -301,6 +301,7 @@ sudo cp /boot/grub/grub.cfg grub.cfg.backup
 # и ниже скопипастите следующую стоку:
 #     Defaults  badpass_message="Ты не администратор, придурок."
 # ============================================================================
+
 echo 'Запуск звуковой системы PulseAudio'
 # Starting the PulseAudio sound system
 sudo start-pulseaudio-x11
