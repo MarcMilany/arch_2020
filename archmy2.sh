@@ -17,10 +17,7 @@ ln -svf /usr/share/zoneinfo/Europe/Moscow /etc/localtime
 #ln -svf /usr/share/zoneinfo/Europe/Kiev /etc/localtime
 
 echo 'Настроим состояние аппаратных и программных часов'
-# Setting up the state of the hardware and software clock
-echo 'Показать аппаратное время' 
-# Show hardware time
-hwclock     
+# Setting up the state of the hardware and software clock    
 echo -e "${BLUE}
 'Windows и Linux работают по-разному с этими двумя часами. 
 Есть два способа работы:${GREEN}
@@ -62,7 +59,7 @@ hwclock
 
 echo 'Посмотрим текущее состояние аппаратных и программных часов'
 # Let's see the current state of the hardware and software clock
-sudo timedatectl
+timedatectl
 
 echo 'Измените имя хоста'
 # Change the host name
