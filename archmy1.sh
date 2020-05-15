@@ -112,10 +112,6 @@ _wget() {
 # Команды по установке :
 # archiso login: root (automatic login)
 
-### Display banner (Дисплей баннер)
-_arch_fast_install_banner
-
-sleep 1
 echo 'To check the Internet, you can ping a service'
 # Для проверки интернета можно пропинговать какой-либо сервис
 ping -c2 archlinux.org 
@@ -125,6 +121,10 @@ echo 'Setting up the Russian language, changing the console font to one that sup
 loadkeys ru
 setfont cyr-sun16
 
+### Display banner (Дисплей баннер)
+_arch_fast_install_banner
+
+sleep 1
 echo '2.3 Синхронизация системных часов'
 # Syncing the system clock
 timedatectl set-ntp true
