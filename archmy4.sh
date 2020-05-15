@@ -203,7 +203,7 @@ echo 'Установка дополнительных шрифтов AUR'
 # The installation of additional fonts AUR
 echo -e "${BLUE}
 'Список дополнительных шрифтов AUR:${GREEN}
-ttf-ms-fonts font-manager '
+ttf-ms-fonts font-manager'
 ${NC}"
 read -p "1 - Да, 0 - Нет: " prog_set
 if [[ $prog_set == 1 ]]; then
