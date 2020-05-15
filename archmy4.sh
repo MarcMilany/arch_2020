@@ -7,11 +7,12 @@ _warning_banner() {
 
 Цель сценария (скрипта) - это установка необходимого софта (пакетов) и запуск необходимых служб. 
 Смысл в том, что все изменения вы делаете предварительно в самом скрипте и получаете возможность быстрой установки утилит (пакетов), которые Вы решили установить (при условии, что Вы его изменили под себя, в противном случае скрипт установит софт (пакеты) прописанный изначально.
-В процессе работы сценария (скрипта) Вам будут задаваться вопросы на установку той, или иной утилиты (пакета) - будьте внимательными! Остальной софт (пакеты) скачивается и устанавливается из 'Официальных репозиториев Arch Linux'. Если Вы сомневаетесь в своих действиях, скриптом можно пользоваться как шпаргалкой, открыв его в текстовом редакторе, копируя команды по установке необходимых пакетов, и запуска необходимых служб. В любой ситуации выбор всегда за вами. Вы либо гуляете под дождем, либо просто под ним мокнете.${RED}
+В процессе работы сценария (скрипта) Вам будут задаваться вопросы на установку той, или иной утилиты (пакета) - будьте внимательными! Устанавливаемый софт (пакеты), шрифты - скачивается и устанавливается из 'Официальных репозиториев Arch Linux'. Так же присутствует софт (пакеты), шрифты - устанавливаемый из пользовательского репозитория 'AUR'-'yay', собираются и устанавливаются. Если Вы сомневаетесь в своих действиях, скриптом можно пользоваться как шпаргалкой, открыв его в текстовом редакторе, копируя команды по установке необходимых пакетов, и запуска необходимых служб. В любой ситуации выбор всегда за вами. Вы либо гуляете под дождем, либо просто под ним мокнете.${RED}
 
 # ====================== ВНИМАНИЕ! ====================== #${NC}
 Автор не несет ответственности за любое нанесение вреда при использовании скрипта. 
-Вы используйте его на свой страх и риск, или изменяйте под свои личные нужды."
+Вы используйте его на свой страх и риск, или изменяйте под свои личные нужды. 
+В данный момент сценарий (скрипта) находится в в процессе доработки по прописанию устанавливаемого софта (пакетов), и небольшой корректировке (Воен. Внесение поправок в наводку орудий по результатам наблюдений с наблюдательных пунктов)."
 }
 
 # ============================================================================
@@ -150,22 +151,28 @@ echo 'Для проверки интернета можно пропингова
 # To check the Internet, you can ping a service
 ping -c2 archlinux.org
 
+echo 'Обновление баз данных пакетов'
+# Update the databases of packages
+sudo pacman -Sy
+
+# ============================================================================
 # Если возникли проблемы с обновлением, или установкой пакетов 
 # Выполните данные рекомендации:
 # author:
-echo 'Обновление ключей системы'
+#echo 'Обновление ключей системы'
 # Updating of keys of a system
-{
-echo "Создаётся генерация мастер-ключа (брелка) pacman, введите пароль (не отображается)..."
-sudo pacman-key --init
-echo "Далее идёт поиск ключей..."
-sudo pacman-key --populate archlinux
-echo "Обновление ключей..."
-sudo pacman-key --refresh-keys
-echo "Обновление баз данных пакетов..."
-sudo pacman -Sy
-}
-
+#{
+#echo "Создаётся генерация мастер-ключа (брелка) pacman, введите пароль (не отображается)..."
+#sudo pacman-key --init
+#echo "Далее идёт поиск ключей..."
+#sudo pacman-key --populate archlinux
+#echo "Обновление ключей..."
+#sudo pacman-key --refresh-keys
+#echo "Обновление баз данных пакетов..."
+#sudo pacman -Sy
+#}
+#sleep 1
+#
 # ============================================================================
 
 echo 'Создадим папку (downloads), и переходим в созданную папку'
@@ -175,117 +182,149 @@ mkdir ~/downloads
 cd ~/downloads
 
 echo 'Установка дополнительных шрифтов'
-#
+# The installation of additional fonts
+echo -e "${BLUE}
+'Список дополнительных шрифтов:${GREEN}
+ttf-bitstream-vera freemind '
+${NC}"
+read -p "1 - Да, 0 - Нет: " prog_set
+if [[ $prog_set == 1 ]]; then
 sudo pacman -S ttf-bitstream-vera freemind --noconfirm
+elif [[ $prog_set == 0 ]]; then
+  echo 'Установка дополнительных шрифтов пропущена.'
+fi
 
 echo 'Обновим информацию о шрифтах'
 # Update information about fonts
 sudo fc-cache -f -v
 
-echo 'Установка шрифтов дополнительных AUR'
-#
+echo 'Установка дополнительных шрифтов AUR'
+# The installation of additional fonts AUR
+echo -e "${BLUE}
+'Список дополнительных шрифтов AUR:${GREEN}
+ttf-ms-fonts font-manager '
+${NC}"
+read -p "1 - Да, 0 - Нет: " prog_set
+if [[ $prog_set == 1 ]]; then
 yay -S ttf-ms-fonts font-manager --noconfirm 
+elif [[ $prog_set == 0 ]]; then
+  echo 'Установка дополнительных шрифтов AUR пропущена.'
+fi
 
 echo 'Обновим информацию о шрифтах'
 # Update information about fonts
 sudo fc-cache -f -v
 
 echo 'Установка Мультимедиа утилит'
-#
-sudo pacman -S --noconfirm 
-
+# Installing Multimedia utilities
+echo -e "${BLUE}
+'Список Мультимедиа утилит:${GREEN}
+сюда вписать список программ'
+${NC}"
+read -p "1 - Да, 0 - Нет: " prog_set
+if [[ $prog_set == 1 ]]; then
+sudo pacman -S --noconfirm
+elif [[ $prog_set == 0 ]]; then
+  echo 'Установка Мультимедиа утилит пропущена.'
+fi
+ 
 echo 'Установка Мультимедиа утилит AUR'
-#
+# Installing Multimedia utilities AUR
+echo -e "${BLUE}
+'Список Мультимедиа утилит AUR:${GREEN}
+radiotray spotify vlc-tunein-radio vlc-pause-click-plugin audiobook-git cozy-audiobooks m4baker-git mp3gain easymp3gain-gtk2 myrulib-git'
+${NC}"
+read -p "1 - Да, 0 - Нет: " prog_set
+if [[ $prog_set == 1 ]]; then
 yay -S radiotray spotify vlc-tunein-radio vlc-pause-click-plugin audiobook-git cozy-audiobooks m4baker-git mp3gain easymp3gain-gtk2 myrulib-git --noconfirm 
+elif [[ $prog_set == 0 ]]; then
+  echo 'Установка Мультимедиа утилит AUR пропущена.'
+fi
 
 echo 'Установка программ для обработки видео и аудио (конвертеры)'
-#
+# Installing software for video and audio processing (converters)
 sudo pacman -S kdenlive --noconfirm
 
 echo 'Установка программ для обработки видео и аудио (конвертеры) AUR'
-#
+# Installing software for video and audio processing (converters) AUR
 yay -S  --noconfirm
 
 echo 'Установка программ для рисования и редактирования изображений'
-#
+# Installing software for drawing and editing images
 sudo pacman -S gimp --noconfirm
 
 echo 'Установка программ для рисования и редактирования изображений AUR'
-#
+# Installing software for drawing and editing images AUR
 yay -S  --noconfirm
 
 echo 'Установка Oracle VM VirtualBox'
-#
+# Installing Oracle VM VirtualBox
 sudo pacman -S  --noconfirm
 
 echo 'Установка Oracle VM VirtualBox AUR'
-#
+# Installing Oracle VM VirtualBox AUR
 yay -S  --noconfirm
 
 echo 'Установка Java JDK средство разработки и среда для создания Java-приложений'
-#
+# Installing Java JDK development tool and environment for creating Java applications
 sudo pacman -S --noconfirm
 
 echo 'Установка Java JDK или Java Development Kit AUR'
-#
+# Installing Java JDK development tool and environment for creating Java applications AUR
 yay -S  --noconfirm
 
 echo 'Сетевые онлайн хранилища'
-#
+# Online storage networks
 sudo pacman -S --noconfirm
 
 echo 'Сетевые онлайн хранилища AUR'
-#
+# Online storage networks AUR
 yay -S megasync thunar-megasync yandex-disk yandex-disk-indicator dropbox --noconfirm
 
 echo 'Утилиты для редактирования документов, PDF, DjVus, NFO, DIZ и XPS... , Читалки электронных книг, Словари, Таблицы'
-#
+# Utilities for editing documents, PDF, Djvu, NFO, DIZ and XPS..., e-book Readers, Dictionaries, Tables
 sudo pacman -S  --noconfirm
 
 echo 'Утилиты для редактирования документов, PDF, DjVus, NFO, DIZ и XPS... , Читалки электронных книг, Словари, Таблицы AUR'
-#
+# Utilities for editing documents, PDF, Djvu, NFO, DIZ and XPS..., e-book Readers, Dictionaries, Tables AUR
 yay -S sublime-text-dev unoconv hunspell-ru  masterpdfeditor --noconfirm
 
 echo 'Утилиты для проектирования, черчения и тд...'
-#
+# Utilities for designing, drawing, and so on...
 sudo pacman -S  --noconfirm
 
 echo 'Утилиты для проектирования, черчения и тд... AUR'
-#
+# Utilities for designing, drawing, and so on... AUR
 yay -S  --noconfirm
 
 echo 'Утилиты для работы с CD,DVD, создание ISO образов, запись на флеш-накопители'
-#
+# Utilities for working with CD, DVD, creating ISO images, writing to flash drives
 sudo pacman -S  --noconfirm
 
 echo 'Утилиты для работы с CD,DVD, создание ISO образов, запись на флеш-накопители AUR'
-#
+# Utilities for working with CD, DVD, creating ISO images, writing to flash drives AUR
 yay -S woeusb-git mintstick unetbootin --noconfirm 
 
 echo 'Онлайн мессенжеры и Телефония, Управления чатом и группам'
-#
+# Online messengers and Telephony, chat and group Management
 sudo pacman -S --noconfirm
 
 echo 'Онлайн мессенжеры и Телефония, Управления чатом и группам AUR'
-#
+# Online messengers and Telephony, chat and group Management AUR
 yay -S skypeforlinux-stable-bin skype-call-recorder vk-messenger viber pidgin-extprefs --noconfirm 
 
-echo 'Утилиты для работы с CD,DVD, создание ISO образов, запись на флеш-накопители AUR'
-#
-yay -S woeusb-git mintstick unetbootin --noconfirm 
-
 echo 'Сетевые утилиты, Tor, VPN, SSH, Samba и тд...'
-#
+# Network utilities, Tor, VPN, SSH, Samba, etc...
 sudo pacman -S --noconfirm
 
 echo 'Сетевые утилиты, Tor, VPN, SSH, Samba и тд... AUR'
-#
+# Network utilities, Tor, VPN, SSH, Samba, etc... AUR
 yay -S --noconfirm 
 
-echo 'Установить рекомендумые программы?'
-#
+echo 'Установить рекомендуемые программы?'
+# To install the recommended program?
 echo -e "${BLUE}
-'Список программ рекомендованных к установке:
+'Список программ рекомендованных к установке:${GREEN}
 keepass2-plugin-tray-icon'
 ${NC}"
 read -p "1 - Да, 0 - Нет: " prog_set
@@ -295,8 +334,8 @@ elif [[ $prog_set == 0 ]]; then
   echo 'Установка программ пропущена.'
 fi
 
-echo 'Установить рекомендумые программы из AUR?'
-#
+echo 'Установить рекомендуемые программы из AUR?'
+# To install the recommended program? AUR
 echo -e "${BLUE}
 'Список программ рекомендованных к установке:${GREEN}
 gksu debtap caffeine-ng inxi xneur fsearch-git cherrytree timeshift mocicon multiload-ng-indicator-gtk xfce4-multiload-ng-plugin-gtk2 keepass2-plugin-tray-icon gconf-editor webtorrent-desktop xorg-xkill teamviewer corectrl'
@@ -309,17 +348,17 @@ elif [[ $prog_set == 0 ]]; then
 fi
 
 echo 'Дополнительные пакеты для игр'
-#
+# Additional packages for games
 sudo pacman -S steam lutris lib32-gconf lib32-dbus-glib lib32-libnm-glib lib32-openal lib32-nss lib32-gtk2 lib32-sdl2 lib32-sdl2_image lib32-libcanberra --noconfirm
 
 echo 'Дополнительные пакеты для игр AUR'
-#
+# Additional packages for games AUR
 yay -S lib32-libudev0 --noconfirm
 
-echo 'Установка Дополнителых программ'
-#
+echo 'Установка Дополнительных программ'
+# Installing Additional programs
 echo -e "${BLUE}
-'Список программ рекомендованных к установке:
+'Список Дополнительных программ к установке:${GREEN}
 galculator-gtk2'
 ${NC}"
 read -p "1 - Да, 0 - Нет: " prog_set
@@ -329,10 +368,10 @@ elif [[ $prog_set == 0 ]]; then
   echo 'Установка программ пропущена.'
 fi
 
-echo 'Установка Дополнителых программ AUR'
-#
+echo 'Установка Дополнительных программ AUR'
+# Installing Additional programs AUR
 echo -e "${BLUE}
-'Список программ рекомендованных к установке:
+'Список Дополнительных программ к установке AUR:${GREEN}
 сюда вписать список программ'
 ${NC}"
 read -p "1 - Да, 0 - Нет: " prog_set
@@ -345,18 +384,6 @@ fi
 echo 'Обновим информацию о шрифтах'
 # Update information about fonts
 sudo fc-cache -f -v
-
-#echo 'Установка тем'
-#yay -S osx-arc-shadow papirus-maia-icon-theme-git breeze-default-cursor-theme --noconfirm
-
-#echo 'Ставим лого ArchLinux в меню'
-#wget git.io/arch_logo.png
-#sudo mv -f ~/Downloads/arch_logo.png /usr/share/pixmaps/arch_logo.png
-
-#echo 'Ставим обои на рабочий стол'
-#wget git.io/bg.jpg
-#sudo rm -rf /usr/share/backgrounds/xfce/* #Удаляем стандартрые обои
-#sudo mv -f ~/Downloads/bg.jpg /usr/share/backgrounds/xfce/bg.jpg
 
 echo 'Список всех пакетов-сирот'
 # List of all orphan packages
@@ -393,6 +420,20 @@ fi
 echo 'Список Установленного софта (пакетов)'
 #List of Installed software (packages)
 sudo pacman -Qqe
+
+# ============================================================================
+#echo 'Установка тем'
+#yay -S osx-arc-shadow papirus-maia-icon-theme-git breeze-default-cursor-theme --noconfirm
+
+#echo 'Ставим лого ArchLinux в меню'
+#wget git.io/arch_logo.png
+#sudo mv -f ~/Downloads/arch_logo.png /usr/share/pixmaps/arch_logo.png
+
+#echo 'Ставим обои на рабочий стол'
+#wget git.io/bg.jpg
+#sudo rm -rf /usr/share/backgrounds/xfce/* #Удаляем стандартрые обои
+#sudo mv -f ~/Downloads/bg.jpg /usr/share/backgrounds/xfce/bg.jpg
+# ============================================================================
 
 sleep 5
 echo 'Установка завершена!'
