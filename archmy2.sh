@@ -336,6 +336,20 @@ echo 'Установка базовых программ и пакетов'
 # Installing basic programs and packages
 sudo pacman -S wget --noconfirm
 
+_confirm "${MSG_CONFIRM_ARCH}"
+
+case ${CONFIRM} in
+    y|Y|yes|Yes|YES)
+
+### Success note (Заметка об успехе)
+_note "${MSG_ARCH_SUCCESS}"
+;;
+*)
+esac
+
+### Installation aborted (Установка прервана)
+_error "${MSG_ARCH_ABORTED}"
+
 echo 'Выйдем из установленной системы'
 # Log out of the installed system
 #exit
