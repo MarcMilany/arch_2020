@@ -6,7 +6,7 @@ _warning_banner() {
 # ====================== Предупреждение ====================== ${BLUE} 
 
 Цель сценария (скрипта) - это установка первоначально необходимого софта (пакетов) и запуск необходимых служб. 
-Смысл в том что, все изменения вы делаете предварительно в самом скрипте и получаете возможность быстрой установки утилит, которые Вы решили установить (при условии, что Вы его изменили под себя, в противном случае скрипт установит софт прописанный изначально).
+Смысл в том, что все изменения вы делаете предварительно в самом скрипте и получаете возможность быстрой установки утилит, которые Вы решили установить (при условии, что Вы его изменили под себя, в противном случае скрипт установит софт прописанный изначально).
 В процессе работы сценария (скрипта) Вам будут задаваться вопросы на установку той, или иной утилиты - будьте внимательными! Не переживайте в скрипте только две утилиты устанавливаются из 'AUR'. Это сам 'AUR'-'yay' и 'Pacman gui' или 'Octopi', в зависимости от вашего выбора. Остальной софт (пакеты) скачивается и устанавливается из 'Официальных репозиториев Arch Linux'. Если Вы сомневаетесь в своих действиях, скриптом можно пользоваться как шпаргалкой, открыв его в текстовом редакторе, копируя команды по установке необходимых пакетов.${RED}
 
 # ====================== ВНИМАНИЕ! ====================== #${NC}
@@ -226,6 +226,14 @@ echo 'Утилиты для форматирования флэш-накопит
 # Utilities for formatting a flash drive with the exFAT file system in Linux
 sudo pacman -S exfat-utils fuse-exfat --noconfirm 
 
+echo 'Добавим новый репозиторий [archlinuxfr], и пропишем тему для Color в pacman.conf'
+# Add a new repository [archlinuxfr], and write the theme for Color in pacman.conf
+echo 'ILoveCandy' >> /etc/pacman.conf
+echo '[archlinuxfr]' >> /etc/pacman.conf
+echo '[SigLevel = Never]' >> /etc/pacman.conf
+echo 'Server = http://repo.archlinux.fr/$arch' >> /etc/pacman.conf
+pacman -Syy
+
 echo 'Установка "Pacman gui","Octopi" (AUR)(GTK)(QT)'
 # Installing "Pacman gui", "Octopi" (AUR)(GTK)(QT)
 echo 'Установка Производится в порядке перечисления'
@@ -240,14 +248,6 @@ yay -S octopi --noconfirm
 elif [[ $prog_set == 0 ]]; then
   echo 'Установка программ пропущена.'
 fi
-
-echo 'Добавим новый репозиторий [archlinuxfr], и пропишем тему для Color в pacman.conf'
-# Add a new repository [archlinuxfr], and write the theme for Color in pacman.conf
-echo 'ILoveCandy' >> /etc/pacman.conf
-echo '[archlinuxfr]' >> /etc/pacman.conf
-echo '[SigLevel = Never]' >> /etc/pacman.conf
-echo 'Server = http://repo.archlinux.fr/$arch' >> /etc/pacman.conf
-pacman -Syy
 
 echo 'Обновим информацию о шрифтах'
 # Update information about fonts
@@ -286,7 +286,7 @@ sudo cp /boot/grub/grub.cfg grub.cfg.backup
 echo 'Запуск звуковой системы PulseAudio'
 # Starting the PulseAudio sound system
 sudo start-pulseaudio-x11
-# Выполнить эту команду только после установки утилит 'Поддержка звука' и перезагрузки системы, если сервис 'Запуск системы PulseAudio (Запуск звуковой системы PulseAudio)'не включился, и не появился в автозапуске. Это можно посмотреть через диспетчер настроек, в пункте меню 'Сеансы и автозапуск'.
+# Выполнить эту команду только после установки утилит 'Поддержка звука' и перезагрузки системы, если сервис 'Запуск системы PulseAudio (Запуск звуковой системы PulseAudio)'не включился, и не появился в автозапуске. Это можно посмотреть через, диспетчер настроек, в пункте меню 'Сеансы и автозапуск'.
 
 echo 'Удаление созданной папки (downloads), и скрипта установки программ (archmy3)'
 # Deleting the created folder (downloads) and the program installation script (archmy3)
