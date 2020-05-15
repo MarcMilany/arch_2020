@@ -368,7 +368,7 @@ _note "${MSG_ARCH_SUCCESS}"
 esac
 
 ### Installation aborted (Установка прервана)
-_error "${MSG_ARCH_ABORTED}"
+#_error "${MSG_ARCH_ABORTED}"
 
 echo 'Выйдем из установленной системы'
 # Log out of the installed system
