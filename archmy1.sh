@@ -302,7 +302,7 @@ echo -e "${BLUE}:: ${NC}3.2 Установка основных пакетов (
 pacstrap /mnt base base-devel linux-lts linux-firmware nano dhcpcd netctl vim
 #pacstrap -i /mnt base base-devel linux linux-firmware nano dhcpcd netctl vim --noconfirm
 
-echo -e "${BLUE}::  {NC}3.3 Настройка системы, генерируем fstab"
+echo -e "${BLUE}:: {NC}3.3 Настройка системы, генерируем fstab"
 #echo '3.3 Настройка системы, генерируем fstab'
 # Configuring the system, generating fstab
 genfstab -pU /mnt >> /mnt/etc/fstab
