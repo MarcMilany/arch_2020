@@ -187,6 +187,25 @@ echo -e "${BLUE}:: ${NC}Setting up the Russian language, changing the console fo
 loadkeys ru
 setfont cyr-sun16
 
+echo -e "${CYAN}==> ${NC}Добавим русскую локаль в систему установки"
+#echo 'Добавим русскую локаль в систему установки'
+# Adding a Russian locale to the installation system
+sed -i 's/#ru_RU.UTF-8 UTF-8/ru_RU.UTF-8 UTF-8/' /etc/locale.gen
+#nano /etc/locale.gen
+# В файле /etc/locale.gen раскомментируйте (уберите # вначале) строку #ru_RU.UTF-8 UTF-8
+echo -e "${BLUE}:: ${NC}Обновим текущую локаль системы"
+#echo 'Обновим текущую локаль системы'
+# Update the current system locale
+locale-gen
+
+sleep 02
+echo -e "${BLUE}:: ${NC}Указываем язык системы"
+#echo 'Указываем язык системы'
+# Specify the system language
+#echo 'LANG="ru_RU.UTF-8"' > /etc/locale.conf
+export LANG=ru_RU.UTF-8
+#export LANG=en_US.UTF-8
+
 ### Display banner (Дисплей баннер)
 _arch_fast_install_banner
 
@@ -196,10 +215,17 @@ echo -e "${GREEN}
 ${NC}"
 # The installation of the minimum Arch Linux system starts
 
-echo -e "${BLUE}:: ${NC}2.3 Синхронизация системных часов" 
+echo -e "${BLUE}:: ${NC}2.3 Синхронизация системных часов"  
 #echo '2.3 Синхронизация системных часов'
 # Syncing the system clock
+echo 'Синхронизируем наши системные часы, включаем ntp, если надо сменим часовой пояс'
+# Sync our system clock, enable ntp, change the time zone if necessary
 timedatectl set-ntp true
+
+echo -e "${BLUE}:: ${NC}Посмотрим дату и время без характеристик для проверки времени"
+#echo 'Посмотрим дату и время без характеристик для проверки времени'
+# Let's look at the date and time without characteristics to check the time
+date
 
 # ============================================================================
 # ВНИМАНИЕ!
@@ -209,9 +235,9 @@ timedatectl set-ntp true
 # Смотрите пометки в самом скрипте!
 # ============================================================================
 
-echo -e "${BLUE}:: ${NC}2.4 Создание"   
-#echo '2.4 Создание разделов'
-# Create partitions
+echo -e "${BLUE}:: ${NC}2.4 Создание разделов диска"   
+#echo '2.4 Создание разделов диска'
+# Creating disk partitions
 (
   echo o;
 
@@ -251,10 +277,15 @@ fdisk -l
 echo -e "${BLUE}:: ${NC}2.4.2 Форматирование разделов диска"
 #echo '2.4.2 Форматирование разделов диска'
 # Formatting disk partitions
+echo -e "${BLUE}:: ${NC}Установка название флага boot,root,swap,home"
+#echo 'Установка название флага boot,root,swap,home'
+# Setting the flag name boot, root,swap, home
 mkfs.ext2  /dev/sda1 -L boot
 mkswap /dev/sda2 -L swap
 mkfs.ext4  /dev/sda3 -L root
 mkfs.ext4  /dev/sda4 -L home
+#Просмотреть все идентификаторы наших разделов можно просмотреть командой:
+#blkid
 
 echo -e "${BLUE}:: ${NC}2.4.3 Монтирование разделов диска"
 #echo '2.4.3 Монтирование разделов диска'
@@ -264,6 +295,8 @@ mkdir /mnt/{boot,home}
 mount /dev/sda1 /mnt/boot
 swapon /dev/sda2
 mount /dev/sda4 /mnt/home
+#Посмотреть что мы намонтировали можно командой: - покажет куда был примонтирован sda
+#mount | grep sda    
 
 echo -e "${BLUE}:: ${NC}3.1 Выбор серверов-зеркал для загрузки. Ставим зеркало от Яндекс"
 #echo '3.1 Выбор серверов-зеркал для загрузки. Ставим зеркало от Яндекс'
@@ -306,6 +339,9 @@ echo -e "${BLUE}:: ${NC}3.3 Настройка системы, генериру�
 #echo '3.3 Настройка системы, генерируем fstab'
 # Configuring the system, generating fstab
 genfstab -pU /mnt >> /mnt/etc/fstab
+#(или genfstab -L /mnt >> /mnt/etc/fstab)
+#Просмотреть содержимое файла можно командой:
+#cat /mnt/etc/fstab
 
 #echo 'Копируем созданный список зеркал (mirrorlist) в /mnt'
 #Copying the created list of mirrors (mirrorlist) to /mnt
