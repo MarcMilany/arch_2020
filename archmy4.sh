@@ -449,7 +449,11 @@ sudo pacman -Qqe
 # ============================================================================
 
 sleep 5
-echo 'Установка завершена!'
+echo -e "${GREEN}
+  Установка софта (пакетов) завершена!
+${NC}"
+# Installation of software (packages) is complete!
+#echo 'Установка завершена!'
 # The installation is now complete!
 
 echo 'Желательно перезагрузить систему для применения изменений'
