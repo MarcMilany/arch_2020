@@ -10,7 +10,7 @@
 Cкрипт основан на моем чек листе ручной установке ArchLinux https://vk.cc/7JTg6U
 Разметка MBR c BIOS. C UEFI скрипт по ссылке https://github.com/ordanax/arch
 
-Cостоит из 3 частей. 
+Cостоит из 4 частей. 
 
 Видео с демонстрацией работы скрипта https://www.youtube.com/watch?v=nvVF_qKDUeM
 
