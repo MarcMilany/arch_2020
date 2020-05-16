@@ -172,6 +172,13 @@ echo -e "${BLUE}:: ${NC}Прописываем имя компьютера"
 #echo 'Прописываем имя компьютера'
 # Entering the computer name
 echo $hostname > /etc/hostname
+#echo "имя_компьютера" > /etc/hostname
+# ============================================================================
+# Разберём команду для localhost >>>
+# Вместо ArchLinux впишите свое название
+# echo "ArchLinux" > /etc/hostname  - Можно написать с Заглавной буквы.
+# echo имя_компьютера > /etc/hostname
+# ============================================================================
 
 echo -e "${BLUE}:: ${NC}Устанавливаем ваш часовой пояс"
 #echo 'Устанавливаем ваш часовой пояс'
@@ -245,17 +252,26 @@ echo "127.0.1.1	$hostname" >> /etc/hosts
 echo "::1	localhost ip6-localhost ip6-loopback" >> /etc/hosts
 echo "ff02::1 ip6-allnodes" >> /etc/hosts
 echo "ff02::2 ip6-allrouters" >> /etc/hosts
+#echo "127.0.1.1 имя_компьютера" >> /etc/hosts
+# - Можно написать с Заглавной буквы.
+# Это дейсвие не обязательно! Мы можем это сделаем из установленной ситемы, если данные не пропишутся автоматом.
 
 echo -e "${BLUE}:: ${NC}3.4 Добавляем русскую локаль системы"
 #echo '3.4 Добавляем русскую локаль системы'
 # Adding the system's Russian locale
 echo "en_US.UTF-8 UTF-8" > /etc/locale.gen
 echo "ru_RU.UTF-8 UTF-8" >> /etc/locale.gen 
+# Есть ещё команды по добавлению русскую локаль в систему:
+#echo -e "en_US.UTF-8 UTF-8\nru_RU.UTF-8 UTF-8" >> /etc/locale.gen
+# Можно раскомментирвать нужные локали (и убирать #)
+#sed -i 's/#en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen
+#sed -i 's/#ru_RU.UTF-8 UTF-8/ru_RU.UTF-8 UTF-8/' /etc/locale.gen
 
 echo -e "${BLUE}:: ${NC}Обновим текущую локаль системы"
 #echo 'Обновим текущую локаль системы'
 # Update the current system locale
 locale-gen
+# Мы ввели locale-gen для генерации тех самых локалей.
 
 sleep 02
 echo -e "${BLUE}:: ${NC}Указываем язык системы"
@@ -264,6 +280,12 @@ echo -e "${BLUE}:: ${NC}Указываем язык системы"
 echo 'LANG="ru_RU.UTF-8"' > /etc/locale.conf
 #export LANG=ru_RU.UTF-8
 #export LANG=en_US.UTF-8
+# Эта команда сама пропишет в файлике locale.conf нужные нам параметры.
+# Ну и конечно, раз это переменные окружения, то мы можем установить их временно в текущей сессии терминала
+# При раскомментировании строки '#export ....', - Будьте Внимательными!
+# Как назовёшь, так и поплывёшь...
+# When you uncomment the string '#export....', Be Careful!
+# As you name it, you will swim...
 
 echo -e "${BLUE}:: ${NC}Вписываем KEYMAP=ru FONT=cyr-sun16"
 #echo 'Вписываем KEYMAP=ru FONT=cyr-sun16'
