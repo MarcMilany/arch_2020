@@ -205,6 +205,12 @@ echo -e "${BLUE}:: ${NC}Указываем язык системы"
 #echo 'LANG="ru_RU.UTF-8"' > /etc/locale.conf
 export LANG=ru_RU.UTF-8
 #export LANG=en_US.UTF-8
+# Эта команда сама пропишет в файлике locale.conf нужные нам параметры.
+# Ну и конечно, раз это переменные окружения, то мы можем установить их временно в текущей сессии терминала
+# При раскомментировании строки '#export ....', - Будьте Внимательными!
+# Как назовёшь, так и поплывёшь...
+# When you uncomment the string '#export....', Be Careful!
+# As you name it, you will swim...
 
 ### Display banner (Дисплей баннер)
 _arch_fast_install_banner
