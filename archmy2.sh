@@ -1,5 +1,15 @@
 #!/bin/bash
 # ============================================================================
+### old_vars.log
+set > old_vars.log
+
+APPNAME="arch_fast_install"
+VERSION="v1.6 LegasyBIOS"
+BRANCH="master"
+AUTHOR="ordanax"
+LICENSE="GNU General Public License 3.0"
+
+# ============================================================================
 # Information (Информация)
 _arch_fast_install_banner_2() {
     echo -e "${BLUE}
@@ -146,7 +156,7 @@ ${AUTHOR} ${RED}under ${LICENSE} ${GREEN}>>>${NC}"""
 ### Display banner (Дисплей баннер)
 _arch_fast_install_banner_2
 
-sleep 1
+#sleep 05
 # Enter the computer name
 # Enter your username
 read -p "Введите имя компьютера: " hostname
@@ -346,39 +356,22 @@ echo 'Создаем нужные директории'
 sudo pacman -S xdg-user-dirs --noconfirm
 xdg-user-dirs-update 
 
-echo 'Установка завершена! Перезагрузите систему.'
-# The installation is now complete! Reboot the system.
-echo 'Если хотите подключить AUR, установить мои конфиги XFCE, тогда после перезагрузки и входа в систему, установите wget (sudo pacman -S wget) и выполните команду:'
-# If you want to connect AUR, install my Xfce configs, then after restarting and logging in, install wget (sudo pacman -S wget) and run the command:
-echo 'wget git.io/archmy3 && sh archmy3'
-
 echo 'Установка базовых программ и пакетов'
 # Installing basic programs and packages
 sudo pacman -S wget --noconfirm
 
-_confirm "${MSG_CONFIRM_ARCH}"
+echo -e "${GREEN}
+'Установка завершена! Перезагрузите систему.'
+${NC}"
+# The installation is now complete! Reboot the system.
 
-case ${CONFIRM} in
-    y|Y|yes|Yes|YES)
+echo 'Если хотите подключить AUR, установить мои конфиги XFCE, тогда после перезагрузки и входа в систему, и выполните команду:'
+# If you want to connect AUR, install my Xfce configs, then after restarting and logging in, install wget (sudo pacman -S wget) and run the command:
+echo 'wget git.io/archmy3 && sh archmy3'
 
-### Success note (Заметка об успехе)
-_note "${MSG_ARCH_SUCCESS}"
-;;
-*)
-esac
-
-### Installation aborted (Установка прервана)
-#_error "${MSG_ARCH_ABORTED}"
-
-echo 'Выйдем из установленной системы'
+#echo 'Выйдем из установленной системы'
 # Log out of the installed system
-#exit
-_confirm "${MSG_CONFIRM_REBOOT}"
-
-case ${CONFIRM} in
-    y|Y|yes|Yes|YES) _exit_msg; _reboot;;
-    *) _exit_msg; exit 0
-esac
+exit
 
 
 
