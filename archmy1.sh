@@ -198,7 +198,7 @@ echo -e "${BLUE}:: ${NC}Обновим текущую локаль систем�
 # Update the current system locale
 locale-gen
 
-sleep 02
+#sleep 01
 echo -e "${BLUE}:: ${NC}Указываем язык системы"
 #echo 'Указываем язык системы'
 # Specify the system language
