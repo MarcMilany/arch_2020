@@ -389,7 +389,7 @@ echo 'Желательно перезагрузить систему для пр
 echo 'Скачать и произвести запуск скрипта (archmy4)?'
 # Download and run the script (archmy4)?
 # echo 'wget git.io/archmy4 && sh archmy4'
-echo -e "${YELLOW}'wget git.io/archmy4'${NC}"
+echo -e "${YELLOW}==>  wget git.io/archmy4 ${NC}"
 # Команды по установке :
 # wget git.io/archmy4 
 # wget git.io/archmy4 && sh archmy4 --noconfirm
