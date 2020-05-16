@@ -176,7 +176,7 @@ ${AUTHOR} ${RED}under ${LICENSE} ${GREEN}>>>${NC}"""
 # Команды по установке :
 # archiso login: root (automatic login)
 
-echo -e "${GREEN}:: ${NC}To check the Internet, you can ping a service" 
+echo -e "${GREEN}=> ${NC}To check the Internet, you can ping a service" 
 #echo 'To check the Internet, you can ping a service'
 # Для проверки интернета можно пропинговать какой-либо сервис
 ping -c2 archlinux.org 
@@ -190,9 +190,9 @@ setfont cyr-sun16
 ### Display banner (Дисплей баннер)
 _arch_fast_install_banner
 
-sleep 05
+sleep 02
 echo -e "${GREEN}
-  Начинается установка минимальной системы Arch Linux
+  <<< Начинается установка минимальной системы Arch Linux >>>
 ${NC}"
 # The installation of the minimum Arch Linux system starts
 
@@ -291,7 +291,7 @@ EOF
 # Pacman Mirrorlist Generator
 # https://www.archlinux.org/mirrorlist/
 
-echo -e "${GREEN}:: ${NC}Обновление баз данных пакетов" 
+echo -e "${BLUE}:: ${NC}Обновление баз данных пакетов" 
 #echo 'Обновление баз данных пакетов'
 # Update the databases of packages
 sudo pacman -Sy        
@@ -302,7 +302,7 @@ echo -e "${BLUE}:: ${NC}3.2 Установка основных пакетов (
 pacstrap /mnt base base-devel linux-lts linux-firmware nano dhcpcd netctl vim
 #pacstrap -i /mnt base base-devel linux linux-firmware nano dhcpcd netctl vim --noconfirm
 
-echo -e "${BLUE}:: {NC}3.3 Настройка системы, генерируем fstab"
+echo -e "${BLUE}:: ${NC}3.3 Настройка системы, генерируем fstab" 
 #echo '3.3 Настройка системы, генерируем fstab'
 # Configuring the system, generating fstab
 genfstab -pU /mnt >> /mnt/etc/fstab
