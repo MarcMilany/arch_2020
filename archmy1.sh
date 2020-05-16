@@ -302,7 +302,7 @@ echo -e "${BLUE}:: ${NC}3.2 Установка основных пакетов (
 pacstrap /mnt base base-devel linux-lts linux-firmware nano dhcpcd netctl vim
 #pacstrap -i /mnt base base-devel linux linux-firmware nano dhcpcd netctl vim --noconfirm
 
-echo -e "${BLUE}:: ${NC}3.3 Настройка системы, генерируем fstab"
+echo -e "${BLUE}::  {NC}3.3 Настройка системы, генерируем fstab"
 #echo '3.3 Настройка системы, генерируем fstab'
 # Configuring the system, generating fstab
 genfstab -pU /mnt >> /mnt/etc/fstab
@@ -311,7 +311,7 @@ genfstab -pU /mnt >> /mnt/etc/fstab
 #Copying the created list of mirrors (mirrorlist) to /mnt
 #cp /etc/pacman.d/mirrorlist /mnt/etc/pacman.d/mirrorlist
 
-echo -e "${GREEN}==> ${NC}Меняем корень и переходим в нашу недавно скачанную систему" 
+echo -e "${GREEN}==>  ${NC}Меняем корень и переходим в нашу недавно скачанную систему" 
 #echo 'Меняем корень и переходим в нашу недавно скачанную систему'
 # Change the root and go to our recently downloaded system
 arch-chroot /mnt sh -c "$(curl -fsSL git.io/archmy2)"
