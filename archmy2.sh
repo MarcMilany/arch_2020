@@ -220,6 +220,11 @@ hwclock --systohc --local
 elif [[ $prog_set == 0 ]]; then
   echo 'Настройка пропущена.'
 fi
+# ============================================================================
+# Где в Arch жёстко прописать чтоб апаратное время равнялось локальному?
+# Я делаю так:
+# sudo hwclock --localtime
+# sudo timedatectl set-local-rtc 1
 #hwclock --systohc --utc
 #hwclock --systohc --local
 # Команды для исправления уже в установленной системе:
@@ -230,6 +235,7 @@ fi
 # Для понимания сути команд статья с примерами -
 # https://losst.ru/sbivaetsya-vremya-v-ubuntu-i-windows
 # https://www.ekzorchik.ru/2012/04/hardware-time-settings-hwclock/
+# ============================================================================
 
 echo -e "${BLUE}:: ${NC}Изменяем имя хоста"
 #echo 'Изменяем имя хоста'
