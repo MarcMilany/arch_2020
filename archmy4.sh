@@ -1,13 +1,13 @@
 #!/bin/bash
 # ============================================================================
 ### old_vars.log
-set > old_vars.log
+#set > old_vars.log
 
-APPNAME="arch_fast_install"
-VERSION="v1.6 LegasyBIOS"
-BRANCH="master"
-AUTHOR="ordanax"
-LICENSE="GNU General Public License 3.0"
+#APPNAME="arch_fast_install"
+#VERSION="v1.6 LegasyBIOS"
+#BRANCH="master"
+#AUTHOR="ordanax"
+#LICENSE="GNU General Public License 3.0"
 
 # ============================================================================
 ### Warning (Предупреждение)

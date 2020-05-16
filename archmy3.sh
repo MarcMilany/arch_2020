@@ -1,13 +1,13 @@
 #!/bin/bash
 # ============================================================================
 ### old_vars.log
-set > old_vars.log
+#set > old_vars.log
 
-APPNAME="arch_fast_install"
-VERSION="v1.6 LegasyBIOS"
-BRANCH="master"
-AUTHOR="ordanax"
-LICENSE="GNU General Public License 3.0"
+#APPNAME="arch_fast_install"
+#VERSION="v1.6 LegasyBIOS"
+#BRANCH="master"
+#AUTHOR="ordanax"
+#LICENSE="GNU General Public License 3.0"
 
 # ============================================================================
 ### Warning (Предупреждение)
@@ -389,7 +389,7 @@ echo 'Желательно перезагрузить систему для пр
 echo 'Скачать и произвести запуск скрипта (archmy4)?'
 # Download and run the script (archmy4)?
 # echo 'wget git.io/archmy4 && sh archmy4'
-echo 'wget git.io/archmy4'
+echo -e "${YELLOW}'wget git.io/archmy4'${NC}"
 # Команды по установке :
 # wget git.io/archmy4 
 # wget git.io/archmy4 && sh archmy4 --noconfirm
