@@ -316,10 +316,13 @@ passwd
 echo -e "${BLUE}:: ${NC}3.5 Устанавливаем загрузчик (grub)"
 #echo '3.5 Устанавливаем загрузчик (grub)'
 # Install the boot loader (grub)
+# Установка boot loader'а (загрузчика grub)
+# Их существует несколько, но grub, наверное самый популярный в Linux.
 pacman -Syy
 pacman -S grub --noconfirm 
 grub-install /dev/sda
 #grub-install --recheck /dev/sda
+# (или grub-install /dev/sdb , или grub-install /dev/sdс в зависимости от маркировки вашего диска, флешки куда будет установлен загрузчик grub (для BIOS))
 
 echo -e "${BLUE}:: ${NC}Обновляем grub.cfg (Сгенерируем grub.cfg)"
 #echo 'Обновляем grub.cfg (Сгенерируем grub.cfg)'
