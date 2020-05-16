@@ -324,9 +324,9 @@ EOF
 # Pacman Mirrorlist Generator
 # https://www.archlinux.org/mirrorlist/
 
-echo -e "${BLUE}:: ${NC}Обновление баз данных пакетов" 
-#echo 'Обновление баз данных пакетов'
-# Update the databases of packages
+echo -e "${BLUE}:: ${NC}Обновим базы данных пакетов" 
+#echo 'Обновим базы данных пакетов'
+# Updating the package databases
 sudo pacman -Sy        
 
 echo -e "${BLUE}:: ${NC}3.2 Установка основных пакетов (base base-devel)"
