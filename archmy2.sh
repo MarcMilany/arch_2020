@@ -12,7 +12,7 @@
 # ============================================================================
 # Information (Информация)
 _arch_fast_install_banner_2() {
-    echo -e "${YELLOW}==> ИНФОРМАЦИЯ! ***************************** ${NC}  
+    echo -e "${YELLOW}==> ИНФОРМАЦИЯ! ***************************************** ${NC}  
 Продолжается работа скрипта - основанного на сценарии (скрипта)'Arch Linux Fast Install LegasyBios (arch2018)'.
 Происходит установка первоначально необходимого софта (пакетов), запуск необходимых служб, запись данных в конфиги (hhh.conf) по настройке системы.
 В процессе работы сценария (скрипта) Вам будет предложено выполнить следующие действия:
@@ -156,8 +156,8 @@ ${AUTHOR} ${RED}under ${LICENSE} ${GREEN}>>>${NC}"""
 _arch_fast_install_banner_2
 
 sleep 01
-echo -e "${BLUE}:: ${NC}Вводим имя компьютера, имя пользователя"
-#echo 'Вводим имя компьютера, имя пользователя'
+echo -e "${BLUE}:: ${NC}Вводим имя компьютера, и имя пользователя"
+#echo 'Вводим имя компьютера, и имя пользователя'
 #echo 'Enter the computer name and user name'
 # Enter the computer name
 # Enter your username
@@ -168,19 +168,29 @@ read -p " => Введите имя компьютера: " hostname
 echo -e "${GREEN}==> ${NC}"
 read -p " => Введите имя пользователя: " username
 
-echo -e "${BLUE}:: {NC}Прописываем имя компьютера"
+echo -e "${BLUE}:: ${NC}Прописываем имя компьютера"
 #echo 'Прописываем имя компьютера'
 # Entering the computer name
 echo $hostname > /etc/hostname
 
-echo -e "${BLUE}:: ${NC}Установите ваш часовой пояс"
-#echo 'Установите ваш часовой пояс'
-# Set your time zone
+echo -e "${BLUE}:: ${NC}Устанавливаем ваш часовой пояс"
+#echo 'Устанавливаем ваш часовой пояс'
+# Setting your time zone
 ln -svf /usr/share/zoneinfo/Europe/Moscow /etc/localtime
 #ln -sf /usr/share/zoneinfo/Europe/Moscow /etc/localtime
 #ln -s /usr/share/zoneinfo/Europe/Moscow /etc/localtime
 #ln -svf /usr/share/zoneinfo/Asia/Yekaterinburg /etc/localtime
 #ln -svf /usr/share/zoneinfo/Europe/Kiev /etc/localtime
+
+echo -e "${BLUE}:: ${NC}Проверим аппаратное время"
+#echo 'Проверим аппаратное время' 
+# Check the hardware time
+hwclock
+
+echo -e "${BLUE}:: ${NC}Посмотрим текущее состояние аппаратных и программных часов"
+#echo 'Посмотрим текущее состояние аппаратных и программных часов'
+# Let's see the current state of the hardware and software clock
+timedatectl
 
 echo -e "${BLUE}:: ${NC}Настроим состояние аппаратных и программных часов"
 #echo 'Настроим состояние аппаратных и программных часов'
@@ -221,19 +231,9 @@ fi
 # https://losst.ru/sbivaetsya-vremya-v-ubuntu-i-windows
 # https://www.ekzorchik.ru/2012/04/hardware-time-settings-hwclock/
 
-echo -e "${BLUE}:: ${NC}Проверим аппаратное время"
-#echo 'Проверим аппаратное время' 
-# Check the hardware time
-hwclock
-
-echo -e "${BLUE}:: ${NC}Посмотрим текущее состояние аппаратных и программных часов"
-#echo 'Посмотрим текущее состояние аппаратных и программных часов'
-# Let's see the current state of the hardware and software clock
-timedatectl
-
-echo -e "${BLUE}:: ${NC}Измените имя хоста"
-#echo 'Измените имя хоста'
-# Change the host name
+echo -e "${BLUE}:: ${NC}Изменяем имя хоста"
+#echo 'Изменяем имя хоста'
+# Changing the host name
 echo "127.0.0.1	localhost.(none)" > /etc/hosts
 echo "127.0.1.1	Terminator" >> /etc/hosts
 echo "::1	localhost ip6-localhost ip6-loopback" >> /etc/hosts
@@ -343,7 +343,7 @@ sed -i 's/#Include = /etc/pacman.d/mirrorlist/Include = /etc/pacman.d/mirrorlist
 #echo 'Server = http://repo.archlinux.fr/$arch' >> /etc/pacman.conf
 pacman -Syy
 
-echo -e "${RED}:: ${NC}Куда устанавливем Arch Linux на виртуальную машину?"
+echo -e "${RED}==> ${NC}Куда устанавливем Arch Linux на виртуальную машину?"
 #echo "Куда устанавливем Arch Linux на виртуальную машину?"
 # Where do we install Arch Linux on the VM?
 read -p "1 - Да, 0 - Нет: " vm_setting
@@ -403,10 +403,11 @@ ${NC}"
 
 echo 'Если хотите подключить AUR, установить мои конфиги XFCE, тогда после перезагрузки и входа в систему, и выполните команду:'
 # If you want to connect AUR, install my Xfce configs, then after restarting and logging in, install wget (sudo pacman -S wget) and run the command:
-echo -e "${YELLOW}==>  wget git.io/archmy3 && sh archmy3 ${NC}"
+echo -e "${YELLOW}==> wget git.io/archmy3 && sh archmy3 ${NC}"
 
-echo 'Выйдем из установленной системы'
-# Log out of the installed system
+echo -e "${RED}===> ${NC}Выходим из установленной системы"
+#echo 'Выходим из установленной системы'
+# Exiting the installed system
 exit
 
 
