@@ -167,17 +167,17 @@ echo -e "${BLUE}:: ${NC}Вводим имя компьютера, имя пол�
 #read -p "Введите имя компьютера: " hostname
 #read -p "Введите имя пользователя: " username
 read -p 
-echo -e "${GREEN}==>  ${NC}Введите имя компьютера: " hostname
+echo -e "${GREEN}==> ${NC}Введите имя компьютера: " hostname
 read -p
-echo -e "${GREEN}==>  ${NC}Введите имя пользователя: " username
+echo -e "${GREEN}==> ${NC}Введите имя пользователя: " username
 
-echo -e "${BLUE}:: ${NC}Прописываем имя компьютера"
+echo -e "${BLUE}:: {NC}Прописываем имя компьютера"
 #echo 'Прописываем имя компьютера'
 # Entering the computer name
 echo $hostname > /etc/hostname
 
-echo -e "${BLUE}:: ${NC}"
-echo 'Установите ваш часовой пояс'
+echo -e "${BLUE}:: ${NC}Установите ваш часовой пояс"
+#echo 'Установите ваш часовой пояс'
 # Set your time zone
 ln -svf /usr/share/zoneinfo/Europe/Moscow /etc/localtime
 #ln -sf /usr/share/zoneinfo/Europe/Moscow /etc/localtime
@@ -188,7 +188,7 @@ ln -svf /usr/share/zoneinfo/Europe/Moscow /etc/localtime
 echo -e "${BLUE}:: ${NC}Настроим состояние аппаратных и программных часов"
 #echo 'Настроим состояние аппаратных и программных часов'
 # Setting up the state of the hardware and software clock    
-echo -e "${YELLOW}::  ${NC}Вы можете пропустить этот шаг, если не уверены в правильности выбора"
+echo -e "${YELLOW}==> ${NC}Вы можете пропустить этот шаг, если не уверены в правильности выбора"
 # ============================================================================
 # Windows и Linux работают по-разному с этими двумя часами. 
 # Есть два способа работы:${GREEN}
@@ -229,12 +229,12 @@ echo -e "${BLUE}:: ${NC}Проверим аппаратное время"
 # Check the hardware time
 hwclock
 
-echo -e "${BLUE}:: ${NC}"
+echo -e "${BLUE}:: ${NC}Посмотрим текущее состояние аппаратных и программных часов"
 #echo 'Посмотрим текущее состояние аппаратных и программных часов'
 # Let's see the current state of the hardware and software clock
 timedatectl
 
-echo -e "${BLUE}:: ${NC}"
+echo -e "${BLUE}:: ${NC}Измените имя хоста"
 #echo 'Измените имя хоста'
 # Change the host name
 echo "127.0.0.1	localhost.(none)" > /etc/hosts
@@ -243,26 +243,26 @@ echo "::1	localhost ip6-localhost ip6-loopback" >> /etc/hosts
 echo "ff02::1 ip6-allnodes" >> /etc/hosts
 echo "ff02::2 ip6-allrouters" >> /etc/hosts
 
-echo -e "${BLUE}:: ${NC}"
+echo -e "${BLUE}:: ${NC}3.4 Добавляем русскую локаль системы"
 #echo '3.4 Добавляем русскую локаль системы'
 # Adding the system's Russian locale
 echo "en_US.UTF-8 UTF-8" > /etc/locale.gen
 echo "ru_RU.UTF-8 UTF-8" >> /etc/locale.gen 
 
-echo -e "${BLUE}:: ${NC}"
+echo -e "${BLUE}:: ${NC}Обновим текущую локаль системы"
 #echo 'Обновим текущую локаль системы'
 # Update the current system locale
 locale-gen
 
 sleep 1
-echo -e "${BLUE}:: ${NC}"
+echo -e "${BLUE}:: ${NC}Указываем язык системы"
 #echo 'Указываем язык системы'
 # Specify the system language
 echo 'LANG="ru_RU.UTF-8"' > /etc/locale.conf
 #export LANG=ru_RU.UTF-8
 #export LANG=en_US.UTF-8
 
-echo -e "${BLUE}:: ${NC}"
+echo -e "${BLUE}:: ${NC}Вписываем KEYMAP=ru FONT=cyr-sun16"
 #echo 'Вписываем KEYMAP=ru FONT=cyr-sun16'
 # Enter KEYMAP=ru FONT=cyr-sun16
 echo 'KEYMAP=ru' >> /etc/vconsole.conf
@@ -270,7 +270,7 @@ echo 'FONT=cyr-sun16' >> /etc/vconsole.conf
 echo 'FONT_MAP=' >> /etc/vconsole.conf
 echo 'CONSOLEMAP' >> /etc/vconsole.conf
 
-echo -e "${BLUE}:: ${NC}"
+echo -e "${BLUE}:: ${NC}Создадим загрузочный RAM диск (начальный RAM-диск)"
 #echo 'Создадим загрузочный RAM диск (начальный RAM-диск)'
 # Creating a bootable RAM disk (initial RAM disk)
 mkinitcpio -p linux-lts
@@ -283,12 +283,12 @@ mkinitcpio -p linux-lts
 #mkinitcpio -p linux
 #mkinitcpio -P linux
 
-echo -e "${GREEN}:: ${NC}"
+echo -e "${GREEN}==> ${NC}Создаем root пароль"
 #echo 'Создаем root пароль'
 # Creating a root password
 passwd
 
-echo -e "${BLUE}:: ${NC}"
+echo -e "${BLUE}:: ${NC}3.5 Устанавливаем загрузчик (grub)"
 #echo '3.5 Устанавливаем загрузчик (grub)'
 # Install the boot loader (grub)
 pacman -Syy
@@ -296,22 +296,22 @@ pacman -S grub --noconfirm
 grub-install /dev/sda
 #grub-install --recheck /dev/sda
 
-echo -e "${BLUE}:: ${NC}"
+echo -e "${BLUE}:: ${NC}Обновляем grub.cfg (Сгенерируем grub.cfg)"
 #echo 'Обновляем grub.cfg (Сгенерируем grub.cfg)'
 # Updating grub.cfg (Generating grub.cfg)
 grub-mkconfig -o /boot/grub/grub.cfg
 
-echo -e "${BLUE}:: ${NC}"
+echo -e "${YELLOW}==> ${NC}Если в системе будут несколько ОС, то это также ставим"
 #echo 'Если в системе будут несколько ОС, то это также ставим'
 # If the system will have several operating systems, then this is also set
 pacman -S os-prober mtools fuse
 
-echo -e "${BLUE}:: ${NC}"
+echo -e "${BLUE}:: ${NC}Ставим программу для Wi-fi"
 #echo 'Ставим программу для Wi-fi'
 # Install the program for Wi-fi
 pacman -S dialog wpa_supplicant --noconfirm 
 
-echo -e "${BLUE}:: ${NC}"
+echo -e "${BLUE}:: ${NC}Добавляем пользователя и прописываем права, группы"
 #echo 'Добавляем пользователя и прописываем права, группы'
 # Adding a user and prescribing rights, groups
 #useradd -m -g users -G wheel -s /bin/bash $username
@@ -319,12 +319,12 @@ useradd -m -g users -G wheel,audio,games,lp,optical,power,scanner,storage,video,
 # или есть команда с правами 'админа' :
 #useradd -m -g users -G adm,audio,games,lp,optical,power,scanner,storage,video,sys,wheel -s /bin/bash $username
 
-echo -e "${GREEN}:: ${NC}"
+echo -e "${GREEN}==> ${NC}Устанавливаем пароль пользователя"
 #echo 'Устанавливаем пароль пользователя'
 # Setting the user password
 passwd $username
 
-echo -e "${BLUE}:: ${NC}"
+echo -e "${BLUE}:: ${NC}Устанавливаем SUDO"
 #echo 'Устанавливаем SUDO'
 # Installing SUDO
 pacman -S sudo --noconfirm
@@ -332,7 +332,7 @@ pacman -S sudo --noconfirm
 sed -i 's/# %wheel ALL=(ALL) ALL/%wheel ALL=(ALL) ALL/' /etc/sudoers
 #sed -i 's/# %wheel ALL=(ALL) NOPASSWD: ALL/%wheel ALL=(ALL) NOPASSWD: ALL/' /etc/sudoers
 
-echo -e "${BLUE}:: ${NC}"
+echo -e "${BLUE}:: ${NC}Раскомментируем репозиторий multilib Для работы 32-битных приложений в 64-битной системе"
 #echo 'Раскомментируем репозиторий multilib Для работы 32-битных приложений в 64-битной системе.'
 # Uncomment the multilib repository For running 32-bit applications on a 64-bit system
 #echo '[multilib]' >> /etc/pacman.conf
@@ -346,7 +346,7 @@ sed -i 's/#Include = /etc/pacman.d/mirrorlist/Include = /etc/pacman.d/mirrorlist
 #echo 'Server = http://repo.archlinux.fr/$arch' >> /etc/pacman.conf
 pacman -Syy
 
-echo -e "${BLUE}:: ${NC}"
+echo -e "${RED}:: ${NC}Куда устанавливем Arch Linux на виртуальную машину?"
 #echo "Куда устанавливем Arch Linux на виртуальную машину?"
 # Where do we install Arch Linux on the VM?
 read -p "1 - Да, 0 - Нет: " vm_setting
@@ -356,45 +356,45 @@ elif [[ $vm_setting == 1 ]]; then
   gui_install="xorg-server xorg-drivers xorg-xinit virtualbox-guest-utils"
 fi
 
-echo -e "${BLUE}:: ${NC}"
+echo -e "${BLUE}:: ${NC}Ставим иксы и драйвера"
 #echo 'Ставим иксы и драйвера'
 # Put the x's and drivers
 pacman -S $gui_install
 
-echo -e "${BLUE}:: ${NC}"
+echo -e "${BLUE}:: ${NC}Ставим DE (от англ. desktop environment — среда рабочего стола) Xfce"
 #echo 'Ставим DE (от англ. desktop environment — среда рабочего стола) Xfce'
 # Put DE (from the English desktop environment-desktop environment) Xfce
 pacman -S xfce4 xfce4-goodies --noconfirm
 
-echo -e "${BLUE}:: ${NC}"
+echo -e "${BLUE}:: ${NC}Ставим DM (Display manager) менеджера входа"
 #echo 'Ставим DM (Display manager) менеджера входа'
 # Install the DM (Display manager) of the login Manager
 pacman -S lightdm lightdm-gtk-greeter lightdm-gtk-greeter-settings --noconfir
 
-echo -e "${BLUE}:: ${NC}"
+echo -e "${BLUE}:: ${NC}Ставим сетевые утилиты Networkmanager"
 #echo 'Ставим сетевые утилиты "Networkmanager"'
 # Put the network utilities "Networkmanager"
 pacman -S networkmanager network-manager-applet ppp --noconfirm
 
-echo -e "${BLUE}:: ${NC}"
+echo -e "${BLUE}:: ${NC}Ставим шрифты"
 #echo 'Ставим шрифты'
 # Put the fonts
 pacman -S ttf-liberation ttf-dejavu opendesktop-fonts ttf-arphic-ukai ttf-arphic-uming ttf-hanazono --noconfirm 
 
-echo -e "${BLUE}:: ${NC}"
+echo -e "${BLUE}:: ${NC}Подключаем автозагрузку менеджера входа и интернет"
 #echo 'Подключаем автозагрузку менеджера входа и интернет'
 # Enabling auto-upload of the login Manager and the Internet
 systemctl enable lightdm.service
 sleep 1 
 systemctl enable NetworkManager
 
-echo -e "${BLUE}:: ${NC}"
+echo -e "${BLUE}:: ${NC}Создаем нужные директории"
 #echo 'Создаем нужные директории'
 # Creating the necessary directories
 sudo pacman -S xdg-user-dirs --noconfirm
 xdg-user-dirs-update 
 
-echo -e "${BLUE}:: ${NC}"
+echo -e "${BLUE}:: ${NC}Установка базовых программ и пакетов"
 #echo 'Установка базовых программ и пакетов'
 # Installing basic programs and packages
 sudo pacman -S wget --noconfirm
