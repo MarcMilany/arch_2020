@@ -436,7 +436,7 @@ echo 'Если хотите подключить AUR, установить мо�
 # If you want to connect AUR, install my Xfce configs, then after restarting and logging in, install wget (sudo pacman -S wget) and run the command:
 echo -e "${YELLOW}==> wget git.io/archmy3 && sh archmy3 ${NC}"
 
-echo -e "${RED}===> ${NC}Выходим из установленной системы"
+echo -e "${RED}==> ${NC}Выходим из установленной системы"
 #echo 'Выходим из установленной системы'
 # Exiting the installed system
 exit
