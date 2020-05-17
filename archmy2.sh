@@ -494,8 +494,8 @@ echo -e "${GREEN}
 ${NC}"
 # The installation is now complete! Reboot the system.
 
-echo 'Если хотите подключить AUR, установить мои конфиги XFCE, дополнительный софт (пакеты) тогда после перезагрузки и входа в систему, выполните команду:'
-# If you want to connect AUR, install my Xfce configs, then after restarting and logging in, install wget (sudo pacman -S wget) and run the command:
+echo 'Если хотите подключить AUR, установить дополнительный софт (пакеты), установить мои конфиги XFCE, тогда после перезагрузки и входа в систему выполните команду:'
+# If you want to connect AUR, install additional software (packages), install my Xfce configs, then after restarting and logging in, run the command:
 echo -e "${YELLOW}==> wget git.io/archmy3 && sh archmy3 ${NC}"
 
 echo -e "${RED}==> ${NC}Выходим из установленной системы"
