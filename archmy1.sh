@@ -168,6 +168,7 @@ ${AUTHOR} ${RED}under ${LICENSE} ${GREEN}>>>${NC}"""
 # Михаил Сарвилин https://vk.com/michael170707
 # Данил Антошкин https://vk.com/danil.antoshkin
 # Юрий Порунцов https://vk.com/poruncov
+# Marc Milany - "Не ищи меня "Вконтакте", в "Одноклассниках"" нас нету, ... 
 
 # Лицензия (license): LGPL-3.0 (http://opensource.org/licenses/lgpl-3.0.html
 # Installation guide - Arch Wiki
