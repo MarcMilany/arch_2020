@@ -306,6 +306,7 @@ echo '[archlinuxfr]' >> /etc/pacman.conf
 echo '[SigLevel = Never]' >> /etc/pacman.conf
 echo 'Server = http://repo.archlinux.fr/$arch' >> /etc/pacman.conf
 pacman -Syy
+# Синхронизация и обновление пакетов (-yy принудительно обновить даже если обновленные)
 
 echo 'Установка "Pacman gui","Octopi" (AUR)(GTK)(QT)'
 # Installing "Pacman gui", "Octopi" (AUR)(GTK)(QT)
