@@ -1,13 +1,13 @@
 #!/bin/bash
 # ============================================================================
 ### old_vars.log
-set > old_vars.log
+#set > old_vars.log
 
-APPNAME="arch_fast_install"
-VERSION="v1.6 LegasyBIOS"
-BRANCH="master"
-AUTHOR="ordanax"
-LICENSE="GNU General Public License 3.0"
+#APPNAME="arch_fast_install"
+#VERSION="v1.6 LegasyBIOS"
+#BRANCH="master"
+#AUTHOR="ordanax"
+#LICENSE="GNU General Public License 3.0"
 
 # ============================================================================
 # Information (Информация)
@@ -48,12 +48,6 @@ BLUE="\e[1;34m"; CYAN="\e[1;36m"; BOLD="\e[1;37m"; MAGENTA="\e[1;35m"; NC="\e[0m
 # DEF='\e[0;39m'   'LRED='\e[1;31m    YELLOW='\e[1;33m' LMAGENTA='\e[1;35m' WHITE='\e[1;37m'
 # DGRAY='\e[1;30m'  LGREEN='\e[1;32m' LBLUE='\e[1;34m'  LCYAN='\e[1;36m'    NC='\e[0m' # No Color
 # Индивидуальные настройки подсветки синтаксиса для каждого пользователя можно настраивать в конфигурационном файле /home/$USER/.bashrc
-
-
-# Checking personal setting (Проверяйте ваши персональные настройки)
-### Display user entries (Отображение пользовательских записей ) 
-USER_ENTRIES=(USER_LANG TIMEZONE HOST_NAME USER_NAME LINUX_FW KERNEL \
-DESKTOP DISPLAY_MAN GREETER AUR_HELPER POWER GPU_DRIVER HARD_VIDEO)
 
 ### Display some notes (Дисплей некоторые заметки)
 _note() {
@@ -515,15 +509,7 @@ echo -e "${GREEN}
 echo -e "${MAGENTA}==> ${NC}Проверяйте ваши персональные настройки"
 #echo 'Проверяйте ваши персональные настройки'
 # Checking personal setting
-USER_ENTRIES=(USER_LANG TIMEZONE HOST_NAME USER_NAME LINUX_FW KERNEL \
-DESKTOP DISPLAY_MAN GREETER AUR_HELPER POWER GPU_DRIVER HARD_VIDEO)
-_info "${MSG_USER_ENTRIES}"
-
-for ENTRY in "${USER_ENTRIES[@]}"; do
-    if [[ ${!ENTRY} ]]; then
-        echo -e "${BOLD}* ${ENTRY}: ${NC}${!ENTRY}"
-    fi
-done
+echo -e "${YELLOW}==> ${CYAN} ...${NC}"
 
 echo 'Если хотите подключить AUR, установить дополнительный софт (пакеты), установить мои конфиги XFCE, тогда после перезагрузки и входа в систему выполните команду:'
 # If you want to connect AUR, install additional software (packages), install my Xfce configs, then after restarting and logging in, run the command:
