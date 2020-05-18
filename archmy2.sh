@@ -1,13 +1,13 @@
 #!/bin/bash
 # ============================================================================
 ### old_vars.log
-#set > old_vars.log
+set > old_vars.log
 
-#APPNAME="arch_fast_install"
-#VERSION="v1.6 LegasyBIOS"
-#BRANCH="master"
-#AUTHOR="ordanax"
-#LICENSE="GNU General Public License 3.0"
+APPNAME="arch_fast_install"
+VERSION="v1.6 LegasyBIOS"
+BRANCH="master"
+AUTHOR="ordanax"
+LICENSE="GNU General Public License 3.0"
 
 # ============================================================================
 # Information (Информация)
@@ -515,7 +515,15 @@ echo -e "${GREEN}
 echo -e "${MAGENTA}==> ${NC}Проверяйте ваши персональные настройки"
 #echo 'Проверяйте ваши персональные настройки'
 # Checking personal setting
-_info "${USER_ENTRIES}"
+USER_ENTRIES=(USER_LANG TIMEZONE HOST_NAME USER_NAME LINUX_FW KERNEL \
+DESKTOP DISPLAY_MAN GREETER AUR_HELPER POWER GPU_DRIVER HARD_VIDEO)
+_info "${MSG_USER_ENTRIES}"
+
+for ENTRY in "${USER_ENTRIES[@]}"; do
+    if [[ ${!ENTRY} ]]; then
+        echo -e "${BOLD}* ${ENTRY}: ${NC}${!ENTRY}"
+    fi
+done
 
 echo 'Если хотите подключить AUR, установить дополнительный софт (пакеты), установить мои конфиги XFCE, тогда после перезагрузки и входа в систему выполните команду:'
 # If you want to connect AUR, install additional software (packages), install my Xfce configs, then after restarting and logging in, run the command:
