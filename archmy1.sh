@@ -264,11 +264,9 @@ ${NC}"
 echo -e "${BLUE}:: ${NC}2.3 Синхронизация системных часов"  
 #echo '2.3 Синхронизация системных часов'
 # Syncing the system clock
-echo 'Синхронизируем наши системные часы, включаем ntp, если надо сменим часовой пояс'
+#echo 'Синхронизируем наши системные часы, включаем ntp, если надо сменим часовой пояс'
 # Sync our system clock, enable ntp, change the time zone if necessary
 timedatectl set-ntp true
-timedatectl | grep Time
-timedatectl show
 
 echo -e "${BLUE}:: ${NC}Посмотрим дату и время без характеристик для проверки времени"
 #echo 'Посмотрим дату и время без характеристик для проверки времени'
