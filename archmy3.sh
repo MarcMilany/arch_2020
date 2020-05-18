@@ -185,7 +185,7 @@ mkdir ~/downloads
 cd ~/downloads
 
 echo -e "${BLUE}
- 'Установка AUR (yay)'
+ 'Установка AUR Helper (yay)'
 ${NC}"
 sudo pacman -Syu
 wget git.io/yay-install.sh && sh yay-install.sh --noconfirm
