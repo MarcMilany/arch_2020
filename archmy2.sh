@@ -515,7 +515,7 @@ echo -e "${GREEN}
 echo -e "${MAGENTA}==> ${NC}Проверяйте ваши персональные настройки"
 #echo 'Проверяйте ваши персональные настройки'
 # Checking personal setting
-_info "${MSG_USER_ENTRIES}"
+_info "${USER_ENTRIES}"
 
 echo 'Если хотите подключить AUR, установить дополнительный софт (пакеты), установить мои конфиги XFCE, тогда после перезагрузки и входа в систему выполните команду:'
 # If you want to connect AUR, install additional software (packages), install my Xfce configs, then after restarting and logging in, run the command:
