@@ -490,9 +490,23 @@ sudo pacman -S wget --noconfirm
 # ============================================================================
 
 echo -e "${GREEN}
-  <<< Установка завершена! Перезагрузите систему. >>>
-${NC}"
+  <<< Установка завершена! Перезагрузите систему. >>> ${NC}"
 # The installation is now complete! Reboot the system.
+
+echo -e "${MAGENTA}==> ${NC}Проверяйте ваши персональные настройки"
+#echo 'Проверяйте ваши персональные настройки'
+# Checking personal setting
+### Display user entries 
+### Отображение пользовательских записей 
+USER_ENTRIES=(USER_LANG TIMEZONE HOST_NAME USER_NAME LINUX_FW KERNEL \
+DESKTOP DISPLAY_MAN GREETER AUR_HELPER POWER GPU_DRIVER HARD_VIDEO)
+_info "${MSG_USER_ENTRIES}"
+
+for ENTRY in "${USER_ENTRIES[@]}"; do
+    if [[ ${!ENTRY} ]]; then
+        echo -e "${BOLD}* ${ENTRY}: ${NC}${!ENTRY}"
+    fi
+done
 
 echo 'Если хотите подключить AUR, установить дополнительный софт (пакеты), установить мои конфиги XFCE, тогда после перезагрузки и входа в систему выполните команду:'
 # If you want to connect AUR, install additional software (packages), install my Xfce configs, then after restarting and logging in, run the command:
