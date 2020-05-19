@@ -336,17 +336,17 @@ echo -e "${BLUE}:: ${NC}Утилиты для форматирования фл�
 #echo 'Утилиты для форматирования флэш-накопителя с файловой системой exFAT в Linux'
 # Utilities for formatting a flash drive with the exFAT file system in Linux
 sudo pacman -S exfat-utils fuse-exfat --noconfirm 
-
-echo -e "${BLUE}:: ${NC}Добавим новый репозиторий [archlinuxfr], и пропишем тему для Color в pacman.conf" 
+# ============================================================================
+#echo -e "${BLUE}:: ${NC}Добавим новый репозиторий [archlinuxfr], и пропишем тему для Color в pacman.conf" 
 #echo 'Добавим новый репозиторий [archlinuxfr], и пропишем тему для Color в pacman.conf'
 # Add a new repository [archlinuxfr], and write the theme for Color in pacman.conf
-echo 'ILoveCandy' >> /etc/pacman.conf
-echo '[archlinuxfr]' >> /etc/pacman.conf
-echo '[SigLevel = Never]' >> /etc/pacman.conf
-echo 'Server = http://repo.archlinux.fr/$arch' >> /etc/pacman.conf
-pacman -Syy
+#echo 'ILoveCandy' >> /etc/pacman.conf
+#echo '[archlinuxfr]' >> /etc/pacman.conf
+#echo '[SigLevel = Never]' >> /etc/pacman.conf
+#echo 'Server = http://repo.archlinux.fr/$arch' >> /etc/pacman.conf
+#pacman -Syy
 # Синхронизация и обновление пакетов (-yy принудительно обновить даже если обновленные)
-
+# ============================================================================
 echo -e "${BLUE}:: ${NC}Установка Pacman gui,Octopi (AUR)(GTK)(QT)" 
 #echo 'Установка "Pacman gui","Octopi" (AUR)(GTK)(QT)'
 # Installing "Pacman gui", "Octopi" (AUR)(GTK)(QT)
