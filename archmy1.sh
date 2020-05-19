@@ -363,8 +363,8 @@ cat <<EOF >>/etc/pacman.d/mirrorlist
 ##
 
 ## Russia
-Server = https://mirror.rol.ru/archlinux/\$repo/os/\$arch
 Server = https://mirror.yandex.ru/archlinux/\$repo/os/\$arch
+Server = https://mirror.rol.ru/archlinux/\$repo/os/\$arch
 #Server = http://mirror.rol.ru/archlinux/\$repo/os/\$arch
 #Server = http://mirror.truenetwork.ru/archlinux/\$repo/os/\$arch
 #Server = http://mirror.yandex.ru/archlinux/\$repo/os/\$arch
