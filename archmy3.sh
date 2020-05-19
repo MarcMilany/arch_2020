@@ -178,75 +178,90 @@ echo -e "${GREEN}=> ${NC}Для проверки интернета можно �
 # To check the Internet, you can ping a service
 ping -c2 archlinux.org
 
-
-echo 'Создадим папку (downloads), и переходим в созданную папку'
+echo -e "${YELLOW}==> ${NC}Создадим папку (downloads), и переходим в созданную папку"
+#echo 'Создадим папку (downloads), и переходим в созданную папку'
 # Create a folder (downloads), and go to the created folder
 #rm -rf ~/.config/xfce4/*
 mkdir ~/downloads
 cd ~/downloads
 
 echo -e "${GREEN}==> ${NC}${BLUE}'Установка AUR Helper (yay)'${NC}"
-# echo 'Установка AUR Helper (yay)'
+#echo 'Установка AUR Helper (yay)'
 # Installing AUR Helper (yay)
 sudo pacman -Syu
 wget git.io/yay-install.sh && sh yay-install.sh --noconfirm
 
-echo 'Обновим всю систему включая AUR пакеты'
+echo -e "${BLUE}:: ${NC}Обновим всю систему включая AUR пакеты" 
+#echo 'Обновим всю систему включая AUR пакеты'
 # Update the entire system including AUR packages
 yay -Syy
 yay -Syu
 
-echo 'Ставим Bluetooth и Поддержка звука'
+echo -e "${BLUE}:: ${NC}Ставим Bluetooth и Поддержка звука" 
+#echo 'Ставим Bluetooth и Поддержка звука'
 # Setting Bluetooth and Sound support
 sudo pacman -S bluez bluez-libs bluez-cups bluez-utils --noconfirm
 sudo pacman -S alsa-utils alsa-plugins alsa-firmware alsa-lib alsa-utils --noconfirm 
 sudo pacman -S pulseaudio pulseaudio-alsa pavucontrol pulseaudio-zeroconf pulseaudio-bluetooth xfce4-pulseaudio-plugin --noconfirm
 
-echo 'Ставим Архиваторы "Компрессионные Инструменты"'
+echo -e "${BLUE}:: ${NC}Ставим Архиваторы Компрессионные Инструменты" 
+#echo 'Ставим Архиваторы "Компрессионные Инструменты"'
 # Putting Archivers "Compression Tools
 sudo pacman -S zip unzip unrar p7zip zlib zziplib --noconfirm
 
-echo 'Ставим дополнения к Архиваторам'
+echo -e "${BLUE}:: ${NC}Ставим дополнения к Архиваторам" 
+#echo 'Ставим дополнения к Архиваторам'
 # Adding extensions to Archivers
 sudo pacman -S unace sharutils uudeview arj cabextract --noconfirm
 
-echo 'Ставим Драйвера принтера (Поддержка печати)'
+echo -e "${BLUE}:: ${NC}Ставим Драйвера принтера (Поддержка печати)" 
+#echo 'Ставим Драйвера принтера (Поддержка печати)'
 # Putting the printer Drivers (Print support)
 sudo pacman -S cups ghostscript cups-pdf --noconfirm
 
-echo 'Установка базовых программ и пакетов'
+echo -e "${BLUE}:: ${NC}Установка базовых программ и пакетов" 
+#echo 'Установка базовых программ и пакетов'
 # Installing basic programs and packages
 sudo pacman -S aspell-ru arch-install-scripts bash-completion dosfstools f2fs-tools sane gvfs htop iftop iotop nmap ntfs-3g ntp ncdu hydra isomd5sum python-isomd5sum translate-shell mc pv sox youtube-dl speedtest-cli python-pip pwgen scrot git curl xsel --noconfirm 
 
-echo 'Установка терминальных утилит для вывода информации о системе'
+echo -e "${BLUE}:: ${NC}Установка терминальных утилит для вывода информации о системе" 
+#echo 'Установка терминальных утилит для вывода информации о системе'
 # Installing terminal utilities for displaying system information
 sudo pacman -S screenfetch archey3 neofetch --noconfirm  
 
-echo 'Установка Мультимедиа кодеков (multimedia codecs), и утилит'
+echo -e "${BLUE}:: ${NC}Установка Мультимедиа кодеков (multimedia codecs), и утилит" 
+#echo 'Установка Мультимедиа кодеков (multimedia codecs), и утилит'
 # Installing Multimedia codecs and utilities
 sudo pacman -S a52dec faac faad2 flac jasper lame libdca libdv libmad libmpeg2 libtheora libvorbis libxv wavpack x264 xvidcore gst-plugins-base gst-plugins-base-libs gst-plugins-good gst-plugins-bad gst-plugins-ugly libdvdcss libdvdread libdvdnav dvd+rw-tools dvdauthor dvgrab cdrdao gst-libav gst-libav gpac --noconfirm
 
-echo 'Установка Мультимедиа утилит'
+echo -e "${BLUE}:: ${NC}Установка Мультимедиа утилит" 
+#echo 'Установка Мультимедиа утилит'
 # Installing Multimedia utilities
 sudo pacman -S audacity audacious audacious-plugins smplayer smplayer-skins smplayer-themes smtube deadbeef easytag subdownloader mediainfo-gui vlc --noconfirm
 
-echo 'Установка Текстовые редакторы и утилиты разработки'
+echo -e "${BLUE}:: ${NC}Установка Текстовые редакторы и утилиты разработки" 
+#echo 'Установка Текстовые редакторы и утилиты разработки'
 # Installation Text editors and development tools
 sudo pacman -S gedit gedit-plugins geany geany-plugins --noconfirm
 
-echo 'Управления электронной почтой, новостными лентами, чатом и группам'
+echo -e "${BLUE}:: ${NC}Управления электронной почтой, новостными лентами, чатом и группам" 
+#echo 'Управления электронной почтой, новостными лентами, чатом и группам'
 # Manage email, news feeds, chat, and groups
 sudo pacman -S thunderbird thunderbird-i18n-ru pidgin pidgin-hotkeys --noconfirm
 
-echo 'Установка Браузеров и медиа-плагинов'
+echo -e "${BLUE}:: ${NC}Установка Браузеров и медиа-плагинов" 
+#echo 'Установка Браузеров и медиа-плагинов'
 # Installing Browsers and media plugins
 sudo pacman -S firefox firefox-i18n-ru firefox-spell-ru flashplugin pepper-flash --noconfirm
 
-echo 'Установка Брандмауэра UFW и Антивирусного пакета ClamAV (GUI)(GTK+)'
+echo -e "${BLUE}:: ${NC}Установка Брандмауэра UFW и Антивирусного пакета ClamAV (GUI)(GTK+)" 
+#echo 'Установка Брандмауэра UFW и Антивирусного пакета ClamAV (GUI)(GTK+)'
 # Installing the UFW Firewall and clamav Antivirus package (GUI) (GTK+)
-echo 'Установка Производится в порядке перечисления'
+echo -e "${BLUE}:: ${NC}Установка Производится в порядке перечисления" 
+#echo 'Установка Производится в порядке перечисления'
 # Installation Is performed in the order listed
-echo 'Установить UFW (Несложный Брандмауэр) (GTK)?'
+echo -e "${GREEN}==> ${NC}Установить UFW (Несложный Брандмауэр) (GTK)?"
+#echo 'Установить UFW (Несложный Брандмауэр) (GTK)?'
 # Install UFW (Uncomplicated Firewall) (GTK)?
 read -p "1 - Да, 0 - Нет: " prog_set
 if [[ $prog_set == 1 ]]; then
@@ -255,7 +270,8 @@ elif [[ $prog_set == 0 ]]; then
   echo 'Установка программ пропущена.'
 fi
 
-echo 'Установить Clam AntiVirus (GTK)?'
+echo -e "${GREEN}==> ${NC}Установить Clam AntiVirus (GTK)?"
+#echo 'Установить Clam AntiVirus (GTK)?'
 # Install Clam AntiVirus (GTK)?
 read -p "1 - Да, 0 - Нет: " prog_set
 if [[ $prog_set == 1 ]]; then
@@ -417,3 +433,10 @@ echo 'Удаление созданной папки (downloads), и скрип�
 sudo rm -R ~/downloads/
 sudo rm -rf ~/archmy3
 
+
+
+echo -e "${GREEN}==> ${NC}Меняем корень и переходим в нашу недавно скачанную систему"
+
+echo -e "${YELLOW}==> ${NC}Вы можете пропустить этот шаг, если не уверены в правильности выбора"
+
+echo -e "${BLUE}:: ${NC}Обновим базы данных пакетов" 
