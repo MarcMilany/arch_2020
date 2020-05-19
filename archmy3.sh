@@ -356,7 +356,7 @@ echo -e "${BLUE}:: ${NC}Установка Производится в поря�
 echo -e "${GREEN}==> ${NC}Установить pamac-aur, octopi?"
 #echo 'Установить "pamac-aur", "octopi"?'
 # Install "pacman-aur", "octopi"?
-read -p "1 - Pacmanc-aur, 2 - Octopi, 0 - Нет: " prog_set
+read -p "1 - Pacmac-aur, 2 - Octopi, 0 - Нет: " prog_set
 if [[ $prog_set == 1 ]]; then
 yay -S pamac-aur --noconfirm
 elif [[ $prog_set == 2 ]]; then
@@ -453,11 +453,3 @@ echo 'Удаление созданной папки (downloads), и скрип�
 # Deleting the created folder (downloads) and the program installation script (archmy3)
 sudo rm -R ~/downloads/
 sudo rm -rf ~/archmy3
-
-
-
-echo -e "${GREEN}==> ${NC}Меняем корень и переходим в нашу недавно скачанную систему"
-
-echo -e "${YELLOW}==> ${NC}Вы можете пропустить этот шаг, если не уверены в правильности выбора"
-
-echo -e "${BLUE}:: ${NC}Обновим базы данных пакетов" 
