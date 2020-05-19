@@ -173,7 +173,8 @@ ${AUTHOR} ${RED}under ${LICENSE} ${GREEN}>>>${NC}"""
 _warning_banner
 
 sleep 4
-echo 'Для проверки интернета можно пропинговать какой-либо сервис'
+echo -e "${GREEN}=> ${NC}Для проверки интернета можно пропинговать какой-либо сервис"
+#echo 'Для проверки интернета можно пропинговать какой-либо сервис'
 # To check the Internet, you can ping a service
 ping -c2 archlinux.org
 
