@@ -438,7 +438,7 @@ echo -e "${YELLOW}==> ${NC}Желательно перезагрузить си�
 # It is advisable to restart the system to apply the changes
 
 echo -e "${BLUE}==> ${NC}Скачать и произвести запуск скрипта (archmy4)?"
-echo 'Скачать и произвести запуск скрипта (archmy4)?'
+#echo 'Скачать и произвести запуск скрипта (archmy4)?'
 # Download and run the script (archmy4)?
 # echo 'wget git.io/archmy4 && sh archmy4'
 echo -e "${YELLOW}==>  wget git.io/archmy4 ${NC}"
