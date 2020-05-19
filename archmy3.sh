@@ -280,11 +280,14 @@ elif [[ $prog_set == 0 ]]; then
   echo 'Установка программ пропущена.'
 fi
 
-echo 'Установка Torrent клиентов - Transmission, qBittorrent, Deluge (GTK)(Qt)(GTK+)'
+echo -e "${BLUE}:: ${NC}Обновим базы данных пакетов" 
+#echo 'Установка Torrent клиентов - Transmission, qBittorrent, Deluge (GTK)(Qt)(GTK+)'
 # Installing Torrent clients - Transmission, qBittorrent, Deluge (GTK) (Qt) (GTK+)
-echo 'Установка Производится в порядке перечисления'
+echo -e "${BLUE}:: ${NC}Обновим базы данных пакетов" 
+#echo 'Установка Производится в порядке перечисления'
 # Installation Is performed in the order listed
-echo 'Установить Transmission, qBittorrent, Deluge?'
+echo -e "${GREEN}==> ${NC}Установить Transmission, qBittorrent, Deluge?"
+#echo 'Установить Transmission, qBittorrent, Deluge?'
 # Install Transmission, qBittorrent, Deluge?
 read -p "1 - Transmission, 2 - qBittorrent, 3 - Deluge, 0 - Нет: " prog_set
 if [[ $prog_set == 1 ]]; then
@@ -297,11 +300,14 @@ elif [[ $prog_set == 0 ]]; then
   echo 'Установка программ пропущена.'
 fi
 
-echo 'Установка Офиса (LibreOffice-still, или LibreOffice-fresh)'
+echo -e "${BLUE}:: ${NC}Обновим базы данных пакетов" 
+#echo 'Установка Офиса (LibreOffice-still, или LibreOffice-fresh)'
 # Office installation (LibreOffice-still, or LibreOffice-fresh)
-echo 'Установка Производится в порядке перечисления'
+echo -e "${BLUE}:: ${NC}Обновим базы данных пакетов" 
+#echo 'Установка Производится в порядке перечисления'
 # Installation Is performed in the order listed
-echo 'Установить LibreOffice-still, LibreOffice-fresh?'
+echo -e "${GREEN}==> ${NC}Меняем корень и переходим в нашу недавно скачанную систему"
+#echo 'Установить LibreOffice-still, LibreOffice-fresh?'
 # Install the LibreOffice-still and LibreOffice-fresh?
 read -p "1 - LibreOffice-still, 2 - LibreOffice-fresh, 0 - Нет: " prog_set
 if [[ $prog_set == 1 ]]; then
@@ -312,7 +318,8 @@ elif [[ $prog_set == 0 ]]; then
   echo 'Установка программ пропущена.'
 fi
 
-echo 'Установить рекомендованные программы?'
+echo -e "${GREEN}==> ${NC}Меняем корень и переходим в нашу недавно скачанную систему"
+#echo 'Установить рекомендованные программы?'
 # Install the recommended programs
 echo -e "${BLUE}
 'Список программ рекомендованных к установке:${GREEN}
@@ -325,11 +332,13 @@ elif [[ $prog_set == 0 ]]; then
   echo 'Установка программ пропущена.'
 fi
 
-echo 'Утилиты для форматирования флэш-накопителя с файловой системой exFAT в Linux'
+echo -e "${BLUE}:: ${NC}Обновим базы данных пакетов" 
+#echo 'Утилиты для форматирования флэш-накопителя с файловой системой exFAT в Linux'
 # Utilities for formatting a flash drive with the exFAT file system in Linux
 sudo pacman -S exfat-utils fuse-exfat --noconfirm 
 
-echo 'Добавим новый репозиторий [archlinuxfr], и пропишем тему для Color в pacman.conf'
+echo -e "${BLUE}:: ${NC}Обновим базы данных пакетов" 
+#echo 'Добавим новый репозиторий [archlinuxfr], и пропишем тему для Color в pacman.conf'
 # Add a new repository [archlinuxfr], and write the theme for Color in pacman.conf
 echo 'ILoveCandy' >> /etc/pacman.conf
 echo '[archlinuxfr]' >> /etc/pacman.conf
@@ -338,11 +347,14 @@ echo 'Server = http://repo.archlinux.fr/$arch' >> /etc/pacman.conf
 pacman -Syy
 # Синхронизация и обновление пакетов (-yy принудительно обновить даже если обновленные)
 
-echo 'Установка "Pacman gui","Octopi" (AUR)(GTK)(QT)'
+echo -e "${BLUE}:: ${NC}Обновим базы данных пакетов" 
+#echo 'Установка "Pacman gui","Octopi" (AUR)(GTK)(QT)'
 # Installing "Pacman gui", "Octopi" (AUR)(GTK)(QT)
-echo 'Установка Производится в порядке перечисления'
+echo -e "${BLUE}:: ${NC}Обновим базы данных пакетов" 
+#echo 'Установка Производится в порядке перечисления'
 # Installation Is performed in the order listed
-echo 'Установить "pamac-aur", "octopi"?'
+echo -e "${GREEN}==> ${NC}Меняем корень и переходим в нашу недавно скачанную систему"
+#echo 'Установить "pamac-aur", "octopi"?'
 # Install "pacman-aur", "octopi"?
 read -p "1 - Pacmanc-aur, 2 - Octopi, 0 - Нет: " prog_set
 if [[ $prog_set == 1 ]]; then
@@ -353,15 +365,18 @@ elif [[ $prog_set == 0 ]]; then
   echo 'Установка программ пропущена.'
 fi
 
-echo 'Обновим информацию о шрифтах'
+echo -e "${BLUE}:: ${NC}Обновим базы данных пакетов" 
+#echo 'Обновим информацию о шрифтах'
 # Update information about fonts
 sudo fc-cache -f -v
 
-echo 'Применяем настройки TLP (управления питанием) в зависимости от источника питания (батарея или от сети)'
+echo -e "${BLUE}:: ${NC}Обновим базы данных пакетов" 
+#echo 'Применяем настройки TLP (управления питанием) в зависимости от источника питания (батарея или от сети)'
 # Apply TLP (power management) settings depending on the power source (battery or mains)
 sudo tlp start
 
-echo 'Включаем сетевой экран?'
+echo -e "${GREEN}==> ${NC}Меняем корень и переходим в нашу недавно скачанную систему"
+#echo 'Включаем сетевой экран?'
 # Enabling the network screen?
 read -p "1 - Да, 0 - Нет: " prog_set
 if [[ $prog_set == 1 ]]; then
@@ -374,7 +389,8 @@ fi
 # Enabling the network screen
 #sudo ufw enable
 
-echo 'Добавляем в автозагрузку сетевой экран?'
+echo -e "${GREEN}==> ${NC}Меняем корень и переходим в нашу недавно скачанную систему"
+#echo 'Добавляем в автозагрузку сетевой экран?'
 # Adding the network screen to auto-upload?
 read -p "1 - Да, 0 - Нет: " prog_set
 if [[ $prog_set == 1 ]]; then
@@ -388,11 +404,13 @@ fi
 #sudo systemctl enable ufw
 
 sleep 1
-echo 'Проверим статус запуска сетевой экран UFW'
+echo -e "${BLUE}:: ${NC}Обновим базы данных пакетов" 
+#echo 'Проверим статус запуска сетевой экран UFW'
 # Check the startup status of the UFW network screen
 sudo ufw status
 
-echo 'Создать резервную копию (дубликат) файла grub.cfg'
+echo -e "${BLUE}:: ${NC}Обновим базы данных пакетов" 
+#echo 'Создать резервную копию (дубликат) файла grub.cfg'
 # Create a backup (duplicate) of the grub.cfg file
 sudo cp /boot/grub/grub.cfg grub.cfg.backup
 
@@ -411,12 +429,16 @@ sudo cp /boot/grub/grub.cfg grub.cfg.backup
 #sudo start-pulseaudio-x11
 # Выполнить эту команду только после установки утилит 'Поддержка звука' и перезагрузки системы, если сервис 'Запуск системы PulseAudio (Запуск звуковой системы PulseAudio)'не включился, и не появился в автозапуске. Это можно посмотреть через, диспетчер настроек, в пункте меню 'Сеансы и автозапуск'.
 
+echo -e "${GREEN}==> ${NC}Меняем корень и переходим в нашу недавно скачанную систему"
+echo -e "${BLUE}:: ${NC}Обновим базы данных пакетов" 
 echo 'Установка завершена!'
 # The installation is now complete!
 
+echo -e "${YELLOW}==> ${NC}Вы можете пропустить этот шаг, если не уверены в правильности выбора"
 echo 'Желательно перезагрузить систему для применения изменений'
 # It is advisable to restart the system to apply the changes
 
+echo -e "${GREEN}==> ${NC}Меняем корень и переходим в нашу недавно скачанную систему"
 echo 'Скачать и произвести запуск скрипта (archmy4)?'
 # Download and run the script (archmy4)?
 # echo 'wget git.io/archmy4 && sh archmy4'
