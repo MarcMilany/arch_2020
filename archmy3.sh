@@ -414,10 +414,9 @@ sudo cp /boot/grub/grub.cfg grub.cfg.backup
 #     Defaults  badpass_message="Ты не администратор, придурок."
 # ============================================================================
 # ============================================================================
-#echo -e "${BLUE}:: ${NC}Пропишем тему для Color в pacman.conf" 
-#echo 'Пропишем тему для Color в pacman.conf'
+# Пропишем тему для Color в pacman.conf" 
 # Write the theme for Color in pacman.conf
-#echo 'ILoveCandy' >> /etc/pacman.conf
+# ILoveCandy >> /etc/pacman.conf
 # sudo pacman -Syy
 # Синхронизация и обновление пакетов (-yy принудительно обновить даже если обновленные)
 # ============================================================================
