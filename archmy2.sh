@@ -427,10 +427,7 @@ echo 'Include = /etc/pacman.d/mirrorlist' >> /etc/pacman.conf
 sed -i 's/#Color/Color/' /etc/pacman.conf
 #sed -i 's/#[multilib]/[multilib]/' /etc/pacman.conf
 #sed -i 's/#Include = /etc/pacman.d/mirrorlist/Include = /etc/pacman.d/mirrorlist/' /etc/pacman.conf
-#echo 'ILoveCandy' >> /etc/pacman.conf
-#echo '[archlinuxfr]' >> /etc/pacman.conf
-#echo '[SigLevel = Never]' >> /etc/pacman.conf
-#echo 'Server = http://repo.archlinux.fr/$arch' >> /etc/pacman.conf
+echo 'ILoveCandy' >> /etc/pacman.conf
 pacman -Syy
 # Синхронизация и обновление пакетов (-yy принудительно обновить даже если обновленные)
 
