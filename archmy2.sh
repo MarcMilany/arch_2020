@@ -423,7 +423,6 @@ echo -e "${BLUE}:: ${NC}Раскомментируем репозиторий mu
 # Uncomment the multilib repository For running 32-bit applications on a 64-bit system
 #echo 'Color = /etc/pacman.d/mirrorlist' >> /etc/pacman.conf
 sed -i 's/#Color/Color/' /etc/pacman.conf
-echo 'ILoveCandy' >> /etc/pacman.conf
 echo '[multilib]' >> /etc/pacman.conf
 echo 'Include = /etc/pacman.d/mirrorlist' >> /etc/pacman.conf
 pacman -Syy
