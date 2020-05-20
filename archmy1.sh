@@ -380,7 +380,18 @@ EOF
 echo -e "${BLUE}:: ${NC}Обновим базы данных пакетов" 
 #echo 'Обновим базы данных пакетов'
 # Updating the package databases
-sudo pacman -Sy        
+sudo pacman -Sy  
+
+#echo -e "${BLUE}:: ${NC}Пропишем тему для Color в pacman.conf" 
+#echo 'Пропишем тему для Color в pacman.conf'
+# Write the theme for Color in pacman.conf      
+#echo 'Color = /etc/pacman.d/mirrorlist' >> /etc/pacman.conf
+sed -i 's/#Color/Color/' /etc/pacman.conf
+#sed -i 's/#[multilib]/[multilib]/' /etc/pacman.conf
+#sed -i 's/#Include = /etc/pacman.d/mirrorlist/Include = /etc/pacman.d/mirrorlist/' /etc/pacman.conf
+echo 'ILoveCandy' >> /etc/pacman.conf
+pacman -Syy
+# Синхронизация и обновление пакетов (-yy принудительно обновить даже если обновленные)
 
 echo -e "${BLUE}:: ${NC}3.2 Установка основных пакетов (base base-devel)"
 #echo '3.2 Установка основных пакетов (base base-devel)'
