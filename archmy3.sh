@@ -336,17 +336,7 @@ echo -e "${BLUE}:: ${NC}Утилиты для форматирования фл�
 #echo 'Утилиты для форматирования флэш-накопителя с файловой системой exFAT в Linux'
 # Utilities for formatting a flash drive with the exFAT file system in Linux
 sudo pacman -S exfat-utils fuse-exfat --noconfirm 
-# ============================================================================
-#echo -e "${BLUE}:: ${NC}Добавим новый репозиторий [archlinuxfr], и пропишем тему для Color в pacman.conf" 
-#echo 'Добавим новый репозиторий [archlinuxfr], и пропишем тему для Color в pacman.conf'
-# Add a new repository [archlinuxfr], and write the theme for Color in pacman.conf
-#echo 'ILoveCandy' >> /etc/pacman.conf
-#echo '[archlinuxfr]' >> /etc/pacman.conf
-#echo '[SigLevel = Never]' >> /etc/pacman.conf
-#echo 'Server = http://repo.archlinux.fr/$arch' >> /etc/pacman.conf
-#pacman -Syy
-# Синхронизация и обновление пакетов (-yy принудительно обновить даже если обновленные)
-# ============================================================================
+
 echo -e "${BLUE}:: ${NC}Установка Pacman gui,Octopi (AUR)(GTK)(QT)" 
 #echo 'Установка "Pacman gui","Octopi" (AUR)(GTK)(QT)'
 # Installing "Pacman gui", "Octopi" (AUR)(GTK)(QT)
@@ -423,6 +413,50 @@ sudo cp /boot/grub/grub.cfg grub.cfg.backup
 # и ниже скопипастите следующую стоку:
 #     Defaults  badpass_message="Ты не администратор, придурок."
 # ============================================================================
+# ============================================================================
+#echo -e "${BLUE}:: ${NC}Пропишем тему для Color в pacman.conf" 
+#echo 'Пропишем тему для Color в pacman.conf'
+# Write the theme for Color in pacman.conf
+#echo 'ILoveCandy' >> /etc/pacman.conf
+#pacman -Syy
+# Синхронизация и обновление пакетов (-yy принудительно обновить даже если обновленные)
+# ============================================================================
+# ============================================================================
+# Дописать в файлик по адресу home/.config/Thunar/uca.xml
+# uca.xml :
+#<?xml encoding="UTF-8" version="1.0"?>
+#<actions>
+#<action>
+#    <icon>Terminal</icon>
+#    <name>Terminal</name>
+#    <unique-id>1367866030392833-1</unique-id>
+#    <command>exo-open --working-directory %f --launch TerminalEmulator</command>
+#    <description></description>
+#    <patterns>*</patterns>
+#    <directories/>
+#</action>
+#<action>
+#    <icon>stock_folder</icon>
+#    <name>Thunar Root</name>
+#    <unique-id>1367866030392883-2</unique-id>
+#    <command>pkexec thunar %f</command>
+#    <description>Thunar Root</description>
+#    <patterns>*</patterns>
+#    <directories/>
+#</action>
+#<action>
+#    <icon>system-search</icon>
+#    <name>Search</name>
+#    <unique-id>1367866030392913-3</unique-id>
+#    <command>catfish %f</command>
+#    <description>find files and folders</description>
+#    <patterns>*</patterns>
+#    <directories/>
+#</action>
+#</actions>
+#
+# И установить - catfish, xorg-xkill
+# ============================================================================
 
 #echo 'Запуск звуковой системы PulseAudio'
 # Starting the PulseAudio sound system
@@ -447,6 +481,10 @@ echo -e "${YELLOW}==>  wget git.io/archmy4 ${NC}"
 # wget git.io/archmy4 && sh archmy4 --noconfirm
 echo '♥ Либо ты идешь вперед... либо в зад.' 
 # ============================================================================
+echo -e "${BLUE}:: ${NC}Посмотрим дату и время без характеристик для проверки времени"
+#echo 'Посмотрим дату и время без характеристик для проверки времени'
+# Let's look at the date and time without characteristics to check the time
+date
 time
 
 echo 'Удаление созданной папки (downloads), и скрипта установки программ (archmy3)'
