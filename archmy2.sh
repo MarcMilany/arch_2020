@@ -424,10 +424,8 @@ echo -e "${BLUE}:: ${NC}Раскомментируем репозиторий mu
 echo '[multilib]' >> /etc/pacman.conf
 echo 'Include = /etc/pacman.d/mirrorlist' >> /etc/pacman.conf
 #echo 'Color = /etc/pacman.d/mirrorlist' >> /etc/pacman.conf
-#sed -i 's/#Color/Color/' /etc/pacman.conf
-#sed -i 's/#[multilib]/[multilib]/' /etc/pacman.conf
-#sed -i 's/#Include = /etc/pacman.d/mirrorlist/Include = /etc/pacman.d/mirrorlist/' /etc/pacman.conf
-#echo 'ILoveCandy' >> /etc/pacman.conf
+sed -i 's/#Color/Color/' /etc/pacman.conf
+echo 'ILoveCandy' >> /etc/pacman.conf
 pacman -Syy
 # Синхронизация и обновление пакетов (-yy принудительно обновить даже если обновленные)
 
