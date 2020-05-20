@@ -418,7 +418,7 @@ sudo cp /boot/grub/grub.cfg grub.cfg.backup
 #echo 'Пропишем тему для Color в pacman.conf'
 # Write the theme for Color in pacman.conf
 #echo 'ILoveCandy' >> /etc/pacman.conf
-#pacman -Syy
+# sudo pacman -Syy
 # Синхронизация и обновление пакетов (-yy принудительно обновить даже если обновленные)
 # ============================================================================
 # ============================================================================
