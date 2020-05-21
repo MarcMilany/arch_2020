@@ -458,6 +458,40 @@ sudo cp /boot/grub/grub.cfg grub.cfg.backup
 #</action>
 #</actions>
 #
+#  Или
+#<?xml encoding="UTF-8" version="1.0"?>
+#<actions>
+#<action>
+#    <icon>utilities-terminal</icon>
+#    <name>_Terminal</name>
+#    <unique-id>1476165034892557-17</unique-id>
+#    <command>exo-open --working-directory %f --launch TerminalEmulator</command>
+#    <description>Example for a custom action</description>
+#    <patterns>*</patterns>
+#    <startup-notify/>
+#    <directories/>
+#</action>
+#<action>
+#    <icon>folder_color_red</icon>
+#    <name>Root T_hunar</name>
+#    <unique-id>1476164980531587-13</unique-id>
+#    <command>pkexec thunar %f</command>
+#    <description></description>
+#    <patterns>*</patterns>
+#    <directories/>
+#</action>
+#<action>
+#    <icon>text-editor</icon>
+#    <name>Edit as Root</name>
+#    <unique-id>1476164983371929-14</unique-id>
+#    <command>pkexec xed %f</command>
+#    <description>Edit as root</description>
+#    <patterns>*</patterns>
+#    <other-files/>
+#    <text-files/>
+#</action>
+#</actions>
+#
 # И установить - catfish, xorg-xkill
 # ============================================================================
 
