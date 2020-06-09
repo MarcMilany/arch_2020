@@ -142,7 +142,7 @@ background.png Grub2-themes archboot* *.log english french german)
     if mount | grep /mnt; then umount -Rfv /mnt; fi
 }
 
-### Reboot with 10s timeout Перезагрузка с таймаутом 10 секунд
+### Reboot with 10s timeout (Перезагрузка с таймаутом 10 секунд)
 _reboot() {
     for (( SECOND=10; SECOND>=1; SECOND-- )); do
         echo -ne "\r\033[K${GREEN}${MSG_REBOOT} ${SECOND}s...${NC}"
