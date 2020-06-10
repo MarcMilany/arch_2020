@@ -467,6 +467,7 @@ elif [[ $vm_setting == 1 ]]; then
   gui_install="xorg-server xorg-drivers xorg-xinit virtualbox-guest-utils"
 fi
 
+#echo -e "${RED}==> ${NC}Куда устанавливем Arch Linux на виртуальную машину?"
 #echo "Where do we install Arch Linux on a virtual machine?"
 #echo "Куда устанавливем Arch Linux на виртуальную машину?"
 #read -p "1 - Yes, 0 - No: " vm_setting
