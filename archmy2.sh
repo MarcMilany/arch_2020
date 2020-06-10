@@ -573,6 +573,7 @@ echo -e "${RED}==> ${NC}Выходим из установленной сист�
 # Exiting the installed system
 exit
 read -p "Пауза 3 ceк." -t 3
+#Pause 3 seconds
 reboot
 
 
