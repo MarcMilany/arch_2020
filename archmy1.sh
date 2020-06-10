@@ -39,7 +39,18 @@ Installation guide - Arch Wiki
 
     ${BOLD}Options${NC}
         -h, --help          show this help message
+        -l, --lang          set installer language
+        -k, --keyboard      set keyboard layout
 
+    ${BOLD}Language${NC}
+        -l, --lang          english
+                            russian
+
+    ${BOLD}Keyboard${NC}
+        -k, --keyboard      keyboard layout
+                            (run loadkeys on start)
+                            (e.q., --keyboard fr)
+                            
 ${BOLD}For more information, see the wiki: \
 ${GREY}<https://wiki.archlinux.org/index.php/Installation_guide>${NC}"
 }
