@@ -576,18 +576,18 @@ echo -e "${YELLOW}==> wget git.io/archmy3 && sh archmy3 ${NC}"
 echo -e "${RED}==> ${NC}Выходим из установленной системы"
 #echo 'Выходим из установленной системы'
 # Exiting the installed system
-exit 0
+exit 
 
 # Разделы (отмонтировать) Partitions (umount) 
-umount -Rfv /mnt
+#umount -Rfv /mnt
 #umount -R /mnt
 
-echo -e "${BLUE}:: ${NC}Сейчас следует перезагрузить систему"
-echo 'После перезагрузки заходим под пользователем'
+#echo -e "${BLUE}:: ${NC}Сейчас следует перезагрузить систему"
+#echo 'После перезагрузки заходим под пользователем'
 #Перезагрузка.После перезагрузки заходим под пользователем
 #Reboot.After restarting, go under the user
-read -p "Пауза 3 ceк." -t 3
-reboot
+#read -p "Пауза 3 ceк." -t 3
+#reboot
 
 
 
