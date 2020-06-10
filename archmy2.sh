@@ -174,6 +174,7 @@ echo -e "${GREEN}==> ${NC}"
 read -p " => Введите имя компьютера: " hostname
 echo -e "${GREEN}==> ${NC}"
 read -p " => Введите имя пользователя: " username
+#read -p "Ведите свою таймзону в формате Example/Example: " timezone
 
 echo -e "${BLUE}:: ${NC}Прописываем имя компьютера"
 #echo 'Прописываем имя компьютера'
@@ -191,6 +192,7 @@ echo -e "${BLUE}:: ${NC}Устанавливаем ваш часовой поя�
 #echo 'Устанавливаем ваш часовой пояс'
 # Setting your time zone
 ln -svf /usr/share/zoneinfo/Europe/Moscow /etc/localtime
+#ln -svf /usr/share/zoneinfo/$timezone /etc/localtime
 #ln -sf /usr/share/zoneinfo/Europe/Moscow /etc/localtime
 #ln -s /usr/share/zoneinfo/Europe/Moscow /etc/localtime
 #ln -svf /usr/share/zoneinfo/Asia/Yekaterinburg /etc/localtime
@@ -199,7 +201,8 @@ ln -svf /usr/share/zoneinfo/Europe/Moscow /etc/localtime
 echo -e "${BLUE}:: ${NC}Проверим аппаратное время"
 #echo 'Проверим аппаратное время' 
 # Check the hardware time
-hwclock
+#hwclock
+hwclock --systohc
 
 echo -e "${BLUE}:: ${NC}Посмотрим текущее состояние аппаратных и программных часов"
 #echo 'Посмотрим текущее состояние аппаратных и программных часов'
@@ -307,6 +310,7 @@ echo 'KEYMAP=ru' >> /etc/vconsole.conf
 echo 'FONT=cyr-sun16' >> /etc/vconsole.conf
 echo 'FONT_MAP=' >> /etc/vconsole.conf
 echo 'CONSOLEMAP' >> /etc/vconsole.conf
+echo 'COMPRESSION="lz4"' >> /etc/mkinitcpio.conf
 
 echo -e "${BLUE}:: ${NC}Создадим загрузочный RAM диск (начальный RAM-диск)"
 #echo 'Создадим загрузочный RAM диск (начальный RAM-диск)'
@@ -351,6 +355,7 @@ echo -e "${BLUE}:: ${NC}3.5 Устанавливаем загрузчик (grub)
 # Install the boot loader (grub)
 pacman -Syy
 pacman -S grub --noconfirm 
+#pacman -S grub --noconfirm --noprogressbar --quiet  
 grub-install /dev/sda
 #grub-install --recheck /dev/sda
 # ============================================================================
@@ -389,6 +394,14 @@ echo -e "${BLUE}:: ${NC}Ставим программу для Wi-fi"
 # Install the program for Wi-fi
 pacman -S dialog wpa_supplicant --noconfirm 
 
+#read -p "Установить программу (пакет) для Wi-fi?: 1 - да 2 - нет " wifi
+#if [[ $wifi == 1 ]]; then
+#  echo 'Ставим программу для Wi-fi'
+#  pacman -S dialog wpa_supplicant --noconfirm 
+#elif [[ $wifi == 2 ]]; then
+#  echo 'лан'
+#fi
+
 echo -e "${BLUE}:: ${NC}Добавляем пользователя и прописываем права, группы"
 #echo 'Добавляем пользователя и прописываем права, группы'
 # Adding a user and prescribing rights, groups
@@ -426,6 +439,7 @@ sed -i 's/#Color/Color/' /etc/pacman.conf
 echo '[multilib]' >> /etc/pacman.conf
 echo 'Include = /etc/pacman.d/mirrorlist' >> /etc/pacman.conf
 pacman -Syy
+#pacman -Syy --noconfirm --noprogressbar --quiet
 # Синхронизация и обновление пакетов (-yy принудительно обновить даже если обновленные)
 
 echo -e "${RED}==> ${NC}Куда устанавливем Arch Linux на виртуальную машину?"
@@ -438,10 +452,36 @@ elif [[ $vm_setting == 1 ]]; then
   gui_install="xorg-server xorg-drivers xorg-xinit virtualbox-guest-utils"
 fi
 
+#echo "Where do we install Arch Linux on a virtual machine?"
+#echo "Куда устанавливем Arch Linux на виртуальную машину?"
+#read -p "1 - Yes, 0 - No: " vm_setting
+#if [[ $vm_setting == 0 ]]; then
+# pacman -S xorg-server xorg-drivers xorg-xinit --noconfirm --noprogressbar --quiet 
+#elif [[ $vm_setting == 1 ]]; then
+#  (
+#   echo 13;
+#   echo 2;
+#  ) | pacman -S xorg-server xorg-drivers xorg-xinit virtualbox-guest-utils --noconfirm --noprogressbar --quiet 
+#fi
+
 echo -e "${BLUE}:: ${NC}Ставим иксы и драйвера"
 #echo 'Ставим иксы и драйвера'
 # Put the x's and drivers
 pacman -S $gui_install
+
+#echo "Какая видеокарта?"
+#read -p "1 - nvidia, 2 - Amd, 3 - intel: " videocard
+#if [[ $videocard == 1 ]]; then
+#  pacman -S nvidia lib32-nvidia-utils nvidia-settings --noconfirm
+#  nvidia-xconfig
+#elif [[ $videocard == 2 ]]; then
+#  pacman -S lib32-mesa xf86-video-amdgpu mesa-vdpau lib32-mesa-vdpau vulkan-radeon lib32-vulkan-radeon libva-mesa-driver lib32-libva-mesa-driver --noconfirm
+#elif [[ $videocard == 3 ]]; then
+#  pacman -S lib32-mesa vulkan-intel libva-intel-driver lib32-libva-intel-driver lib32-vulkan-intel --noconfirm
+#fi
+
+#echo 'Ставим драйвера видеокарты intel'
+#sudo pacman -S xf86-video-intel vdpauinfo libva-utils libva-intel-driver libva lib32-libva-intel-driver libvdpau libvdpau-va-gl lib32-libvdpau --noconfirm
 
 echo -e "${BLUE}:: ${NC}Ставим DE (от англ. desktop environment — среда рабочего стола) Xfce"
 #echo 'Ставим DE (от англ. desktop environment — среда рабочего стола) Xfce'
@@ -496,6 +536,9 @@ sudo pacman -S wget --noconfirm
 # https://losst.ru/komanda-wget-linux
 # ============================================================================
 
+#read -p "Введите допольнительные пакеты которые вы хотите установить: " packages 
+#pacman -S $packages --noconfirm
+
 echo -e "${GREEN}
   <<< Установка завершена! Перезагрузите систему. >>> ${NC}"
 # The installation is now complete! Reboot the system.
@@ -513,7 +556,8 @@ echo -e "${RED}==> ${NC}Выходим из установленной сист�
 #echo 'Выходим из установленной системы'
 # Exiting the installed system
 exit
-
+read -p "Пауза 3 ceк." -t 3
+reboot
 
 
 
