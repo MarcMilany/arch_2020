@@ -576,7 +576,7 @@ echo -e "${YELLOW}==> wget git.io/archmy3 && sh archmy3 ${NC}"
 echo -e "${RED}==> ${NC}Выходим из установленной системы"
 #echo 'Выходим из установленной системы'
 # Exiting the installed system
-exit
+exit 0
 
 # Разделы (отмонтировать) Partitions (umount) 
 umount -Rfv /mnt
