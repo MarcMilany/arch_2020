@@ -377,6 +377,11 @@ EOF
 # Эта страница генерирует самый последний список зеркал, возможный для Arch Linux. Используемые здесь данные поступают непосредственно из внутренней базы данных зеркал разработчиков, используемой для отслеживания доступности и уровня зеркалирования. 
 # Есть два основных варианта: получить список зеркал с каждым доступным зеркалом или получить список зеркал, адаптированный к вашей географии.
 
+#echo 'Выбор серверов-зеркал для загрузки.'
+#echo 'The choice of mirrors to download.'
+#pacman -Sy --noconfirm --noprogressbar --quiet reflector
+#reflector --verbose --country Kazakhstan --country Russia --sort rate --save /etc/pacman.d/mirrorlist
+
 echo -e "${BLUE}:: ${NC}Обновим базы данных пакетов" 
 #echo 'Обновим базы данных пакетов'
 # Updating the package databases
@@ -387,6 +392,7 @@ echo -e "${BLUE}:: ${NC}3.2 Установка основных пакетов (
 # Installing basic packages (base base-devel)
 pacstrap /mnt base base-devel linux-lts linux-firmware nano dhcpcd netctl vim
 #pacstrap -i /mnt base base-devel linux linux-firmware nano dhcpcd netctl vim --noconfirm
+#pacstrap /mnt linux base nano dhcpcd netctl sudo wget --noconfirm --noprogressbar --quiet
 
 # ============================================================================
 # В официальном wiki от arch https://wiki.archlinux.org/index.php/Installation_guide ,
