@@ -573,14 +573,21 @@ echo 'Если хотите подключить AUR, установить до�
 # If you want to connect AUR, install additional software (packages), install my Xfce configs, then after restarting and logging in, run the command:
 echo -e "${YELLOW}==> wget git.io/archmy3 && sh archmy3 ${NC}"
 
-# Разделы (отмонтировать) Partitions (umount) 
-umount -Rfv /mnt
-
 echo -e "${RED}==> ${NC}Выходим из установленной системы"
 #echo 'Выходим из установленной системы'
 # Exiting the installed system
 exit
 
+# Разделы (отмонтировать) Partitions (umount) 
+umount -Rfv /mnt
+#umount -R /mnt
+
+echo -e "${BLUE}:: ${NC}Сейчас следует перезагрузить систему"
+echo 'После перезагрузки заходим под пользователем'
+#Перезагрузка.После перезагрузки заходим под пользователем
+#Reboot.After restarting, go under the user
+read -p "Пауза 3 ceк." -t 3
+reboot
 
 
 
