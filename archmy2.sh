@@ -372,6 +372,7 @@ pacman -S grub --noconfirm
 #pacman -S grub --noconfirm --noprogressbar --quiet  
 grub-install /dev/sda
 #grub-install --recheck /dev/sda
+#grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB
 # ============================================================================
 # Установка boot loader'а (загрузчика grub)
 # Их существует несколько, но grub, наверное самый популярный в Linux.
