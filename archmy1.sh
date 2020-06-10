@@ -50,10 +50,13 @@ Installation guide - Arch Wiki
         -k, --keyboard      keyboard layout
                             (run loadkeys on start)
                             (e.q., --keyboard fr)
-                            
+
 ${BOLD}For more information, see the wiki: \
 ${GREY}<https://wiki.archlinux.org/index.php/Installation_guide>${NC}"
 }
+
+### Installer default language (Язык установки по умолчанию)
+#ARCHMY1_LANG="russian"
 
 ### SHARED VARIABLES AND FUNCTIONS (ОБЩИЕ ПЕРЕМЕННЫЕ И ФУНКЦИИ)
 ### Shell color codes (Цветовые коды оболочки)
