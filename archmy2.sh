@@ -526,6 +526,11 @@ systemctl enable lightdm.service
 sleep 1 
 systemctl enable NetworkManager
 
+echo -e "${BLUE}:: ${NC}Монтировании разделов NTFS и создание ссылок"
+#echo 'Монтировании разделов NTFS и создание ссылок'
+# NTFS support (optional)
+sudo pacman -S ntfs-3g --noconfirm
+
 echo -e "${BLUE}:: ${NC}Создаём нужные директории"
 #echo 'Создаём нужные директории'
 # Creating the necessary directories
@@ -555,11 +560,6 @@ sudo pacman -S wget --noconfirm
 #read -p "Введите допольнительные пакеты которые вы хотите установить: " packages 
 #pacman -S $packages --noconfirm
 
-echo -e "${BLUE}:: ${NC}Монтировании разделов NTFS"
-#echo 'Монтировании разделов NTFS'
-# NTFS support (optional)
-sudo pacman -S ntfs-3g --noconfirm
-
 echo -e "${GREEN}
   <<< Установка завершена! Перезагрузите систему. >>> ${NC}"
 # The installation is now complete! Reboot the system.
@@ -573,25 +573,15 @@ echo 'Если хотите подключить AUR, установить до�
 # If you want to connect AUR, install additional software (packages), install my Xfce configs, then after restarting and logging in, run the command:
 echo -e "${YELLOW}==> wget git.io/archmy3 && sh archmy3 ${NC}"
 
+# Разделы (отмонтировать) Partitions (umount) 
+umount -Rfv /mnt
+
 echo -e "${RED}==> ${NC}Выходим из установленной системы"
 #echo 'Выходим из установленной системы'
 # Exiting the installed system
-#exit
+exit
 
-# Разделы (отмонтировать) Partitions (umount) 
-then umount -Rfv /mnt; fi
 
-### Заметка об успехе (Success note)
-_note "${MSG_ARCH_SUCCESS}"
-        ;;
-    *)
-
-_confirm "${MSG_CONFIRM_REBOOT}"
-
-case ${CONFIRM} in
-    y|Y|yes|Yes|YES) _exit_msg; _reboot;;
-    *) _exit_msg; exit 0
-esac
 
 
 
