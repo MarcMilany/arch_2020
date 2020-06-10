@@ -572,23 +572,19 @@ echo -e "${RED}==> ${NC}Выходим из установленной сист�
 #echo 'Выходим из установленной системы'
 # Exiting the installed system
 #exit
-#read -p "Пауза 3 ceк." -t 3
-#Pause 3 seconds
-#reboot
 
-# Partitions (umount) Разделы (umount)
-if mount | grep /mnt; then umount -Rfv /mnt; fi
+# Разделы (отмонтировать) Partitions (umount) 
+then umount -Rfv /mnt; fi
 
-### Success note (Заметка об успехе)
-        echo -e "${MSG_ARCH_SUCCESS}"
+### Заметка об успехе (Success note)
+_note "${MSG_ARCH_SUCCESS}"
         ;;
     *)
-
 
 _confirm "${MSG_CONFIRM_REBOOT}"
 
 case ${CONFIRM} in
-    y|Y|yes|Yes|YES) _cleanup; _exit_msg; _reboot;;
+    y|Y|yes|Yes|YES) _exit_msg; _reboot;;
     *) _exit_msg; exit 0
 esac
 
