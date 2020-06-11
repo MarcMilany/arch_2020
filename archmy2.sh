@@ -407,12 +407,12 @@ pacman -S os-prober mtools fuse
 echo -e "${BLUE}:: ${NC}Ставим программу для Wi-fi"
 #echo 'Ставим программу для Wi-fi'
 # Install the program for Wi-fi
-pacman -S dialog wpa_supplicant iw wireless_tools --noconfirm 
+pacman -S dialog wpa_supplicant iw wireless_tools net-tools --noconfirm 
  
 #read -p "Установить программу (пакет) для Wi-fi?: 1 - да 2 - нет " wifi
 #if [[ $wifi == 1 ]]; then
 #  echo 'Ставим программу для Wi-fi'
-#  pacman -S dialog wpa_supplicant --noconfirm 
+#  pacman -S dialog wpa_supplicant iw wireless_tools net-tools --noconfirm 
 #elif [[ $wifi == 2 ]]; then
 #  echo 'лан'
 #fi
