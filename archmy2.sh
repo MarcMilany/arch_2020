@@ -208,11 +208,19 @@ echo -e "${BLUE}:: ${NC}Устанавливаем ваш часовой поя�
 # Setting your time zone
 #rm -v /etc/localtime
 ln -svf /usr/share/zoneinfo/Europe/Moscow /etc/localtime
+#timedatectl set-ntp true
 #ln -svf /usr/share/zoneinfo/$timezone /etc/localtime
 #ln -sf /usr/share/zoneinfo/Europe/Moscow /etc/localtime
 #ln -s /usr/share/zoneinfo/Europe/Moscow /etc/localtime
 #ln -svf /usr/share/zoneinfo/Asia/Yekaterinburg /etc/localtime
 #ln -svf /usr/share/zoneinfo/Europe/Kiev /etc/localtime
+
+echo -e "${BLUE}:: ${NC}Синхронизация системных часов"  
+#echo '2.3 Синхронизация системных часов'
+# Syncing the system clock
+#echo 'Синхронизируем наши системные часы, включаем ntp, если надо сменим часовой пояс'
+# Sync our system clock, enable ntp, change the time zone if necessary
+timedatectl set-ntp true
 
 echo -e "${BLUE}:: ${NC}Проверим аппаратное время"
 #echo 'Проверим аппаратное время' 
