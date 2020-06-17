@@ -395,6 +395,7 @@ EOF
 #echo 'The choice of mirrors to download.'
 #pacman -Sy --noconfirm --noprogressbar --quiet reflector
 #reflector --verbose --country Kazakhstan --country Russia --sort rate --save /etc/pacman.d/mirrorlist
+#reflector -c "Russia" -c "Belarus" -c "Ukraine" -c "Poland" -f 20 -l 20 -p https -p http -n 20 --save /etc/pacman.d/mirrorlist --sort rate
 
 echo -e "${BLUE}:: ${NC}Обновим базы данных пакетов" 
 #echo 'Обновим базы данных пакетов'
@@ -407,6 +408,7 @@ echo -e "${BLUE}:: ${NC}3.2 Установка основных пакетов (
 pacstrap /mnt base base-devel linux-lts linux-firmware nano dhcpcd netctl vim
 #pacstrap -i /mnt base base-devel linux linux-firmware nano dhcpcd netctl vim --noconfirm
 #pacstrap /mnt linux base nano dhcpcd netctl sudo wget --noconfirm --noprogressbar --quiet
+#pacstrap /mnt base base-devel linux linux-headers linux-firmware lvm2 nano networkmanager bash-completion reflector htop openssh curl wget git rsync unzip unrar p7zip gnu-netcat pv
 
 # ============================================================================
 # В официальном wiki от arch https://wiki.archlinux.org/index.php/Installation_guide ,
