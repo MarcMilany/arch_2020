@@ -425,7 +425,7 @@ echo -e "${BLUE}:: ${NC}Добавляем пользователя и проп�
 #echo 'Добавляем пользователя и прописываем права, группы'
 # Adding a user and prescribing rights, groups
 #useradd -m -g users -G wheel -s /bin/bash $username
-useradd -m -g users -G wheel,adm,audio,games,lp,optical,power,scanner,storage,video,sys,rfkill -s /bin/bash $username
+useradd -m -g users -G adm,audio,games,lp,optical,power,scanner,storage,video,rfkill,sys,wheel -s /bin/bash $username
 # или есть команда с правами 'админа' :
 #useradd -m -g users -G adm,audio,games,lp,optical,power,scanner,storage,video,sys,rfkill,wheel -s /bin/bash $username
 
