@@ -204,6 +204,13 @@ echo -e "${GREEN}==> ${NC}${BLUE}'Установка AUR Helper (yay)'${NC}"
 # Installing AUR Helper (yay)
 sudo pacman -Syu
 wget git.io/yay-install.sh && sh yay-install.sh --noconfirm
+#sudo pacman -S --noconfirm --needed wget curl git 
+#git clone https://aur.archlinux.org/yay-bin.git
+#cd yay-bin
+### makepkg -si
+#makepkg -si --skipinteg
+#cd ..
+#rm -rf yay-bin
 
 echo -e "${BLUE}:: ${NC}Обновим всю систему включая AUR пакеты" 
 #echo 'Обновим всю систему включая AUR пакеты'
