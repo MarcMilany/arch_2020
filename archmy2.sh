@@ -589,8 +589,20 @@ echo -e "${YELLOW}==> wget git.io/archmy3 && sh archmy3 ${NC}"
 echo -e "${RED}==> ${NC}Выходим из установленной системы"
 #echo 'Выходим из установленной системы'
 # Exiting the installed system
-exit 
+#exit 
 #umount -Rf /mnt
+
+echo 'Операция настройки системы завершена'
+echo "Выйти из настроек, или перезапустить систему?"
+echo "y+Enter - выйти, просто Enter - перезапуск"
+read doing 
+case $doing in
+y)
+  exit
+ ;;
+*)
+sudo reboot -f
+esac #окончание оператора case.
 
 # Разделы (отмонтировать) Partitions (umount) 
 #umount -Rfv /mnt
