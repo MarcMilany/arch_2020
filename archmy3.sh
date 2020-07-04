@@ -560,3 +560,14 @@ echo 'Удаление созданной папки (downloads), и скрип�
 # Deleting the created folder (downloads) and the program installation script (archmy3)
 sudo rm -R ~/downloads/
 sudo rm -rf ~/archmy3
+
+echo "Выйти из настроек, или перезапустить систему?"
+echo "y+Enter - выйти, просто Enter - перезапуск"
+read doing 
+case $doing in
+y)
+  exit
+ ;;
+*)
+sudo reboot -f
+esac #окончание оператора case.
