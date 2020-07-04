@@ -119,6 +119,11 @@ _wget() {
     wget "${1}" --quiet --show-progress
 }
 
+### Download show progress bar only (Скачать показывать только индикатор выполнения)
+_curl() {
+    curl "${1}" --quiet --show-progress
+} 
+
 ### Execute action in chrooted environment (Выполнение действия в хромированной среде)
 _chroot() {
     arch-chroot /mnt <<EOF "${1}"
@@ -149,7 +154,7 @@ _cleanup() {
     SRC=(base bootloader desktop display firmware gpu_driver mirrorlist \
 mounting partitioning user desktop_apps display_apps gpu_apps system_apps \
 00-keyboard.conf language loader.conf timezone xinitrc xprofile \
-background.png Grub2-themes archboot* *.log english french german)
+background.png Grub2-themes archboot* *.log english french german)   
 
     # Sources (rm) (Источники (rm))
     for SOURCE in "${SRC[@]}"; do
