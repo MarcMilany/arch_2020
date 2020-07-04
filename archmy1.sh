@@ -119,11 +119,6 @@ _wget() {
     wget "${1}" --quiet --show-progress
 }
 
-### Download show progress bar only (Скачать показывать только индикатор выполнения)
-_curl() {
-    curl "${1}" --quiet --show-progress
-} 
-
 ### Execute action in chrooted environment (Выполнение действия в хромированной среде)
 _chroot() {
     arch-chroot /mnt <<EOF "${1}"
