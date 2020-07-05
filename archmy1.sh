@@ -323,12 +323,12 @@ sgdisk -p /dev/sda
 
 echo -e "${BLUE}:: ${NC}Стираем таблицу разделов на первом диске (sda):"
 #echo 'Стираем таблицу разделов на первом диске (sda):'
-# 
+# Erasing the partition table on the first disk (sda)
 sgdisk --zap-all /dev/sda
 
-echo -e "${BLUE}:: ${NC}Стираем таблицу разделов на втором и третьем диске (sdb, sdc):"
+#echo -e "${BLUE}:: ${NC}Стираем таблицу разделов на втором и третьем диске (sdb, sdc):"
 #echo 'Стираем таблицу разделов на втором и третьем диске (sdb, sdc):'
-# 
+# Erasing the partition table on the second and third disk (sdb, sdc)
 #sgdisk --zap-all /dev/sdb
 #sgdisk --zap-all /dev/sdc
 
@@ -454,6 +454,7 @@ echo -e "${BLUE}:: ${NC}3.2 Установка основных пакетов (
 # Installing basic packages (base base-devel)
 echo 'Arch Linux, Base devel (AUR only), Kernel (optional), Firmware'
 # Arch Linux, Base devel (AUR only), Kernel (optional), Firmware
+#pacstrap /mnt base base-devel linux-lts linux-firmware nano dhcpcd netctl vim 
 pacstrap /mnt base base-devel linux-lts linux-firmware nano dhcpcd netctl vim --noconfirm --noprogressbar --quiet
 #pacstrap /mnt base base-devel linux linux-firmware nano dhcpcd netctl vim
 #pacstrap /mnt base base-devel linux-hardened linux-firmware nano dhcpcd netctl vim
