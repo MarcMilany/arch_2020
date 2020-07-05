@@ -316,7 +316,7 @@ date
 # ============================================================================
 
 # Ещё раз проверте правильность разбивки на разделы!
-echo -e "${BLUE}==> ${NC}Посмотрим структуру диска созданного установщиком"
+echo -e "${BLUE}:: ${NC}Посмотрим структуру диска созданного установщиком"
 #echo 'Посмотрим структуру диска созданного установщиком'
 # Let's look at the disk structure created by the installer
 sgdisk -p /dev/sda
@@ -420,7 +420,6 @@ Server = https://mirror.rol.ru/archlinux/\$repo/os/\$arch
 #Server = http://mirror.yandex.ru/archlinux/\$repo/os/\$arch
 #Server = http://archlinux.zepto.cloud/\$repo/os/\$arch
 
-EOF
 ##
 ## Arch Linux repository mirrorlist
 ## Generated on 2020-07-03
@@ -431,6 +430,8 @@ EOF
 #Server = http://mirror.yandex.ru/archlinux/$repo/os/$arch
 #Server = https://mirror.yandex.ru/archlinux/$repo/os/$arch
 #Server = http://archlinux.zepto.cloud/$repo/os/$arch
+
+EOF
 
 # Pacman Mirrorlist Generator
 # https://www.archlinux.org/mirrorlist/
