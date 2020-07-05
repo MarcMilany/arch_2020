@@ -228,6 +228,8 @@ echo -e "${GREEN}=> ${NC}Make sure that your network interface is specified and 
 #echo 'Make sure that your network interface is specified and enabled'
 # Убедитесь, что ваш сетевой интерфейс указан и включен
 ip a
+# Также можно посмотреть командой:
+#iw dev
 # Для беспроводной связи убедитесь, что беспроводная карта не заблокирована с помощью: 
 #rfkill 
 
@@ -439,6 +441,8 @@ pacstrap /mnt base base-devel linux-lts linux-firmware nano dhcpcd netctl vim
 #pacstrap /mnt base base-devel linux-zen linux-firmware nano dhcpcd netctl vim
 # ----------------------------------------------------------------------------
 #pacstrap -i /mnt base base-devel linux linux-firmware nano dhcpcd netctl vim --noconfirm
+# Параметр-I обеспечивает побуждение перед установкой пакета
+# The -i switch ensures prompting before package installation
 #pacstrap /mnt linux base nano dhcpcd netctl sudo wget --noconfirm --noprogressbar --quiet
 #pacstrap /mnt base base-devel linux linux-headers linux-firmware lvm2 nano networkmanager bash-completion reflector htop openssh curl wget git rsync unzip unrar p7zip gnu-netcat pv
 
