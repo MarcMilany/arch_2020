@@ -316,7 +316,7 @@ date
 # ============================================================================
 
 # Ещё раз проверте правильность разбивки на разделы!
-echo -e "${BLUE}:: ${NC}Посмотрим структуру диска созданного установщиком"
+echo -e "${BLUE}==> ${NC}Посмотрим структуру диска созданного установщиком"
 #echo 'Посмотрим структуру диска созданного установщиком'
 # Let's look at the disk structure created by the installer
 sgdisk -p /dev/sda
@@ -415,7 +415,6 @@ cat <<EOF >>/etc/pacman.d/mirrorlist
 ## Russia
 Server = https://mirror.yandex.ru/archlinux/\$repo/os/\$arch
 Server = https://mirror.rol.ru/archlinux/\$repo/os/\$arch
-#Server = https://mirror.yandex.ru/archlinux/\$repo/os/\$arch
 #Server = http://mirror.rol.ru/archlinux/\$repo/os/\$arch
 #Server = http://mirror.truenetwork.ru/archlinux/\$repo/os/\$arch
 #Server = http://mirror.yandex.ru/archlinux/\$repo/os/\$arch
@@ -454,8 +453,8 @@ echo -e "${BLUE}:: ${NC}3.2 Установка основных пакетов (
 # Installing basic packages (base base-devel)
 echo 'Arch Linux, Base devel (AUR only), Kernel (optional), Firmware'
 # Arch Linux, Base devel (AUR only), Kernel (optional), Firmware
-#pacstrap /mnt base base-devel linux-lts linux-firmware nano dhcpcd netctl vim 
-pacstrap /mnt base base-devel linux-lts linux-firmware nano dhcpcd netctl vim --noconfirm --noprogressbar --quiet
+pacstrap /mnt base base-devel linux-lts linux-firmware nano dhcpcd netctl vim 
+#pacstrap /mnt base base-devel linux-lts linux-firmware nano dhcpcd netctl vim --noconfirm --noprogressbar --quiet
 #pacstrap /mnt base base-devel linux linux-firmware nano dhcpcd netctl vim
 #pacstrap /mnt base base-devel linux-hardened linux-firmware nano dhcpcd netctl vim
 #pacstrap /mnt base base-devel linux-zen linux-firmware nano dhcpcd netctl vim
