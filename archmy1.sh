@@ -216,6 +216,21 @@ ${AUTHOR} ${RED}under ${LICENSE} ${GREEN}>>>${NC}"""
 # Команды по установке :
 # archiso login: root (automatic login)
 
+# Подключиться к сети (интернет):
+# Ethernet - подключите кабель.
+# Wi-Fi - аутентификация в беспроводной сети с использованием iwctl.
+# Настройте сетевое соединение:
+# DHCP : динамический IP-адрес и назначение DNS-сервера (предоставляемые systemd-networkd и systemd-resolved ) должны работать "из коробки" для проводных и беспроводных сетевых интерфейсов.
+# Статический IP-адрес: следуйте настройкам сети # Статический IP-адрес.
+# Чтобы настроить сетевое соединение, выполните следующие действия:
+
+echo -e "${GREEN}=> ${NC}Make sure that your network interface is specified and enabled" 
+#echo 'Make sure that your network interface is specified and enabled'
+# Убедитесь, что ваш сетевой интерфейс указан и включен
+ip a
+# Для беспроводной связи убедитесь, что беспроводная карта не заблокирована с помощью: 
+#rfkill 
+
 echo -e "${GREEN}=> ${NC}To check the Internet, you can ping a service" 
 #echo 'To check the Internet, you can ping a service'
 # Для проверки интернета можно пропинговать какой-либо сервис
@@ -405,7 +420,13 @@ sudo pacman -Sy
 echo -e "${BLUE}:: ${NC}3.2 Установка основных пакетов (base base-devel)"
 #echo '3.2 Установка основных пакетов (base base-devel)'
 # Installing basic packages (base base-devel)
+echo 'Arch Linux, Base devel (AUR only), Kernel (optional), Firmware'
+# Arch Linux, Base devel (AUR only), Kernel (optional), Firmware
 pacstrap /mnt base base-devel linux-lts linux-firmware nano dhcpcd netctl vim
+#pacstrap /mnt base base-devel linux linux-firmware nano dhcpcd netctl vim
+#pacstrap /mnt base base-devel linux-hardened linux-firmware nano dhcpcd netctl vim
+#pacstrap /mnt base base-devel linux-zen linux-firmware nano dhcpcd netctl vim
+# ----------------------------------------------------------------------------
 #pacstrap -i /mnt base base-devel linux linux-firmware nano dhcpcd netctl vim --noconfirm
 #pacstrap /mnt linux base nano dhcpcd netctl sudo wget --noconfirm --noprogressbar --quiet
 #pacstrap /mnt base base-devel linux linux-headers linux-firmware lvm2 nano networkmanager bash-completion reflector htop openssh curl wget git rsync unzip unrar p7zip gnu-netcat pv
