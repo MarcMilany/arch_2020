@@ -420,6 +420,7 @@ Server = https://mirror.yandex.ru/archlinux/\$repo/os/\$arch
 #Server = http://mirror.yandex.ru/archlinux/\$repo/os/\$arch
 #Server = http://archlinux.zepto.cloud/\$repo/os/\$arch
 
+EOF
 ##
 ## Arch Linux repository mirrorlist
 ## Generated on 2020-07-03
@@ -430,8 +431,6 @@ Server = https://mirror.yandex.ru/archlinux/\$repo/os/\$arch
 #Server = http://mirror.yandex.ru/archlinux/$repo/os/$arch
 #Server = https://mirror.yandex.ru/archlinux/$repo/os/$arch
 #Server = http://archlinux.zepto.cloud/$repo/os/$arch
-
-EOF
 
 # Pacman Mirrorlist Generator
 # https://www.archlinux.org/mirrorlist/
