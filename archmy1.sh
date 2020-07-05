@@ -387,7 +387,7 @@ cat <<EOF >>/etc/pacman.d/mirrorlist
 
 ##
 ## Arch Linux repository mirrorlist
-## Generated on 2020-05-14
+## Generated on 2020-07-03
 ## HTTP IPv4 HTTPS
 ##
 
@@ -398,6 +398,17 @@ Server = https://mirror.yandex.ru/archlinux/\$repo/os/\$arch
 #Server = http://mirror.truenetwork.ru/archlinux/\$repo/os/\$arch
 #Server = http://mirror.yandex.ru/archlinux/\$repo/os/\$arch
 #Server = http://archlinux.zepto.cloud/\$repo/os/\$arch
+
+##
+## Arch Linux repository mirrorlist
+## Generated on 2020-07-03
+## HTTP IPv6 HTTPS
+##
+
+## Russia
+#Server = http://mirror.yandex.ru/archlinux/$repo/os/$arch
+#Server = https://mirror.yandex.ru/archlinux/$repo/os/$arch
+#Server = http://archlinux.zepto.cloud/$repo/os/$arch
 
 EOF
 
