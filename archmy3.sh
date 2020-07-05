@@ -425,6 +425,31 @@ echo -e "${BLUE}:: ${NC}Создать резервную копию (дубли
 # Create a backup (duplicate) of the grub.cfg file
 sudo cp /boot/grub/grub.cfg grub.cfg.backup
 
+###         Дополнительные Настройки"
+# ============================================================================
+# Часы:
+#Europe/Moscow
+#%a, %d %b, %H:%M
+# ----------------------------------------------------------------------------
+# Conky Start Stop:
+#Conky Start Stop
+#Включить и выключить Conky
+#bash -c 'if [[ `pidof conky` ]]; then killall conky; else bash ~/.scripts/conky-startup.sh; fi'
+#Эмблемы: emblem-generic
+# ----------------------------------------------------------------------------
+# Клавиатура:
+#xfce4-terminal   Ctrl+Alt+T
+#xfce4-terminal --drop-down  F12
+#light-locker-command -l   Ctrl+Alt+L
+#xkill   Ctrl+Alt+X
+#xfce4-taskmanager  Ctrl+Alt+M 
+#xflock4   Ctrl+Alt+Delete
+# ---------------------------------------------------------------------------
+# Redshift:
+#Redshift
+#Инструмент регулирования цветовой температуры
+#sh -c "sleep 30 && redshift-gtk -l 54.5293:36.27542 -t 6400:4500 -b 1.0:0.8"
+#on login
 # ============================================================================
 # echo 'Добавить оскорбительное выражение после неверного ввода пароля в терминале'
 # Откройте на редактирование файл sudoers следующей командой в терминале:
