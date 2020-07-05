@@ -95,7 +95,7 @@ Cостоит из 4 частей.
 # История изменений
 
 ### 15.05.2020 ArchLinux Fast Install v1.6 LegasyBIOS
-- Скрипт изменен (читать справку README_SOFT)
+- Скрипт изменен (читать справку README_SOFT.md)
 
 ### 22.09.2019 ArchLinux Fast Install v1.6
 - Удален SDDM
