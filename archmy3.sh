@@ -573,8 +573,18 @@ echo -e "${YELLOW}==>  wget git.io/archmy4 ${NC}"
 # Команды по установке :
 # wget git.io/archmy4 
 # wget git.io/archmy4 && sh archmy4 --noconfirm
-echo '♥ Либо ты идешь вперед... либо в зад.' 
+echo -e "${GREEN}
+  <<< ♥ Либо ты идешь вперед... либо в зад. >>> ${NC}"
+#echo '♥ Либо ты идешь вперед... либо в зад.' 
+# ♥ Either you go forward... or you go up your ass.
 # ============================================================================
+
+echo -e "${YELLOW}==> ${NC}Загрузим архив (ветку мастер MarcMilany/arch_2020)"
+#echo 'Загрузим архив (ветку мастер MarcMilany/arch_2020)'
+# Upload the archive (branch master MarcMilany/arch_2020)
+wget git.io/Jf4gl
+#git clone https://github.com/MarcMilany/arch_2020.git
+
 echo -e "${BLUE}:: ${NC}Посмотрим дату и время без характеристик для проверки времени"
 #echo 'Посмотрим дату и время без характеристик для проверки времени'
 # Let's look at the date and time without characteristics to check the time
