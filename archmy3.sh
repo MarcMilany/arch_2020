@@ -425,7 +425,7 @@ echo -e "${BLUE}:: ${NC}Создать резервную копию (дубли
 # Create a backup (duplicate) of the grub.cfg file
 sudo cp /boot/grub/grub.cfg grub.cfg.backup
 
-###         Дополнительные Настройки"
+###         "Дополнительные Настройки"
 # ============================================================================
 # Часы:
 #Europe/Moscow
