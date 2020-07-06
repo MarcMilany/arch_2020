@@ -570,7 +570,7 @@ sudo pacman -S wget --noconfirm
 # https://losst.ru/komanda-wget-linux
 # ============================================================================
 
-echo -e "${GREEN}=> ${NC}Создадим конфигурационный файл для установки системных переменных /etc/sysctl.conf"
+echo -e "${GREEN}=> ${BOLD}Создадим конфигурационный файл для установки системных переменных /etc/sysctl.conf ${NC}"
 #echo 'Создадим конфигурационный файл для установки системных переменных /etc/sysctl.conf'
 # Creating a configuration file for setting system variables /etc/sysctl.conf
 > /etc/sysctl.conf
