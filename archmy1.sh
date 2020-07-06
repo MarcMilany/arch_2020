@@ -443,6 +443,8 @@ EOF
 #pacman -Sy --noconfirm --noprogressbar --quiet reflector
 #reflector --verbose --country Kazakhstan --country Russia --sort rate --save /etc/pacman.d/mirrorlist
 #reflector -c "Russia" -c "Belarus" -c "Ukraine" -c "Poland" -f 20 -l 20 -p https -p http -n 20 --save /etc/pacman.d/mirrorlist --sort rate
+#Команда отфильтрует 12 зеркал russia, отсортирует по скорости и обновит файл mirrorlist
+#sudo reflector -c "Russia" -f 12 -l 12 --verbose --save /etc/pacman.d/mirrorlist
 
 echo -e "${BLUE}:: ${NC}Обновим базы данных пакетов" 
 #echo 'Обновим базы данных пакетов'
