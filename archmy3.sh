@@ -584,10 +584,10 @@ echo -e "${YELLOW}==> ${NC}Загрузим архив (ветку мастер 
 # Upload the archive (branch master MarcMilany/arch_2020)
 wget github.com/MarcMilany/arch_2020.git/archive/master.zip
 #wget github.com/MarcMilany/arch_2020.git/archive/arch_2020-master.zip
-sudo mv -f ~/Downloads/master.zip
-#sudo mv -f ~/Downloads/arch_2020-master.zip
-sudo tar -xzf master.zip -C ~/ 
-#sudo tar -xzf arch_2020-master.zip -C ~/
+#sudo mv -f ~/Downloads/master.zip
+sudo mv -f ~/Downloads/arch_2020-master.zip
+#sudo tar -xzf master.zip -C ~/ 
+sudo tar -xzf arch_2020-master.zip -C ~/
 #git clone https://github.com/MarcMilany/arch_2020.git
 
 echo -e "${BLUE}:: ${NC}Посмотрим дату и время без характеристик для проверки времени"
