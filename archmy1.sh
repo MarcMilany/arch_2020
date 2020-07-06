@@ -338,6 +338,7 @@ sgdisk --zap-all /dev/sda
 echo -e "${BLUE}:: ${NC}2.4 Создание разделов диска"   
 #echo '2.4 Создание разделов диска'
 # Creating disk partitions
+# Можно вызвать подсказки нажатием на клавишу “m”
 (
   echo o;
 
