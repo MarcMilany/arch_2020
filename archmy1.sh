@@ -524,8 +524,8 @@ cat /etc/pacman.d/mirrorlist
 echo -e "${BLUE}:: ${NC}Обновим базы данных пакетов" 
 #echo 'Обновим базы данных пакетов'
 # Updating the package databases
-sudo pacman-key --init
-sudo pacman-key --refresh-keys
+#sudo pacman-key --init
+#sudo pacman-key --refresh-keys
 sudo pacman -Sy  
 
 echo -e "${BLUE}:: ${NC}3.2 Установка основных пакетов (base base-devel)"
