@@ -579,10 +579,9 @@ echo -e "${GREEN}
 # ♥ Either you go forward... or you go up your ass.
 # ============================================================================
 
-echo -e "${YELLOW}==> ${NC}Загрузим архив (ветку мастер MarcMilany/arch_2020)"
+#echo -e "${YELLOW}==> ${NC}Загрузим архив (ветку мастер MarcMilany/arch_2020)"
 #echo 'Загрузим архив (ветку мастер MarcMilany/arch_2020)'
-# Upload the archive (branch master MarcMilany/arch_2020)
-wget git.io/Jf4gl
+# Upload the archive (branch master MarcMilany/arch_2020) 
 #git clone https://github.com/MarcMilany/arch_2020.git
 
 echo -e "${BLUE}:: ${NC}Посмотрим дату и время без характеристик для проверки времени"
