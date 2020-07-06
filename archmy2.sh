@@ -570,9 +570,9 @@ sudo pacman -S wget --noconfirm
 # https://losst.ru/komanda-wget-linux
 # ============================================================================
 
-echo -e "${GREEN}==> ${NC}Конфигурационный файл для установки системных переменных /etc/sysctl.conf"
-#echo 'Конфигурационный файл для установки системных переменных /etc/sysctl.conf'
-# Configuration file for setting system variables /etc/sysctl.conf
+echo -e "${GREEN}=> ${NC}Создадим конфигурационный файл для установки системных переменных /etc/sysctl.conf"
+#echo 'Создадим конфигурационный файл для установки системных переменных /etc/sysctl.conf'
+# Creating a configuration file for setting system variables /etc/sysctl.conf
 > /etc/sysctl.conf
 cat <<EOF >>/etc/sysctl.conf
 
@@ -663,7 +663,7 @@ echo 'Если хотите подключить AUR, установить до�
 # If you want to connect AUR, install additional software (packages), install my Xfce configs, then after restarting and logging in, run the command:
 echo -e "${YELLOW}==> wget git.io/archmy3 && sh archmy3 ${NC}"
 
-echo -e "${RED}==> ${NC}Выходим из установленной системы"
+echo -e "${CYAN}==> ${NC}Выходим из установленной системы"
 #echo 'Выходим из установленной системы'
 # Exiting the installed system
 exit 
