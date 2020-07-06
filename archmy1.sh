@@ -427,9 +427,9 @@ Server = https://mirror.yandex.ru/archlinux/\$repo/os/\$arch
 ##
 
 ## Russia
-#Server = http://mirror.yandex.ru/archlinux/$repo/os/$arch
-#Server = https://mirror.yandex.ru/archlinux/$repo/os/$arch
-#Server = http://archlinux.zepto.cloud/$repo/os/$arch
+#Server = http://mirror.yandex.ru/archlinux/$repo/os/\$arch
+#Server = https://mirror.yandex.ru/archlinux/$repo/os/\$arch
+#Server = http://archlinux.zepto.cloud/$repo/os/\$arch
 
 EOF
 
