@@ -433,6 +433,12 @@ Server = https://mirror.yandex.ru/archlinux/\$repo/os/\$arch
 
 EOF
 
+# ============================================================================
+echo -e "${BLUE}:: ${NC}Посмотреть список серверов-зеркал для загрузки в mirrorlist"
+#echo 'Посмотреть список серверов-зеркал для загрузки в mirrorlist'
+# View the list of mirror servers to upload to mirrorlist
+cat /etc/pacman.d/mirrorlist
+
 # Pacman Mirrorlist Generator
 # https://www.archlinux.org/mirrorlist/
 # Эта страница генерирует самый последний список зеркал, возможный для Arch Linux. Используемые здесь данные поступают непосредственно из внутренней базы данных зеркал разработчиков, используемой для отслеживания доступности и уровня зеркалирования. 
