@@ -654,14 +654,32 @@ echo -e "${GREEN}
   <<< Установка завершена! Перезагрузите систему. >>> ${NC}"
 # The installation is now complete! Reboot the system.
 
-echo -e "${MAGENTA}==> ${NC}Проверяйте ваши персональные настройки"
+echo -e "${BLUE}::  ${CYAN} Посмотрим дату и время ... ${NC}"
+#echo 'Посмотрим дату и время'
+# Let's look at the date and time
+date
+
+echo -e "${MAGENTA}==> ${BOLD}Проверяйте ваши персональные настройки. ${NC}"
 #echo 'Проверяйте ваши персональные настройки'
 # Checking personal setting
-echo -e "${YELLOW}==> ${CYAN} ...${NC}"
+### Display user entries (so user can see them before running install)
+### Отображение пользовательских записей (чтобы пользователь мог увидеть их перед запуском установки)
+USER_ENTRIES=(USER_LANG TIMEZONE HOST_NAME USER_NAME LINUX_FW KERNEL \
+DESKTOP DISPLAY_MAN GREETER POWER GPU_DRIVER HARD_VIDEO)
+_info "${MSG_USER_ENTRIES}"
 
-echo 'Если хотите подключить AUR, установить дополнительный софт (пакеты), установить мои конфиги XFCE, тогда после перезагрузки и входа в систему выполните команду:'
+for ENTRY in "${USER_ENTRIES[@]}"; do
+    if [[ ${!ENTRY} ]]; then
+        echo -e "${BOLD}* ${ENTRY}: ${NC}${!ENTRY}"
+    fi
+done
+
+sleep 1
+echo -e "${YELLOW}==> ${CYAN} ...${NC}"
+echo -e "${BLUE}:: ${NC}Если хотите подключить AUR, установить дополнительный софт (пакеты), установить мои конфиги XFCE, тогда после перезагрузки и входа в систему выполните команду:"
+#echo 'Если хотите подключить AUR, установить дополнительный софт (пакеты), установить мои конфиги XFCE, тогда после перезагрузки и входа в систему выполните команду:'
 # If you want to connect AUR, install additional software (packages), install my Xfce configs, then after restarting and logging in, run the command:
-echo -e "${YELLOW}==> wget git.io/archmy3 && sh archmy3 ${NC}"
+echo -e "${YELLOW}==> ${CYAN}wget git.io/archmy3 && sh archmy3 ${NC}"
 
 echo -e "${RED}==> ${BOLD}Выходим из установленной системы ${NC}"
 #echo 'Выходим из установленной системы'
