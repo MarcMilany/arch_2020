@@ -585,7 +585,7 @@ echo -e "${GREEN}
 #echo -e "${YELLOW}==> ${NC}Загрузим архив (ветку мастер MarcMilany/arch_2020)"
 #echo 'Загрузим архив (ветку мастер MarcMilany/arch_2020)'
 # Upload the archive (branch master MarcMilany/arch_2020)
-#wget github.com/MarcMilany/arch_2020.git/archive/master.zip
+wget https://github.com/MarcMilany/arch_2020.git/archive/master.zip
 #wget github.com/MarcMilany/arch_2020.git/archive/arch_2020-master.zip
 #sudo mv -f ~/Downloads/master.zip
 #sudo mv -f ~/Downloads/arch_2020-master.zip
