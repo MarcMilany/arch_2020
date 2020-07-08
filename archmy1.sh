@@ -304,7 +304,9 @@ echo -e "${BLUE}:: ${NC}2.3 Синхронизация системных час
 # Syncing the system clock
 #echo 'Синхронизируем наши системные часы, включаем ntp, если надо сменим часовой пояс'
 # Sync our system clock, enable ntp, change the time zone if necessary
+# Аактивации ntp, и проверка
 timedatectl set-ntp true
+timedatectl status
 
 echo -e "${BLUE}:: ${NC}Посмотрим дату и время без характеристик для проверки времени"
 #echo 'Посмотрим дату и время без характеристик для проверки времени'
