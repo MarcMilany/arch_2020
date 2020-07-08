@@ -572,6 +572,16 @@ pacman -S $gui_install
 
 #echo 'Ставим драйвера видеокарты intel'
 #sudo pacman -S xf86-video-intel vdpauinfo libva-utils libva-intel-driver libva lib32-libva-intel-driver libvdpau libvdpau-va-gl lib32-libvdpau --noconfirm
+#-------------------------------------------------------------------------------
+# Видео драйверы, без них тоже ничего работать не будет вот список:
+# xf86-video-vesa - как я понял, это универсальный драйвер для ксорга (xorg), должен работать при любых обстоятельствах, но вы знаете как, только для того чтобы поставить подходящий.
+# xf86-video-ati - свободный ATI
+# xf86-video-intel - свободный Intel
+# xf86-video-nouveau - свободный Nvidia
+# Существуют также проприетарные драйверы, то есть разработаны самой Nvidia или AMD, но они часто не поддерживают новое ядро, или ещё какие-нибудь траблы.
+# virtualbox-guest-utils - для виртуалбокса, активируем коммандой:
+#systemctl enable vboxservice - вводим дважды пароль
+# ============================================================================
 
 echo -e "${BLUE}:: ${NC}Ставим DE (от англ. desktop environment — среда рабочего стола) Xfce"
 #echo 'Ставим DE (от англ. desktop environment — среда рабочего стола) Xfce'
