@@ -418,18 +418,33 @@ grub-install /dev/sda
 # ============================================================================
 
 
+echo -e "${GREEN}==> ${NC}Установить Микрокод для процессора INTEL_CPU, AMD_CPU?"
+#echo 'Установить Микрокод для процессора INTEL_CPU, AMD_CPU?'
+# Install the Microcode for the CPU INTEL_CPU, AMD_CPU?
+read -p "1 - Pacmac-aur, 2 - Octopi, 0 - Нет: " prog_set
+if [[ $prog_set == 1 ]]; then
+export INTEL_CPU="intel-ucode"
+elif [[ $prog_set == 2 ]]; then
+yay -S octopi --noconfirm
+elif [[ $prog_set == 0 ]]; then
+  echo 'Установка программ пропущена.'
+fi
 
 # Микрокод для процессора - Microcode (matching CPU)
-export INTEL_CPU="intel-ucode"
-export AMD_CPU="amd-ucode"
-Устанавливаем микрокод для процессора:
+#export INTEL_CPU="intel-ucode"
+#export AMD_CPU="amd-ucode"
 
+# Устанавливаем микрокод для процессора:
 # Если у Вас процессор Intel, то:
-pacman -S intel-ucode
+#pacman -S intel-ucode
 # Если у Вас процессор AMD, то:
-pacman -S amd-ucode
+#pacman -S amd-ucode
 
-
+# Wiki: https://wiki.archlinux.org/index.php/Microcode_(%D0%A0%D1%83%D1%81%D1%81%D0%BA%D0%B8%D0%B9)
+# https://wiki.archlinux.org/index.php/Install_Arch_Linux_on_a_removable_medium
+# Производители процессоров выпускают обновления стабильности и безопасности для микрокода процессора. Несмотря на то, что микрокод можно обновить с помощью BIOS, ядро Linux также может применять эти обновления во время загрузки. Эти обновления предоставляют исправления ошибок, которые могут быть критичны для стабильности вашей системы. Без этих обновлений вы можете наблюдать ложные падения или неожиданные зависания системы, которые может быть сложно отследить.
+# Особенно пользователи процессоров семейства Intel Haswell и Broadwell должны установить эти обновления, чтобы обеспечить стабильность системы. Но, понятное дело, все пользователи должны устанавливать эти обновления.
+# ============================================================================
 echo -e "${BLUE}:: ${NC}Обновляем grub.cfg (Сгенерируем grub.cfg)"
 #echo 'Обновляем grub.cfg (Сгенерируем grub.cfg)'
 # Updating grub.cfg (Generating grub.cfg)
