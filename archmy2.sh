@@ -218,6 +218,12 @@ ln -svf /usr/share/zoneinfo/Europe/Moscow /etc/localtime
 # Если Вы живите не в московском временной поясе, то Вам нужно выбрать подходящий ваш часовой пояс. Смотрим доступные пояса:
 #ls /usr/share/zoneinfo
 #ls /usr/share/zoneinfo/Нужный_Регион
+
+# Разберём команду для localtime >>>
+# Выбираем часовой пояс:
+#ln -s /usr/share/zoneinfo/Зона/Субзона /etc/localtime
+#ln -sf /usr/share/zoneinfo/Europe/Moscow /etc/localtime
+# Эта команда создает, так называемую символическую ссылку выбранного пояса в папке /etc
 # ============================================================================
 
 echo -e "${BLUE}:: ${NC}Синхронизация системных часов"  
@@ -342,6 +348,14 @@ echo 'FONT=cyr-sun16' >> /etc/vconsole.conf
 echo 'FONT_MAP=' >> /etc/vconsole.conf
 echo 'CONSOLEMAP' >> /etc/vconsole.conf
 echo 'COMPRESSION="lz4"' >> /etc/mkinitcpio.conf
+# После этого нужно подредактировать хуки
+
+
+nano /etc/mkinitcpio.conf
+Ищём строчку HOOKS и добавляем в конце 3 хука (внутри скобок):
+
+HOOKS = (... consolefont keymap systemd)
+# ============================================================================
 
 echo -e "${BLUE}:: ${NC}Создадим загрузочный RAM диск (начальный RAM-диск)"
 #echo 'Создадим загрузочный RAM диск (начальный RAM-диск)'
