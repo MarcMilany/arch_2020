@@ -348,15 +348,7 @@ echo 'FONT=cyr-sun16' >> /etc/vconsole.conf
 echo 'FONT_MAP=' >> /etc/vconsole.conf
 echo 'CONSOLEMAP' >> /etc/vconsole.conf
 echo 'COMPRESSION="lz4"' >> /etc/mkinitcpio.conf
-# После этого нужно подредактировать хуки
-
-
-nano /etc/mkinitcpio.conf
-Ищём строчку HOOKS и добавляем в конце 3 хука (внутри скобок):
-
-HOOKS = (... consolefont keymap systemd)
 # ============================================================================
-
 echo -e "${BLUE}:: ${NC}Создадим загрузочный RAM диск (начальный RAM-диск)"
 #echo 'Создадим загрузочный RAM диск (начальный RAM-диск)'
 # Creating a bootable RAM disk (initial RAM disk)
@@ -380,13 +372,24 @@ mkinitcpio -p linux-lts
 # mkinitcpio -c /etc/mkinitcpio-custom.conf -g /boot/linux-custom.img
 # Если необходимо создать образ с ядром отличным от загруженного.
 # Доступные версии ядер можно посмотреть в /usr/lib/modules.
+# ---------------------------------------------------------------------------
+# После этого нужно подредактировать хуки keymap.
+# Откройте файл /etc/mkinitcpio.conf:  
+#nano /etc/mkinitcpio.conf
+# Ищём строчку HOOKS и добавляем в конце 3 хука (внутри скобок):
+#HOOKS = (... consolefont keymap systemd)
+
+#/etc/mkinitcpio.conf - основной конфигурационный файл mkinitcpio. Кроме того, в каталоге /etc/mkinitcpio.d располагаются preset файлы (e.g. /etc/mkinitcpio.d/linux.preset).
+# Ссылка на Wiki :
+#https://wiki.archlinux.org/index.php/Mkinitcpio_%28%D0%A0%D1%83%D1%81%D1%81%D0%BA%D0%B8%D0%B9%29
+#https://ru.wikipedia.org/wiki/Initrd
 # ============================================================================
 
 echo -e "${GREEN}==> ${NC}Создаём root пароль"
 #echo 'Создаём root пароль'
 # Creating a root password
 passwd
-# ============================================================================
+# --------------------------------------------------------------------------
 # Пример вывода применённой команды >>> $ passwd После чего дважды новый пароль.
 # Список пользователей в Linux хранится в файле /etc/passwd, вы можете без труда открыть его и посмотреть, пароли же выделены в отдельный файл - /etc/shadow. 
 # Этот файл можно открыть только с правами суперпользователя, и, более того, пароли здесь хранятся в зашифрованном виде, поэтому узнать пароль Linux не получиться, а поменять вручную будет сложно.
@@ -545,6 +548,7 @@ echo -e "${BLUE}:: ${NC}Ставим сетевые утилиты Networkmanage
 #echo 'Ставим сетевые утилиты "Networkmanager"'
 # Put the network utilities "Networkmanager"
 pacman -S networkmanager network-manager-applet ppp --noconfirm
+# networkmanager - сервис для работы интернета. Вместе с собой устанавливает программы для настройки.
 
 echo -e "${BLUE}:: ${NC}Ставим шрифты"
 #echo 'Ставим шрифты'
