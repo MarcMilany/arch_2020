@@ -598,6 +598,10 @@ echo -e "${BLUE}:: ${NC}Ставим сетевые утилиты Networkmanage
 # Put the network utilities "Networkmanager"
 pacman -S networkmanager network-manager-applet ppp --noconfirm
 # networkmanager - сервис для работы интернета. Вместе с собой устанавливает программы для настройки.
+# Если вам нужна поддержка OpenVPN в Network Manager, то выполните команду:
+#sudo pacman -S networkmanager-openvpn
+# https://wiki.archlinux.org/index.php/Networkmanager-openvpn
+# https://www.archlinux.org/packages/extra/x86_64/networkmanager-openvpn/
 
 echo -e "${BLUE}:: ${NC}Ставим шрифты"
 #echo 'Ставим шрифты'
