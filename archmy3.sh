@@ -187,6 +187,10 @@ ${AUTHOR} ${RED}under ${LICENSE} ${GREEN}>>>${NC}"""
 _warning_banner
 
 sleep 4
+#echo -e "${MAGENTA}==> ${BOLD}Если у Вас беспроводное соединение, запустите nmtui и подключитесь к сети. ${NC}"
+#echo 'Если у Вас беспроводное соединение, запустите nmtui и подключитесь к сети.'
+# If you have a wireless connection, launch nmtui and connect to the network.
+
 echo -e "${GREEN}=> ${NC}Для проверки интернета можно пропинговать какой-либо сервис"
 #echo 'Для проверки интернета можно пропинговать какой-либо сервис'
 # To check the Internet, you can ping a service
