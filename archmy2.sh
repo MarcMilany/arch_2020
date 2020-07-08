@@ -348,13 +348,21 @@ echo 'FONT=cyr-sun16' >> /etc/vconsole.conf
 echo 'FONT_MAP=' >> /etc/vconsole.conf
 echo 'CONSOLEMAP' >> /etc/vconsole.conf
 echo 'COMPRESSION="lz4"' >> /etc/mkinitcpio.conf
+#-----------------------------------------------------------------------------
+# Можно изменить шрифт:
+# pacman -S terminus-font - качаем шрифт терминус
+# nano /etc/vconsole.conf - устанавливаем шрифт и переключение клавиатуры по Ctrl-Shift
+# (только в консоли, я не уверен нужно ли это вообще, но помню в убунте надо было писать на русском "да/нет").
+# Если есть желание экспериментировать, консольные шрифты находятся в /usr/share/kbd/consolefonts/ смотрим с помощью ls 
 # ============================================================================
+
 echo -e "${BLUE}:: ${NC}Создадим загрузочный RAM диск (начальный RAM-диск)"
 #echo 'Создадим загрузочный RAM диск (начальный RAM-диск)'
 # Creating a bootable RAM disk (initial RAM disk)
 mkinitcpio -p linux-lts
 #mkinitcpio -p linux
 #mkinitcpio -P linux
+#echo 'COMPRESSION="lz4"' >> /etc/mkinitcpio.conf
 # ============================================================================
 # Команда: mkinitcpio -p linux-lts  - применяется, если Вы устанавливаете
 # стабильное ядро (linux-ltc), иначе вай..вай... может быть ошибка!  
