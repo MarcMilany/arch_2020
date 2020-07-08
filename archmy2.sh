@@ -417,6 +417,19 @@ grub-install /dev/sda
 # https://losst.ru/nastrojka-zagruzchika-grub
 # ============================================================================
 
+
+
+# Микрокод для процессора - Microcode (matching CPU)
+export INTEL_CPU="intel-ucode"
+export AMD_CPU="amd-ucode"
+Устанавливаем микрокод для процессора:
+
+# Если у Вас процессор Intel, то:
+pacman -S intel-ucode
+# Если у Вас процессор AMD, то:
+pacman -S amd-ucode
+
+
 echo -e "${BLUE}:: ${NC}Обновляем grub.cfg (Сгенерируем grub.cfg)"
 #echo 'Обновляем grub.cfg (Сгенерируем grub.cfg)'
 # Updating grub.cfg (Generating grub.cfg)
