@@ -306,6 +306,11 @@ echo -e "${BLUE}:: ${NC}2.3 Синхронизация системных час
 # Sync our system clock, enable ntp, change the time zone if necessary
 # Активации ntp, и проверка статуса
 timedatectl set-ntp true
+#timedatectl status
+
+echo -e "${BLUE}:: ${NC}Посмотрим статус службы NTP (NTP service)"
+#echo 'Посмотрим статус службы NTP (NTP service)'
+# Let's see the NTP service status
 timedatectl status
 
 echo -e "${BLUE}:: ${NC}Посмотрим дату и время без характеристик для проверки времени"
