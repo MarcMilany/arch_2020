@@ -304,7 +304,7 @@ echo -e "${BLUE}:: ${NC}2.3 Синхронизация системных час
 # Syncing the system clock
 #echo 'Синхронизируем наши системные часы, включаем ntp, если надо сменим часовой пояс'
 # Sync our system clock, enable ntp, change the time zone if necessary
-# Аактивации ntp, и проверка
+# Активации ntp, и проверка статуса
 timedatectl set-ntp true
 timedatectl status
 
@@ -542,6 +542,11 @@ echo -e "${BLUE}:: ${NC}Обновим базы данных пакетов"
 #sudo pacman-key --init
 #sudo pacman-key --refresh-keys
 sudo pacman -Sy  
+#----------------------------------------------------------------------------
+# Знакомьтесь, pacman - лучший пакетный менеджер в мире линукса!
+#pacman -Syy   - обновление баз пакмэна(как apt-get update в дэбианоподбных)
+#pacman -Syyu  - обновление баз плюс обновление пакетов
+# ============================================================================
 
 echo -e "${BLUE}:: ${NC}3.2 Установка основных пакетов (base base-devel)"
 #echo '3.2 Установка основных пакетов (base base-devel)'
