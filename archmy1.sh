@@ -407,7 +407,7 @@ fdisk -l
 #   l   список известных типов разделов
 #   n   добавление нового раздела
 #   p   вывести таблицу разделов
-#  t   изменение метки типа раздела
+#   t   изменение метки типа раздела
 #   v   проверка таблицы разделов
 #   i   вывести информацию о разделе
 
@@ -556,6 +556,19 @@ pacstrap /mnt base base-devel linux-lts linux-firmware nano dhcpcd netctl vim
 # The -i switch ensures prompting before package installation
 #pacstrap /mnt linux base nano dhcpcd netctl sudo wget --noconfirm --noprogressbar --quiet
 #pacstrap /mnt base base-devel linux linux-headers linux-firmware lvm2 nano networkmanager bash-completion reflector htop openssh curl wget git rsync unzip unrar p7zip gnu-netcat pv
+# ----------------------------------------------------------------------------
+# base - основные программы.
+# linux - ядро.
+# linux-firmware - файлы прошивок для linux.
+# base-devel - утилиты для разработчиков. Нужны для AUR.
+# man-db - просмотрщик man-страниц.
+# man-pages - куча man-страниц (руководств).
+# nano - простой консольный текстовый редактор. Если умете работать в vim, то можете поставить его вместо nano.
+# sudo - позволяет обычным пользователем совершать действия от лица суперпользователя.
+# git - приложение для работы с репозиториями Git. Нужен для AUR и много чего ещё.
+# networkmanager - сервис для работы интернета. Вместе с собой устанавливает программы для настройки.
+# grub - загрузчик операционной системы. Без него даже загрузиться в новую систему не сможем.
+# efibootmgr - поможет grub установить себя в загрузку UEFI.
 
 # ============================================================================
 # В официальном wiki от arch https://wiki.archlinux.org/index.php/Installation_guide ,
