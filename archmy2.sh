@@ -431,6 +431,7 @@ elif [[ $prog_set == 0 ]]; then
 fi
 
 # Микрокод для процессора - Microcode (matching CPU)
+#read -p "У вас amd или intel?: " cpu
 #export INTEL_CPU="intel-ucode"
 #export AMD_CPU="amd-ucode"
 
