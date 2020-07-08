@@ -228,8 +228,14 @@ echo -e "${GREEN}=> ${NC}Make sure that your network interface is specified and 
 #echo 'Make sure that your network interface is specified and enabled'
 # Убедитесь, что ваш сетевой интерфейс указан и включен
 ip a
+#ip link
+# Если наш интерфейс wlan0. В скобках видно, что он UP. Исправляем:
+#ip link set wlan0 down
+# После этого можно спокойно вызывать wifi-menu и подключатся.
+
 # Также можно посмотреть командой:
 #iw dev
+
 # Для беспроводной связи убедитесь, что беспроводная карта не заблокирована с помощью: 
 #rfkill 
 
