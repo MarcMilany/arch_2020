@@ -214,6 +214,11 @@ ln -svf /usr/share/zoneinfo/Europe/Moscow /etc/localtime
 #ln -s /usr/share/zoneinfo/Europe/Moscow /etc/localtime
 #ln -svf /usr/share/zoneinfo/Asia/Yekaterinburg /etc/localtime
 #ln -svf /usr/share/zoneinfo/Europe/Kiev /etc/localtime
+# ============================================================================
+# Если Вы живите не в московском временной поясе, то Вам нужно выбрать подходящий ваш часовой пояс. Смотрим доступные пояса:
+#ls /usr/share/zoneinfo
+#ls /usr/share/zoneinfo/Нужный_Регион
+# ============================================================================
 
 echo -e "${BLUE}:: ${NC}Синхронизация системных часов"  
 #echo '2.3 Синхронизация системных часов'
