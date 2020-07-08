@@ -431,9 +431,9 @@ echo -e "${GREEN}==> ${NC}Установить Микрокод для проц�
 echo -e "${YELLOW}==> ${NC}Вы можете пропустить этот шаг, если не уверены в правильности выбора"
 read -p "1 - INTEL, 2 - AMD, 0 - Нет: " prog_set
 if [[ $prog_set == 1 ]]; then
-export INTEL_CPU="intel-ucode"
+ pacman -S intel-ucode --noconfirm     
 elif [[ $prog_set == 2 ]]; then
-export AMD_CPU="amd-ucode"
+ pacman -S amd-ucode --noconfirm    
 elif [[ $prog_set == 0 ]]; then
   echo 'Установка программ пропущена.'
 fi
