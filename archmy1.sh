@@ -467,11 +467,12 @@ mount /dev/sda4 /mnt/home
 # - покажет куда был примонтирован sda
 # Посмотрим информацию командой:
 #free -h
+# ============================================================================
 
-echo -e "${BLUE}:: ${NC}Сделайте резервную копию файла /etc/pacman.d/mirrorlist"
+#echo -e "${BLUE}:: ${NC}Сделайте резервную копию файла /etc/pacman.d/mirrorlist"
 #echo 'Сделайте резервную копию файла /etc/pacman.d/mirrorlist'
 # Make a backup copy of the file /etc/pacman.d/mirrorlist
-cp -vf /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.backup
+#cp -vf /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.backup
 # Сохраняем старый список зеркал в качестве резервной копии:
 #mv /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.old
 # Переименовываем новый список:
