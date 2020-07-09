@@ -726,6 +726,56 @@ EOF
 #read -p "Введите допольнительные пакеты которые вы хотите установить: " packages 
 #pacman -S $packages --noconfirm
 
+echo -e "${BLUE}:: ${NC}3.1 Выбор серверов-зеркал для загрузки. Ставим зеркало от Яндекс"
+#echo '3.1 Выбор серверов-зеркал для загрузки. Ставим зеркало от Яндекс'
+# The choice of mirror sites to download. Putting a mirror from Yandex
+#echo "Server = http://mirror.yandex.ru/archlinux/\$repo/os/\$arch" > /etc/pacman.d/mirrorlist
+> /etc/pacman.d/mirrorlist
+cat <<EOF >>/etc/pacman.d/mirrorlist
+
+##
+## Arch Linux repository mirrorlist
+## Generated on 2020-07-03
+## HTTP IPv4 HTTPS
+##
+
+## Russia
+Server = https://mirror.rol.ru/archlinux/\$repo/os/\$arch
+Server = https://mirror.yandex.ru/archlinux/\$repo/os/\$arch
+#Server = http://mirror.rol.ru/archlinux/\$repo/os/\$arch
+#Server = http://mirror.truenetwork.ru/archlinux/\$repo/os/\$arch
+#Server = http://mirror.yandex.ru/archlinux/\$repo/os/\$arch
+#Server = http://archlinux.zepto.cloud/\$repo/os/\$arch
+
+##
+## Arch Linux repository mirrorlist
+## Generated on 2020-07-03
+## HTTP IPv6 HTTPS
+##
+
+## Russia
+#Server = http://mirror.yandex.ru/archlinux/$repo/os/\$arch
+#Server = https://mirror.yandex.ru/archlinux/$repo/os/\$arch
+#Server = http://archlinux.zepto.cloud/$repo/os/\$arch
+
+EOF
+
+# ============================================================================
+
+echo -e "${BLUE}:: ${NC}Посмотреть список серверов-зеркал для загрузки в mirrorlist"
+#echo 'Посмотреть список серверов-зеркал для загрузки в mirrorlist'
+# View the list of mirror servers to upload to mirrorlist
+cat /etc/pacman.d/mirrorlist
+
+echo -e "${BLUE}:: ${NC}Обновим базы данных пакетов" 
+#echo 'Обновим базы данных пакетов'
+# Updating the package databases
+#sudo pacman-key --init
+#sudo pacman-key --refresh-keys
+sudo pacman -Sy  
+
+# ============================================================================
+
 echo -e "${GREEN}
   <<< Установка завершена! Перезагрузите систему. >>> ${NC}"
 # The installation is now complete! Reboot the system.
