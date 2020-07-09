@@ -468,6 +468,23 @@ mount /dev/sda4 /mnt/home
 # Посмотрим информацию командой:
 #free -h
 
+echo -e "${BLUE}:: ${NC}Сделайте резервную копию файла /etc/pacman.d/mirrorlist"
+#echo 'Сделайте резервную копию файла /etc/pacman.d/mirrorlist'
+# Make a backup copy of the file /etc/pacman.d/mirrorlist
+cp -vf /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.backup
+# Сохраняем старый список зеркал в качестве резервной копии:
+#mv /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.old
+# Переименовываем новый список:
+#mv /etc/pacman.d/mirrorlist.pacnew /etc/pacman.d/mirrorlist
+#mv -f ~/mirrorlist /etc/pacman.d/mirrorlist
+
+#echo -e "${BLUE}:: ${NC}Удалите файл /etc/pacman.d/mirrorlist"
+#echo 'Удалите файл /etc/pacman.d/mirrorlist'
+# Delete files /etc/pacman.d/mirrorlist
+#rm -rf /etc/pacman.d/mirrorlist
+# Удаления старой резервной копии (если она есть, если нет, то пропустите этот шаг):
+#rm /etc/pacman.d/mirrorlist.old
+
 echo -e "${BLUE}:: ${NC}3.1 Выбор серверов-зеркал для загрузки. Ставим зеркало от Яндекс"
 #echo '3.1 Выбор серверов-зеркал для загрузки. Ставим зеркало от Яндекс'
 # The choice of mirror sites to download. Putting a mirror from Yandex
@@ -513,6 +530,16 @@ cat /etc/pacman.d/mirrorlist
 # Эта страница генерирует самый последний список зеркал, возможный для Arch Linux. Используемые здесь данные поступают непосредственно из внутренней базы данных зеркал разработчиков, используемой для отслеживания доступности и уровня зеркалирования. 
 # Есть два основных варианта: получить список зеркал с каждым доступным зеркалом или получить список зеркал, адаптированный к вашей географии.
 
+# ============================================================================
+#echo -e "${BLUE}:: ${NC}Загрузка свежего списка зеркал со страницы Mirror Status, и обновим файл mirrorlist"
+#echo 'Загрузка свежего списка зеркал со страницы Mirror Status, и обновим файл mirrorlist'
+# Loading a fresh list of mirrors from the Mirror Status page, and updating the mirrorlist file
+# Чтобы увидеть список всех доступных опций, наберите:
+#reflector --help
+# Команда отфильтрует пять зеркал, отсортирует их по скорости и обновит файл mirrorlist:
+#reflector --verbose --country 'Russia' -l 5 -p https -p http -n 5 --sort rate --save /etc/pacman.d/mirrorlist
+#reflector -c "Russia" -c "Belarus" -c "Ukraine" -c "Poland" -f 5 -l 5 -p https -p http -n 5 --save /etc/pacman.d/mirrorlist --sort rate
+
 #echo 'Выбор серверов-зеркал для загрузки.'
 #echo 'The choice of mirrors to download.'
 #pacman -Sy --noconfirm --noprogressbar --quiet reflector
@@ -520,7 +547,11 @@ cat /etc/pacman.d/mirrorlist
 #reflector -c "Russia" -c "Belarus" -c "Ukraine" -c "Poland" -f 20 -l 20 -p https -p http -n 20 --save /etc/pacman.d/mirrorlist --sort rate
 #Команда отфильтрует 12 зеркал russia, отсортирует по скорости и обновит файл mirrorlist
 #sudo reflector -c "Russia" -f 12 -l 12 --verbose --save /etc/pacman.d/mirrorlist
-
+#------------------------------------------------------------------------------
+# Reflector — скрипт, который автоматизирует процесс настройки зеркал, включающий в себя загрузку свежего списка зеркал со страницы Mirror Status.
+# https://www.linuxsecrets.com/archlinux-wiki/wiki.archlinux.org/index.php/Reflector_(%D0%A0%D1%2583%D1%2581%D1%2581%D0%BA%D0%B8%D0%B9).html
+# Эта страница сообщает о состоянии всех известных, общедоступных и активных зеркал Arch Linux:
+# https://www.archlinux.org/mirrors/status/
 # ============================================================================
 # Если возникли проблемы с обновлением, или установкой пакетов 
 # Выполните данные рекомендации:
@@ -539,6 +570,8 @@ cat /etc/pacman.d/mirrorlist
 #}
 #sleep 1
 #
+# Или:
+#sudo pacman-key --init && sudo pacman-key --populate archlinux && sudo pacman-key --refresh-keys && sudo pacman -Sy
 # ============================================================================
 
 echo -e "${BLUE}:: ${NC}Обновим базы данных пакетов" 
