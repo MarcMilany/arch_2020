@@ -490,7 +490,14 @@ cp -vf /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.backup
 #rm /etc/pacman.d/mirrorlist.old
 
 rm -rf /etc/pacman.d/mirrorlist
-wget https://git.io/mirrorlist
+#wget https://git.io/mirrorlist
+curl -# -fsSL https://git.io/mirrorlist
+#curl -fsSL
+#-# - отображать простой прогресс-бар во время загрузки;
+#-f — не выводить сообщения об ошибках;
+#-s — максимальное количество перенаправлений с помощью Location;
+#-S — выводить сообщения об ошибках;
+#-L — принимать и обрабатывать перенаправления;
 mv -f ~/mirrorlist /etc/pacman.d/mirrorlist
 
 #echo -e "${BLUE}:: ${NC}Загрузка свежего списка зеркал со страницы Mirror Status, и обновим файл mirrorlist"
