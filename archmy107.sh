@@ -489,9 +489,9 @@ cp -vf /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.backup
 # Удаления старой резервной копии (если она есть, если нет, то пропустите этот шаг):
 #rm /etc/pacman.d/mirrorlist.old
 
-rm -rf /etc/pacman.d/mirrorlist
+#rm -rf /etc/pacman.d/mirrorlist
 #wget https://git.io/mirrorlist
-curl -# -fsSL https://git.io/mirrorlist
+curl -L https://git.io/mirrorlist
 #curl -fsSL
 #-# - отображать простой прогресс-бар во время загрузки;
 #-f — не выводить сообщения об ошибках;
