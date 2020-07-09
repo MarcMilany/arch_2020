@@ -489,14 +489,18 @@ cp -vf /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.backup
 # Удаления старой резервной копии (если она есть, если нет, то пропустите этот шаг):
 #rm /etc/pacman.d/mirrorlist.old
 
-echo -e "${BLUE}:: ${NC}Загрузка свежего списка зеркал со страницы Mirror Status, и обновим файл mirrorlist"
+rm -rf /etc/pacman.d/mirrorlist
+wget https://git.io/mirrorlist
+mv -f ~/mirrorlist /etc/pacman.d/mirrorlist
+
+#echo -e "${BLUE}:: ${NC}Загрузка свежего списка зеркал со страницы Mirror Status, и обновим файл mirrorlist"
 #echo 'Загрузка свежего списка зеркал со страницы Mirror Status, и обновим файл mirrorlist'
 # Loading a fresh list of mirrors from the Mirror Status page, and updating the mirrorlist file
 # Чтобы увидеть список всех доступных опций, наберите:
 #reflector --help
 # Команда отфильтрует пять зеркал, отсортирует их по скорости и обновит файл mirrorlist:
 #reflector --verbose --country 'Russia' -l 5 -p https -p http -n 5 --sort rate --save /etc/pacman.d/mirrorlist
-reflector -c "Russia" -c "Belarus" -c "Ukraine" -c "Poland" -f 5 -l 5 -p https -p http -n 5 --save /etc/pacman.d/mirrorlist --sort rate
+#reflector -c "Russia" -c "Belarus" -c "Ukraine" -c "Poland" -f 5 -l 5 -p https -p http -n 5 --save /etc/pacman.d/mirrorlist --sort rate
 
 #echo 'Выбор серверов-зеркал для загрузки.'
 #echo 'The choice of mirrors to download.'
