@@ -472,35 +472,35 @@ echo -e "${BLUE}:: ${NC}3.1 Выбор серверов-зеркал для за
 #echo '3.1 Выбор серверов-зеркал для загрузки. Ставим зеркало от Яндекс'
 # The choice of mirror sites to download. Putting a mirror from Yandex
 #echo "Server = http://mirror.yandex.ru/archlinux/\$repo/os/\$arch" > /etc/pacman.d/mirrorlist
-> /etc/pacman.d/mirrorlist
-cat <<EOF >>/etc/pacman.d/mirrorlist
+echo -e "${BLUE}:: ${NC}Сделайте резервную копию файла /etc/pacman.d/mirrorlist"
+#echo 'Сделайте резервную копию файла /etc/pacman.d/mirrorlist'
+# Make a backup copy of the file /etc/pacman.d/mirrorlist
+cp -vf /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.backup
+# Сохраняем старый список зеркал в качестве резервной копии:
+mv /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.old
+# Переименовываем новый список:
+#mv /etc/pacman.d/mirrorlist.pacnew /etc/pacman.d/mirrorlist
 
-##
-## Arch Linux repository mirrorlist
-## Generated on 2020-07-03
-## HTTP IPv4 HTTPS
-##
+echo -e "${BLUE}:: ${NC}Удалите файл /etc/pacman.d/mirrorlist"
+#echo 'Удалите файл /etc/pacman.d/mirrorlist'
+# Delete files /etc/pacman.d/mirrorlist
+rm -rf /etc/pacman.d/mirrorlist
+# Удаления старой резервной копии (если она есть, если нет, то пропустите этот шаг):
+#rm /etc/pacman.d/mirrorlist.old
 
-## Russia
-Server = https://mirror.rol.ru/archlinux/\$repo/os/\$arch
-Server = https://mirror.yandex.ru/archlinux/\$repo/os/\$arch
-#Server = http://mirror.rol.ru/archlinux/\$repo/os/\$arch
-#Server = http://mirror.truenetwork.ru/archlinux/\$repo/os/\$arch
-#Server = http://mirror.yandex.ru/archlinux/\$repo/os/\$arch
-#Server = http://archlinux.zepto.cloud/\$repo/os/\$arch
+echo -e "${BLUE}:: ${NC}Сделайте резервную копию файла /etc/pacman.d/mirrorlist"
+#echo 'Сделайте резервную копию файла /etc/pacman.d/mirrorlist'
+# Make a backup copy of the file /etc/pacman.d/mirrorlist
+# Чтобы увидеть список всех доступных опций, наберите
+# reflector --help
+reflector --verbose --country 'Russia' -l 5 -p https -p http -n 5 --sort rate --save /etc/pacman.d/mirrorlist
 
-##
-## Arch Linux repository mirrorlist
-## Generated on 2020-07-03
-## HTTP IPv6 HTTPS
-##
+#reflector --verbose --country Kazakhstan --country Russia --sort rate --save /etc/pacman.d/mirrorlist
+#reflector -c "Russia" -c "Belarus" -c "Ukraine" -c "Poland" -f 20 -l 20 -p https -p http -n 20 --save /etc/pacman.d/mirrorlist --sort rate
+#Команда отфильтрует 12 зеркал russia, отсортирует по скорости и обновит файл mirrorlist
+#sudo reflector -c "Russia" -f 12 -l 12 --verbose --save /etc/pacman.d/mirrorlist
 
-## Russia
-#Server = http://mirror.yandex.ru/archlinux/$repo/os/\$arch
-#Server = https://mirror.yandex.ru/archlinux/$repo/os/\$arch
-#Server = http://archlinux.zepto.cloud/$repo/os/\$arch
-
-EOF
+sudo reflector -c "Russia" -c "Belarus" -c "Ukraine" -c "Poland" -f 20 -l 20 -p https -p http -n 20 --save /etc/pacman.d/mirrorlist --sort rate
 
 # ============================================================================
 echo -e "${BLUE}:: ${NC}Посмотреть список серверов-зеркал для загрузки в mirrorlist"
@@ -512,6 +512,9 @@ cat /etc/pacman.d/mirrorlist
 # https://www.archlinux.org/mirrorlist/
 # Эта страница генерирует самый последний список зеркал, возможный для Arch Linux. Используемые здесь данные поступают непосредственно из внутренней базы данных зеркал разработчиков, используемой для отслеживания доступности и уровня зеркалирования. 
 # Есть два основных варианта: получить список зеркал с каждым доступным зеркалом или получить список зеркал, адаптированный к вашей географии.
+
+# Эта страница сообщает о состоянии всех известных, общедоступных и активных зеркал Arch Linux
+# https://www.archlinux.org/mirrors/status/
 
 #echo 'Выбор серверов-зеркал для загрузки.'
 #echo 'The choice of mirrors to download.'
