@@ -494,7 +494,8 @@ echo -e "${BLUE}:: ${NC}Загрузка свежего списка зерка�
 # Чтобы увидеть список всех доступных опций, наберите:
 #reflector --help
 # Команда отфильтрует пять зеркал, отсортирует их по скорости и обновит файл mirrorlist:
-reflector --verbose --country 'Russia' -l 5 -p https -p http -n 5 --sort rate --save /etc/pacman.d/mirrorlist
+#reflector --verbose --country 'Russia' -l 5 -p https -p http -n 5 --sort rate --save /etc/pacman.d/mirrorlist
+reflector -c "Russia" -c "Belarus" -c "Ukraine" -c "Poland" -f 5 -l 5 -p https -p http -n 5 --save /etc/pacman.d/mirrorlist --sort rate
 
 #echo 'Выбор серверов-зеркал для загрузки.'
 #echo 'The choice of mirrors to download.'
