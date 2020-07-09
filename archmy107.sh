@@ -481,10 +481,10 @@ mv /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.old
 # Переименовываем новый список:
 #mv /etc/pacman.d/mirrorlist.pacnew /etc/pacman.d/mirrorlist
 
-echo -e "${BLUE}:: ${NC}Удалите файл /etc/pacman.d/mirrorlist"
+#echo -e "${BLUE}:: ${NC}Удалите файл /etc/pacman.d/mirrorlist"
 #echo 'Удалите файл /etc/pacman.d/mirrorlist'
 # Delete files /etc/pacman.d/mirrorlist
-rm -rf /etc/pacman.d/mirrorlist
+#rm -rf /etc/pacman.d/mirrorlist
 # Удаления старой резервной копии (если она есть, если нет, то пропустите этот шаг):
 #rm /etc/pacman.d/mirrorlist.old
 
