@@ -216,12 +216,12 @@ sudo mv /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.old
 #rm /etc/pacman.d/mirrorlist.old
 
 
-echo -e "${BLUE}:: ${NC}3.1 Выбор серверов-зеркал для загрузки. Ставим зеркало от Яндекс"
+#echo -e "${BLUE}:: ${NC}3.1 Выбор серверов-зеркал для загрузки. Ставим зеркало от Яндекс"
 #echo '3.1 Выбор серверов-зеркал для загрузки. Ставим зеркало от Яндекс'
 # The choice of mirror sites to download. Putting a mirror from Yandex
 #echo "Server = http://mirror.yandex.ru/archlinux/\$repo/os/\$arch" > /etc/pacman.d/mirrorlist
-> /etc/pacman.d/mirrorlist
-cat <<EOF >>/etc/pacman.d/mirrorlist
+#> /etc/pacman.d/mirrorlist
+#cat <<EOF >>/etc/pacman.d/mirrorlist
 
 ##
 ## Arch Linux repository mirrorlist
@@ -230,8 +230,8 @@ cat <<EOF >>/etc/pacman.d/mirrorlist
 ##
 
 ## Russia
-Server = https://mirror.rol.ru/archlinux/\$repo/os/\$arch
-Server = https://mirror.yandex.ru/archlinux/\$repo/os/\$arch
+#Server = https://mirror.rol.ru/archlinux/\$repo/os/\$arch
+#Server = https://mirror.yandex.ru/archlinux/\$repo/os/\$arch
 #Server = http://mirror.rol.ru/archlinux/\$repo/os/\$arch
 #Server = http://mirror.truenetwork.ru/archlinux/\$repo/os/\$arch
 #Server = http://mirror.yandex.ru/archlinux/\$repo/os/\$arch
@@ -248,7 +248,7 @@ Server = https://mirror.yandex.ru/archlinux/\$repo/os/\$arch
 #Server = https://mirror.yandex.ru/archlinux/$repo/os/\$arch
 #Server = http://archlinux.zepto.cloud/$repo/os/\$arch
 
-EOF
+#EOF
 
 # ---------------------------------------------------------------------------
 
