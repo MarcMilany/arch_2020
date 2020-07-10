@@ -203,7 +203,7 @@ echo -e "${BLUE}:: ${NC}Сделайте резервную копию файл�
 # Make a backup copy of the file /etc/pacman.d/mirrorlist
 sudo cp -vf /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.backup
 # Сохраняем старый список зеркал в качестве резервной копии:
-#mv /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.old
+sudo mv /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.old
 # Переименовываем новый список:
 #mv /etc/pacman.d/mirrorlist.pacnew /etc/pacman.d/mirrorlist
 #mv -f ~/mirrorlist /etc/pacman.d/mirrorlist
