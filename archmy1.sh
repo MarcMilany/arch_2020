@@ -673,7 +673,8 @@ cat /mnt/etc/fstab
 #echo -e "${BLUE}:: ${NC}Копируем созданный список зеркал (mirrorlist) в /mnt"
 #echo 'Копируем созданный список зеркал (mirrorlist) в /mnt'
 # Copying the created list of mirrors (mirrorlist) to /mnt
-#cp /etc/pacman.d/mirrorlist /mnt/etc/pacman.d/mirrorlist
+rm /mnt/etc/pacman.d/mirrorlist
+cp /etc/pacman.d/mirrorlist /mnt/etc/pacman.d/mirrorlist
 
 echo -e "${GREEN}==> ${NC}Меняем корень и переходим в нашу недавно скачанную систему" 
 #echo 'Меняем корень и переходим в нашу недавно скачанную систему'
