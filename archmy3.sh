@@ -203,7 +203,7 @@ echo -e "${BLUE}:: ${NC}Сделайте резервную копию файл�
 # Make a backup copy of the file /etc/pacman.d/mirrorlist
 sudo cp -vf /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.backup
 # Сохраняем старый список зеркал в качестве резервной копии:
-sudo mv /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.old
+#sudo mv /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.old
 # Переименовываем новый список:
 #mv /etc/pacman.d/mirrorlist.pacnew /etc/pacman.d/mirrorlist
 #mv -f ~/mirrorlist /etc/pacman.d/mirrorlist
@@ -214,6 +214,8 @@ sudo mv /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.old
 #rm -rf /etc/pacman.d/mirrorlist
 # Удаления старой резервной копии (если она есть, если нет, то пропустите этот шаг):
 #rm /etc/pacman.d/mirrorlist.old
+
+#rm /mnt/etc/pacman.d/mirrorlist
 
 
 #echo -e "${BLUE}:: ${NC}3.1 Выбор серверов-зеркал для загрузки. Ставим зеркало от Яндекс"
