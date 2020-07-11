@@ -300,6 +300,10 @@ echo -e "${GREEN}
 ${NC}"
 # The installation of the minimum Arch Linux system starts
 
+echo -e "${BLUE}:: ${NC}Настройка начата в $(date +%T)" 
+#echo "Настройка начата в $(date +%T)"
+# Configuration started in $(date +%T)
+
 echo -e "${BLUE}:: ${NC}2.3 Синхронизация системных часов"  
 #echo '2.3 Синхронизация системных часов'
 # Syncing the system clock
