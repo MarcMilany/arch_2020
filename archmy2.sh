@@ -735,6 +735,17 @@ echo -e "${BLUE}:: ${BOLD}Посмотрим дату и время ... ${NC}"
 # Let's look at the date and time
 date
 
+echo -e "${BLUE}:: ${BOLD}Отобразить время работы системы ... ${NC}"
+#echo 'Отобразить время работы системы'
+# Display the system's operating time 
+uptime
+# 12:35:19 – текущее системное время.
+# up 8 min – это время, в течение которого система работала.
+# 1 user количество зарегистрированных пользователей.
+# load average: 0.66, 0.62, 0.35 – средние значения загрузки системы за последние 1, 5 и 15 минут.
+# Как использовать команду Uptime:
+# https://andreyex.ru/operacionnaya-sistema-linux/komanda-uptime-v-linux/
+
 echo -e "${MAGENTA}==> ${BOLD}После перезагрузки и входа в систему проверьте ваши персональные настройки. ${NC}"
 #echo 'После перезагрузки и входа в систему проверьте ваши персональные настройки.'
 # After restarting and logging in, check your personal settings.
