@@ -227,6 +227,7 @@ ${AUTHOR} ${RED}under ${LICENSE} ${GREEN}>>>${NC}"""
 echo -e "${GREEN}=> ${NC}Make sure that your network interface is specified and enabled" 
 #echo 'Make sure that your network interface is specified and enabled'
 # Убедитесь, что ваш сетевой интерфейс указан и включен
+# Показать все ip адреса и их интерфейсы
 ip a
 # Смотрим какие у нас есть интернет-интерфейсы
 #ip link
