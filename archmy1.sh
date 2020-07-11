@@ -300,7 +300,7 @@ echo -e "${GREEN}
   <<< Начинается установка минимальной системы Arch Linux >>>
 ${NC}"
 # The installation of the minimum Arch Linux system starts
-cat /etc/archlinux-release
+#cat /etc/archlinux-release
 grep -V
 echo 'aAsSdDfFgGhH'|egrep -q '^[a-z_-]+$'; echo $?
 
