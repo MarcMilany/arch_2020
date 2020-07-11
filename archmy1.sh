@@ -700,8 +700,13 @@ cat /mnt/etc/fstab
 echo -e "${BLUE}:: ${NC}Копируем созданный список зеркал (mirrorlist) в /mnt"
 #echo 'Копируем созданный список зеркал (mirrorlist) в /mnt'
 # Copying the created list of mirrors (mirrorlist) to /mnt
-rm /mnt/etc/pacman.d/mirrorlist
+rm /mnt/etc/pacman.d/mirrorlist # Удалим mirrorlist из /mnt/etc/pacman.d/mirrorlist
 cp /etc/pacman.d/mirrorlist /mnt/etc/pacman.d/mirrorlist
+
+echo -e "${BLUE}:: ${NC}Посмотреть список серверов-зеркал /mnt/etc/pacman.d/mirrorlist"
+#echo 'Посмотреть список серверов-зеркал /mnt/etc/pacman.d/mirrorlist'
+# View the list of mirror servers /mnt/etc/pacman.d/mirrorlist
+cat /mnt/etc/pacman.d/mirrorlist
 
 echo -e "${GREEN}==> ${NC}Меняем корень и переходим в нашу недавно скачанную систему" 
 #echo 'Меняем корень и переходим в нашу недавно скачанную систему'
