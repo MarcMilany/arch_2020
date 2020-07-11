@@ -727,7 +727,7 @@ EOF
 #pacman -S $packages --noconfirm
 
 echo -e "${GREEN}
-  <<< Установка завершена! Перезагрузите систему. >>> ${NC}"
+  <<< Поздравляем, Установка завершена! Перезагрузите систему. >>> ${NC}"
 # The installation is now complete! Reboot the system.
 
 echo -e "${BLUE}:: ${BOLD}Посмотрим дату и время ... ${NC}"
@@ -763,6 +763,7 @@ echo -e "${YELLOW}==> ${CYAN}wget git.io/archmy3 && sh archmy3 ${NC}"
 echo -e "${RED}==> ${BOLD}Выходим из установленной системы ${NC}"
 #echo 'Выходим из установленной системы'
 # Exiting the installed system
+echo 'Теперь вам надо ввести 'reboot', чтобы перезагрузиться"'
 exit 
 #umount -Rf /mnt
 
