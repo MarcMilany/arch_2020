@@ -771,7 +771,8 @@ echo -e "${YELLOW}==> ${CYAN}wget git.io/archmy3 && sh archmy3 ${NC}"
 echo -e "${RED}==> ${BOLD}Выходим из установленной системы ${NC}"
 #echo 'Выходим из установленной системы'
 # Exiting the installed system
-echo 'Теперь вам надо ввести "${BOLD}reboot${NC}", чтобы перезагрузиться'
+echo -e "${BLUE}:: ${BOLD}Теперь вам надо ввести reboot, чтобы перезагрузиться ${NC}"
+#echo 'Теперь вам надо ввести reboot, чтобы перезагрузиться'
 #'Now you need to enter 'reboot' to reboot"'
 exit 
 #umount -Rf /mnt
