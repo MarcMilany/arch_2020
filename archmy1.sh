@@ -77,6 +77,13 @@ BLUE="\e[1;34m"; CYAN="\e[1;36m"; BOLD="\e[1;37m"; MAGENTA="\e[1;35m"; NC="\e[0m
 # DGRAY='\e[1;30m'  LGREEN='\e[1;32m' LBLUE='\e[1;34m'  LCYAN='\e[1;36m'    NC='\e[0m' # No Color
 # Индивидуальные настройки подсветки синтаксиса для каждого пользователя можно настраивать в конфигурационном файле /home/$USER/.bashrc
 
+#-------------------------------------------------------------------------------------
+
+### Automatic error detection (Автоматическое обнаружение ошибок)
+_set() {
+    set [--abefhkmnptuvxBCHP] [-o option] [arg ...]
+}
+  
 ### Display some notes (Дисплей некоторые заметки)
 _note() {
     echo -e "${RED}\nNote: ${BLUE}${1}${NC}"
