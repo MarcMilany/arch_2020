@@ -83,6 +83,12 @@ BLUE="\e[1;34m"; CYAN="\e[1;36m"; BOLD="\e[1;37m"; MAGENTA="\e[1;35m"; NC="\e[0m
 _set() {
     set [--abefhkmnptuvxBCHP] [-o option] [arg ...]
 }
+
+_set() {
+    set -e "\n${RED}Error: ${YELLOW}${*}${NC}"
+    _note "${MSG_ERROR}"
+    sleep 1; $$
+}
   
 ### Display some notes (Дисплей некоторые заметки)
 _note() {
@@ -156,6 +162,7 @@ _error() {
 
 ### Cleanup on keyboard interrupt (Очистка при прерывании работы клавиатуры)
 trap '_error ${MSG_KEYBOARD}' 1 2 3 6
+#trap "set -$-" RETURN; set +o nounset
 
 ### Delete sources and umount partitions (Удаление источников и размонтирование разделов)
 _cleanup() {
