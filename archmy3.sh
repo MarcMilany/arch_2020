@@ -214,9 +214,8 @@ sudo cp -vf /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.backup
 #rm -rf /etc/pacman.d/mirrorlist
 # Удаления старой резервной копии (если она есть, если нет, то пропустите этот шаг):
 #rm /etc/pacman.d/mirrorlist.old
-
-#rm /mnt/etc/pacman.d/mirrorlist
-
+# Удалим mirrorlist из /mnt/etc/pacman.d/mirrorlist
+#rm /mnt/etc/pacman.d/mirrorlist 
 
 #echo -e "${BLUE}:: ${NC}3.1 Выбор серверов-зеркал для загрузки. Ставим зеркало от Яндекс"
 #echo '3.1 Выбор серверов-зеркал для загрузки. Ставим зеркало от Яндекс'
