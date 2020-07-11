@@ -474,6 +474,8 @@ mount /dev/sda4 /mnt/home
 #echo 'Сделайте резервную копию файла /etc/pacman.d/mirrorlist'
 # Make a backup copy of the file /etc/pacman.d/mirrorlist
 #cp -vf /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.backup
+# Создайте резервную копию текущего файл /etc/pacman.d/mirrorlist:
+# cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.backup
 # Сохраняем старый список зеркал в качестве резервной копии:
 #mv /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.old
 # Переименовываем новый список:
@@ -486,6 +488,8 @@ mount /dev/sda4 /mnt/home
 #rm -rf /etc/pacman.d/mirrorlist
 # Удаления старой резервной копии (если она есть, если нет, то пропустите этот шаг):
 #rm /etc/pacman.d/mirrorlist.old
+
+#rm /mnt/etc/pacman.d/mirrorlist
 
 echo -e "${BLUE}:: ${NC}3.1 Выбор серверов-зеркал для загрузки. Ставим зеркало от Яндекс"
 #echo '3.1 Выбор серверов-зеркал для загрузки. Ставим зеркало от Яндекс'
@@ -521,6 +525,15 @@ Server = https://mirror.yandex.ru/archlinux/\$repo/os/\$arch
 
 EOF
 
+# ============================================================================
+# Получение и ранжирование свежего списка зеркал
+# Воспользуйтесь Pacman Mirrorlist Generator, чтобы получить список актуальных зеркал определённых стран и отсортировать его с помощью rankmirrors. Команда ниже скачивает актуальный список зеркал во Франции и Великобритании, использующих протокол https, после чего удаляет комментарии, ранжирует сервера и выводит 5 наиболее быстрых из них.
+
+#$ curl -s "https://www.archlinux.org/mirrorlist/?country=FR&country=GB&protocol=https&use_mirror_status=on" | sed -e 's/^#Server/Server/' -e '/^#/d' | rankmirrors -n 5 -
+
+#curl -s "https://www.archlinux.org/mirrorlist/?country=RU&country&protocol=https&use_mirror_status=on" | sed -e 's/^#Server/Server/' -e '/^#/d' | rankmirrors -n 5 -
+
+# https://wiki.archlinux.org/index.php/Mirrors_(%D0%A0%D1%83%D1%81%D1%81%D0%BA%D0%B8%D0%B9)
 # ============================================================================
 echo -e "${BLUE}:: ${NC}Посмотреть список серверов-зеркал для загрузки в mirrorlist"
 #echo 'Посмотреть список серверов-зеркал для загрузки в mirrorlist'
@@ -641,7 +654,7 @@ genfstab -pU /mnt >> /mnt/etc/fstab
 # То есть, если Вы вбивали два раза команды что написаны выше, то у Вас может в этом файле быть прописано монтирование одного и того же раздела в двух разных вариантах что чревато.
 # Команда genfstab -h может сказать многое в том числе для чего нужно -p. Исключает монтирование псевдо файловые системы. Ключик можно не использовать, ибо используется по дефолту.
 # Installation guide (Русский): fstab (Русский)
-
+# https://wiki.archlinux.org/index.php/Fstab_(%D0%A0%D1%83%D1%81%D1%81%D0%BA%D0%B8%D0%B9)
 # ============================================================================
 echo -e "${BLUE}:: ${NC}Просмотреть содержимое файла fstab"
 #echo 'Просмотреть содержимое файла fstab'
