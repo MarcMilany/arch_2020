@@ -264,6 +264,7 @@ setfont cyr-sun16
 # Консольные шрифты находятся внутри /usr/share/kbd/consolefonts/и также могут быть установлены с помощью setfont.
 # 
 # ============================================================================
+set -e
 
 echo -e "${CYAN}==> ${NC}Добавим русскую локаль в систему установки"
 #echo 'Добавим русскую локаль в систему установки'
@@ -299,6 +300,10 @@ echo -e "${GREEN}
   <<< Начинается установка минимальной системы Arch Linux >>>
 ${NC}"
 # The installation of the minimum Arch Linux system starts
+set -e
+cat /etc/archlinux-release
+grep -V
+echo 'aAsSdDfFgGhH'|egrep -q '^[a-z_-]+$'; echo $?
 
 echo -e "${BLUE}:: ${NC}Установка и настройка начата в $(date +%T)" 
 #echo "Установка и настройка начата в $(date +%T)"
