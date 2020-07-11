@@ -643,6 +643,7 @@ echo -e "${BLUE}:: ${NC}3.3 Настройка системы, генериру�
 # Configuring the system, generating fstab
 genfstab -pU /mnt >> /mnt/etc/fstab
 #(или genfstab -L /mnt >> /mnt/etc/fstab)
+#genfstab -p -L /mnt > /mnt/etc/fstab
 # Нашёл ещё две команды для генерации fstab при установке:
 #genfstab -U -p /mnt >> /mnt/etc/fstab
 #genfstab /mnt >> /mnt/etc/fstab
