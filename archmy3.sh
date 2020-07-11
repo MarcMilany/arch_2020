@@ -771,3 +771,9 @@ y)
 *)
 sudo reboot -f
 esac #окончание оператора case.
+
+# Проверка вводимых символов
+#cat /etc/archlinux-release
+#grep -V
+#echo 'aAsSdDfFgGhH'|egrep -q '^[a-z_-]+$'; echo $?
+#
