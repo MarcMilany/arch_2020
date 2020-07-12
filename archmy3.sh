@@ -304,7 +304,10 @@ echo -e "${BLUE}:: ${NC}Загрузка свежего списка зерка�
 # Чтобы увидеть список всех доступных опций, наберите:
 #reflector --help
 # Команда отфильтрует пять зеркал, отсортирует их по скорости и обновит файл mirrorlist:
-sudo reflector --verbose --country 'Russia' -l 5 -p https -p http -n 5 --sort rate --save /etc/pacman.d/mirrorlist
+#sudo reflector --verbose --country 'Russia' -l 5 -p https -p http -n 5 --sort rate --save /etc/pacman.d/mirrorlist
+sudo pacman -Sy --noconfirm --noprogressbar --quiet reflector
+#sudo reflector --verbose --country 'Russia' -l 5 -p https -p http -n 5 --save /etc/pacman.d/mirrorlist --sort rate
+sudo reflector --verbose --country 'Russia' -l 5 -p https -p http -n 5 --save /etc/pacman.d/mirrorlist.pacnew --sort rate  
 #reflector --verbose --country 'Russia' -l 5 -p https -p http -n 5 --sort rate --save /etc/pacman.d/mirrorlist
 #reflector -c "Russia" -c "Belarus" -c "Ukraine" -c "Poland" -f 5 -l 5 -p https -p http -n 5 --save /etc/pacman.d/mirrorlist --sort rate
 
@@ -341,6 +344,23 @@ sudo reflector --verbose --country 'Russia' -l 5 -p https -p http -n 5 --sort ra
 # Или:
 #sudo pacman-key --init && sudo pacman-key --populate archlinux && sudo pacman-key --refresh-keys && sudo pacman -Sy
 # ============================================================================
+
+echo -e "${BLUE}:: ${NC}Удалим старый файл /etc/pacman.d/mirrorlist"
+#echo 'Удалим старый файл /etc/pacman.d/mirrorlist'
+# Delete the old file /etc/pacman.d/mirrorlist
+#rm -rf /etc/pacman.d/mirrorlist
+sudo rm -rf /etc/pacman.d/mirrorlist
+# Удаления старой резервной копии (если она есть, если нет, то пропустите этот шаг):
+#rm /etc/pacman.d/mirrorlist.old
+# Удалим mirrorlist из /mnt/etc/pacman.d/mirrorlist
+#rm /mnt/etc/pacman.d/mirrorlist 
+
+echo -e "${BLUE}:: ${NC}Переименуем новый список серверов-зеркал mirrorlist.pacnew в mirrorlist"
+#echo 'Переименуем новый список серверов-зеркал mirrorlist.pacnew в mirrorlist'
+# Rename the new list of mirror servers mirrorlist. pacnew to mirrorlist
+#mv /etc/pacman.d/mirrorlist.pacnew /etc/pacman.d/mirrorlist
+# Переименовываем новый список:
+sudo mv /etc/pacman.d/mirrorlist.pacnew /etc/pacman.d/mirrorlist
 
 echo -e "${BLUE}:: ${NC}Посмотреть список серверов-зеркал для загрузки в mirrorlist"
 #echo 'Посмотреть список серверов-зеркал для загрузки в mirrorlist'
@@ -787,7 +807,7 @@ echo -e "${GREEN}
 #echo -e "${YELLOW}==> ${NC}Загрузим архив (ветку мастер MarcMilany/arch_2020)"
 #echo 'Загрузим архив (ветку мастер MarcMilany/arch_2020)'
 # Upload the archive (branch master MarcMilany/arch_2020)
-wget https://github.com/MarcMilany/arch_2020.git/archive/master.zip
+#wget https://github.com/MarcMilany/arch_2020.git/archive/master.zip
 #wget github.com/MarcMilany/arch_2020.git/archive/arch_2020-master.zip
 #sudo mv -f ~/Downloads/master.zip
 #sudo mv -f ~/Downloads/arch_2020-master.zip
