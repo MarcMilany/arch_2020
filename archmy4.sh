@@ -130,7 +130,11 @@ _error() {
 }
 
 ### Cleanup on keyboard interrupt (Очистка при прерывании работы клавиатуры)
-#trap '_error ${MSG_KEYBOARD}' 1 2 3 6
+trap '_error ${MSG_KEYBOARD}' 1 2 3 6
+#trap "set -$-" RETURN; set +o nounset
+# Или
+#trap "set -${-//[is]}" RETURN; set +o nounset
+#..., устраняя недействительные флаги и действительно решая эту проблему!
 
 ### Delete sources and umount partitions (Удаление источников и размонтирование разделов)
 _cleanup() {
