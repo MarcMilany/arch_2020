@@ -758,7 +758,7 @@ EOF
 
 echo -e "${GREEN}
   <<< Поздравляем! Установка завершена. Перезагрузите систему. >>> ${NC}"
-# The installation is now complete! Reboot the system.
+# Congratulations! Installation is complete. Reboot the system.
 
 echo -e "${BLUE}:: ${BOLD}Посмотрим дату и время ... ${NC}"
 #echo 'Посмотрим дату и время'
