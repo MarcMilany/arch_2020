@@ -557,6 +557,12 @@ Server = https://mirror.yandex.ru/archlinux/\$repo/os/\$arch
 EOF
 
 # ============================================================================
+
+echo -e "${BLUE}:: ${NC}Создание (backup) резервного списка зеркал mirrorlist - (mirrorlist.backup)"
+#echo 'Создание (backup) резервного списка зеркал mirrorlist - (mirrorlist.backup)'
+# Creating a backup list of mirrors mirrorlist - (mirrorlist.backup)
+cp -vf /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.backup
+# ============================================================================
 # Получение и ранжирование свежего списка зеркал
 # Воспользуйтесь Pacman Mirrorlist Generator, чтобы получить список актуальных зеркал определённых стран и отсортировать его с помощью rankmirrors. Команда ниже скачивает актуальный список зеркал во Франции и Великобритании, использующих протокол https, после чего удаляет комментарии, ранжирует сервера и выводит 5 наиболее быстрых из них.
 
@@ -570,7 +576,6 @@ echo -e "${BLUE}:: ${NC}Посмотреть список серверов-зе�
 #echo 'Посмотреть список серверов-зеркал для загрузки в mirrorlist'
 # View the list of mirror servers to upload to mirrorlist
 cat /etc/pacman.d/mirrorlist
-cp -vf /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.backup
 
 # Pacman Mirrorlist Generator
 # https://www.archlinux.org/mirrorlist/
@@ -703,6 +708,7 @@ echo -e "${BLUE}:: ${NC}Копируем созданный список зер�
 # Copying the created list of mirrors (mirrorlist) to /mnt
 rm /mnt/etc/pacman.d/mirrorlist # Удалим mirrorlist из /mnt/etc/pacman.d/mirrorlist
 cp /etc/pacman.d/mirrorlist /mnt/etc/pacman.d/mirrorlist
+# Копируем созданный список зеркал (mirrorlist.backup) в /mnt
 cp /etc/pacman.d/mirrorlist.backup /mnt/etc/pacman.d/mirrorlist.backup
 
 #echo -e "${BLUE}:: ${NC}Посмотреть список серверов-зеркал /mnt/etc/pacman.d/mirrorlist"
