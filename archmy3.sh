@@ -782,7 +782,10 @@ sudo cp -vf /boot/grub/grub.cfg /boot/grub/grub.cfg.backup
 
 # ============================================================================
 
-echo -e "${GREEN}==> ${NC}Установка завершена!"
+echo -e "${GREEN}
+  <<< Поздравляем! Установка завершена. >>> ${NC}"
+# Congratulations! Installation is complete..
+#echo -e "${GREEN}==> ${NC}Установка завершена!"
 #echo 'Установка завершена!'
 # The installation is now complete!
 
