@@ -735,7 +735,7 @@ EOF
 #pacman -S $packages --noconfirm
 
 echo -e "${GREEN}
-  <<< Поздравляем, Установка завершена! Перезагрузите систему. >>> ${NC}"
+  <<< Поздравляем! Установка завершена. Перезагрузите систему. >>> ${NC}"
 # The installation is now complete! Reboot the system.
 
 echo -e "${BLUE}:: ${BOLD}Посмотрим дату и время ... ${NC}"
