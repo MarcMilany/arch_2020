@@ -305,7 +305,7 @@ echo -e "${BLUE}:: ${NC}Загрузка свежего списка зерка�
 #reflector --help
 # Команда отфильтрует пять зеркал, отсортирует их по скорости и обновит файл mirrorlist:
 #sudo reflector --verbose --country 'Russia' -l 5 -p https -p http -n 5 --sort rate --save /etc/pacman.d/mirrorlist
-sudo pacman -Sy --noconfirm --noprogressbar --quiet reflector
+#sudo pacman -Sy --noconfirm --noprogressbar --quiet reflector
 #sudo reflector --verbose --country 'Russia' -l 5 -p https -p http -n 5 --save /etc/pacman.d/mirrorlist --sort rate
 sudo reflector --verbose --country 'Russia' -l 5 -p https -p http -n 5 --save /etc/pacman.d/mirrorlist.pacnew --sort rate  
 #reflector --verbose --country 'Russia' -l 5 -p https -p http -n 5 --sort rate --save /etc/pacman.d/mirrorlist
