@@ -703,7 +703,7 @@ echo -e "${BLUE}:: ${NC}Копируем созданный список зер�
 # Copying the created list of mirrors (mirrorlist) to /mnt
 rm /mnt/etc/pacman.d/mirrorlist # Удалим mirrorlist из /mnt/etc/pacman.d/mirrorlist
 cp /etc/pacman.d/mirrorlist /mnt/etc/pacman.d/mirrorlist
-#cp /etc/pacman.d/mirrorlist.backup /mnt/etc/pacman.d/mirrorlist.backup
+cp /etc/pacman.d/mirrorlist.backup /mnt/etc/pacman.d/mirrorlist.backup
 
 #echo -e "${BLUE}:: ${NC}Посмотреть список серверов-зеркал /mnt/etc/pacman.d/mirrorlist"
 #echo 'Посмотреть список серверов-зеркал /mnt/etc/pacman.d/mirrorlist'
