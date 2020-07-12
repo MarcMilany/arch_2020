@@ -1,5 +1,13 @@
 #!/bin/bash
 # ============================================================================
+# Автоматическое обнаружение ошибок
+# Эта команда остановит выполнение сценария после сбоя команды и будет отправлен код ошибки
+set -e
+# Если этот параметр '-e' задан, оболочка завершает работу, когда простая команда в списке команд завершается ненулевой (FALSE). Это не делается в ситуациях, когда код выхода уже проверен (if, while, until,||, &&)
+# Встроенная команда set:
+# https://www.sites.google.com/site/bashhackers/commands/set
+# ============================================================================
+# ============================================================================
 ### old_vars.log
 #set > old_vars.log
 
@@ -144,7 +152,11 @@ _error() {
 }
 
 ### Cleanup on keyboard interrupt (Очистка при прерывании работы клавиатуры)
-#trap '_error ${MSG_KEYBOARD}' 1 2 3 6
+trap '_error ${MSG_KEYBOARD}' 1 2 3 6
+#trap "set -$-" RETURN; set +o nounset
+# Или
+#trap "set -${-//[is]}" RETURN; set +o nounset
+#..., устраняя недействительные флаги и действительно решая эту проблему!
 
 ### Delete sources and umount partitions (Удаление источников и размонтирование разделов)
 _cleanup() {
@@ -201,7 +213,8 @@ ping -c2 archlinux.org
 echo -e "${BLUE}:: ${NC}Сделайте резервную копию файла /etc/pacman.d/mirrorlist"
 #echo 'Сделайте резервную копию файла /etc/pacman.d/mirrorlist'
 # Make a backup copy of the file /etc/pacman.d/mirrorlist
-sudo cp -vf /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.backup
+#sudo cp -vf /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.backup
+sudo cp -vf /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.old 
 # Сохраняем старый список зеркал в качестве резервной копии:
 #sudo mv /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.old
 # Переименовываем новый список:
@@ -253,10 +266,10 @@ sudo cp -vf /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.backup
 
 # ---------------------------------------------------------------------------
 
-echo -e "${BLUE}:: ${NC}Посмотреть список серверов-зеркал для загрузки в mirrorlist"
+#echo -e "${BLUE}:: ${NC}Посмотреть список серверов-зеркал для загрузки в mirrorlist"
 #echo 'Посмотреть список серверов-зеркал для загрузки в mirrorlist'
 # View the list of mirror servers to upload to mirrorlist
-cat /etc/pacman.d/mirrorlist
+#cat /etc/pacman.d/mirrorlist
 
 # Pacman Mirrorlist Generator
 # https://www.archlinux.org/mirrorlist/
@@ -264,12 +277,13 @@ cat /etc/pacman.d/mirrorlist
 # Есть два основных варианта: получить список зеркал с каждым доступным зеркалом или получить список зеркал, адаптированный к вашей географии.
 
 # ============================================================================
-#echo -e "${BLUE}:: ${NC}Загрузка свежего списка зеркал со страницы Mirror Status, и обновим файл mirrorlist"
+echo -e "${BLUE}:: ${NC}Загрузка свежего списка зеркал со страницы Mirror Status, и обновим файл mirrorlist"
 #echo 'Загрузка свежего списка зеркал со страницы Mirror Status, и обновим файл mirrorlist'
 # Loading a fresh list of mirrors from the Mirror Status page, and updating the mirrorlist file
 # Чтобы увидеть список всех доступных опций, наберите:
 #reflector --help
 # Команда отфильтрует пять зеркал, отсортирует их по скорости и обновит файл mirrorlist:
+sudo reflector --verbose --country 'Russia' -l 5 -p https -p http -n 5 --sort rate --save /etc/pacman.d/mirrorlist
 #reflector --verbose --country 'Russia' -l 5 -p https -p http -n 5 --sort rate --save /etc/pacman.d/mirrorlist
 #reflector -c "Russia" -c "Belarus" -c "Ukraine" -c "Poland" -f 5 -l 5 -p https -p http -n 5 --save /etc/pacman.d/mirrorlist --sort rate
 
@@ -306,6 +320,11 @@ cat /etc/pacman.d/mirrorlist
 # Или:
 #sudo pacman-key --init && sudo pacman-key --populate archlinux && sudo pacman-key --refresh-keys && sudo pacman -Sy
 # ============================================================================
+
+echo -e "${BLUE}:: ${NC}Посмотреть список серверов-зеркал для загрузки в mirrorlist"
+#echo 'Посмотреть список серверов-зеркал для загрузки в mirrorlist'
+# View the list of mirror servers to upload to mirrorlist
+cat /etc/pacman.d/mirrorlist
 
 echo -e "${BLUE}:: ${NC}Обновим базы данных пакетов" 
 #echo 'Обновим базы данных пакетов'
@@ -562,7 +581,8 @@ sudo ufw status
 echo -e "${BLUE}:: ${NC}Создать резервную копию (дубликат) файла grub.cfg" 
 #echo 'Создать резервную копию (дубликат) файла grub.cfg'
 # Create a backup (duplicate) of the grub.cfg file
-sudo cp /boot/grub/grub.cfg grub.cfg.backup
+#sudo cp /boot/grub/grub.cfg grub.cfg.backup
+sudo cp -vf /boot/grub/grub.cfg /boot/grub/grub.cfg.backup 
 
 ###         "Дополнительные Настройки"
 # ============================================================================
@@ -750,6 +770,7 @@ echo -e "${BLUE}:: ${NC}Посмотрим дату и время без хар�
 # Let's look at the date and time without characteristics to check the time
 date
 time
+cat /etc/arch-release
 
 echo 'Удаление созданной папки (downloads), и скрипта установки программ (archmy3)'
 # Deleting the created folder (downloads) and the program installation script (archmy3)
