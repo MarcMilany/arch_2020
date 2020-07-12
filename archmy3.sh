@@ -298,9 +298,9 @@ sudo cp -vf /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.old
 # Есть два основных варианта: получить список зеркал с каждым доступным зеркалом или получить список зеркал, адаптированный к вашей географии.
 
 # ============================================================================
-echo -e "${BLUE}:: ${NC}Загрузка свежего списка зеркал со страницы Mirror Status, и обновим файл mirrorlist"
-#echo 'Загрузка свежего списка зеркал со страницы Mirror Status, и обновим файл mirrorlist'
-# Loading a fresh list of mirrors from the Mirror Status page, and updating the mirrorlist file
+echo -e "${BLUE}:: ${NC}Загрузка свежего списка зеркал со страницы Mirror Status, и обновляем mirrorlist"
+#echo 'Загрузка свежего списка зеркал со страницы Mirror Status, и обновляем mirrorlist'
+# Loading a fresh list of mirrors from the Mirror Status page, and updating the mirrorlist
 # Чтобы увидеть список всех доступных опций, наберите:
 #reflector --help
 # Команда отфильтрует пять зеркал, отсортирует их по скорости и обновит файл mirrorlist:
