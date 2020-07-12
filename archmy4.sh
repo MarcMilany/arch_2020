@@ -196,6 +196,15 @@ ${AUTHOR} ${RED}under ${LICENSE} ${GREEN}>>>${NC}"""
 _warning_banner
 
 sleep 4
+echo -e "${GREEN}
+  <<< Начинается установка утилит (пакетов) для системы Arch Linux >>>
+${NC}"
+# Installation of utilities (packages) for the Arch Linux system begins
+
+echo -e "${BLUE}:: ${NC}Установка и настройка начата в $(date +%T)" 
+#echo "Установка и настройка начата в $(date +%T)"
+# Installation and configuration started in $(date +%T)
+
 echo 'Для проверки интернета можно пропинговать какой-либо сервис'
 # To check the Internet, you can ping a service
 ping -c2 archlinux.org
