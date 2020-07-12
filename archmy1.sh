@@ -501,27 +501,6 @@ mount /dev/sda4 /mnt/home
 #free -h
 # ============================================================================
 
-#echo -e "${BLUE}:: ${NC}Сделайте резервную копию файла /etc/pacman.d/mirrorlist"
-#echo 'Сделайте резервную копию файла /etc/pacman.d/mirrorlist'
-# Make a backup copy of the file /etc/pacman.d/mirrorlist
-#cp -vf /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.backup
-# Создайте резервную копию текущего файл /etc/pacman.d/mirrorlist:
-# cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.backup
-# Сохраняем старый список зеркал в качестве резервной копии:
-#mv /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.old
-# Переименовываем новый список:
-#mv /etc/pacman.d/mirrorlist.pacnew /etc/pacman.d/mirrorlist
-#mv -f ~/mirrorlist /etc/pacman.d/mirrorlist
-
-#echo -e "${BLUE}:: ${NC}Удалите файл /etc/pacman.d/mirrorlist"
-#echo 'Удалите файл /etc/pacman.d/mirrorlist'
-# Delete files /etc/pacman.d/mirrorlist
-#rm -rf /etc/pacman.d/mirrorlist
-# Удаления старой резервной копии (если она есть, если нет, то пропустите этот шаг):
-#rm /etc/pacman.d/mirrorlist.old
-
-#rm /mnt/etc/pacman.d/mirrorlist
-
 echo -e "${BLUE}:: ${NC}3.1 Выбор серверов-зеркал для загрузки. Ставим зеркало от Яндекс"
 #echo '3.1 Выбор серверов-зеркал для загрузки. Ставим зеркало от Яндекс'
 # The choice of mirror sites to download. Putting a mirror from Yandex
@@ -605,6 +584,19 @@ cat /etc/pacman.d/mirrorlist
 # Эта страница сообщает о состоянии всех известных, общедоступных и активных зеркал Arch Linux:
 # https://www.archlinux.org/mirrors/status/
 # ============================================================================
+
+echo -e "${BLUE}:: ${NC}Обновим базы данных пакетов" 
+#echo 'Обновим базы данных пакетов'
+# Updating the package databases
+#sudo pacman-key --init
+#sudo pacman-key --refresh-keys
+sudo pacman -Sy  
+
+# ============================================================================
+# Знакомьтесь, pacman - лучший пакетный менеджер в мире линукса!
+#pacman -Syy   - обновление баз пакмэна(как apt-get update в дэбианоподбных)
+#pacman -Syyu  - обновление баз плюс обновление пакетов
+# ----------------------------------------------------------------------------
 # Если возникли проблемы с обновлением, или установкой пакетов 
 # Выполните данные рекомендации:
 # author:
@@ -624,19 +616,6 @@ cat /etc/pacman.d/mirrorlist
 #
 # Или:
 #sudo pacman-key --init && sudo pacman-key --populate archlinux && sudo pacman-key --refresh-keys && sudo pacman -Sy
-# ============================================================================
-
-echo -e "${BLUE}:: ${NC}Обновим базы данных пакетов" 
-#echo 'Обновим базы данных пакетов'
-# Updating the package databases
-#sudo pacman-key --init
-#sudo pacman-key --refresh-keys
-sudo pacman -Sy  
-
-#----------------------------------------------------------------------------
-# Знакомьтесь, pacman - лучший пакетный менеджер в мире линукса!
-#pacman -Syy   - обновление баз пакмэна(как apt-get update в дэбианоподбных)
-#pacman -Syyu  - обновление баз плюс обновление пакетов
 # ============================================================================
 
 echo -e "${BLUE}:: ${NC}3.2 Установка основных пакетов (base base-devel)"
@@ -709,7 +688,7 @@ echo -e "${BLUE}:: ${NC}Копируем созданный список зер�
 rm /mnt/etc/pacman.d/mirrorlist # Удалим mirrorlist из /mnt/etc/pacman.d/mirrorlist
 cp /etc/pacman.d/mirrorlist /mnt/etc/pacman.d/mirrorlist
 
-echo -e "${BLUE}:: ${NC}Копируем созданный список зеркал (mirrorlist) в /mnt"
+echo -e "${BLUE}:: ${NC}Копируем резервного списка зеркал (mirrorlist.backup) в /mnt"
 #echo 'Копируем резервного списка зеркал (mirrorlist.backup) в /mnt'
 # Copying the backup list of mirrors (mirrorlist.backup) in /mnt
 cp /etc/pacman.d/mirrorlist.backup /mnt/etc/pacman.d/mirrorlist.backup
@@ -718,6 +697,29 @@ cp /etc/pacman.d/mirrorlist.backup /mnt/etc/pacman.d/mirrorlist.backup
 #echo 'Посмотреть список серверов-зеркал /mnt/etc/pacman.d/mirrorlist'
 # View the list of mirror servers /mnt/etc/pacman.d/mirrorlist
 #cat /mnt/etc/pacman.d/mirrorlist
+
+# ============================================================================
+#echo -e "${BLUE}:: ${NC}Сделайте резервную копию файла /etc/pacman.d/mirrorlist"
+#echo 'Сделайте резервную копию файла /etc/pacman.d/mirrorlist'
+# Make a backup copy of the file /etc/pacman.d/mirrorlist
+#cp -vf /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.backup
+# Создайте резервную копию текущего файл /etc/pacman.d/mirrorlist:
+# cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.backup
+# Сохраняем старый список зеркал в качестве резервной копии:
+#mv /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.old
+# Переименовываем новый список:
+#mv /etc/pacman.d/mirrorlist.pacnew /etc/pacman.d/mirrorlist
+#mv -f ~/mirrorlist /etc/pacman.d/mirrorlist
+# ----------------------------------------------------------------------------
+#echo -e "${BLUE}:: ${NC}Удалите файл /etc/pacman.d/mirrorlist"
+#echo 'Удалите файл /etc/pacman.d/mirrorlist'
+# Delete files /etc/pacman.d/mirrorlist
+#rm -rf /etc/pacman.d/mirrorlist
+# Удаления старой резервной копии (если она есть, если нет, то пропустите этот шаг):
+#rm /etc/pacman.d/mirrorlist.old
+# Удалим mirrorlist из /mnt/etc/pacman.d/mirrorlist
+#rm /mnt/etc/pacman.d/mirrorlist
+# ============================================================================
 
 echo -e "${GREEN}==> ${NC}Меняем корень и переходим в нашу недавно скачанную систему" 
 #echo 'Меняем корень и переходим в нашу недавно скачанную систему'
