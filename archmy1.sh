@@ -692,6 +692,8 @@ echo -e "${BLUE}:: ${NC}Копируем созданный список зер�
 # Copying the created list of mirrors (mirrorlist) to /mnt
 rm /mnt/etc/pacman.d/mirrorlist # Удалим mirrorlist из /mnt/etc/pacman.d/mirrorlist
 cp /etc/pacman.d/mirrorlist /mnt/etc/pacman.d/mirrorlist
+#reflector --verbose --country 'Russia' -l 5 -p https -p http -n 5 --save /etc/pacman.d/mirrorlist.pacnew --sort rate 
+reflector --verbose --country 'Russia' -l 5 -p https -p http -n 5 --save /etc/pacman.d/mirrorlist --sort rate 
 
 echo -e "${BLUE}:: ${NC}Копируем резервного списка зеркал (mirrorlist.backup) в /mnt"
 #echo 'Копируем резервного списка зеркал (mirrorlist.backup) в /mnt'
@@ -701,7 +703,7 @@ cp /etc/pacman.d/mirrorlist.backup /mnt/etc/pacman.d/mirrorlist.backup
 #echo -e "${BLUE}:: ${NC}Посмотреть список серверов-зеркал /mnt/etc/pacman.d/mirrorlist"
 #echo 'Посмотреть список серверов-зеркал /mnt/etc/pacman.d/mirrorlist'
 # View the list of mirror servers /mnt/etc/pacman.d/mirrorlist
-#cat /mnt/etc/pacman.d/mirrorlist
+cat /mnt/etc/pacman.d/mirrorlist
 
 # ============================================================================
 #echo -e "${BLUE}:: ${NC}Сделайте резервную копию файла /etc/pacman.d/mirrorlist"
