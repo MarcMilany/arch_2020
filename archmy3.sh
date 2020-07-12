@@ -367,12 +367,12 @@ echo -e "${BLUE}:: ${NC}Посмотреть список серверов-зе�
 # View the list of mirror servers to upload to mirrorlist
 cat /etc/pacman.d/mirrorlist
 
-echo -e "${BLUE}:: ${NC}Обновим базы данных пакетов" 
+#echo -e "${BLUE}:: ${NC}Обновим базы данных пакетов" 
 #echo 'Обновим базы данных пакетов'
 # Updating the package databases
 #sudo pacman-key --init
 #sudo pacman-key --refresh-keys
-sudo pacman -Sy  
+#sudo pacman -Sy  
 
 #----------------------------------------------------------------------------
 # Знакомьтесь, pacman - лучший пакетный менеджер в мире линукса!
