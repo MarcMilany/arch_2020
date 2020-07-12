@@ -691,10 +691,10 @@ echo -e "${BLUE}:: ${NC}Копируем созданный список зер�
 #echo 'Копируем созданный список зеркал (mirrorlist) в /mnt'
 # Copying the created list of mirrors (mirrorlist) to /mnt
 rm /mnt/etc/pacman.d/mirrorlist # Удалим mirrorlist из /mnt/etc/pacman.d/mirrorlist
-cp /etc/pacman.d/mirrorlist /mnt/etc/pacman.d/mirrorlist
 #reflector --verbose --country 'Russia' -l 5 -p https -p http -n 5 --save /etc/pacman.d/mirrorlist.pacnew --sort rate 
-reflector --verbose --country 'Russia' -l 5 -p https -p http -n 5 --save /etc/pacman.d/mirrorlist --sort rate 
-
+reflector --verbose --country 'Russia' -l 5 -p https -p http -n 5 --save /etc/pacman.d/mirrorlist --sort rate
+cp /etc/pacman.d/mirrorlist /mnt/etc/pacman.d/mirrorlist
+ 
 echo -e "${BLUE}:: ${NC}Копируем резервного списка зеркал (mirrorlist.backup) в /mnt"
 #echo 'Копируем резервного списка зеркал (mirrorlist.backup) в /mnt'
 # Copying the backup list of mirrors (mirrorlist.backup) in /mnt
