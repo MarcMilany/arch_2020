@@ -708,10 +708,6 @@ echo -e "${BLUE}:: ${NC}Загрузка свежего списка зерка�
 reflector --verbose --country 'Russia' -l 5 -p https -p http -n 5 --save /etc/pacman.d/mirrorlist --sort rate  
 #reflector --verbose --country 'Russia' -l 5 -p https -p http -n 5 --sort rate --save /etc/pacman.d/mirrorlist
 
-
-
-
-
 echo -e "${BLUE}:: ${NC}Копируем созданный список зеркал (mirrorlist) в /mnt"
 #echo 'Копируем созданный список зеркал (mirrorlist) в /mnt'
 # Copying the created list of mirrors (mirrorlist) to /mnt
@@ -731,7 +727,7 @@ echo -e "${GREEN}==> ${NC}Меняем корень и переходим в н�
 #echo 'Меняем корень и переходим в нашу недавно скачанную систему'
 # Change the root and go to our recently downloaded system
 arch-chroot /mnt sh -c "$(curl -fsSL git.io/archmy2)"
-# ============================================================================
+# -----------------------------------------------------------------------------
 # Change root. Здесь мы просто переходим в нашу недавно скачанную систему, теперь можно устанавливать всё что угодно, оно останется у Вас в системе.
 # Chroot на практике - полезные статьи :
 # https://wiki.archlinux.org/index.php/Chroot_(%D0%A0%D1%83%D1%81%D1%81%D0%BA%D0%B8%D0%B9)
