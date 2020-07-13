@@ -687,12 +687,34 @@ cat /mnt/etc/fstab
 # Чтобы система знала какие разделы монтировать при старте.
 # ============================================================================
 
+echo -e "${BLUE}:: ${NC}Удалим старый файл mirrorlist из /mnt/etc/pacman.d/mirrorlist"
+#echo 'Удалим старый файл mirrorlist из /mnt/etc/pacman.d/mirrorlist'
+# Delete files /etc/pacman.d/mirrorlist
+# Удалим mirrorlist из /mnt/etc/pacman.d/mirrorlist
+rm /mnt/etc/pacman.d/mirrorlist 
+#rm -rf /mnt/etc/pacman.d/mirrorlist
+#Удалите файл /etc/pacman.d/mirrorlist
+#rm -rf /etc/pacman.d/mirrorlist
+# Удаления старой резервной копии (если она есть, если нет, то пропустите этот шаг):
+#rm /etc/pacman.d/mirrorlist.old
+
+echo -e "${BLUE}:: ${NC}Загрузка свежего списка зеркал со страницы Mirror Status, и обновляем mirrorlist"
+#echo 'Загрузка свежего списка зеркал со страницы Mirror Status, и обновляем mirrorlist'
+# Loading a fresh list of mirrors from the Mirror Status page, and updating the mirrorlist
+# Чтобы увидеть список всех доступных опций, наберите:
+#reflector --help
+# Команда отфильтрует пять зеркал, отсортирует их по скорости и обновит файл mirrorlist:
+#sudo pacman -Sy --noconfirm --noprogressbar --quiet reflector
+reflector --verbose --country 'Russia' -l 5 -p https -p http -n 5 --save /etc/pacman.d/mirrorlist --sort rate  
+#reflector --verbose --country 'Russia' -l 5 -p https -p http -n 5 --sort rate --save /etc/pacman.d/mirrorlist
+
+
+
+
+
 echo -e "${BLUE}:: ${NC}Копируем созданный список зеркал (mirrorlist) в /mnt"
 #echo 'Копируем созданный список зеркал (mirrorlist) в /mnt'
 # Copying the created list of mirrors (mirrorlist) to /mnt
-rm /mnt/etc/pacman.d/mirrorlist # Удалим mirrorlist из /mnt/etc/pacman.d/mirrorlist
-#reflector --verbose --country 'Russia' -l 5 -p https -p http -n 5 --save /etc/pacman.d/mirrorlist.pacnew --sort rate 
-reflector --verbose --country 'Russia' -l 5 -p https -p http -n 5 --save /etc/pacman.d/mirrorlist --sort rate
 cp /etc/pacman.d/mirrorlist /mnt/etc/pacman.d/mirrorlist
  
 echo -e "${BLUE}:: ${NC}Копируем резервного списка зеркал (mirrorlist.backup) в /mnt"
@@ -704,29 +726,6 @@ cp /etc/pacman.d/mirrorlist.backup /mnt/etc/pacman.d/mirrorlist.backup
 #echo 'Посмотреть список серверов-зеркал /mnt/etc/pacman.d/mirrorlist'
 # View the list of mirror servers /mnt/etc/pacman.d/mirrorlist
 cat /mnt/etc/pacman.d/mirrorlist
-
-# ============================================================================
-#echo -e "${BLUE}:: ${NC}Сделайте резервную копию файла /etc/pacman.d/mirrorlist"
-#echo 'Сделайте резервную копию файла /etc/pacman.d/mirrorlist'
-# Make a backup copy of the file /etc/pacman.d/mirrorlist
-#cp -vf /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.backup
-# Создайте резервную копию текущего файл /etc/pacman.d/mirrorlist:
-# cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.backup
-# Сохраняем старый список зеркал в качестве резервной копии:
-#mv /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.old
-# Переименовываем новый список:
-#mv /etc/pacman.d/mirrorlist.pacnew /etc/pacman.d/mirrorlist
-#mv -f ~/mirrorlist /etc/pacman.d/mirrorlist
-# ----------------------------------------------------------------------------
-#echo -e "${BLUE}:: ${NC}Удалите файл /etc/pacman.d/mirrorlist"
-#echo 'Удалите файл /etc/pacman.d/mirrorlist'
-# Delete files /etc/pacman.d/mirrorlist
-#rm -rf /etc/pacman.d/mirrorlist
-# Удаления старой резервной копии (если она есть, если нет, то пропустите этот шаг):
-#rm /etc/pacman.d/mirrorlist.old
-# Удалим mirrorlist из /mnt/etc/pacman.d/mirrorlist
-#rm /mnt/etc/pacman.d/mirrorlist
-# ============================================================================
 
 echo -e "${GREEN}==> ${NC}Меняем корень и переходим в нашу недавно скачанную систему" 
 #echo 'Меняем корень и переходим в нашу недавно скачанную систему'
