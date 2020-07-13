@@ -775,6 +775,21 @@ sudo cp -vf /boot/grub/grub.cfg /boot/grub/grub.cfg.backup
 
 # ============================================================================
 
+# Исправьте миниатюры в файловом менеджере
+# Fix Thumbnails in file manager
+#sudo pacman -S tumbler ffmpegthumbnailer poppler-glib libgsf libopenraw
+# Удаление папки .thumbnails
+#(Папка предназначена для хранения миниатюрных эскизов всех ранее просмотренных вами изображений)
+#sudo rm -rf ~/.thumbnails/
+# Переименовываем новый список:
+#sudo mv ~/.config/Thunar ~/.config/Thunar.bak
+# Обновим каталоги MIME, и update-mime-database 
+#sudo update-mime-database /usr/share/mime
+
+#Then logout and back in or Reboot. 
+
+# ============================================================================
+
 echo -e "${GREEN}
   <<< Поздравляем! Установка завершена. >>> ${NC}"
 # Congratulations! Installation is complete.
@@ -793,6 +808,7 @@ echo -e "${BLUE}==> ${NC}Скачать и произвести запуск с�
 echo -e "${YELLOW}==>  wget git.io/archmy4 ${NC}"
 # Команды по установке :
 # wget git.io/archmy4 
+# sh archmy4
 # wget git.io/archmy4 && sh archmy4 --noconfirm
 echo -e "${GREEN}
   <<< ♥ Либо ты идешь вперед... либо в зад. >>> ${NC}"
