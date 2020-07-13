@@ -328,7 +328,8 @@ echo -e "${BLUE}:: ${NC}Переименуем новый список серв�
 # Rename the new list of mirror servers mirrorlist. pacnew to mirrorlist
 #mv /etc/pacman.d/mirrorlist.pacnew /etc/pacman.d/mirrorlist
 # Переименовываем новый список:
-sudo mv /etc/pacman.d/mirrorlist.pacnew /etc/pacman.d/mirrorlist
+#sudo mv /etc/pacman.d/mirrorlist.pacnew /etc/pacman.d/mirrorlist
+sudo mv /etc/pacman.d/mirrorlist.backup /etc/pacman.d/mirrorlist
 
 # ============================================================================
 
