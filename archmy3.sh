@@ -235,6 +235,7 @@ echo -e "${BLUE}:: ${NC}Создание резервной копии файл�
 #echo 'Создадим резервную копию файла /etc/pacman.d/mirrorlist'
 # Creating a backup copy of the file /etc/pacman.d/mirrorlist
 #sudo cp -vf /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.backup
+#sudo cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.backup
 sudo cp -vf /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.old 
 # Сохраняем старый список зеркал в качестве резервной копии:
 #sudo mv /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.old
