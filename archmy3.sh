@@ -333,6 +333,20 @@ sudo mv /etc/pacman.d/mirrorlist.backup /etc/pacman.d/mirrorlist
 
 # ============================================================================
 
+echo -e "${BLUE}:: ${NC}Создание резервной копии файла /etc/pacman.d/mirrorlist"
+#echo 'Создадим резервную копию файла /etc/pacman.d/mirrorlist'
+# Creating a backup copy of the file /etc/pacman.d/mirrorlist
+#sudo cp -vf /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.backup
+#sudo cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.backup
+sudo cp -vf /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.backup
+# Сохраняем старый список зеркал в качестве резервной копии:
+#sudo mv /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.old
+# Переименовываем новый список:
+#mv /etc/pacman.d/mirrorlist.pacnew /etc/pacman.d/mirrorlist
+#mv -f ~/mirrorlist /etc/pacman.d/mirrorlist
+
+# ============================================================================
+
 echo -e "${BLUE}:: ${NC}Посмотреть список серверов-зеркал для загрузки в mirrorlist"
 #echo 'Посмотреть список серверов-зеркал для загрузки в mirrorlist'
 # View the list of mirror servers to upload to mirrorlist
@@ -832,7 +846,6 @@ echo -e "${BLUE}:: ${NC}Посмотрим дату и время без хар�
 # Let's look at the date and time without characteristics to check the time
 date
 time
-cat /etc/arch-release
 
 echo 'Удаление созданной папки (downloads), и скрипта установки программ (archmy3)'
 # Deleting the created folder (downloads) and the program installation script (archmy3)
