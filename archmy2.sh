@@ -589,6 +589,10 @@ echo -e "${BLUE}:: ${NC}Ставим иксы и драйвера"
 # Put the x's and drivers
 pacman -S $gui_install
 
+# -------------------------------------------------------------------------
+#pacman -S bash-completion xorg-server xorg-apps xorg-xinit mesa xorg-twm xterm xorg-xclock xf86-input-synaptics virtualbox-guest-utils linux-headers --noconfirm
+# ============================================================================
+
 #echo "Какая видеокарта?"
 #read -p "1 - nvidia, 2 - Amd, 3 - intel: " videocard
 #if [[ $videocard == 1 ]]; then
