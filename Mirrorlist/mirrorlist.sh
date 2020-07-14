@@ -1,7 +1,10 @@
 #!/bin/bash
 
+##команда отфильтрует 7 зеркал russia, отсортирует по скорости и обновит файл mirrorlist##
+sudo reflector --verbose --country Russia -l 7 -p https -p http -n 7 --save /etc/pacman.d/mirrorlist --sort rate
+
 ##команда отфильтрует 12 зеркал russia, отсортирует по скорости и обновит файл mirrorlist##
-sudo reflector -c "Russia" -f 12 -l 12 --verbose --save /etc/pacman.d/mirrorlist
+#sudo reflector -c "Russia" -f 12 -l 12 --verbose --save /etc/pacman.d/mirrorlist
 
 ##команда отфильтрует 12 зеркал, отсортирует по скорости и обновит файл mirrorlist##
 #sudo reflector --verbose -l 12 --sort rate --save /etc/pacman.d/mirrorlist
