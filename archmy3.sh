@@ -231,6 +231,21 @@ ping -c2 archlinux.org
 
 # ============================================================================
 
+#Замена исходного mirrorlist (зеркал для загрузки) на мой список серверов-зеркал
+
+#echo '3.1 Замена исходного mirrorlist (зеркал для загрузки)'
+#Ставим зеркало от Яндекс
+# Удалим старый файл /etc/pacman.d/mirrorlist
+#rm -rf /etc/pacman.d/mirrorlist
+# Загрузка нового файла mirrorlis (список серверов-зеркал)
+#wget https://raw.githubusercontent.com/MarcMilany/arch_2020/master/Mirrorlist/mirrorlist
+# Переместим нового файла mirrorlist в /etc/pacman.d/mirrorlist
+#mv -f ~/mirrorlist /etc/pacman.d/mirrorlist
+#echo "Обновление баз данных пакетов..."
+#sudo pacman -Sy
+
+# ============================================================================
+
 echo -e "${BLUE}:: ${NC}Создание резервной копии файла /etc/pacman.d/mirrorlist"
 #echo 'Создадим резервную копию файла /etc/pacman.d/mirrorlist'
 # Creating a backup copy of the file /etc/pacman.d/mirrorlist
