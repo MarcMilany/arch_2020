@@ -379,8 +379,15 @@ echo 'FONT_MAP=' >> /etc/vconsole.conf
 echo 'CONSOLEMAP' >> /etc/vconsole.conf
 echo 'COMPRESSION="lz4"' >> /etc/mkinitcpio.conf
 #-----------------------------------------------------------------------------
+#echo 'Вписываем KEYMAP=ru FONT=ter-v16n'
+#echo 'KEYMAP=us' >> /etc/vconsole.conf
+#echo 'FONT=ter-v16n' >> /etc/vconsole.conf
 # Можно изменить шрифт:
 # pacman -S terminus-font - качаем шрифт терминус
+#loadkeys us
+#pacman -Syy
+#pacman -S terminus-font --noconfirm
+#setfont ter-v16b
 # nano /etc/vconsole.conf - устанавливаем шрифт и переключение клавиатуры по Ctrl-Shift
 # (только в консоли, я не уверен нужно ли это вообще, но помню в убунте надо было писать на русском "да/нет").
 # Если есть желание экспериментировать, консольные шрифты находятся в /usr/share/kbd/consolefonts/ смотрим с помощью ls 
