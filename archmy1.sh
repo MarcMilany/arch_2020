@@ -507,7 +507,20 @@ mount /dev/sda4 /mnt/home
 # Посмотрим информацию командой:
 #free -h
 # ============================================================================
+#Замена исходного mirrorlist (зеркал для загрузки) на мой список серверов-зеркал
 
+#echo '3.1 Замена исходного mirrorlist (зеркал для загрузки)'
+#Ставим зеркало от Яндекс
+# Удалим старый файл /etc/pacman.d/mirrorlist
+#rm -rf /etc/pacman.d/mirrorlist
+# Загрузка нового файла mirrorlis (список серверов-зеркал)
+#wget https://raw.githubusercontent.com/MarcMilany/arch_2020/master/Mirrorlist/mirrorlist
+# Переместим нового файла mirrorlist в /etc/pacman.d/mirrorlist
+#mv -f ~/mirrorlist /etc/pacman.d/mirrorlist
+#echo "Обновление баз данных пакетов..."
+#sudo pacman -Sy
+
+# -----------------------------------------------------------------------------
 echo -e "${BLUE}:: ${NC}3.1 Выбор серверов-зеркал для загрузки. Ставим зеркало от Яндекс"
 #echo '3.1 Выбор серверов-зеркал для загрузки. Ставим зеркало от Яндекс'
 # The choice of mirror sites to download. Putting a mirror from Yandex
