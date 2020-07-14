@@ -392,10 +392,13 @@ echo -e "${BLUE}:: ${NC}Создадим загрузочный RAM диск (н
 mkinitcpio -p linux-lts
 #mkinitcpio -p linux
 #mkinitcpio -P linux
+#mkinitcpio -p linux-zen
 #echo 'COMPRESSION="lz4"' >> /etc/mkinitcpio.conf
 # ============================================================================
 # Команда: mkinitcpio -p linux-lts  - применяется, если Вы устанавливаете
-# стабильное ядро (linux-ltc), иначе вай..вай... может быть ошибка!  
+# стабильное ядро (linux-ltc), иначе вай..вай... может быть ошибка!
+# Команда: mkinitcpio -p linux-zen  - применяется, если Вы устанавливаете
+# стабильное ядро (linux-zen), иначе вай..вай... может быть ошибка!  
 # В остальных случаях при установке Arch'a с ядром (linux) идущим вместе   
 # с устанавливаемым релизом (rolling release) применяется команда : mkinitcpio -p linux.
 # Ошибки при создании RAM mkinitcpio -p linux. Как исправить?
