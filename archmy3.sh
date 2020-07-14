@@ -265,6 +265,8 @@ echo -e "${BLUE}:: ${NC}Загрузка свежего списка зерка�
 #sudo pacman -Sy --noconfirm --noprogressbar --quiet reflector
 sudo reflector --verbose --country 'Russia' -l 5 -p https -p http -n 5 --save /etc/pacman.d/mirrorlist.pacnew --sort rate  
 #reflector --verbose --country 'Russia' -l 5 -p https -p http -n 5 --sort rate --save /etc/pacman.d/mirrorlist
+# Собственные уведомления (notify):
+notify-send "mirrorlist обновлен" -i gtk-info
 
 #echo 'Выбор серверов-зеркал для загрузки.'
 #echo 'The choice of mirrors to download.'
