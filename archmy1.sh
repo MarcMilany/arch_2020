@@ -288,7 +288,7 @@ echo -e "${BLUE}:: ${NC}Setting up the Russian language, changing the console fo
 loadkeys ru
 #loadkeys us
 setfont cyr-sun16
-
+#setfont ter-v16b #pacman -S terminus-font --noconfirm
 # ============================================================================
 # Чтобы изменить макет, добавьте соответствующее имя файла в loadkeys , пропустив путь и расширение файла. Например, чтобы установить немецкую раскладку клавиатуры:
 # loadkeys de-latin1
