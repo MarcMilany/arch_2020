@@ -711,8 +711,6 @@ echo -e "${BLUE}:: ${NC}Загрузка свежего списка зерка�
 #sudo pacman -Sy --noconfirm --noprogressbar --quiet reflector
 reflector --verbose --country 'Russia' -l 5 -p https -p http -n 5 --save /etc/pacman.d/mirrorlist --sort rate  
 #reflector --verbose --country 'Russia' -l 5 -p https -p http -n 5 --sort rate --save /etc/pacman.d/mirrorlist
-# Собственные уведомления (notify):
-notify-send "mirrorlist обновлен" -i gtk-info
 
 echo -e "${BLUE}:: ${NC}Копируем созданный список зеркал (mirrorlist) в /mnt"
 #echo 'Копируем созданный список зеркал (mirrorlist) в /mnt'
