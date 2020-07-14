@@ -616,6 +616,7 @@ pacman -S $gui_install
 
 #echo 'Ставим драйвера видеокарты intel'
 #sudo pacman -S xf86-video-intel vdpauinfo libva-utils libva-intel-driver libva lib32-libva-intel-driver libvdpau libvdpau-va-gl lib32-libvdpau --noconfirm
+
 #-------------------------------------------------------------------------------
 # Видео драйверы, без них тоже ничего работать не будет вот список:
 # xf86-video-vesa - как я понял, это универсальный драйвер для ксорга (xorg), должен работать при любых обстоятельствах, но вы знаете как, только для того чтобы поставить подходящий.
@@ -658,6 +659,7 @@ echo -e "${BLUE}:: ${NC}Подключаем автозагрузку менед
 systemctl enable lightdm.service
 sleep 1 
 systemctl enable NetworkManager
+#systemctl enable dhcpcd
 
 echo -e "${BLUE}:: ${NC}Монтировании разделов NTFS и создание ссылок"
 #echo 'Монтировании разделов NTFS и создание ссылок'
