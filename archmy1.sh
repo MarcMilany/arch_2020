@@ -636,6 +636,8 @@ pacstrap /mnt base base-devel linux-lts linux-firmware nano dhcpcd netctl vim
 #pacstrap /mnt base base-devel linux-hardened linux-firmware nano dhcpcd netctl vim
 #pacstrap /mnt base base-devel linux-zen linux-firmware nano dhcpcd netctl vim
 # ----------------------------------------------------------------------------
+#pacstrap /mnt base base-devel linux-zen linux-firmware nano dhcpcd netctl zsh zsh-autosuggestions zsh-completions zsh-history-substring-search zsh-syntax-highlighting git ccache btrfs-progs wget terminus-font
+# ----------------------------------------------------------------------------
 #pacstrap -i /mnt base base-devel linux linux-firmware nano dhcpcd netctl vim --noconfirm
 # Параметр-I обеспечивает побуждение перед установкой пакета
 # The -i switch ensures prompting before package installation
