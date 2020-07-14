@@ -286,7 +286,9 @@ echo -e "${BLUE}:: ${NC}Setting up the Russian language, changing the console fo
 #echo 'Setting up the Russian language, changing the console font to one that supports Cyrillic for ease of use'
  # Настроим русский язык, изменим консольный шрифт на тот, который поддерживает кириллицу для удобства работы
 loadkeys ru
+#loadkeys us
 setfont cyr-sun16
+
 # ============================================================================
 # Чтобы изменить макет, добавьте соответствующее имя файла в loadkeys , пропустив путь и расширение файла. Например, чтобы установить немецкую раскладку клавиатуры:
 # loadkeys de-latin1
