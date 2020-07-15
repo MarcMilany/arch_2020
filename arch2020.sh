@@ -536,7 +536,7 @@ echo -e "${BLUE}:: ${NC}Устанавливаем ваш часовой поя�
 #rm -v /etc/localtime
 #ln -s /usr/share/zoneinfo/Europe/Moscow
 #ln -s /usr/share/zoneinfo/Europe/Moscow /etc/localtime
-ls /usr/share/zoneinfo
+#ls /usr/share/zoneinfo
 ln -svf /usr/share/zoneinfo/Europe/Moscow /etc/localtime
 #timedatectl set-ntp true
 #ln -svf /usr/share/zoneinfo/$timezone /etc/localtime
@@ -684,8 +684,8 @@ useradd -m -g users -G adm,audio,games,lp,network,optical,power,scanner,storage,
 echo -e "${GREEN}==> ${NC}Устанавливаем пароль пользователя"
 #echo 'Устанавливаем пароль пользователя'
 # Setting the user password
-#passwd $username
-passwd alex
+passwd $username
+#passwd alex
 
 echo -e "${BLUE}:: ${NC}Устанавливаем SUDO"
 #echo 'Устанавливаем SUDO'
