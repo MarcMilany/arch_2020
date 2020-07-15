@@ -119,10 +119,9 @@ echo -e "${BLUE}:: ${NC}Создание разделов диска"
   echo;
   echo;
   echo +8G;
-  echo y;
   echo t;
   echo 2;
-  echo L;
+#  echo L;
   echo 82;
   
   echo n;
