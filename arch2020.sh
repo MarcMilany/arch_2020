@@ -684,7 +684,8 @@ useradd -m -g users -G adm,audio,games,lp,network,optical,power,scanner,storage,
 echo -e "${GREEN}==> ${NC}Устанавливаем пароль пользователя"
 #echo 'Устанавливаем пароль пользователя'
 # Setting the user password
-passwd $username
+#passwd $username
+passwd alex
 
 echo -e "${BLUE}:: ${NC}Устанавливаем SUDO"
 #echo 'Устанавливаем SUDO'
@@ -743,6 +744,11 @@ pacman -S xorg-server xorg-drivers xorg-xinit   # virtualbox-guest-utils --nocon
 #echo 'Установка гостевых дополнений vbox'
 #Install the Guest Additions vbox
 #modprobe -a vboxguest vboxsf vboxvideo
+#cp /etc/X11/xinit/xinitrc /home/$username/.xinitrc
+#echo -e "\nvboxguest\nvboxsf\nvboxvideo" >> /home/$username/.xinitrc
+#sed -i 's/#!\/bin\/sh/#!\/bin\/sh\n\/usr\/bin\/VBoxClient-all/' /home/$username/.xinitrc
+
+# ------------------------------------------------------------------------
 
 echo -e "${BLUE}:: ${NC}Ставим DE (от англ. desktop environment — среда рабочего стола) Xfce"
 #echo 'Ставим DE (от англ. desktop environment — среда рабочего стола) Xfce'

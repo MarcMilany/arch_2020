@@ -656,6 +656,11 @@ pacman -S $gui_install
 #echo 'Установка гостевых дополнений vbox'
 #Install the Guest Additions vbox
 #modprobe -a vboxguest vboxsf vboxvideo
+#cp /etc/X11/xinit/xinitrc /home/$username/.xinitrc
+#echo -e "\nvboxguest\nvboxsf\nvboxvideo" >> /home/$username/.xinitrc
+#sed -i 's/#!\/bin\/sh/#!\/bin\/sh\n\/usr\/bin\/VBoxClient-all/' /home/$username/.xinitrc
+
+# ------------------------------------------------------------------------
 
 echo -e "${BLUE}:: ${NC}Ставим DE (от англ. desktop environment — среда рабочего стола) Xfce"
 #echo 'Ставим DE (от англ. desktop environment — среда рабочего стола) Xfce'
