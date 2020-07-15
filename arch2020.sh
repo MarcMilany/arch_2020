@@ -818,9 +818,18 @@ echo -e "${MAGENTA}==> ${BOLD}Если у Вас беспроводное сое
 #echo 'Если у Вас беспроводное соединение, запустите nmtui и подключитесь к сети.'
 # If you have a wireless connection, launch nmtui and connect to the network.
 
+echo -e "${YELLOW}==> ...${NC}"
+echo -e "${BLUE}:: ${NC}Если хотите подключить AUR, установить дополнительный софт (пакеты), установить мои конфиги XFCE, тогда после перезагрузки и входа в систему выполните команду:"
+#echo 'Если хотите подключить AUR, установить дополнительный софт (пакеты), установить мои конфиги XFCE, тогда после перезагрузки и входа в систему выполните команду:'
+# If you want to connect AUR, install additional software (packages), install my Xfce configs, then after restarting and logging in, run the command:
+echo -e "${YELLOW}==> ${CYAN}wget git.io/archmy3 && sh archmy3 ${NC}"
+
 echo -e "${RED}==> ${BOLD}Выходим из установленной системы ${NC}"
 #echo 'Выходим из установленной системы'
 # Exiting the installed system
+echo -e "${BLUE}:: ${BOLD}Теперь вам надо ввести reboot, чтобы перезагрузиться ${NC}"
+#echo 'Теперь вам надо ввести reboot, чтобы перезагрузиться'
+#'Now you need to enter 'reboot' to reboot"'
 
 echo -e "${BLUE}:: ${BOLD}После перезагрузки заходим под пользователем ${NC}"
 #echo 'После перезагрузки заходим под пользователем'
@@ -837,8 +846,12 @@ EOF
 
 arch-chroot /mnt /bin/bash  /opt/install.sh
 
-read -p "Пауза 3 ceк." -t 3
-reboot
+#echo -e "${BLUE}:: ${NC}Сейчас следует перезагрузить систему"
+#echo 'После перезагрузки заходим под пользователем'
+#Перезагрузка.После перезагрузки заходим под пользователем
+#Reboot.After restarting, go under the user
+#read -p "Пауза 3 ceк." -t 3
+#reboot
 
 
 
