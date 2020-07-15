@@ -497,7 +497,26 @@ mkfs.ext4  /dev/sda3 -L root
 mkfs.ext4  /dev/sda4 -L home
 # Просмотреть все идентификаторы наших разделов можно командой:
 #blkid
+# ---------------------------------------------------------------------------
+# Или так:
+#echo 'Disk formatting'
+#(
+#  echo y;
+#) | mkfs.ext2  /dev/sda1 -L boot
 
+#(
+#  echo y;
+#) | mkswap /dev/sda2 -L swap
+
+#(
+#  echo y;
+#) | mkfs.ext4  /dev/sda3 -L root
+
+#(
+#  echo y;
+#) | mkfs.ext4  /dev/sda4 -L home
+
+# ============================================================================
 echo -e "${BLUE}:: ${NC}2.4.3 Монтирование разделов диска"
 #echo '2.4.3 Монтирование разделов диска'
 # Mounting disk partitions
