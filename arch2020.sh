@@ -526,7 +526,8 @@ read -p " => Введите имя пользователя: " username
 echo -e "${BLUE}:: ${NC}Прописываем имя компьютера"
 #echo 'Прописываем имя компьютера'
 # Entering the computer name
-echo $hostname > /etc/hostname
+#echo $hostname > /etc/hostname
+echo Terminator > /etc/hostname
 #echo "имя_компьютера" > /etc/hostname
 #echo HostName > /etc/hostname
 
