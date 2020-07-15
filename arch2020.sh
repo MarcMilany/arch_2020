@@ -521,9 +521,9 @@ elif [[ $prog_set == 0 ]]; then
   echo 'Настройка пропущена.'
 fi
 
-echo 'Посмотрим обновление времени (если настройка не была пропущена)'
+#echo 'Посмотрим обновление времени (если настройка не была пропущена)'
 # See the time update (if the setting was not skipped)
-timedatectl show
+#timedatectl show
 #timedatectl | grep Time
 
 echo 'Изменяем имя хоста'

@@ -175,36 +175,36 @@ https://raw.githubusercontent.com/MarcMilany/arch_2020/master/archmy4.sh
 
 **************************************************************************
 
-Сокращение ссылки для archmy107.sh 
+Сокращение ссылки для arch2020.sh
 
-5. https://raw.githubusercontent.com/MarcMilany/arch_2020/master/archmy107.sh
+5. https://raw.githubusercontent.com/MarcMilany/arch_2020/master/arch2020.sh
 
-curl -i https://git.io -F "url=https://raw.githubusercontent.com/MarcMilany/arch_2020/master/archmy107.sh" -F "code=archmy107"
+curl -i https://git.io -F "url=https://raw.githubusercontent.com/MarcMilany/arch_2020/master/arch2020.sh" -F "code=arch2020"
 
-Location: https://git.io/archmy107
+Location: https://git.io/arch2020
 
 alex @ Terminator  ~
-└─ $ ▶ curl -i https://git.io -F "url=https://raw.githubusercontent.com/MarcMilany/arch_2020/master/archmy107.sh" -F "code=archmy107"
+└─ $ ▶ curl -i https://git.io -F "url=https://raw.githubusercontent.com/MarcMilany/arch_2020/master/arch2020.sh" -F "code=arch2020"
 HTTP/1.1 100 Continue
 
 HTTP/1.1 201 Created
 Server: Cowboy
 Connection: keep-alive
-Date: Thu, 09 Jul 2020 14:02:28 GMT
+Date: Wed, 15 Jul 2020 10:47:19 GMT
 Status: 201 Created
 Content-Type: text/html;charset=utf-8
-Location: https://git.io/archmy107
-Content-Length: 74
+Location: https://git.io/arch2020
+Content-Length: 73
 X-Xss-Protection: 1; mode=block
 X-Content-Type-Options: nosniff
 X-Frame-Options: SAMEORIGIN
-X-Runtime: 0.147125
-X-Node: ddb718ce-fd81-4bc5-b68b-f4b89817b2d1
+X-Runtime: 0.185006
+X-Node: a4924a08-d317-47d1-81d9-72437fd1dbf1
 X-Revision: 392798d237fc1aa5cd55cada10d2945773e741a8
 Strict-Transport-Security: max-age=31536000; includeSubDomains
 Via: 1.1 vegur
 
-https://raw.githubusercontent.com/MarcMilany/arch_2020/master/archmy107.sh
+https://raw.githubusercontent.com/MarcMilany/arch_2020/master/arch2020.sh
 
 ______________________________________________________________________________
 
