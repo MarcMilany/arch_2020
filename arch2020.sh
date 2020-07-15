@@ -1,4 +1,10 @@
 #!/bin/bash
+
+### SHARED VARIABLES AND FUNCTIONS (ОБЩИЕ ПЕРЕМЕННЫЕ И ФУНКЦИИ)
+### Shell color codes (Цветовые коды оболочки)
+RED="\e[1;31m"; GREEN="\e[1;32m"; YELLOW="\e[1;33m"; GREY="\e[3;93m"
+BLUE="\e[1;34m"; CYAN="\e[1;36m"; BOLD="\e[1;37m"; MAGENTA="\e[1;35m"; NC="\e[0m"
+
 # Автоматическое обнаружение ошибок
 # Эта команда остановит выполнение сценария после сбоя команды и будет отправлен код ошибки
 set -e
@@ -6,12 +12,14 @@ set -e
 # Команды по установке :
 # archiso login: root (automatic login)
 
-echo 'Make sure that your network interface is specified and enabled'
+echo -e "${GREEN}=> ${NC}Make sure that your network interface is specified and enabled" 
+#echo 'Make sure that your network interface is specified and enabled'
 # Убедитесь, что ваш сетевой интерфейс указан и включен
 # Показать все ip адреса и их интерфейсы
 ip a
 
-echo 'To check the Internet, you can ping a service'
+echo -e "${GREEN}=> ${NC}To check the Internet, you can ping a service" 
+#echo 'To check the Internet, you can ping a service'
 # Для проверки интернета можно пропинговать какой-либо сервис
 ping -c2 archlinux.org
 
@@ -19,65 +27,82 @@ echo -e "${CYAN}==> ${NC}If the ping goes we go further ..."
 #echo 'If the ping goes we go further ...' 
 # Если пинг идёт едем дальше ...)
 
-echo 'Setting up the Russian language, changing the console font to one that supports Cyrillic for ease of use'
+echo -e "${BLUE}:: ${NC}Setting up the Russian language, changing the console font to one that supports Cyrillic for ease of use"
+#echo 'Setting up the Russian language, changing the console font to one that supports Cyrillic for ease of use'
  # Настроим русский язык, изменим консольный шрифт на тот, который поддерживает кириллицу для удобства работы
 loadkeys ru
 setfont cyr-sun16
 
-echo 'Добавим русскую локаль в систему установки'
+echo -e "${CYAN}==> ${NC}Добавим русскую локаль в систему установки"
+#echo 'Добавим русскую локаль в систему установки'
 # Adding a Russian locale to the installation system
 sed -i 's/#ru_RU.UTF-8 UTF-8/ru_RU.UTF-8 UTF-8/' /etc/locale.gen
 
-echo 'Обновим текущую локаль системы'
+echo -e "${BLUE}:: ${NC}Обновим текущую локаль системы"
+#echo 'Обновим текущую локаль системы'
 # Update the current system locale
 locale-gen
 # Мы ввели locale-gen для генерации тех самых локалей.
 
 #sleep 01
-echo 'Указываем язык системы'
+echo -e "${BLUE}:: ${NC}Указываем язык системы"
+#echo 'Указываем язык системы'
 # Specify the system language
 #echo 'LANG="ru_RU.UTF-8"' > /etc/locale.conf
 export LANG=ru_RU.UTF-8
 #export LANG=en_US.UTF-8
 # Эта команда сама пропишет в файлике locale.conf нужные нам параметры
 
-echo 'Начинается установка минимальной системы Arch Linux'
+echo -e "${GREEN}
+  <<< Начинается установка минимальной системы Arch Linux >>>
+${NC}"
+#echo 'Начинается установка минимальной системы Arch Linux'
 # The installation of the minimum Arch Linux system starts
 
-echo "Установка и настройка начата в $(date +%T)"
+echo -e "${BLUE}:: ${NC}Установка и настройка начата в $(date +%T)"
+#echo "Установка и настройка начата в $(date +%T)"
 # Installation and configuration started in $(date +%T)
 
-echo 'Синхронизируем наши системные часы, включаем ntp, если надо сменим часовой пояс'
+echo -e "${BLUE}:: ${NC}Синхронизируем наши системные часы, включаем ntp, если надо сменим часовой пояс"
+#echo 'Синхронизируем наши системные часы, включаем ntp, если надо сменим часовой пояс'
 # Sync our system clock, enable ntp, change the time zone if necessary
 # Активации ntp, и проверка статуса
 timedatectl set-ntp true
 
-echo 'Посмотрим статус службы NTP (NTP service)'
+echo -e "${BLUE}:: ${NC}Посмотрим статус службы NTP (NTP service)"
+#echo 'Посмотрим статус службы NTP (NTP service)'
 # Let's see the NTP service status
 timedatectl status
 
-echo 'Посмотрим дату и время без характеристик для проверки времени'
+echo -e "${BLUE}:: ${NC}Посмотрим дату и время без характеристик для проверки времени"
+#echo 'Посмотрим дату и время без характеристик для проверки времени'
 # Let's look at the date and time without characteristics to check the time
 date
 
-echo 'Давайте посмотрим, какие диски у нас есть в нашем распоряжении'
+echo -e "${BLUE}:: ${NC}Смотрим, какие диски есть в нашем распоряжении"
+#echo 'Давайте посмотрим, какие диски у нас есть в нашем распоряжении'
 # Let's see what drives we have at our disposal
 lsblk -f
 
-echo 'Посмотрим структуру диска созданного установщиком'
+# Ещё раз проверте правильность разбивки на разделы!
+echo -e "${BLUE}:: ${NC}Посмотрим структуру диска созданного установщиком"
+#echo 'Посмотрим структуру диска созданного установщиком'
 # Let's look at the disk structure created by the installer
 sgdisk -p /dev/sda
 
-echo 'Стираем таблицу разделов на первом диске (sda):'
+echo -e "${BLUE}:: ${NC}Стираем таблицу разделов на первом диске (sda):"
+#echo 'Стираем таблицу разделов на первом диске (sda):'
 # Erasing the partition table on the first disk (sda)
 sgdisk --zap-all /dev/sda
 
+#echo -e "${BLUE}:: ${NC}Стираем таблицу разделов на втором и третьем диске (sdb, sdc):"
 #echo 'Стираем таблицу разделов на втором и третьем диске (sdb, sdc):'
 # Erasing the partition table on the second and third disk (sdb, sdc)
 #sgdisk --zap-all /dev/sdb
 #sgdisk --zap-all /dev/sdc
 
-echo 'Создание разделов диска'
+echo -e "${BLUE}:: ${NC}Создание разделов диска"
+#echo 'Создание разделов диска'
 # Creating disk partitions
 # Можно вызвать подсказки нажатием на клавишу “m”
 (
@@ -111,7 +136,8 @@ echo 'Создание разделов диска'
   echo w;
 ) | fdisk /dev/sda
 
-echo 'Ваша разметка диска'
+echo -e "${BLUE}:: ${NC}Ваша разметка диска" 
+#echo 'Ваша разметка диска'
 # Your disk markup
 # Команда fdisk –l выведет список существующих разделов, если таковые существуют
 fdisk -l
@@ -162,9 +188,11 @@ fdisk -l
 ### https://www.altlinux.org/Fdisk
 # ============================================================================
 
-echo 'Форматирование разделов диска'
+echo -e "${BLUE}:: ${NC}Форматирование разделов диска"
+#echo 'Форматирование разделов диска'
 # Formatting disk partitions
-echo 'Установка название флага boot,root,swap,home'
+echo -e "${BLUE}:: ${NC}Установка название флага boot,root,swap,home"
+#echo 'Установка название флага boot,root,swap,home'
 # Setting the flag name boot, root,swap, home
 mkfs.ext2  /dev/sda1 -L boot
 mkswap /dev/sda2 -L swap
@@ -193,7 +221,8 @@ mkfs.ext4  /dev/sda4 -L home
 
 # ============================================================================
 
-echo '2.4.3 Монтирование разделов диска'
+echo -e "${BLUE}:: ${NC}Монтирование разделов диска"
+#echo 'Монтирование разделов диска'
 # Mounting disk partitions
 mount /dev/sda3 /mnt
 mkdir /mnt/{boot,home}
@@ -220,7 +249,8 @@ mount /dev/sda4 /mnt/home
 #sudo pacman -Sy
 # -----------------------------------------------------------------------------
 
-#echo '3.1 Выбор серверов-зеркал для загрузки. Ставим зеркало от Яндекс'
+echo -e "${BLUE}:: ${NC}Выбор серверов-зеркал для загрузки. Ставим зеркало от Яндекс"
+#echo 'Выбор серверов-зеркал для загрузки. Ставим зеркало от Яндекс'
 # The choice of mirror sites to download. Putting a mirror from Yandex
 #echo "Server = http://mirror.yandex.ru/archlinux/\$repo/os/\$arch" > /etc/pacman.d/mirrorlist
 > /etc/pacman.d/mirrorlist
@@ -255,15 +285,18 @@ EOF
 
 # ============================================================================
 
-echo 'Создание (backup) резервного списка зеркал mirrorlist - (mirrorlist.backup)'
+echo -e "${BLUE}:: ${NC}Создание (backup) резервного списка зеркал mirrorlist - (mirrorlist.backup)"
+#echo 'Создание (backup) резервного списка зеркал mirrorlist - (mirrorlist.backup)'
 # Creating a backup list of mirrors mirrorlist - (mirrorlist.backup)
 cp -vf /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.backup
 
-echo 'Посмотреть список серверов-зеркал для загрузки в mirrorlist'
+echo -e "${BLUE}:: ${NC}Посмотреть список серверов-зеркал для загрузки в mirrorlist"
+#echo 'Посмотреть список серверов-зеркал для загрузки в mirrorlist'
 # View the list of mirror servers to upload to mirrorlist
 cat /etc/pacman.d/mirrorlist
 
-echo 'Обновим базы данных пакетов'
+echo -e "${BLUE}:: ${NC}Обновим базы данных пакетов" 
+#echo 'Обновим базы данных пакетов'
 # Updating the package databases
 #sudo pacman-key --init
 #sudo pacman-key --populate archlinux
@@ -291,11 +324,13 @@ sudo pacman -Sy
 #sudo pacman-key --init && sudo pacman-key --populate archlinux && sudo pacman-key --refresh-keys && sudo pacman -Sy
 # ============================================================================
 
-echo '3.2 Установка основных пакетов (base base-devel)'
+echo -e "${BLUE}:: ${NC}Установка основных пакетов (base base-devel)"
+#echo 'Установка основных пакетов (base base-devel)'
 # Installing basic packages (base base-devel)
 echo 'Arch Linux, Base devel (AUR only), Kernel (optional), Firmware'
 # Arch Linux, Base devel (AUR only), Kernel (optional), Firmware
 pacstrap /mnt base base-devel linux-lts linux-firmware nano dhcpcd netctl vim # parted
+#pacstrap /mnt base base-devel linux-lts linux-firmware nano dhcpcd netctl vim --noconfirm  # parted 
 #pacstrap /mnt base base-devel linux-lts linux-firmware nano dhcpcd netctl vim --noconfirm --noprogressbar --quiet
 #pacstrap /mnt base base-devel linux linux-firmware nano dhcpcd netctl vim
 #pacstrap /mnt base base-devel linux-hardened linux-firmware nano dhcpcd netctl vim
@@ -323,7 +358,8 @@ pacstrap /mnt base base-devel linux-lts linux-firmware nano dhcpcd netctl vim # 
 # efibootmgr - поможет grub установить себя в загрузку UEFI.
 # ============================================================================
 
-echo '3.3 Настройка системы, генерируем fstab'
+echo -e "${BLUE}:: ${NC}Настройка системы, генерируем fstab"
+#echo 'Настройка системы, генерируем fstab'
 # Configuring the system, generating fstab
 genfstab -pU /mnt >> /mnt/etc/fstab
 #(или genfstab -L /mnt >> /mnt/etc/fstab)
@@ -332,11 +368,13 @@ genfstab -pU /mnt >> /mnt/etc/fstab
 #genfstab -U -p /mnt >> /mnt/etc/fstab
 #genfstab /mnt >> /mnt/etc/fstab
 
-echo 'Просмотреть содержимое файла fstab'
+echo -e "${BLUE}:: ${NC}Просмотреть содержимое файла fstab"
+#echo 'Просмотреть содержимое файла fstab'
 # View the contents of the fstab file
 cat /mnt/etc/fstab
 
-echo 'Удалим старый файл mirrorlist из /mnt/etc/pacman.d/mirrorlist'
+echo -e "${BLUE}:: ${NC}Удалим старый файл mirrorlist из /mnt/etc/pacman.d/mirrorlist"
+#echo 'Удалим старый файл mirrorlist из /mnt/etc/pacman.d/mirrorlist'
 # Delete files /etc/pacman.d/mirrorlist
 # Удалим mirrorlist из /mnt/etc/pacman.d/mirrorlist
 rm /mnt/etc/pacman.d/mirrorlist 
@@ -346,7 +384,8 @@ rm /mnt/etc/pacman.d/mirrorlist
 # Удаления старой резервной копии (если она есть, если нет, то пропустите этот шаг):
 #rm /etc/pacman.d/mirrorlist.old
 
-echo 'Загрузка свежего списка зеркал со страницы Mirror Status, и обновляем mirrorlist'
+echo -e "${BLUE}:: ${NC}Загрузка свежего списка зеркал со страницы Mirror Status, и обновляем mirrorlist"
+#echo 'Загрузка свежего списка зеркал со страницы Mirror Status, и обновляем mirrorlist'
 # Loading a fresh list of mirrors from the Mirror Status page, and updating the mirrorlist
 # Чтобы увидеть список всех доступных опций, наберите:
 #reflector --help
@@ -355,25 +394,30 @@ echo 'Загрузка свежего списка зеркал со стран�
 reflector --verbose --country 'Russia' -l 5 -p https -p http -n 5 --save /etc/pacman.d/mirrorlist --sort rate  
 #reflector --verbose --country 'Russia' -l 5 -p https -p http -n 5 --sort rate --save /etc/pacman.d/mirrorlist
 
-echo 'Копируем созданный список зеркал (mirrorlist) в /mnt'
+echo -e "${BLUE}:: ${NC}Копируем созданный список зеркал (mirrorlist) в /mnt"
+#echo 'Копируем созданный список зеркал (mirrorlist) в /mnt'
 # Copying the created list of mirrors (mirrorlist) to /mnt
 cp /etc/pacman.d/mirrorlist /mnt/etc/pacman.d/mirrorlist
 
-echo 'Копируем резервного списка зеркал (mirrorlist.backup) в /mnt'
+echo -e "${BLUE}:: ${NC}Копируем резервного списка зеркал (mirrorlist.backup) в /mnt"
+#echo 'Копируем резервного списка зеркал (mirrorlist.backup) в /mnt'
 # Copying the backup list of mirrors (mirrorlist.backup) in /mnt
 cp /etc/pacman.d/mirrorlist.backup /mnt/etc/pacman.d/mirrorlist.backup
 
-echo 'Посмотреть список серверов-зеркал /mnt/etc/pacman.d/mirrorlist'
+echo -e "${BLUE}:: ${NC}Посмотреть список серверов-зеркал /mnt/etc/pacman.d/mirrorlist"
+#echo 'Посмотреть список серверов-зеркал /mnt/etc/pacman.d/mirrorlist'
 # View the list of mirror servers /mnt/etc/pacman.d/mirrorlist
 cat /mnt/etc/pacman.d/mirrorlist
 
-echo 'Обновим базы данных пакетов'
+echo -e "${BLUE}:: ${NC}Обновим базы данных пакетов" 
+#echo 'Обновим базы данных пакетов'
 # Updating the package databases
 #sudo pacman-key --init
 #sudo pacman-key --refresh-keys
 sudo pacman -Sy 
 
-echo 'Создадим конфигурационный файл для установки системных переменных /etc/sysctl.conf'
+echo -e "${GREEN}=> ${BOLD}Создадим конфигурационный файл для установки системных переменных /etc/sysctl.conf ${NC}"
+#echo 'Создадим конфигурационный файл для установки системных переменных /etc/sysctl.conf'
 # Creating a configuration file for setting system variables /etc/sysctl.conf
 > /mnt/etc/sysctl.conf
 cat <<EOF >>/mnt/etc/sysctl.conf
@@ -447,10 +491,13 @@ vm.swappiness=10
 
 EOF
 
-# ============================================================================
-
 ###*******************************************************************
-# Делаем скрипт пост инстала:
+
+echo -e "${GREEN}=> ${BOLD}Создадим пользовательский пост-инстал-скрипт (install.sh) для установки первоначально необходимого софта (пакетов), запуск необходимых служб, запись данных в конфиги (hhh.conf) по настройке системы. ${NC}"
+#echo 'Создадим пользовательский пост-инстал-скрипт (install.sh) для установки первоначально необходимого софта (пакетов), запуск необходимых служб, запись данных в конфиги (hhh.conf) по настройке системы.'
+# Creating a custom post-installation script (install.sh) to install the initially necessary software (packages), launch the necessary services, write data to configs (hhh.conf) for system configuration.
+#post-install-script (install.sh)
+
 cat <<EOF  >> /mnt/opt/install.sh
 #!/bin/bash
 
@@ -463,8 +510,8 @@ BLUE="\e[1;34m"; CYAN="\e[1;36m"; BOLD="\e[1;37m"; MAGENTA="\e[1;35m"; NC="\e[0m
 # Эта команда остановит выполнение сценария после сбоя команды и будет отправлен код ошибки
 set -e
 
-
-echo 'Вводим имя компьютера, и имя пользователя'
+echo -e "${BLUE}:: ${NC}Вводим имя компьютера, и имя пользователя"
+#echo 'Вводим имя компьютера, и имя пользователя'
 #echo 'Enter the computer name and user name'
 # Enter the computer name
 # Enter your username
@@ -476,15 +523,20 @@ echo -e "${GREEN}==> ${NC}"
 read -p " => Введите имя пользователя: " username
 #read -p "Ведите свою таймзону в формате Example/Example: " timezone
 
-echo 'Прописываем имя компьютера'
+echo -e "${BLUE}:: ${NC}Прописываем имя компьютера"
+#echo 'Прописываем имя компьютера'
 # Entering the computer name
 echo $hostname > /etc/hostname
 #echo "имя_компьютера" > /etc/hostname
 #echo HostName > /etc/hostname
 
-echo 'Устанавливаем ваш часовой пояс'
+echo -e "${BLUE}:: ${NC}Устанавливаем ваш часовой пояс"
+#echo 'Устанавливаем ваш часовой пояс'
 # Setting your time zone
 #rm -v /etc/localtime
+#ln -s /usr/share/zoneinfo/Europe/Moscow
+#ln -s /usr/share/zoneinfo/Europe/Moscow /etc/localtime
+ls /usr/share/zoneinfo
 ln -svf /usr/share/zoneinfo/Europe/Moscow /etc/localtime
 #timedatectl set-ntp true
 #ln -svf /usr/share/zoneinfo/$timezone /etc/localtime
@@ -493,42 +545,39 @@ ln -svf /usr/share/zoneinfo/Europe/Moscow /etc/localtime
 #ln -svf /usr/share/zoneinfo/Asia/Yekaterinburg /etc/localtime
 #ln -svf /usr/share/zoneinfo/Europe/Kiev /etc/localtime
 
-echo 'Синхронизация системных часов'
+echo -e "${BLUE}:: ${NC}Синхронизация системных часов" 
+#echo 'Синхронизация системных часов'
 # Syncing the system clock
 #echo 'Синхронизируем наши системные часы, включаем ntp, если надо сменим часовой пояс'
 # Sync our system clock, enable ntp, change the time zone if necessary
 timedatectl set-ntp true
 
-echo 'Проверим аппаратное время' 
+echo -e "${BLUE}:: ${NC}Проверим аппаратное время"
+#echo 'Проверим аппаратное время' 
 # Check the hardware time
 #hwclock
 hwclock --systohc
 
-echo 'Посмотрим текущее состояние аппаратных и программных часов'
+echo -e "${BLUE}:: ${NC}Посмотрим текущее состояние аппаратных и программных часов"
+#echo 'Посмотрим текущее состояние аппаратных и программных часов'
 # Let's see the current state of the hardware and software clock
 timedatectl
 
-echo 'Настроим состояние аппаратных и программных часов'
+echo -e "${BLUE}:: ${NC}Настроим состояние аппаратных и программных часов"
+#echo 'Настроим состояние аппаратных и программных часов'
 # Setting up the state of the hardware and software clock 
 #echo 'Вы можете пропустить этот шаг, если не уверены в правильности выбора'   
-#read -p "1 - UTC, 2 - Localtime, 0 - Пропустить: " prog_set
-#if [[ $prog_set == 1 ]]; then
-#hwclock --systohc --utc
-#elif [[ $prog_set == 2 ]]; then
-#hwclock --systohc --local
-#elif [[ $prog_set == 0 ]]; then
-#  echo 'Настройка пропущена.'
-#fi
-
 hwclock --systohc --utc
 ##hwclock --systohc --local
 
-echo 'Посмотрим обновление времени (если настройка не была пропущена)'
+echo -e "${BLUE}:: ${NC}Посмотрим обновление времени (если настройка не была пропущена)"
+#echo 'Посмотрим обновление времени (если настройка не была пропущена)'
 # See the time update (if the setting was not skipped)
 timedatectl show
 #timedatectl | grep Time
 
-echo 'Изменяем имя хоста'
+echo -e "${BLUE}:: ${NC}Изменяем имя хоста"
+#echo 'Изменяем имя хоста'
 # Changing the host name
 echo "127.0.0.1	localhost.(none)" > /etc/hosts
 echo "127.0.1.1	$hostname" >> /etc/hosts
@@ -539,7 +588,8 @@ echo "ff02::2 ip6-allrouters" >> /etc/hosts
 # - Можно написать с Заглавной буквы.
 # Это дейсвие не обязательно! Мы можем это сделаем из установленной ситемы, если данные не пропишутся автоматом.
 
-echo '3.4 Добавляем русскую локаль системы'
+echo -e "${BLUE}:: ${NC}Добавляем русскую локаль системы"
+#echo 'Добавляем русскую локаль системы'
 # Adding the system's Russian locale
 echo "en_US.UTF-8 UTF-8" > /etc/locale.gen
 echo "ru_RU.UTF-8 UTF-8" >> /etc/locale.gen 
@@ -549,13 +599,15 @@ echo "ru_RU.UTF-8 UTF-8" >> /etc/locale.gen
 #sed -i 's/#en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen
 #sed -i 's/#ru_RU.UTF-8 UTF-8/ru_RU.UTF-8 UTF-8/' /etc/locale.gen
 
-echo 'Обновим текущую локаль системы'
+echo -e "${BLUE}:: ${NC}Обновим текущую локаль системы"
+#echo 'Обновим текущую локаль системы'
 # Update the current system locale
 locale-gen
 # Мы ввели locale-gen для генерации тех самых локалей.
 
 sleep 02
-echo 'Указываем язык системы'
+echo -e "${BLUE}:: ${NC}Указываем язык системы"
+#echo 'Указываем язык системы'
 # Specify the system language
 echo 'LANG="ru_RU.UTF-8"' > /etc/locale.conf
 #echo 'LANG="en_US.UTF-8"' > /etc/locale.conf
@@ -563,7 +615,8 @@ echo 'LANG="ru_RU.UTF-8"' > /etc/locale.conf
 #export LANG=en_US.UTF-8
 # Эта команда сама пропишет в файлике locale.conf нужные нам параметры.
 
-echo 'Вписываем KEYMAP=ru FONT=cyr-sun16'
+echo -e "${BLUE}:: ${NC}Вписываем KEYMAP=ru FONT=cyr-sun16"
+#echo 'Вписываем KEYMAP=ru FONT=cyr-sun16'
 # Enter KEYMAP=ru FONT=cyr-sun16
 echo 'KEYMAP=ru' >> /etc/vconsole.conf
 echo 'FONT=cyr-sun16' >> /etc/vconsole.conf
@@ -571,7 +624,8 @@ echo 'FONT_MAP=' >> /etc/vconsole.conf
 echo 'CONSOLEMAP' >> /etc/vconsole.conf
 echo 'COMPRESSION="lz4"' >> /etc/mkinitcpio.conf
 
-echo 'Создадим загрузочный RAM диск (начальный RAM-диск)'
+echo -e "${BLUE}:: ${NC}Создадим загрузочный RAM диск (начальный RAM-диск)"
+#echo 'Создадим загрузочный RAM диск (начальный RAM-диск)'
 # Creating a bootable RAM disk (initial RAM disk)
 mkinitcpio -p linux-lts
 #mkinitcpio -p linux
@@ -579,11 +633,13 @@ mkinitcpio -p linux-lts
 #mkinitcpio -p linux-zen
 #echo 'COMPRESSION="lz4"' >> /etc/mkinitcpio.conf
 
-echo 'Создаём root пароль'
+echo -e "${GREEN}==> ${NC}Создаём root пароль"
+#echo 'Создаём root пароль'
 # Creating a root password
 passwd
 
-echo 'Устанавливаем загрузчик (grub)'
+echo -e "${BLUE}:: ${NC}Устанавливаем загрузчик (grub)"
+#echo 'Устанавливаем загрузчик (grub)'
 # Install the boot loader (grub)
 pacman -Syy
 pacman -S grub --noconfirm 
@@ -592,19 +648,10 @@ grub-install /dev/sda
 #grub-install --recheck /dev/sda
 #grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB
 
-echo 'Установить Микрокод для процессора INTEL_CPU, AMD_CPU?'
+echo -e "${GREEN}==> ${NC}Установить Микрокод для процессора INTEL_CPU, AMD_CPU?"
+#echo 'Установить Микрокод для процессора INTEL_CPU, AMD_CPU?'
 # Install the Microcode for the CPU INTEL_CPU, AMD_CPU?
 #echo 'Вы можете пропустить этот шаг, если не уверены в правильности выбора'
-#read -p "1 - INTEL, 2 - AMD, 0 - Нет: " prog_set
-#if [[ $prog_set == 1 ]]; then
-# pacman -S intel-ucode --noconfirm     
-#elif [[ $prog_set == 2 ]]; then
-# pacman -S amd-ucode --noconfirm    
-#elif [[ $prog_set == 0 ]]; then
-#  echo 'Установка программ пропущена.'
-#fi
-
-# Устанавливаем микрокод для процессора:
 # Если у Вас процессор Intel, то:
 #pacman -S intel-ucode
 pacman -S intel-ucode --noconfirm
@@ -612,35 +659,43 @@ pacman -S intel-ucode --noconfirm
 #pacman -S amd-ucode
 #pacman -S amd-ucode --noconfirm
 
-echo 'Обновляем grub.cfg (Сгенерируем grub.cfg)'
+echo -e "${BLUE}:: ${NC}Обновляем grub.cfg (Сгенерируем grub.cfg)"
+#echo 'Обновляем grub.cfg (Сгенерируем grub.cfg)'
 # Updating grub.cfg (Generating grub.cfg)
 grub-mkconfig -o /boot/grub/grub.cfg
 
-echo 'Если в системе будут несколько ОС, то это также ставим'
+echo -e "${YELLOW}==> ${NC}Если в системе будут несколько ОС, то это также ставим"
+#echo 'Если в системе будут несколько ОС, то это также ставим'
 # If the system will have several operating systems, then this is also set
-pacman -S os-prober mtools fuse
+#pacman -S os-prober mtools fuse
+pacman -S os-prober mtools fuse --noconfirm
 
-echo 'Ставим программу для Wi-fi'
+echo -e "${BLUE}:: ${NC}Ставим программу для Wi-fi"
+#echo 'Ставим программу для Wi-fi'
 # Install the program for Wi-fi
 pacman -S dialog wpa_supplicant iw wireless_tools net-tools --noconfirm
 
-echo 'Добавляем пользователя и прописываем права, группы'
+echo -e "${BLUE}:: ${NC}Добавляем пользователя и прописываем права, группы"
+#echo 'Добавляем пользователя и прописываем права, группы'
 # Adding a user and prescribing rights, groups
 #useradd -m -g users -G wheel -s /bin/bash $username
 useradd -m -g users -G adm,audio,games,lp,network,optical,power,scanner,storage,video,rfkill,sys,wheel -s /bin/bash alex
 
-echo 'Устанавливаем пароль пользователя'
+echo -e "${GREEN}==> ${NC}Устанавливаем пароль пользователя"
+#echo 'Устанавливаем пароль пользователя'
 # Setting the user password
 passwd $username
 
-echo 'Устанавливаем SUDO'
+echo -e "${BLUE}:: ${NC}Устанавливаем SUDO"
+#echo 'Устанавливаем SUDO'
 # Installing SUDO
 pacman -S sudo --noconfirm
 #echo '%wheel ALL=(ALL) ALL' >> /etc/sudoers
 sed -i 's/# %wheel ALL=(ALL) ALL/%wheel ALL=(ALL) ALL/' /etc/sudoers
 #sed -i 's/# %wheel ALL=(ALL) NOPASSWD: ALL/%wheel ALL=(ALL) NOPASSWD: ALL/' /etc/sudoers
 
-echo 'Раскомментируем репозиторий multilib Для работы 32-битных приложений в 64-битной системе.'
+echo -e "${BLUE}:: ${NC}Раскомментируем репозиторий multilib Для работы 32-битных приложений в 64-битной системе"
+#echo 'Раскомментируем репозиторий multilib Для работы 32-битных приложений в 64-битной системе.'
 # Uncomment the multilib repository For running 32-bit applications on a 64-bit system
 #echo 'Color = /etc/pacman.d/mirrorlist' >> /etc/pacman.conf
 sed -i 's/#Color/Color/' /etc/pacman.conf
@@ -651,21 +706,11 @@ pacman -Syy
 #pacman -Syy --noconfirm --noprogressbar --quiet
 # Синхронизация и обновление пакетов (-yy принудительно обновить даже если обновленные)
 
-echo "Куда устанавливем Arch Linux на виртуальную машину?"
-# Where do we install Arch Linux on the VM?
-read -p "1 - Да, 0 - Нет: " vm_setting
-if [[ $vm_setting == 0 ]]; then
-  gui_install="xorg-server xorg-drivers xorg-xinit"
-elif [[ $vm_setting == 1 ]]; then
-  gui_install="xorg-server xorg-drivers xorg-xinit virtualbox-guest-utils"
-fi
-
-echo 'Ставим иксы и драйвера'
+echo -e "${BLUE}:: ${NC}Ставим иксы и драйвера"
+#echo 'Ставим иксы и драйвера'
 # Put the x's and drivers
-pacman -S $gui_install
-
-# -------------------------------------------------------------------------
-#pacman -S bash-completion xorg-server xorg-apps xorg-xinit mesa xorg-twm xterm xorg-xclock xf86-input-synaptics virtualbox-guest-utils linux-headers --noconfirm
+pacman -S xorg-server xorg-drivers xorg-apps xorg-xinit mesa xorg-twm xterm xorg-xclock xf86-input-synaptics virtualbox-guest-utils --noconfirm  #linux-headers
+#pacman -S xorg-server xorg-drivers xorg-apps xorg-xinit mesa xorg-twm xterm xorg-xclock xf86-input-synaptics virtualbox-guest-utils  #linux-headers
 # ============================================================================
 
 #echo "Какая видеокарта?"
@@ -693,42 +738,55 @@ pacman -S $gui_install
 #systemctl enable vboxservice - вводим дважды пароль
 # ============================================================================
 
-echo 'Ставим DE (от англ. desktop environment — среда рабочего стола) Xfce'
+#echo -e "${BLUE}:: ${NC}Установка гостевых дополнений vbox"
+#echo 'Установка гостевых дополнений vbox'
+#Install the Guest Additions vbox
+#modprobe -a vboxguest vboxsf vboxvideo
+
+echo -e "${BLUE}:: ${NC}Ставим DE (от англ. desktop environment — среда рабочего стола) Xfce"
+#echo 'Ставим DE (от англ. desktop environment — среда рабочего стола) Xfce'
 # Put DE (from the English desktop environment-desktop environment) Xfce
 pacman -S xfce4 xfce4-goodies --noconfirm
 
-echo 'Ставим DM (Display manager) менеджера входа'
+echo -e "${BLUE}:: ${NC}Ставим DM (Display manager) менеджера входа"
+#echo 'Ставим DM (Display manager) менеджера входа'
 # Install the DM (Display manager) of the login Manager
 pacman -S lightdm lightdm-gtk-greeter lightdm-gtk-greeter-settings --noconfir
 
-echo 'Ставим сетевые утилиты "Networkmanager"'
+echo -e "${BLUE}:: ${NC}Ставим сетевые утилиты Networkmanager"
+#echo 'Ставим сетевые утилиты "Networkmanager"'
 # Put the network utilities "Networkmanager"
 pacman -S networkmanager network-manager-applet ppp --noconfirm
 # networkmanager - сервис для работы интернета. Вместе с собой устанавливает программы для настройки.
 # Если вам нужна поддержка OpenVPN в Network Manager, то выполните команду:
 #sudo pacman -S networkmanager-openvpn
 
-echo 'Ставим шрифты'
+echo -e "${BLUE}:: ${NC}Ставим шрифты"
+#echo 'Ставим шрифты'
 # Put the fonts
 pacman -S ttf-liberation ttf-dejavu opendesktop-fonts ttf-arphic-ukai ttf-arphic-uming ttf-hanazono --noconfirm 
 
-echo 'Подключаем автозагрузку менеджера входа и интернет'
+echo -e "${BLUE}:: ${NC}Подключаем автозагрузку менеджера входа и интернет"
+#echo 'Подключаем автозагрузку менеджера входа и интернет'
 # Enabling auto-upload of the login Manager and the Internet
 systemctl enable lightdm.service
 sleep 1 
 systemctl enable NetworkManager
 #systemctl enable dhcpcd
 
-echo 'Монтировании разделов NTFS и создание ссылок'
+echo -e "${BLUE}:: ${NC}Монтировании разделов NTFS и создание ссылок"
+#echo 'Монтировании разделов NTFS и создание ссылок'
 # NTFS support (optional)
 sudo pacman -S ntfs-3g --noconfirm
 
-echo 'Создаём нужные директории'
+echo -e "${BLUE}:: ${NC}Создаём нужные директории"
+#echo 'Создаём нужные директории'
 # Creating the necessary directories
 sudo pacman -S xdg-user-dirs --noconfirm
 xdg-user-dirs-update 
 
-echo 'Установка базовых программ и пакетов'
+echo -e "${BLUE}:: ${NC}Установка базовых программ и пакетов"
+#echo 'Установка базовых программ и пакетов'
 # Installing basic programs and packages
 sudo pacman -S wget --noconfirm
 
@@ -737,24 +795,35 @@ sudo pacman -S wget --noconfirm
 #read -p "Введите допольнительные пакеты которые вы хотите установить: " packages 
 #pacman -S $packages --noconfirm
 
-echo 'Поздравляем! Установка завершена. Перезагрузите систему.'
+echo -e "${GREEN}
+  <<< Поздравляем! Установка завершена. Перезагрузите систему. >>> ${NC}"
+#echo 'Поздравляем! Установка завершена. Перезагрузите систему.'
 # Congratulations! Installation is complete. Reboot the system.
 
-echo 'Посмотрим дату и время'
+echo -e "${BLUE}:: ${BOLD}Посмотрим дату и время ... ${NC}"
+#echo 'Посмотрим дату и время'
 # Let's look at the date and time
 date
 
-echo 'Отобразить время работы системы'
+echo -e "${BLUE}:: ${BOLD}Отобразить время работы системы ... ${NC}"
+#echo 'Отобразить время работы системы'
 # Display the system's operating time 
 uptime
 
-echo 'Если у Вас беспроводное соединение, запустите nmtui и подключитесь к сети.'
+echo -e "${MAGENTA}==> ${BOLD}После перезагрузки и входа в систему проверьте ваши персональные настройки. ${NC}"
+#echo 'После перезагрузки и входа в систему проверьте ваши персональные настройки.'
+# After restarting and logging in, check your personal settings.
+
+echo -e "${MAGENTA}==> ${BOLD}Если у Вас беспроводное соединение, запустите nmtui и подключитесь к сети. ${NC}"
+#echo 'Если у Вас беспроводное соединение, запустите nmtui и подключитесь к сети.'
 # If you have a wireless connection, launch nmtui and connect to the network.
 
-echo 'Выходим из установленной системы'
+echo -e "${RED}==> ${BOLD}Выходим из установленной системы ${NC}"
+#echo 'Выходим из установленной системы'
 # Exiting the installed system
 
-echo 'После перезагрузки заходим под пользователем'
+echo -e "${BLUE}:: ${BOLD}После перезагрузки заходим под пользователем ${NC}"
+#echo 'После перезагрузки заходим под пользователем'
 #Перезагрузка.После перезагрузки заходим под пользователем
 exit
 #umount -Rf /mnt
