@@ -627,7 +627,7 @@ pacman -S dialog wpa_supplicant iw wireless_tools net-tools --noconfirm
 echo 'Добавляем пользователя и прописываем права, группы'
 # Adding a user and prescribing rights, groups
 #useradd -m -g users -G wheel -s /bin/bash $username
-useradd -m -g users -G adm,audio,games,lp,network,optical,power,scanner,storage,video,rfkill,sys,wheel -s /bin/bash $username
+useradd -m -g users -G adm,audio,games,lp,network,optical,power,scanner,storage,video,rfkill,sys,wheel -s /bin/bash alex
 
 echo 'Устанавливаем пароль пользователя'
 # Setting the user password
