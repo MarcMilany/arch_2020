@@ -503,7 +503,6 @@ echo 'Проверим аппаратное время'
 # Check the hardware time
 #hwclock
 hwclock --systohc
-#hwclock --systohc —utc
 
 echo 'Посмотрим текущее состояние аппаратных и программных часов'
 # Let's see the current state of the hardware and software clock
@@ -511,19 +510,22 @@ timedatectl
 
 echo 'Настроим состояние аппаратных и программных часов'
 # Setting up the state of the hardware and software clock 
-echo 'Вы можете пропустить этот шаг, если не уверены в правильности выбора'   
-read -p "1 - UTC, 2 - Localtime, 0 - Пропустить: " prog_set
-if [[ $prog_set == 1 ]]; then
-hwclock --systohc --utc
-elif [[ $prog_set == 2 ]]; then
-hwclock --systohc --local
-elif [[ $prog_set == 0 ]]; then
-  echo 'Настройка пропущена.'
-fi
+#echo 'Вы можете пропустить этот шаг, если не уверены в правильности выбора'   
+#read -p "1 - UTC, 2 - Localtime, 0 - Пропустить: " prog_set
+#if [[ $prog_set == 1 ]]; then
+#hwclock --systohc --utc
+#elif [[ $prog_set == 2 ]]; then
+#hwclock --systohc --local
+#elif [[ $prog_set == 0 ]]; then
+#  echo 'Настройка пропущена.'
+#fi
 
-#echo 'Посмотрим обновление времени (если настройка не была пропущена)'
+hwclock --systohc --utc
+##hwclock --systohc --local
+
+echo 'Посмотрим обновление времени (если настройка не была пропущена)'
 # See the time update (if the setting was not skipped)
-#timedatectl show
+timedatectl show
 #timedatectl | grep Time
 
 echo 'Изменяем имя хоста'
@@ -592,21 +594,23 @@ grub-install /dev/sda
 
 echo 'Установить Микрокод для процессора INTEL_CPU, AMD_CPU?'
 # Install the Microcode for the CPU INTEL_CPU, AMD_CPU?
-echo 'Вы можете пропустить этот шаг, если не уверены в правильности выбора'
-read -p "1 - INTEL, 2 - AMD, 0 - Нет: " prog_set
-if [[ $prog_set == 1 ]]; then
- pacman -S intel-ucode --noconfirm     
-elif [[ $prog_set == 2 ]]; then
- pacman -S amd-ucode --noconfirm    
-elif [[ $prog_set == 0 ]]; then
-  echo 'Установка программ пропущена.'
-fi
+#echo 'Вы можете пропустить этот шаг, если не уверены в правильности выбора'
+#read -p "1 - INTEL, 2 - AMD, 0 - Нет: " prog_set
+#if [[ $prog_set == 1 ]]; then
+# pacman -S intel-ucode --noconfirm     
+#elif [[ $prog_set == 2 ]]; then
+# pacman -S amd-ucode --noconfirm    
+#elif [[ $prog_set == 0 ]]; then
+#  echo 'Установка программ пропущена.'
+#fi
 
 # Устанавливаем микрокод для процессора:
 # Если у Вас процессор Intel, то:
 #pacman -S intel-ucode
+pacman -S intel-ucode --noconfirm
 # Если у Вас процессор AMD, то:
 #pacman -S amd-ucode
+#pacman -S amd-ucode --noconfirm
 
 echo 'Обновляем grub.cfg (Сгенерируем grub.cfg)'
 # Updating grub.cfg (Generating grub.cfg)
