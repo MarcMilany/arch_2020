@@ -510,19 +510,6 @@ BLUE="\e[1;34m"; CYAN="\e[1;36m"; BOLD="\e[1;37m"; MAGENTA="\e[1;35m"; NC="\e[0m
 # Эта команда остановит выполнение сценария после сбоя команды и будет отправлен код ошибки
 set -e
 
-echo -e "${BLUE}:: ${NC}Вводим имя компьютера, и имя пользователя"
-#echo 'Вводим имя компьютера, и имя пользователя'
-#echo 'Enter the computer name and user name'
-# Enter the computer name
-# Enter your username
-#read -p "Введите имя компьютера: " hostname
-#read -p "Введите имя пользователя: " username
-echo -e "${GREEN}==> ${NC}" 
-read -p " => Введите имя компьютера: " hostname
-echo -e "${GREEN}==> ${NC}"
-read -p " => Введите имя пользователя: " username
-#read -p "Ведите свою таймзону в формате Example/Example: " timezone
-
 echo -e "${BLUE}:: ${NC}Прописываем имя компьютера"
 #echo 'Прописываем имя компьютера'
 # Entering the computer name
@@ -545,6 +532,7 @@ ln -svf /usr/share/zoneinfo/Europe/Moscow /etc/localtime
 #ln -s /usr/share/zoneinfo/Europe/Moscow /etc/localtime
 #ln -svf /usr/share/zoneinfo/Asia/Yekaterinburg /etc/localtime
 #ln -svf /usr/share/zoneinfo/Europe/Kiev /etc/localtime
+#read -p "Ведите свою таймзону в формате Example/Example: " timezone
 
 echo -e "${BLUE}:: ${NC}Синхронизация системных часов" 
 #echo 'Синхронизация системных часов'
@@ -685,7 +673,7 @@ useradd -m -g users -G adm,audio,games,lp,network,optical,power,scanner,storage,
 echo -e "${GREEN}==> ${NC}Устанавливаем пароль пользователя"
 #echo 'Устанавливаем пароль пользователя'
 # Setting the user password
-#passwd $username 
+# passwd $username 
 passwd alex
 
 echo -e "${BLUE}:: ${NC}Устанавливаем SUDO"
@@ -712,7 +700,7 @@ echo -e "${BLUE}:: ${NC}Ставим иксы и драйвера"
 #echo 'Ставим иксы и драйвера'
 # Put the x's and drivers
 pacman -S xorg-server xorg-drivers xorg-xinit   # virtualbox-guest-utils --noconfirm 
-#pacman -S xorg-server xorg-drivers xorg-apps xorg-xinit mesa xorg-twm xterm xorg-xclock xf86-input-synaptics virtualbox-guest-utils --noconfirm  #linux-headers
+#pacman -S xorg-server xorg-drivers xorg-xinit mesa xorg-apps xorg-twm xterm xorg-xclock xf86-input-synaptics virtualbox-guest-utils --noconfirm  #linux-headers
 #pacman -S xorg-server xorg-drivers xorg-apps xorg-xinit mesa xorg-twm xterm xorg-xclock xf86-input-synaptics virtualbox-guest-utils  #linux-headers
 # ============================================================================
 
