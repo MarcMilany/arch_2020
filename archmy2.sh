@@ -652,6 +652,11 @@ pacman -S $gui_install
 #systemctl enable vboxservice - вводим дважды пароль
 # ============================================================================
 
+#echo -e "${BLUE}:: ${NC}Установка гостевых дополнений vbox"
+#echo 'Установка гостевых дополнений vbox'
+#Install the Guest Additions vbox
+#modprobe -a vboxguest vboxsf vboxvideo
+
 echo -e "${BLUE}:: ${NC}Ставим DE (от англ. desktop environment — среда рабочего стола) Xfce"
 #echo 'Ставим DE (от англ. desktop environment — среда рабочего стола) Xfce'
 # Put DE (from the English desktop environment-desktop environment) Xfce
