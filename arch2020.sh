@@ -529,9 +529,9 @@ EOF
 
 ###*******************************************************************
 
-echo -e "${GREEN}=> ${BOLD}Создадим пользовательский пост-инстал-скрипт (install.sh) для установки первоначально необходимого софта (пакетов), запуск необходимых служб, запись данных в конфиги (hhh.conf) по настройке системы. ${NC}"
-#echo 'Создадим пользовательский пост-инстал-скрипт (install.sh) для установки первоначально необходимого софта (пакетов), запуск необходимых служб, запись данных в конфиги (hhh.conf) по настройке системы.'
-# Creating a custom post-installation script (install.sh) to install the initially necessary software (packages), launch the necessary services, write data to configs (hhh.conf) for system configuration.
+echo -e "${GREEN}=> ${BOLD}Запускаем пользовательский пост-инстал-скрипт (install.sh) для установки первоначально необходимого софта (пакетов), запуск необходимых служб, запись данных в конфиги (hhh.conf) по настройке системы. ${NC}"
+#echo 'Запускаем пользовательский пост-инстал-скрипт (install.sh) для установки первоначально необходимого софта (пакетов), запуск необходимых служб, запись данных в конфиги (hhh.conf) по настройке системы.'
+# Launch a custom post-installation script (install.sh) to install the initially necessary software (packages), launch the necessary services, write data to configs (hhh.conf) for system configuration.
 #post-install-script (install.sh)
 
 cat <<EOF  >> /mnt/opt/install.sh
