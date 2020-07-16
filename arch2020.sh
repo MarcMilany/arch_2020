@@ -57,6 +57,7 @@ export LANG=ru_RU.UTF-8
 echo -e "${BLUE}:: ${NC}Краткая информация о скрипте (arch2020.sh)."
 #echo 'Краткая информация о скрипте (arch2020.sh).'
 # Brief information about the script (arch2020.sh).
+
 #######
 echo "###########################################################"
 echo "########  <<< Скрипт по установке Arch Linux >>>  #########"
