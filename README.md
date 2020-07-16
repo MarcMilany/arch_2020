@@ -44,7 +44,7 @@ Cостоит из 4 частей.
    Или эта команда:
    curl -L git.io/archmy1> archmy1 && sh archmy1
    или
-   curl -OL git.io/arch1.sh && sh arch1.sh
+   curl -OL git.io/archmy1 && sh archmy1
    ```
    Запустится установка минимальной системы.
    2-я часть ставится автоматически и это базовая установка ArchLinux без программ. 
