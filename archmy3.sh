@@ -511,6 +511,7 @@ echo -e "${GREEN}==> ${NC}Установить UFW (Несложный Бран�
 read -p "1 - Да, 0 - Нет: " prog_set
 if [[ $prog_set == 1 ]]; then
 sudo pacman -S ufw gufw --noconfirm
+echo " Установка Брандмауэра UFW завершена "
 elif [[ $prog_set == 0 ]]; then
   echo 'Установка программ пропущена.'
 fi
@@ -521,6 +522,7 @@ echo -e "${GREEN}==> ${NC}Установить Clam AntiVirus (GTK)?"
 read -p "1 - Да, 0 - Нет: " prog_set
 if [[ $prog_set == 1 ]]; then
 sudo pacman -S clamav clamtk --noconfirm
+echo " Установка Clam AntiVirus завершена "
 elif [[ $prog_set == 0 ]]; then
   echo 'Установка программ пропущена.'
 fi
