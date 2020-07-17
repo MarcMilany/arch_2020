@@ -417,7 +417,7 @@ fi
 
 echo 'Дополнительные пакеты для игр'
 # Additional packages for games
-sudo pacman -S steam lutris lib32-gconf lib32-dbus-glib lib32-libnm-glib lib32-openal lib32-nss lib32-gtk2 lib32-sdl2 lib32-sdl2_image lib32-libcanberra --noconfirm
+sudo pacman -S steam steam-native-runtime lutris lib32-gconf lib32-dbus-glib lib32-libnm-glib lib32-openal lib32-nss lib32-gtk2 lib32-sdl2 lib32-sdl2_image lib32-libcanberra --noconfirm
 
 echo 'Дополнительные пакеты для игр AUR'
 # Additional packages for games AUR
@@ -520,5 +520,8 @@ echo 'Удаление созданной папки (downloads), и скрип�
 # Deleting the created folder (downloads) and the program installation script (arch3my)
 sudo rm -R ~/downloads/
 sudo rm -rf ~/arch4my
+
+echo " Установка завершена для выхода введите >> exit << "
+exit
 
 
