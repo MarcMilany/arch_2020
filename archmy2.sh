@@ -207,6 +207,7 @@ ${AUTHOR} ${RED}under ${LICENSE} ${GREEN}>>>${NC}"""
 _arch_fast_install_banner_2
 
 sleep 01
+#echo ""
 echo -e "${BLUE}:: ${NC}Обновим вашу систему (базу данных пакетов)"
 #echo "Обновим вашу систему (базу данных пакетов)"
 # Update your system (package database)
@@ -259,6 +260,7 @@ echo -e "${BLUE}:: ${NC}Устанавливаем ваш часовой поя�
 #ln -s /usr/share/zoneinfo/Europe/Moscow
 #ln -s /usr/share/zoneinfo/Europe/Moscow /etc/localtime
 #ls /usr/share/zoneinfo
+#ls /usr/share/zoneinfo/Europe
 ln -svf /usr/share/zoneinfo/Europe/Moscow /etc/localtime
 #timedatectl set-ntp true
 #ln -svf /usr/share/zoneinfo/$timezone /etc/localtime

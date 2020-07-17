@@ -456,13 +456,12 @@ echo -e "${BLUE}:: ${NC}Ставим Архиваторы Компрессион
 #echo 'Ставим Архиваторы "Компрессионные Инструменты"'
 # Putting Archivers "Compression Tools
 sudo pacman -S zip unzip unrar p7zip zlib zziplib --noconfirm
-sudo pacman -S lha unace lrzip --noconfirm  #file-roller 
-#file-roller легковесный архиватор ( для xfce-lxqt-lxde-gnome ) 
-
+ 
 echo -e "${BLUE}:: ${NC}Ставим дополнения к Архиваторам" 
 #echo 'Ставим дополнения к Архиваторам'
 # Adding extensions to Archivers
-sudo pacman -S unace sharutils uudeview arj cabextract --noconfirm
+sudo pacman -S lha unace lrzip sharutils uudeview arj cabextract --noconfirm  #file-roller 
+#file-roller легковесный архиватор ( для xfce-lxqt-lxde-gnome ) 
 
 echo -e "${BLUE}:: ${NC}Ставим Драйвера принтера (Поддержка печати)" 
 #echo 'Ставим Драйвера принтера (Поддержка печати)'
@@ -472,7 +471,7 @@ sudo pacman -S cups ghostscript cups-pdf --noconfirm
 echo -e "${BLUE}:: ${NC}Установка базовых программ и пакетов" 
 #echo 'Установка базовых программ и пакетов'
 # Installing basic programs and packages
-sudo pacman -S aspell-ru arch-install-scripts bash-completion dosfstools f2fs-tools sane gvfs gnu-netcat htop iftop iotop nmap ntfs-3g ntp ncdu networkmanager-openvpn hydra isomd5sum python-isomd5sum translate-shell mc pv reflector sox youtube-dl speedtest-cli python-pip pwgen scrot git curl xsel --noconfirm 
+sudo pacman -S aspell-ru arch-install-scripts bash-completion dosfstools f2fs-tools sane gvfs gnu-netcat htop iftop iotop nmap ntfs-3g ntp ncdu hydra isomd5sum python-isomd5sum translate-shell mc pv reflector sox youtube-dl speedtest-cli python-pip pwgen scrot git curl xsel --noconfirm 
 
 echo -e "${BLUE}:: ${NC}Установка терминальных утилит для вывода информации о системе" 
 #echo 'Установка терминальных утилит для вывода информации о системе'
