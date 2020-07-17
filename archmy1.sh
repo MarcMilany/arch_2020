@@ -381,8 +381,7 @@ echo -e "${YELLOW}==> ${NC}Обновить и добавить новые кл�
 echo " Данный этап поможет вам избежать проблем с ключами Pacmаn, если используете не свежий образ ArchLinux для установки! "
 # This step will help you avoid problems with Pacman keys if you are not using a fresh ArchLinux image for installation!
 read -p "1 - Да, 0 - Нет: " prog_set
-if [[ $prog_set == 1 ]]; then
-#pacman-key --init    
+if [[ $prog_set == 1 ]]; then   
 pacman-key --refresh-keys 
 elif [[ $prog_set == 0 ]]; then
   echo 'Обновление ключей пропущено.'
