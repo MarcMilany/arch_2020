@@ -594,6 +594,17 @@ echo -e "${BLUE}:: ${NC}Утилиты для форматирования фл�
 # Utilities for formatting a flash drive with the exFAT file system in Linux
 sudo pacman -S exfat-utils fuse-exfat --noconfirm 
 
+echo -e "${YELLOW}==> ${NC}Установить ssh(server) для удаленного доступа?"
+#echo 'Установить ssh(клиент) для удаленного доступа?'
+# Install ssh (client) for remote access?
+read -p "1 - Да, 0 - Нет: " prog_set
+if [[ $prog_set == 1 ]]; then
+pacman -S openssh --noconfirm
+echo "SSH (клиент) установлен" 
+elif [[ $prog_set == 0 ]]; then
+  echo 'Установка пропущена.'
+fi
+
 echo -e "${BLUE}:: ${NC}Установка Pacman gui,Octopi (AUR)(GTK)(QT)" 
 #echo 'Установка "Pacman gui","Octopi" (AUR)(GTK)(QT)'
 # Installing "Pacman gui", "Octopi" (AUR)(GTK)(QT)
