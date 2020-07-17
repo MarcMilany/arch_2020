@@ -416,6 +416,7 @@ echo -e "${GREEN}==> ${NC}${BLUE}'Установка AUR Helper (yay)'${NC}"
 # Installing AUR Helper (yay)
 sudo pacman -Syu
 wget git.io/yay-install.sh && sh yay-install.sh --noconfirm
+echo " Установка AUR Helper (yay) завершена "
 #sudo pacman -S --noconfirm --needed wget curl git 
 #git clone https://aur.archlinux.org/yay-bin.git
 #cd yay-bin
