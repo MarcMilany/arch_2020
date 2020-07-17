@@ -207,6 +207,13 @@ ${AUTHOR} ${RED}under ${LICENSE} ${GREEN}>>>${NC}"""
 _arch_fast_install_banner_2
 
 sleep 01
+echo -e "${BLUE}:: ${NC}Синхронизация системных часов"  
+#echo '2.3 Синхронизация системных часов'
+# Syncing the system clock
+#echo 'Синхронизируем наши системные часы, включаем ntp, если надо сменим часовой пояс'
+# Sync our system clock, enable ntp, change the time zone if necessary
+timedatectl set-ntp true
+
 echo -e "${BLUE}:: ${NC}Обновим вашу систему (базу данных пакетов)"
 #echo "Обновим вашу систему (базу данных пакетов)"
 # Update your system (package database)
