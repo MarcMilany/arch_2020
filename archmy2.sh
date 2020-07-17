@@ -457,9 +457,9 @@ passwd
 # https://losst.ru/kak-smenit-parol-v-linux
 # ============================================================================
 
-echo -e "${BLUE}:: ${NC}3.5 Устанавливаем загрузчик (grub)"
-#echo '3.5 Устанавливаем загрузчик (grub)'
-# Install the boot loader (grub)
+echo -e "${BLUE}:: ${NC}3.5 Устанавливаем загрузчик GRUB(legacy)"
+#echo '3.5 Устанавливаем загрузчик GRUB(legacy)'
+# Install the boot loader GRUB(legacy)
 pacman -Syy
 pacman -S grub --noconfirm 
 #pacman -S grub --noconfirm --noprogressbar --quiet  
