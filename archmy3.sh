@@ -583,7 +583,8 @@ bleachbit gparted grub-customizer conky conky-manager dconf-editor doublecmd-gtk
 ${NC}"
 read -p "1 - Да, 0 - Нет: " prog_set
 if [[ $prog_set == 1 ]]; then
-sudo pacman -S bleachbit gparted grub-customizer conky conky-manager dconf-editor doublecmd-gtk2 gnome-system-monitor obs-studio openshot flameshot frei0r-plugins redshift veracrypt onboard clonezilla moc filezilla gnome-calculator nomacs osmo synapse telegram-desktop plank psensor keepass copyq variety grsync numlockx modem-manager-gui uget xarchiver-gtk2 rofi gsmartcontrol testdisk glances tlp tlp-rdw file-roller meld cmake xterm lsof dmidecode --noconfirm 
+sudo pacman -S bleachbit gparted grub-customizer conky conky-manager dconf-editor doublecmd-gtk2 gnome-system-monitor obs-studio openshot flameshot frei0r-plugins redshift veracrypt onboard clonezilla moc filezilla gnome-calculator nomacs osmo synapse telegram-desktop plank psensor keepass copyq variety grsync numlockx modem-manager-gui uget xarchiver-gtk2 rofi gsmartcontrol testdisk glances tlp tlp-rdw file-roller meld cmake xterm lsof dmidecode --noconfirm
+echo " Установка утилит (пакетов) завершена " 
 elif [[ $prog_set == 0 ]]; then
   echo 'Установка программ пропущена.'
 fi
@@ -656,16 +657,6 @@ fi
 # Виден через наутилус как mtp://[usb:002,007]/
 # ============================================================================
 
-echo -e "${BLUE}:: ${NC}Обновим информацию о шрифтах" 
-#echo 'Обновим информацию о шрифтах'
-# Update information about fonts
-sudo fc-cache -f -v
-
-echo -e "${BLUE}:: ${NC}Применяем настройки TLP (управления питанием) в зависимости от источника питания (батарея или от сети)" 
-#echo 'Применяем настройки TLP (управления питанием) в зависимости от источника питания (батарея или от сети)'
-# Apply TLP (power management) settings depending on the power source (battery or mains)
-sudo tlp start
-
 echo -e "${YELLOW}==> ${NC}Включаем сетевой экран?"
 #echo 'Включаем сетевой экран?'
 # Enabling the network screen?
@@ -722,6 +713,16 @@ echo 'Сервис sshd успешно добавлен в автозагруз�
 elif [[ $prog_set == 0 ]]; then
   echo 'Сервис sshd не включен.'
 fi
+
+echo -e "${BLUE}:: ${NC}Обновим информацию о шрифтах" 
+#echo 'Обновим информацию о шрифтах'
+# Update information about fonts
+sudo fc-cache -f -v
+
+echo -e "${BLUE}:: ${NC}Применяем настройки TLP (управления питанием) в зависимости от источника питания (батарея или от сети)" 
+#echo 'Применяем настройки TLP (управления питанием) в зависимости от источника питания (батарея или от сети)'
+# Apply TLP (power management) settings depending on the power source (battery or mains)
+sudo tlp start
 
 echo -e "${BLUE}:: ${NC}Создать резервную копию (дубликат) файла grub.cfg" 
 #echo 'Создать резервную копию (дубликат) файла grub.cfg'
