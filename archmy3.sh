@@ -446,7 +446,7 @@ echo -e "${BLUE}:: ${NC}Ставим Bluetooth и Поддержка звука"
 # Setting Bluetooth and Sound support
 sudo pacman -S bluez bluez-libs bluez-cups bluez-utils --noconfirm
 sudo pacman -S alsa-utils alsa-plugins alsa-firmware alsa-lib alsa-utils --noconfirm 
-sudo pacman -S pulseaudio pulseaudio-alsa pavucontrol pulseaudio-zeroconf pulseaudio-bluetooth xfce4-pulseaudio-plugin --noconfirm
+sudo pacman -S pulseaudio pulseaudio-alsa pavucontrol pulseaudio-zeroconf pulseaudio-bluetooth xfce4-pulseaudio-plugin --noconfirm #pulseaudio-equalizer-ladspa
 #systemctl enable bluetooth.service
 
 echo -e "${BLUE}:: ${NC}Ставим Архиваторы Компрессионные Инструменты" 
