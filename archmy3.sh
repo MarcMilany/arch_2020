@@ -557,8 +557,10 @@ echo -e "${GREEN}==> ${NC}Установить LibreOffice-still, LibreOffice-fr
 read -p "1 - LibreOffice-still, 2 - LibreOffice-fresh, 0 - Нет: " prog_set
 if [[ $prog_set == 1 ]]; then
 sudo pacman -S libreoffice-still libreoffice-still-ru --noconfirm
+echo " Установка LibreOffice-still завершена "
 elif [[ $prog_set == 2 ]]; then
 sudo pacman -S libreoffice libreoffice-fresh-ru --noconfirm
+echo " Установка LibreOffice-fresh завершена "
 elif [[ $prog_set == 0 ]]; then
   echo 'Установка программ пропущена.'
 fi
@@ -594,8 +596,33 @@ echo -e "${GREEN}==> ${NC}Установить pamac-aur, octopi?"
 read -p "1 - Pacmac-aur, 2 - Octopi, 0 - Нет: " prog_set
 if [[ $prog_set == 1 ]]; then
 yay -S pamac-aur --noconfirm
+echo " Установка Pacmac-aur завершена "
 elif [[ $prog_set == 2 ]]; then
 yay -S octopi --noconfirm
+echo " Установка Octopi завершена "
+elif [[ $prog_set == 0 ]]; then
+  echo 'Установка программ пропущена.'
+fi
+
+echo -e "${BLUE}:: ${NC}Будете ли вы подключать Android или Iphone к ПК через USB?" 
+#echo 'Установка "Pacman gui","Octopi" (AUR)(GTK)(QT)'
+# Installing "Pacman gui", "Octopi" (AUR)(GTK)(QT)
+echo -e "${BLUE}:: ${NC}Установка Производится в порядке перечисления" 
+#echo 'Установка Производится в порядке перечисления'
+# Installation Is performed in the order listed
+echo -e "${GREEN}==> ${NC}Установить pamac-aur, octopi?"
+#echo 'Установить "pamac-aur", "octopi"?'
+# Install "pacman-aur", "octopi"?
+read -p "1 - Android, 2 - Iphone, 3 - Оба Варианта, 0 - Пропустить: " prog_set
+if [[ $prog_set == 1 ]]; then
+sudo pacman -S gvfs-mtp --noconfirm
+echo " Установка поддержки устройств на Android завершена "
+elif [[ $prog_set == 2 ]]; then
+sudo pacman -S gvfs-afc --noconfirm
+echo " Установка поддержки устройств на Iphone завершена "
+elif [[ $prog_set == 3 ]]; then
+sudo pacman -S gvfs-afc gvfs-mtp --noconfirm
+echo " Установка поддержки устройств на Android и Iphone завершена "
 elif [[ $prog_set == 0 ]]; then
   echo 'Установка программ пропущена.'
 fi
@@ -630,6 +657,7 @@ echo -e "${YELLOW}==> ${NC}Добавляем в автозагрузку сет
 read -p "1 - Да, 0 - Нет: " prog_set
 if [[ $prog_set == 1 ]]; then
 sudo systemctl enable ufw
+echo "UFW успешно добавлен в автозагрузку" 
 elif [[ $prog_set == 0 ]]; then
   echo 'Установка программ пропущена.'
 fi
