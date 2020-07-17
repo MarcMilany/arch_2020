@@ -730,8 +730,8 @@ sleep 1
 systemctl enable NetworkManager
 
 echo -e "${GREEN}==> ${NC}Добавим службу Dhcpcd в автозагрузку (для проводного интернета)?"
-#echo 'Добавим службу DHCP в автозагрузку (для проводного интернета)?'
-# Install the Microcode for the CPU INTEL_CPU, AMD_CPU?
+#echo 'Добавим службу Dhcpcd в автозагрузку (для проводного интернета)?'
+# Adding the Dhcpcd service to auto-upload (for wired Internet)?
 echo -e "${YELLOW}==> ${NC}Вы можете пропустить этот шаг, если не уверены в правильности выбора"
 #echo 'Вы можете пропустить этот шаг, если не уверены в правильности выбора'
 # You can skip this step if you are not sure of the correct choice
@@ -748,9 +748,9 @@ echo -e "${BLUE}:: ${NC}Монтировании разделов NTFS и соз
 # NTFS support (optional)
 sudo pacman -S ntfs-3g --noconfirm
 
-echo -e "${BLUE}:: ${NC}Создаём нужные директории"
-#echo 'Создаём нужные директории'
-# Creating the necessary directories
+echo -e "${BLUE}:: ${NC}Создаём нужные директории (Downloads,Music,Pictures,Videos,Documents)"
+#echo 'Создаём нужные директории (Downloads,Music,Pictures,Videos,Documents)'
+# Creating the necessary directories (Downloads,Music,Pictures,Videos,Documents)
 sudo pacman -S xdg-user-dirs --noconfirm
 xdg-user-dirs-update 
 # ============================================================================
