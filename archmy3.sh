@@ -446,6 +446,8 @@ echo -e "${BLUE}:: ${NC}Ставим Bluetooth и Поддержка звука"
 #echo 'Ставим Bluetooth и Поддержка звука'
 # Setting Bluetooth and Sound support
 sudo pacman -S bluez bluez-libs bluez-cups bluez-utils --noconfirm
+sudo pacman -S blueman --noconfirm
+# blueman --диспетчер blutooth устройств
 sudo pacman -S alsa-utils alsa-plugins alsa-firmware alsa-lib alsa-utils --noconfirm 
 sudo pacman -S pulseaudio pulseaudio-alsa pavucontrol pulseaudio-zeroconf pulseaudio-bluetooth xfce4-pulseaudio-plugin --noconfirm #pulseaudio-equalizer-ladspa
 #systemctl enable bluetooth.service
@@ -454,6 +456,8 @@ echo -e "${BLUE}:: ${NC}Ставим Архиваторы Компрессион
 #echo 'Ставим Архиваторы "Компрессионные Инструменты"'
 # Putting Archivers "Compression Tools
 sudo pacman -S zip unzip unrar p7zip zlib zziplib --noconfirm
+sudo pacman -S lha unace lrzip --noconfirm  #file-roller 
+#file-roller легковесный архиватор ( для xfce-lxqt-lxde-gnome ) 
 
 echo -e "${BLUE}:: ${NC}Ставим дополнения к Архиваторам" 
 #echo 'Ставим дополнения к Архиваторам'
