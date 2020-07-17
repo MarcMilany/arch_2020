@@ -702,6 +702,17 @@ elif [[ $prog_set == 0 ]]; then
   echo 'Bluetooth.service не включен в автозагрузку, при необходиости это можно будет сделать.'
 fi
 
+echo -e "${YELLOW}==> ${NC}Добавляем в автозагрузку ssh(server) для удаленного доступа к этому ПК?"
+#echo 'Добавляем в автозагрузку ssh(server) для удаленного доступа к этому ПК?'
+# Adding ssh(server) to the startup for remote access to this PC?
+read -p "1 - Да, 0 - Нет: " prog_set
+if [[ $prog_set == 1 ]]; then
+systemctl enable sshd.service
+echo "Сервис sshd успешно добавлен в автозагрузку" 
+elif [[ $prog_set == 0 ]]; then
+  echo 'Сервис sshd не включен.'
+fi
+
 echo -e "${BLUE}:: ${NC}Создать резервную копию (дубликат) файла grub.cfg" 
 #echo 'Создать резервную копию (дубликат) файла grub.cfg'
 # Create a backup (duplicate) of the grub.cfg file
