@@ -708,7 +708,7 @@ echo -e "${YELLOW}==> ${NC}Добавляем в автозагрузку Blueto
 read -p "1 - Да, 0 - Нет: " prog_set
 if [[ $prog_set == 1 ]]; then
 systemctl enable bluetooth.service
-echo "Bluetooth успешно добавлен в автозагрузку"
+echo 'Bluetooth успешно добавлен в автозагрузку'
 elif [[ $prog_set == 0 ]]; then
   echo 'Bluetooth.service не включен в автозагрузку, при необходиости это можно будет сделать.'
 fi
@@ -719,7 +719,7 @@ echo -e "${YELLOW}==> ${NC}Добавляем в автозагрузку ssh(se
 read -p "1 - Да, 0 - Нет: " prog_set
 if [[ $prog_set == 1 ]]; then
 systemctl enable sshd.service
-echo "Сервис sshd успешно добавлен в автозагрузку" 
+echo 'Сервис sshd успешно добавлен в автозагрузку' 
 elif [[ $prog_set == 0 ]]; then
   echo 'Сервис sshd не включен.'
 fi
