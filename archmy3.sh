@@ -537,10 +537,13 @@ echo -e "${GREEN}==> ${NC}Установить Transmission, qBittorrent, Deluge
 read -p "1 - Transmission, 2 - qBittorrent, 3 - Deluge, 0 - Нет: " prog_set
 if [[ $prog_set == 1 ]]; then
 sudo pacman -S transmission-gtk transmission-cli --noconfirm
+echo " Установка Transmission завершена "
 elif [[ $prog_set == 2 ]]; then
 sudo pacman -S qbittorrent --noconfirm
+echo " Установка qBittorrent завершена "
 elif [[ $prog_set == 3 ]]; then
 sudo pacman -S deluge --noconfirm
+echo " Установка Deluge завершена "
 elif [[ $prog_set == 0 ]]; then
   echo 'Установка программ пропущена.'
 fi
@@ -604,15 +607,17 @@ elif [[ $prog_set == 0 ]]; then
   echo 'Установка программ пропущена.'
 fi
 
-echo -e "${BLUE}:: ${NC}Будете ли вы подключать Android или Iphone к ПК через USB?" 
-#echo 'Установка "Pacman gui","Octopi" (AUR)(GTK)(QT)'
-# Installing "Pacman gui", "Octopi" (AUR)(GTK)(QT)
+echo -e "${BLUE}:: ${NC}Будете ли Вы подключать Android или Iphone к ПК через USB?" 
+#echo 'Будете ли Вы подключать Android или Iphone к ПК через USB?'
+# Will you connect your Android or Iphone to your PC via USB?
+echo 'Установка поддержки устройств на Android или Iphone к ПК через USB'
+# Installing support for Android or Iphone devices to a PC via USB
 echo -e "${BLUE}:: ${NC}Установка Производится в порядке перечисления" 
 #echo 'Установка Производится в порядке перечисления'
 # Installation Is performed in the order listed
-echo -e "${GREEN}==> ${NC}Установить pamac-aur, octopi?"
-#echo 'Установить "pamac-aur", "octopi"?'
-# Install "pacman-aur", "octopi"?
+echo -e "${GREEN}==> ${NC}Установить утилиты (пакеты) поддержки устройств?"
+#echo 'Установить утилиты (пакеты) поддержки устройств?'
+# To install the utilities (package) support devices?
 read -p "1 - Android, 2 - Iphone, 3 - Оба Варианта, 0 - Пропустить: " prog_set
 if [[ $prog_set == 1 ]]; then
 sudo pacman -S gvfs-mtp --noconfirm
@@ -624,8 +629,15 @@ elif [[ $prog_set == 3 ]]; then
 sudo pacman -S gvfs-afc gvfs-mtp --noconfirm
 echo " Установка поддержки устройств на Android и Iphone завершена "
 elif [[ $prog_set == 0 ]]; then
-  echo 'Установка программ пропущена.'
+  echo 'Установка утилит (пакетов) пропущена.'
 fi
+# -------------------------------------------------------
+# Пример:
+# Подключаю по USB телефон LG Optinus G
+# lsusb
+# Он монтируется как mtp устройство.
+# Виден через наутилус как mtp://[usb:002,007]/
+# ============================================================================
 
 echo -e "${BLUE}:: ${NC}Обновим информацию о шрифтах" 
 #echo 'Обновим информацию о шрифтах'
