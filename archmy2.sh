@@ -484,13 +484,15 @@ echo -e "${GREEN}==> ${NC}Установить Микрокод для проц�
 echo -e "${YELLOW}==> ${NC}Вы можете пропустить этот шаг, если не уверены в правильности выбора"
 read -p "1 - INTEL, 2 - AMD, 0 - Нет: " prog_set
 if [[ $prog_set == 1 ]]; then
- pacman -S intel-ucode --noconfirm     
+ pacman -S intel-ucode --noconfirm 
+ echo ' initrd /intel-ucode.img ' >> /boot/loader/entries/arch.conf    
 elif [[ $prog_set == 2 ]]; then
- pacman -S amd-ucode --noconfirm    
+ pacman -S amd-ucode --noconfirm
+ echo  'initrd /amd-ucode.img ' >> /boot/loader/entries/arch.conf    
 elif [[ $prog_set == 0 ]]; then
   echo 'Установка программ пропущена.'
 fi
-
+echo "initrd  /initramfs-linux.img" >> /boot/loader/entries/arch.conf
 #-----------------------------------------------------------------------------
 #echo -e "${GREEN}==> ${NC}Установить Микрокод для процессора INTEL_CPU, AMD_CPU?"
 #echo 'Установить Микрокод для процессора INTEL_CPU, AMD_CPU?'
@@ -587,6 +589,7 @@ sed -i "/\[multilib\]/,/Include/"'s/^#//' /etc/pacman.conf
 #echo '[multilib]' >> /etc/pacman.conf
 #echo 'Include = /etc/pacman.d/mirrorlist' >> /etc/pacman.conf
 #pacman -Syy
+echo " Multilib репозиторий добавлен"
 
 echo -e "${BLUE}:: ${NC}Обновим базы данных пакетов" 
 #echo 'Обновим базы данных пакетов'
@@ -641,6 +644,7 @@ echo -e "${BLUE}:: ${NC}Ставим иксы и драйвера"
 #echo 'Ставим иксы и драйвера'
 # Put the x's and drivers
 pacman -S $gui_install
+pacman -Syy
 
 #echo "Какая видеокарта?"
 #read -p "1 - nvidia, 2 - Amd, 3 - intel: " videocard
@@ -681,16 +685,29 @@ echo -e "${BLUE}:: ${NC}Ставим DE (от англ. desktop environment — 
 #echo 'Ставим DE (от англ. desktop environment — среда рабочего стола) Xfce'
 # Put DE (from the English desktop environment-desktop environment) Xfce
 pacman -S xfce4 xfce4-goodies --noconfirm
+#pacman -S xorg-xinit --noconfirm
+cp /etc/X11/xinit/xinitrc /home/$username/.xinitrc
+chown $username:users /home/$username/.xinitrc
+chmod +x /home/$username/.xinitrc
+sed -i 52,55d /home/$username/.xinitrc
+echo "exec startxfce4 " >> /home/$username/.xinitrc
+mkdir /etc/systemd/system/getty@tty1.service.d/
+echo " [Service] " > /etc/systemd/system/getty@tty1.service.d/override.conf
+echo " ExecStart=" >> /etc/systemd/system/getty@tty1.service.d/override.conf
+echo   ExecStart=-/usr/bin/agetty --autologin $username --noclear %I 38400 linux >> /etc/systemd/system/getty@tty1.service.d/override.conf
+echo ' [[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && exec startx ' >> /etc/profile
+echo " DE (среда рабочего стола) Xfce успешно установлено "
 
 echo -e "${BLUE}:: ${NC}Ставим DM (Display manager) менеджера входа"
 #echo 'Ставим DM (Display manager) менеджера входа'
 # Install the DM (Display manager) of the login Manager
 pacman -S lightdm lightdm-gtk-greeter lightdm-gtk-greeter-settings --noconfir
+echo " Установка DM (менеджера входа) завершена "
 
 echo -e "${BLUE}:: ${NC}Ставим сетевые утилиты Networkmanager"
 #echo 'Ставим сетевые утилиты "Networkmanager"'
 # Put the network utilities "Networkmanager"
-pacman -S networkmanager network-manager-applet ppp --noconfirm
+pacman -S networkmanager networkmanager-openvpn network-manager-applet ppp --noconfirm
 # networkmanager - сервис для работы интернета. Вместе с собой устанавливает программы для настройки.
 # Если вам нужна поддержка OpenVPN в Network Manager, то выполните команду:
 #sudo pacman -S networkmanager-openvpn
@@ -706,9 +723,14 @@ echo -e "${BLUE}:: ${NC}Подключаем автозагрузку менед
 #echo 'Подключаем автозагрузку менеджера входа и интернет'
 # Enabling auto-upload of the login Manager and the Internet
 systemctl enable lightdm.service
+#systemctl enable lightdm.service -f
 sleep 1 
 systemctl enable NetworkManager
-#systemctl enable dhcpcd
+
+echo " Добавим dhcpcd в автозагрузку( для проводного интернета, который  получает настройки от роутера ) ? "
+echo ""
+echo "при необходимости это можно будет сделать уже в установленной системе "
+systemctl enable dhcpcd
 
 echo -e "${BLUE}:: ${NC}Монтировании разделов NTFS и создание ссылок"
 #echo 'Монтировании разделов NTFS и создание ссылок'
