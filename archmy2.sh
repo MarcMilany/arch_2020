@@ -616,7 +616,7 @@ echo -e "${BLUE}:: ${NC}Обновим базы данных пакетов"
 #sudo pacman-key --init
 #sudo pacman-key --refresh-keys
 sudo pacman -Sy  
-
+#pacman -Syy
 # ============================================================================
 # Знакомьтесь, pacman - лучший пакетный менеджер в мире линукса!
 #pacman -Syy   - обновление баз пакмэна(как apt-get update в дэбианоподбных)
@@ -663,7 +663,7 @@ echo -e "${BLUE}:: ${NC}Ставим иксы и драйвера"
 #echo 'Ставим иксы и драйвера'
 # Put the x's and drivers
 pacman -S $gui_install
-pacman -Syy
+#pacman -Syy
 
 #echo "Какая видеокарта?"
 #read -p "1 - nvidia, 2 - Amd, 3 - intel: " videocard
@@ -720,8 +720,8 @@ echo " DE (среда рабочего стола) Xfce успешно уста�
 echo -e "${BLUE}:: ${NC}Ставим DM (Display manager) менеджера входа"
 #echo 'Ставим DM (Display manager) менеджера входа'
 # Install the DM (Display manager) of the login Manager
-pacman -S lightdm lightdm-gtk-greeter lightdm-gtk-greeter-settings --noconfir
-echo 'Установка DM (менеджера входа) завершена'
+pacman -S lightdm lightdm-gtk-greeter lightdm-gtk-greeter-settings --noconfirm
+echo " Установка DM (менеджера входа) завершена "
 
 echo -e "${BLUE}:: ${NC}Ставим сетевые утилиты Networkmanager"
 #echo 'Ставим сетевые утилиты "Networkmanager"'
@@ -755,8 +755,8 @@ echo -e "${YELLOW}==> ${NC}Вы можете пропустить этот ша�
 # You can skip this step if you are not sure of the correct choice
 read -p "1 - Включить dhcpcd, 0 - Нет: " x_dhcpcd
 if [[ $x_dhcpcd == 1 ]]; then
-systemctl enable dhcpcd 
-echo 'Dhcpcd успешно добавлен в автозагрузку'   
+systemctl enable dhcpcd
+echo " Dhcpcd успешно добавлен в автозагрузку "    
 elif [[ $x_dhcpcd == 0 ]]; then
   echo 'Dhcpcd не включен в автозагрузку, при необходиости это можно будет сделать уже в установленной системе'
 fi
