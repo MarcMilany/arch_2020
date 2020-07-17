@@ -720,6 +720,7 @@ echo -e "${BLUE}:: ${NC}Ставим шрифты"
 #echo 'Ставим шрифты'
 # Put the fonts
 pacman -S ttf-liberation ttf-dejavu opendesktop-fonts ttf-arphic-ukai ttf-arphic-uming ttf-hanazono --noconfirm 
+pacman -S ttf-fireflysung ttf-sazanami --noconfirm  #китайские иероглифы
 
 echo -e "${BLUE}:: ${NC}Подключаем автозагрузку менеджера входа и интернет"
 #echo 'Подключаем автозагрузку менеджера входа и интернет'
