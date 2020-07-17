@@ -207,13 +207,6 @@ ${AUTHOR} ${RED}under ${LICENSE} ${GREEN}>>>${NC}"""
 _arch_fast_install_banner_2
 
 sleep 01
-echo -e "${BLUE}:: ${NC}Синхронизация системных часов"  
-#echo '2.3 Синхронизация системных часов'
-# Syncing the system clock
-#echo 'Синхронизируем наши системные часы, включаем ntp, если надо сменим часовой пояс'
-# Sync our system clock, enable ntp, change the time zone if necessary
-timedatectl set-ntp true
-
 echo -e "${BLUE}:: ${NC}Обновим вашу систему (базу данных пакетов)"
 #echo "Обновим вашу систему (базу данных пакетов)"
 # Update your system (package database)
@@ -512,15 +505,13 @@ echo -e "${YELLOW}==> ${NC}Вы можете пропустить этот ша�
 # You can skip this step if you are not sure of the correct choice
 read -p "1 - INTEL, 2 - AMD, 0 - Нет: " prog_set
 if [[ $prog_set == 1 ]]; then
- pacman -S intel-ucode --noconfirm 
- echo ' initrd /intel-ucode.img ' >> /boot/loader/entries/arch.conf    
+ pacman -S intel-ucode --noconfirm     
 elif [[ $prog_set == 2 ]]; then
- pacman -S amd-ucode --noconfirm
- echo  'initrd /amd-ucode.img ' >> /boot/loader/entries/arch.conf    
+ pacman -S amd-ucode --noconfirm    
 elif [[ $prog_set == 0 ]]; then
   echo 'Установка программ пропущена.'
 fi
-echo "initrd  /initramfs-linux.img" >> /boot/loader/entries/arch.conf
+
 #-----------------------------------------------------------------------------
 #echo -e "${GREEN}==> ${NC}Установить Микрокод для процессора INTEL_CPU, AMD_CPU?"
 #echo 'Установить Микрокод для процессора INTEL_CPU, AMD_CPU?'
@@ -617,7 +608,7 @@ sed -i "/\[multilib\]/,/Include/"'s/^#//' /etc/pacman.conf
 #echo '[multilib]' >> /etc/pacman.conf
 #echo 'Include = /etc/pacman.d/mirrorlist' >> /etc/pacman.conf
 #pacman -Syy
-echo " Multilib репозиторий добавлен"
+echo 'Multilib репозиторий добавлен'
 
 echo -e "${BLUE}:: ${NC}Обновим базы данных пакетов" 
 #echo 'Обновим базы данных пакетов'
@@ -730,7 +721,7 @@ echo -e "${BLUE}:: ${NC}Ставим DM (Display manager) менеджера в�
 #echo 'Ставим DM (Display manager) менеджера входа'
 # Install the DM (Display manager) of the login Manager
 pacman -S lightdm lightdm-gtk-greeter lightdm-gtk-greeter-settings --noconfir
-echo " Установка DM (менеджера входа) завершена "
+echo 'Установка DM (менеджера входа) завершена'
 
 echo -e "${BLUE}:: ${NC}Ставим сетевые утилиты Networkmanager"
 #echo 'Ставим сетевые утилиты "Networkmanager"'
@@ -765,7 +756,7 @@ echo -e "${YELLOW}==> ${NC}Вы можете пропустить этот ша�
 read -p "1 - Включить dhcpcd, 0 - Нет: " x_dhcpcd
 if [[ $x_dhcpcd == 1 ]]; then
 systemctl enable dhcpcd 
-echo "Dhcpcd успешно добавлен в автозагрузку"   
+echo 'Dhcpcd успешно добавлен в автозагрузку'   
 elif [[ $x_dhcpcd == 0 ]]; then
   echo 'Dhcpcd не включен в автозагрузку, при необходиости это можно будет сделать уже в установленной системе'
 fi
