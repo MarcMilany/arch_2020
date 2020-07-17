@@ -584,7 +584,20 @@ sed -i 's/#Color/Color/' /etc/pacman.conf
 sed -i "/\[multilib\]/,/Include/"'s/^#//' /etc/pacman.conf
 #echo '[multilib]' >> /etc/pacman.conf
 #echo 'Include = /etc/pacman.d/mirrorlist' >> /etc/pacman.conf
-pacman -Syy
+#pacman -Syy
+
+echo -e "${BLUE}:: ${NC}Обновим базы данных пакетов" 
+#echo 'Обновим базы данных пакетов'
+# Updating the package databases
+#sudo pacman-key --init
+#sudo pacman-key --refresh-keys
+sudo pacman -Sy  
+
+# ============================================================================
+# Знакомьтесь, pacman - лучший пакетный менеджер в мире линукса!
+#pacman -Syy   - обновление баз пакмэна(как apt-get update в дэбианоподбных)
+#pacman -Syyu  - обновление баз плюс обновление пакетов
+# ----------------------------------------------------------------------------
 #pacman -Syy --noconfirm --noprogressbar --quiet
 # Синхронизация и обновление пакетов (-yy принудительно обновить даже если обновленные)
 
