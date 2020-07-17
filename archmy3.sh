@@ -447,6 +447,7 @@ echo -e "${BLUE}:: ${NC}Ставим Bluetooth и Поддержка звука"
 sudo pacman -S bluez bluez-libs bluez-cups bluez-utils --noconfirm
 sudo pacman -S alsa-utils alsa-plugins alsa-firmware alsa-lib alsa-utils --noconfirm 
 sudo pacman -S pulseaudio pulseaudio-alsa pavucontrol pulseaudio-zeroconf pulseaudio-bluetooth xfce4-pulseaudio-plugin --noconfirm
+#systemctl enable bluetooth.service
 
 echo -e "${BLUE}:: ${NC}Ставим Архиваторы Компрессионные Инструменты" 
 #echo 'Ставим Архиваторы "Компрессионные Инструменты"'
@@ -642,6 +643,16 @@ echo -e "${BLUE}:: ${NC}Проверим статус запуска сетев�
 #echo 'Проверим статус запуска сетевой экран UFW'
 # Check the startup status of the UFW network screen
 sudo ufw status
+
+echo -e "${YELLOW}==> ${NC}Добавляем в автозагрузку Bluetooth.service?"
+#echo 'Добавляем в автозагрузку сетевой экран?'
+# Adding the network screen to auto-upload?
+read -p "1 - Да, 0 - Нет: " prog_set
+if [[ $prog_set == 1 ]]; then
+systemctl enable bluetooth.service
+elif [[ $prog_set == 0 ]]; then
+  echo 'Bluetooth.service не включен в автозагрузку, при необходиости это можно будет сделать.'
+fi
 
 echo -e "${BLUE}:: ${NC}Создать резервную копию (дубликат) файла grub.cfg" 
 #echo 'Создать резервную копию (дубликат) файла grub.cfg'
