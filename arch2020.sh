@@ -692,15 +692,10 @@ mkinitcpio -p linux-lts
 #mkinitcpio -p linux-zen
 #echo 'COMPRESSION="lz4"' >> /etc/mkinitcpio.conf
 
-echo -e "${GREEN}==> ${NC}Создаём root пароль"
+#echo -e "${GREEN}==> ${NC}Создаём root пароль"
 #echo 'Создаём root пароль'
 # Creating a root password
 #passwd
-arch-chroot /mnt /bin/bash -x << _EOF_
-passwd
-t@@r00
-t@@r00
-_EOF_
 
 echo -e "${BLUE}:: ${NC}Устанавливаем загрузчик (grub)"
 #echo 'Устанавливаем загрузчик (grub)'
@@ -745,16 +740,11 @@ echo -e "${BLUE}:: ${NC}Добавляем пользователя и проп�
 #useradd -m -g users -G wheel -s /bin/bash $username
 useradd -m -g users -G adm,audio,games,lp,network,optical,power,scanner,storage,video,rfkill,sys,wheel -s /bin/bash alex
 
-echo -e "${GREEN}==> ${NC}Устанавливаем пароль пользователя"
+#echo -e "${GREEN}==> ${NC}Устанавливаем пароль пользователя"
 #echo 'Устанавливаем пароль пользователя'
 # Setting the user password
 # passwd $username 
 #passwd alex
-arch-chroot /mnt /bin/bash -x << _EOF_
-passwd alex
-555
-555
-_EOF_
 
 echo -e "${BLUE}:: ${NC}Устанавливаем SUDO"
 #echo 'Устанавливаем SUDO'
@@ -895,10 +885,37 @@ echo -e "${BLUE}:: ${NC}Установка базовых программ и п
 # Installing basic programs and packages
 sudo pacman -S wget --noconfirm
 
-# ============================================================================
-
 #read -p "Введите допольнительные пакеты которые вы хотите установить: " packages 
 #pacman -S $packages --noconfirm
+
+# =======================================================================
+
+#exit
+
+EOF
+
+arch-chroot /mnt /bin/bash  /opt/install.sh
+
+###********************************************###
+
+echo -e "${GREEN}==> ${NC}Создаём root пароль"
+#echo 'Создаём root пароль'
+# Creating a root password
+arch-chroot /mnt /bin/bash -x << _EOF_
+passwd
+t@@r00
+t@@r00
+_EOF_
+
+echo -e "${GREEN}==> ${NC}Устанавливаем пароль пользователя"
+#echo 'Устанавливаем пароль пользователя'
+# Setting the user password
+# passwd $username 
+arch-chroot /mnt /bin/bash -x << _EOF_
+passwd alex
+555
+555
+_EOF_
 
 echo -e "${GREEN}
   <<< Поздравляем! Установка завершена. Перезагрузите систему. >>> ${NC}"
@@ -932,37 +949,26 @@ echo -e "${YELLOW}==> ${CYAN}wget git.io/archmy3 && sh archmy3 ${NC}"
 echo -e "${RED}==> ${BOLD}Выходим из установленной системы ${NC}"
 #echo 'Выходим из установленной системы'
 # Exiting the installed system
-echo -e "${BLUE}:: ${BOLD}Теперь вам надо ввести reboot, чтобы перезагрузиться ${NC}"
+#echo -e "${BLUE}:: ${BOLD}Теперь вам надо ввести reboot, чтобы перезагрузиться ${NC}"
 #echo 'Теперь вам надо ввести reboot, чтобы перезагрузиться'
 #'Now you need to enter 'reboot' to reboot"'
 
 echo -e "${BLUE}:: ${BOLD}После перезагрузки заходим под пользователем ${NC}"
 #echo 'После перезагрузки заходим под пользователем'
 #Перезагрузка.После перезагрузки заходим под пользователем
-exit
+#exit
 
-
-EOF
-
-arch-chroot /mnt /bin/bash  /opt/install.sh
-
-###**************************************###
-
-
-#arch-chroot /mnt /bin/bash -x << _EOF_
-#passwd
-#t@@r00
-#t@@r00
-#_EOF_
-
-#arch-chroot /mnt /bin/bash -x << _EOF_
-#passwd alex
-#555
-#555
-#_EOF_
-
-
-#umount -R /mnt/boot
+# Разделы (отмонтировать) Partitions (umount) 
+#umount -Rfv /mnt
 #umount -R /mnt
-#reboot
+umount -R /mnt/boot
+umount -R /mnt
+
+
+#echo -e "${BLUE}:: ${NC}Сейчас следует перезагрузить систему"
+#Перезагрузка.После перезагрузки заходим под пользователем
+#Reboot.After restarting, go under the user
+read -p "Пауза 3 ceк." -t 3
+reboot
+
 
