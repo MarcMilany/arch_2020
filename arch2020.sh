@@ -150,8 +150,6 @@ sgdisk --zap-all /dev/sda
 echo -e "${BLUE}:: ${NC}Создание разделов диска"
 #echo 'Создание разделов диска'
 # Creating disk partitions
-
-echo ""
 echo 'Нужна разметка диска?'
 while 
     read -n1 -p  "
