@@ -1,4 +1,5 @@
 #!/bin/bash
+
 ### SHARED VARIABLES AND FUNCTIONS (ОБЩИЕ ПЕРЕМЕННЫЕ И ФУНКЦИИ)
 ### Shell color codes (Цветовые коды оболочки)
 RED="\e[1;31m"; GREEN="\e[1;32m"; YELLOW="\e[1;33m"; GREY="\e[3;93m"
@@ -150,40 +151,51 @@ sgdisk --zap-all /dev/sda
 echo -e "${BLUE}:: ${NC}Создание разделов диска"
 #echo 'Создание разделов диска'
 # Creating disk partitions
-echo 'Нужна разметка диска?'
-while 
-    read -n1 -p  "
-    1 - Да
-    
-    0 - Нет: " cfdisk # sends right after the keypress
-    echo ''
-    [[ "$cfdisk" =~ [^10] ]]
-do
-    :
-done
- if [[ $cfdisk == 1 ]]; then
-   clear
- lsblk -f
-  echo ""
-  read -p "Укажите диск (sda/sdb например sda или sdb) : " cfd
-cfdisk /dev/$cfd
-echo ""
-clear
-elif [[ $cfdisk == 0 ]]; then
-   echo ""
-   clear
-   echo 'разметка пропущена.'   
-fi
-#
+echo -e "${BLUE}:: ${NC}2.4 Создание разделов диска"   
+#echo '2.4 Создание разделов диска'
+# Creating disk partitions
+# Можно вызвать подсказки нажатием на клавишу “m”
+(
+  echo o;
 
-##################################################################################
- 
+  echo n;
+  echo;
+  echo;
+  echo;
+  echo +2G;
+
+  echo n;
+  echo;
+  echo;
+  echo;
+  echo +8G;
+  echo t;
+  echo 2;
+#  echo L;
+  echo 82;
+
+  echo n;
+  echo;
+  echo;
+  echo;
+  echo +35G;
+
+  echo n;
+  echo p;
+  echo;
+  echo;
+  echo a;
+  echo 1;
+
+  echo w;
+) | fdisk /dev/sda
+
 echo -e "${BLUE}:: ${NC}Ваша разметка диска" 
 #echo 'Ваша разметка диска'
 # Your disk markup
 # Команда fdisk –l выведет список существующих разделов, если таковые существуют
-fdisk /dev/sda
 fdisk -l
+#lsblk -f
 
 echo -e "${BLUE}:: ${NC}Форматирование разделов диска"
 #echo 'Форматирование разделов диска'
@@ -459,8 +471,16 @@ _EOF_
 
 fi
 
+cat <<EOF  >> bin/bash/install_arch.sh
+#!/bin/bash
+
 if [ $ischroot -eq 1 ]
 then
+
+### SHARED VARIABLES AND FUNCTIONS (ОБЩИЕ ПЕРЕМЕННЫЕ И ФУНКЦИИ)
+### Shell color codes (Цветовые коды оболочки)
+RED="\e[1;31m"; GREEN="\e[1;32m"; YELLOW="\e[1;33m"; GREY="\e[3;93m"
+BLUE="\e[1;34m"; CYAN="\e[1;36m"; BOLD="\e[1;37m"; MAGENTA="\e[1;35m"; NC="\e[0m"
 
 echo -e "${BLUE}:: ${NC}Обновим вашу систему (базу данных пакетов)"
 #echo "Обновим вашу систему (базу данных пакетов)"
@@ -814,6 +834,8 @@ echo -e "${BLUE}:: ${BOLD}После перезагрузки заходим п�
 
 fi
 
+EOF
+
 arch-chroot /mnt /bin/bash -x << _EOF_
 passwd
 t@@r00
@@ -825,6 +847,8 @@ passwd alex
 555
 555
 _EOF_
+
+
 
 umount -R /mnt/boot
 umount -R /mnt
