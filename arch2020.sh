@@ -121,7 +121,6 @@ date
 #pacman-key --refresh-keys 
 #elif [[ $x_key == 0 ]]; then
 #  echo 'Обновление ключей пропущено.'
-fi
 #echo "Обновление баз данных пакетов..."
 pacman -Sy --noconfirm
 
