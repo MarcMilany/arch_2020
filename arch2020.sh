@@ -961,6 +961,7 @@ echo -e "${BLUE}:: ${BOLD}После перезагрузки заходим п�
 # Разделы (отмонтировать) Partitions (umount) 
 #umount -Rfv /mnt
 #umount -R /mnt
+umount -R /mnt/home
 umount -R /mnt/boot
 umount -R /mnt
 
@@ -969,17 +970,6 @@ umount -R /mnt
 #Перезагрузка.После перезагрузки заходим под пользователем
 #Reboot.After restarting, go under the user
 read -p "Пауза 3 ceк." -t 3
-#reboot
+reboot
 
-echo -e "${GREEN}==> ${NC}y+Enter - выйти, просто Enter - перезапуск"
-#echo "y+Enter - выйти, просто Enter - перезапуск"
-# y+Enter-exit, just Enter-restart
-read doing 
-case $doing in
-y)
-  exit
- ;;
-*)
- reboot -f
-esac #окончание оператора case.
 #
