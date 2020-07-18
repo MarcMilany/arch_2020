@@ -111,6 +111,20 @@ echo -e "${BLUE}:: ${NC}Посмотрим дату и время без хар�
 # Let's look at the date and time without characteristics to check the time
 date
 
+echo -e "${YELLOW}==> ${NC}Обновить и добавить новые ключи?"
+#echo 'Обновить и добавить новые ключи?'
+# Update and add new keys?
+echo " Данный этап поможет вам избежать проблем с ключами Pacmаn, если используете не свежий образ ArchLinux для установки! "
+# This step will help you avoid problems with Pacman keys if you are not using a fresh ArchLinux image for installation!
+read -p "1 - Да, 0 - Нет: " x_key
+if [[ $x_key == 1 ]]; then      
+pacman-key --refresh-keys 
+elif [[ $x_key == 0 ]]; then
+  echo 'Обновление ключей пропущено.'
+fi
+#echo "Обновление баз данных пакетов..."
+pacman -Sy --noconfirm
+
 echo -e "${BLUE}:: ${NC}Смотрим, какие диски есть в нашем распоряжении"
 #echo 'Давайте посмотрим, какие диски у нас есть в нашем распоряжении'
 # Let's see what drives we have at our disposal
@@ -365,7 +379,8 @@ echo -e "${BLUE}:: ${NC}Установка основных пакетов (base
 # Installing basic packages (base base-devel)
 echo 'Arch Linux, Base devel (AUR only), Kernel (optional), Firmware'
 # Arch Linux, Base devel (AUR only), Kernel (optional), Firmware
-pacstrap /mnt base base-devel linux-lts linux-firmware nano dhcpcd netctl vim # parted
+pacstrap /mnt base base-devel linux-lts linux-firmware nano dhcpcd netctl vim which inetutils  # parted
+#pacstrap /mnt base base-devel linux-lts linux-firmware nano dhcpcd netctl vim # parted
 #pacstrap /mnt base base-devel linux-lts linux-firmware nano dhcpcd netctl vim --noconfirm  # parted 
 #pacstrap /mnt base base-devel linux-lts linux-firmware nano dhcpcd netctl vim --noconfirm --noprogressbar --quiet
 #pacstrap /mnt base base-devel linux linux-firmware nano dhcpcd netctl vim
@@ -427,7 +442,7 @@ echo -e "${BLUE}:: ${NC}Загрузка свежего списка зерка�
 #reflector --help
 # Команда отфильтрует пять зеркал, отсортирует их по скорости и обновит файл mirrorlist:
 #sudo pacman -Sy --noconfirm --noprogressbar --quiet reflector
-reflector --verbose --country 'Russia' -l 5 -p https -p http -n 5 --save /etc/pacman.d/mirrorlist --sort rate  
+reflector --verbose --country 'Russia' -l 7 -p https -p http -n 7 --save /etc/pacman.d/mirrorlist --sort rate  
 #reflector --verbose --country 'Russia' -l 5 -p https -p http -n 5 --sort rate --save /etc/pacman.d/mirrorlist
 
 echo -e "${BLUE}:: ${NC}Копируем созданный список зеркал (mirrorlist) в /mnt"
@@ -528,7 +543,7 @@ vm.swappiness=10
 EOF
 
 ###*******************************************************************
-
+echo " Первый этап установки Arch'a закончен "
 echo -e "${GREEN}=> ${BOLD}Запускаем пользовательский пост-инстал-скрипт (install.sh) для установки первоначально необходимого софта (пакетов), запуск необходимых служб, запись данных в конфиги (hhh.conf) по настройке системы. ${NC}"
 #echo 'Запускаем пользовательский пост-инстал-скрипт (install.sh) для установки первоначально необходимого софта (пакетов), запуск необходимых служб, запись данных в конфиги (hhh.conf) по настройке системы.'
 # Launch a custom post-installation script (install.sh) to install the initially necessary software (packages), launch the necessary services, write data to configs (hhh.conf) for system configuration.
@@ -546,6 +561,37 @@ BLUE="\e[1;34m"; CYAN="\e[1;36m"; BOLD="\e[1;37m"; MAGENTA="\e[1;35m"; NC="\e[0m
 # Эта команда остановит выполнение сценария после сбоя команды и будет отправлен код ошибки
 set -e
 
+echo -e "${BLUE}:: ${NC}Обновим вашу систему (базу данных пакетов)"
+#echo "Обновим вашу систему (базу данных пакетов)"
+# Update your system (package database)
+echo -e "${YELLOW}:: ${NC}Загружаем базу данных пакетов независимо от того, есть ли какие-либо изменения в версиях или нет."
+#echo 'Загружаем базу данных пакетов независимо от того, есть ли какие-либо изменения в версиях или нет.'
+# Loading the package database regardless of whether there are any changes in the versions or not.
+pacman -Syyu  --noconfirm
+# Полный апдейт системы:
+#pacman -Syyuu  --noconfirm
+# Не рекомендуется использовать sudo pacman -Syyu всё время!
+# ============================================================================
+# Знакомьтесь, pacman - лучший пакетный менеджер в мире линукса!
+#pacman -Syy   - обновление баз пакмэна(как apt-get update в дэбианоподбных)
+#pacman -Syyu  - обновление баз плюс обновление пакетов
+# ----------------------------------------------------------------------------
+#pacman -Syy --noconfirm --noprogressbar --quiet
+# Синхронизация и обновление пакетов (-yy принудительно обновить даже если обновленные)
+# ============================================================================
+
+echo -e "${BLUE}:: ${NC}Вводим имя компьютера, и имя пользователя"
+#echo 'Вводим имя компьютера, и имя пользователя'
+#echo 'Enter the computer name and user name'
+# Enter the computer name
+# Enter your username
+#read -p "Введите имя компьютера: " hostname
+#read -p "Введите имя пользователя: " username
+echo -e "${GREEN}==> ${NC}" 
+read -p " => Введите имя компьютера: " Terminator  #hostname
+echo -e "${GREEN}==> ${NC}"
+read -p " => Введите имя пользователя: " Alex  #username
+
 echo -e "${BLUE}:: ${NC}Прописываем имя компьютера"
 #echo 'Прописываем имя компьютера'
 # Entering the computer name
@@ -561,6 +607,7 @@ echo -e "${BLUE}:: ${NC}Устанавливаем ваш часовой поя�
 #ln -s /usr/share/zoneinfo/Europe/Moscow
 #ln -s /usr/share/zoneinfo/Europe/Moscow /etc/localtime
 #ls /usr/share/zoneinfo
+#ls /usr/share/zoneinfo/Europe
 ln -svf /usr/share/zoneinfo/Europe/Moscow /etc/localtime
 #timedatectl set-ntp true
 #ln -svf /usr/share/zoneinfo/$timezone /etc/localtime
@@ -731,6 +778,7 @@ sed -i "/\[multilib\]/,/Include/"'s/^#//' /etc/pacman.conf
 pacman -Syy
 #pacman -Syy --noconfirm --noprogressbar --quiet
 # Синхронизация и обновление пакетов (-yy принудительно обновить даже если обновленные)
+echo 'Multilib репозиторий добавлен'
 
 echo -e "${BLUE}:: ${NC}Ставим иксы и драйвера"
 #echo 'Ставим иксы и драйвера'
@@ -779,16 +827,29 @@ echo -e "${BLUE}:: ${NC}Ставим DE (от англ. desktop environment — 
 #echo 'Ставим DE (от англ. desktop environment — среда рабочего стола) Xfce'
 # Put DE (from the English desktop environment-desktop environment) Xfce
 pacman -S xfce4 xfce4-goodies --noconfirm
+#pacman -S xorg-xinit --noconfirm
+cp /etc/X11/xinit/xinitrc /home/alex/.xinitrc
+chown $username:users /home/alex/.xinitrc
+chmod +x /home/alex/.xinitrc
+sed -i 52,55d /home/alex/.xinitrc
+echo "exec startxfce4 " >> /home/alex/.xinitrc
+mkdir /etc/systemd/system/getty@tty1.service.d/
+echo " [Service] " > /etc/systemd/system/getty@tty1.service.d/override.conf
+echo " ExecStart=" >> /etc/systemd/system/getty@tty1.service.d/override.conf
+echo   ExecStart=-/usr/bin/agetty --autologin alex --noclear %I 38400 linux >> /etc/systemd/system/getty@tty1.service.d/override.conf
+echo ' [[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && exec startx ' >> /etc/profile
+echo " DE (среда рабочего стола) Xfce успешно установлено "
 
 echo -e "${BLUE}:: ${NC}Ставим DM (Display manager) менеджера входа"
 #echo 'Ставим DM (Display manager) менеджера входа'
 # Install the DM (Display manager) of the login Manager
 pacman -S lightdm lightdm-gtk-greeter lightdm-gtk-greeter-settings --noconfir
+echo " Установка DM (менеджера входа) завершена "
 
 echo -e "${BLUE}:: ${NC}Ставим сетевые утилиты Networkmanager"
 #echo 'Ставим сетевые утилиты "Networkmanager"'
 # Put the network utilities "Networkmanager"
-pacman -S networkmanager network-manager-applet ppp --noconfirm
+pacman -S networkmanager networkmanager-openvpn network-manager-applet ppp --noconfirm
 # networkmanager - сервис для работы интернета. Вместе с собой устанавливает программы для настройки.
 # Если вам нужна поддержка OpenVPN в Network Manager, то выполните команду:
 #sudo pacman -S networkmanager-openvpn
@@ -797,6 +858,7 @@ echo -e "${BLUE}:: ${NC}Ставим шрифты"
 #echo 'Ставим шрифты'
 # Put the fonts
 pacman -S ttf-liberation ttf-dejavu opendesktop-fonts ttf-arphic-ukai ttf-arphic-uming ttf-hanazono --noconfirm 
+pacman -S ttf-fireflysung ttf-sazanami --noconfirm  #китайские иероглифы 
 
 echo -e "${BLUE}:: ${NC}Подключаем автозагрузку менеджера входа и интернет"
 #echo 'Подключаем автозагрузку менеджера входа и интернет'
@@ -804,7 +866,21 @@ echo -e "${BLUE}:: ${NC}Подключаем автозагрузку менед
 systemctl enable lightdm.service
 sleep 1 
 systemctl enable NetworkManager
+systemctl enable dhcpcd
+
+#echo -e "${GREEN}==> ${NC}Добавим службу Dhcpcd в автозагрузку (для проводного интернета)?"
+#echo 'Добавим службу Dhcpcd в автозагрузку (для проводного интернета)?'
+# Adding the Dhcpcd service to auto-upload (for wired Internet)?
+#echo -e "${YELLOW}==> ${NC}Вы можете пропустить этот шаг, если не уверены в правильности выбора"
+#echo 'Вы можете пропустить этот шаг, если не уверены в правильности выбора'
+# You can skip this step if you are not sure of the correct choice
+#read -p "1 - Включить dhcpcd, 0 - Нет: " x_dhcpcd
+#if [[ $x_dhcpcd == 1 ]]; then
 #systemctl enable dhcpcd
+#echo " Dhcpcd успешно добавлен в автозагрузку "    
+#elif [[ $x_dhcpcd == 0 ]]; then
+#  echo 'Dhcpcd не включен в автозагрузку, при необходиости это можно будет сделать уже в установленной системе'
+#fi
 
 echo -e "${BLUE}:: ${NC}Монтировании разделов NTFS и создание ссылок"
 #echo 'Монтировании разделов NTFS и создание ссылок'
