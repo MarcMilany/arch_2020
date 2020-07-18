@@ -1,5 +1,4 @@
 #!/bin/bash
-
 ### SHARED VARIABLES AND FUNCTIONS (ОБЩИЕ ПЕРЕМЕННЫЕ И ФУНКЦИИ)
 ### Shell color codes (Цветовые коды оболочки)
 RED="\e[1;31m"; GREEN="\e[1;32m"; YELLOW="\e[1;33m"; GREY="\e[3;93m"
@@ -9,8 +8,82 @@ BLUE="\e[1;34m"; CYAN="\e[1;36m"; BOLD="\e[1;37m"; MAGENTA="\e[1;35m"; NC="\e[0m
 # Эта команда остановит выполнение сценария после сбоя команды и будет отправлен код ошибки
 set -e
 
+ischroot=0
+
+if [ $ischroot -eq 0 ]
+then
+
 # Команды по установке :
 # archiso login: root (automatic login)
+
+echo -e "${GREEN}=> ${NC}Make sure that your network interface is specified and enabled" 
+#echo 'Make sure that your network interface is specified and enabled'
+# Убедитесь, что ваш сетевой интерфейс указан и включен
+# Показать все ip адреса и их интерфейсы
+ip a
+# Смотрим какие у нас есть интернет-интерфейсы
+#ip link
+# Если наш интерфейс wlan0. В скобках видно, что он UP. Исправляем:
+#ip link set wlan0 down
+# После этого можно спокойно вызывать wifi-menu и подключатся.
+# (для проводных и беспроводных сетевых интерфейсов должны работать "из коробки")
+# Также можно посмотреть командой:
+#iw dev
+
+# Для беспроводной связи убедитесь, что беспроводная карта не заблокирована с помощью: 
+#rfkill 
+
+echo -e "${GREEN}=> ${NC}To check the Internet, you can ping a service" 
+#echo 'To check the Internet, you can ping a service'
+# Для проверки интернета можно пропинговать какой-либо сервис
+ping -c2 archlinux.org
+# Например Яндекс или Google: 
+#ping -c5 www.google.com
+#ping -c5 ya.ru
+
+echo -e "${CYAN}==> ${NC}If the ping goes we go further ..."
+#echo 'If the ping goes we go further ...' 
+# Если пинг идёт едем дальше ...)
+
+echo -e "${BLUE}:: ${NC}Setting up the Russian language, changing the console font to one that supports Cyrillic for ease of use" 
+#echo 'Setting up the Russian language, changing the console font to one that supports Cyrillic for ease of use'
+ # Настроим русский язык, изменим консольный шрифт на тот, который поддерживает кириллицу для удобства работы
+loadkeys ru
+#loadkeys us
+setfont cyr-sun16
+#setfont ter-v16b #pacman -S terminus-font --noconfirm
+# ============================================================================
+# Чтобы изменить макет, добавьте соответствующее имя файла в loadkeys , пропустив путь и расширение файла. Например, чтобы установить немецкую раскладку клавиатуры:
+# loadkeys de-latin1
+# Консольные шрифты находятся внутри /usr/share/kbd/consolefonts/и также могут быть установлены с помощью setfont. 
+# ============================================================================
+
+echo -e "${CYAN}==> ${NC}Добавим русскую локаль в систему установки"
+#echo 'Добавим русскую локаль в систему установки'
+# Adding a Russian locale to the installation system
+sed -i 's/#ru_RU.UTF-8 UTF-8/ru_RU.UTF-8 UTF-8/' /etc/locale.gen
+#nano /etc/locale.gen
+# В файле /etc/locale.gen раскомментируйте (уберите # вначале) строку #ru_RU.UTF-8 UTF-8
+echo -e "${BLUE}:: ${NC}Обновим текущую локаль системы"
+#echo 'Обновим текущую локаль системы'
+# Update the current system locale
+locale-gen
+# Мы ввели locale-gen для генерации тех самых локалей.
+
+#sleep 01
+echo -e "${BLUE}:: ${NC}Указываем язык системы"
+#echo 'Указываем язык системы'
+# Specify the system language
+#echo 'LANG="ru_RU.UTF-8"' > /etc/locale.conf
+export LANG=ru_RU.UTF-8
+#export LANG=en_US.UTF-8
+# Эта команда сама пропишет в файлике locale.conf нужные нам параметры.
+# Ну и конечно, раз это переменные окружения, то мы можем установить их временно в текущей сессии терминала
+# При раскомментировании строки '#export ....', - Будьте Внимательными!
+# Как назовёшь, так и поплывёшь...
+# When you uncomment the string '#export....', Be Careful!
+# As you name it, you will swim...
+# ============================================================================
 
 echo -e "${GREEN}
   <<< Начинается установка минимальной системы Arch Linux >>>
@@ -48,7 +121,7 @@ date
 #pacman-key --refresh-keys 
 #elif [[ $x_key == 0 ]]; then
 #  echo 'Обновление ключей пропущено.'
-fi
+
 #echo "Обновление баз данных пакетов..."
 pacman -Sy --noconfirm
 
@@ -77,9 +150,6 @@ sgdisk --zap-all /dev/sda
 echo -e "${BLUE}:: ${NC}Создание разделов диска"
 #echo 'Создание разделов диска'
 # Creating disk partitions
-
-if [ $ischroot -eq 0 ]
-then
 
 cat << _EOF_ > create.disks
 label: dos
