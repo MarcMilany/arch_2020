@@ -965,11 +965,10 @@ umount -R /mnt/home
 umount -R /mnt/boot
 umount -R /mnt
 
-
 #echo -e "${BLUE}:: ${NC}Сейчас следует перезагрузить систему"
 #Перезагрузка.После перезагрузки заходим под пользователем
 #Reboot.After restarting, go under the user
-read -p "Пауза 3 ceк." -t 3
+#read -p "Пауза 3 ceк." -t 3
 reboot
 
 ################################################
