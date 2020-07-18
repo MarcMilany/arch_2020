@@ -692,10 +692,12 @@ mkinitcpio -p linux-lts
 #mkinitcpio -p linux-zen
 #echo 'COMPRESSION="lz4"' >> /etc/mkinitcpio.conf
 
-#echo -e "${GREEN}==> ${NC}Создаём root пароль"
+echo -e "${GREEN}==> ${NC}Создаём root пароль"
 #echo 'Создаём root пароль'
 # Creating a root password
-#passwd
+passwd
+t@@r00
+t@@r00
 
 echo -e "${BLUE}:: ${NC}Устанавливаем загрузчик (grub)"
 #echo 'Устанавливаем загрузчик (grub)'
@@ -740,11 +742,13 @@ echo -e "${BLUE}:: ${NC}Добавляем пользователя и проп�
 #useradd -m -g users -G wheel -s /bin/bash $username
 useradd -m -g users -G adm,audio,games,lp,network,optical,power,scanner,storage,video,rfkill,sys,wheel -s /bin/bash alex
 
-#echo -e "${GREEN}==> ${NC}Устанавливаем пароль пользователя"
+echo -e "${GREEN}==> ${NC}Устанавливаем пароль пользователя"
 #echo 'Устанавливаем пароль пользователя'
 # Setting the user password
 # passwd $username 
-#passwd alex
+passwd alex
+555
+555
 
 echo -e "${BLUE}:: ${NC}Устанавливаем SUDO"
 #echo 'Устанавливаем SUDO'
@@ -929,7 +933,7 @@ echo -e "${BLUE}:: ${BOLD}Теперь вам надо ввести reboot, чт
 echo -e "${BLUE}:: ${BOLD}После перезагрузки заходим под пользователем ${NC}"
 #echo 'После перезагрузки заходим под пользователем'
 #Перезагрузка.После перезагрузки заходим под пользователем
-#exit
+exit
 
 
 EOF
@@ -938,20 +942,20 @@ arch-chroot /mnt /bin/bash  /opt/install.sh
 
 ###**************************************###
 
-arch-chroot /mnt /bin/bash -x << _EOF_
-passwd
-t@@r00
-t@@r00
-_EOF_
+#arch-chroot /mnt /bin/bash -x << _EOF_
+#passwd
+#t@@r00
+#t@@r00
+#_EOF_
 
-arch-chroot /mnt /bin/bash -x << _EOF_
-passwd alex
-555
-555
-_EOF_
+#arch-chroot /mnt /bin/bash -x << _EOF_
+#passwd alex
+#555
+#555
+#_EOF_
 
 
-umount -R /mnt/boot
-umount -R /mnt
-reboot
+#umount -R /mnt/boot
+#umount -R /mnt
+#reboot
 
