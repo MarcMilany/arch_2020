@@ -695,9 +695,12 @@ mkinitcpio -p linux-lts
 echo -e "${GREEN}==> ${NC}Создаём root пароль"
 #echo 'Создаём root пароль'
 # Creating a root password
+#passwd
+arch-chroot /mnt /bin/bash -x << _EOF_
 passwd
 t@@r00
 t@@r00
+_EOF_
 
 echo -e "${BLUE}:: ${NC}Устанавливаем загрузчик (grub)"
 #echo 'Устанавливаем загрузчик (grub)'
@@ -746,9 +749,12 @@ echo -e "${GREEN}==> ${NC}Устанавливаем пароль пользов
 #echo 'Устанавливаем пароль пользователя'
 # Setting the user password
 # passwd $username 
+#passwd alex
+arch-chroot /mnt /bin/bash -x << _EOF_
 passwd alex
 555
 555
+_EOF_
 
 echo -e "${BLUE}:: ${NC}Устанавливаем SUDO"
 #echo 'Устанавливаем SUDO'
@@ -941,6 +947,7 @@ EOF
 arch-chroot /mnt /bin/bash  /opt/install.sh
 
 ###**************************************###
+
 
 #arch-chroot /mnt /bin/bash -x << _EOF_
 #passwd
