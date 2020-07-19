@@ -969,6 +969,7 @@ umount -R /mnt
 #Перезагрузка.После перезагрузки заходим под пользователем
 #Reboot.After restarting, go under the user
 #read -p "Пауза 3 ceк." -t 3
-reboot
+#reboot
+exit
 
 ################################################
