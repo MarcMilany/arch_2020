@@ -385,7 +385,7 @@ date
 echo -e "${YELLOW}==> ${NC}Обновить и добавить новые ключи?"
 #echo 'Обновить и добавить новые ключи?'
 # Update and add new keys?
-echo " Данный этап поможет вам избежать проблем с ключами Pacmаn, если используете не свежий образ ArchLinux для установки! "
+echo " Данный этап поможет вам избежать проблем с ключами Pacmаn, если Вы используете не свежий образ ArchLinux для установки! "
 # This step will help you avoid problems with Pacman keys if you are not using a fresh ArchLinux image for installation!
 read -p "1 - Да, 0 - Нет: " x_key
 if [[ $x_key == 1 ]]; then      
