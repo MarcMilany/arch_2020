@@ -396,6 +396,72 @@ fi
 #echo "Обновление баз данных пакетов..."
 pacman -Sy --noconfirm
 
+echo -e "${BLUE}:: ${NC}Dmidecode. Получаем информацию о железе"
+#echo 'Dmidecode. Получаем информацию о железе'
+# View information about the motherboard
+echo " DMI (Desktop Management Interface) — интерфейс (API), позволяющий программному обеспечению собирать данные о характеристиках компьютера. "
+pacman -S dmidecode --noconfirm 
+# ------------------------------------------------------------------------------
+# DMI (Desktop Management Interface) — интерфейс (API), позволяющий программному обеспечению собирать данные о характеристиках компьютера.
+# Dmidecode - программа для linux, позволяющая работать с DMI. Можно получить информацию о:
+# (bios, system, baseboard, chassis, processor, memory, cache, connector, slot,...)
+# http://linux-bash.ru/menusistem/106-dmidecode.html
+# ============================================================================
+
+echo -e "${BLUE}:: ${NC}Смотрим информацию о BIOS"
+#echo 'Смотрим информацию о BIOS'
+# View information about the BIOS
+dmidecode -t bios
+#dmidecode --type BIOS
+
+echo -e "${BLUE}:: ${NC}Смотрим информацию о материнской плате"
+#echo 'Смотрим информацию о материнской плате'
+# View information about the motherboard
+echo " Информация о материнской плате "
+dmidecode -t baseboard
+#dmidecode --type baseboard
+
+echo -e "${BLUE}:: ${NC}Смотрим информацию о разьемах на материнской плате"
+#echo 'Смотрим информацию о разьемах на материнской плате'
+# See information about the connectors on the motherboard
+dmidecode -t connector
+#dmidecode --type connector
+
+echo -e "${BLUE}:: ${NC}Информация о установленных модулях памяти и колличестве слотов под нее"
+echo " Смотрим информацию об аппаратном обеспечении " 
+#echo 'Вывод подробной информации об аппаратном обеспечении'
+# View information about hardware
+echo " Информация об оперативной памяти "
+dmidecode -t memory
+#dmidecode --type memory
+
+echo -e "${BLUE}:: ${NC}Смотрим информацию об аппаратном обеспечении"
+#echo 'Вывод подробной информации об аппаратном обеспечении'
+# View information about hardware
+echo " Информация о переключателях системной платы "
+dmidecode -t system
+#dmidecode --type system
+
+echo -e "${BLUE}:: ${NC}Смотрим информацию о центральном процессоре"
+#echo 'Смотрим информацию о центральном процессоре'
+# Looking at information about the CPU
+dmidecode -t processor
+#dmidecode --type processor
+
+echo -e "${BLUE}:: ${NC}Просмотреть объём используемой и свободной оперативной памяти, имеющейся в системе"
+#echo 'Просмотреть объём используемой и свободной оперативной памяти, имеющейся в системе'
+# View the amount of used and free RAM available in the system
+free -m
+#echo 'Просмотреть информацию об использовании памяти в системе'
+# View information about memory usage in the system
+#free -h
+
+echo -e "${BLUE}:: ${NC}Посмотрим список установленных SCSI-устройств"
+#echo 'Посмотрим список установленных SCSI-устройств'
+# See the list of installed SCSI devices
+echo " Список устройств scsi/sata "
+lsscsi
+
 # ============================================================================
 # ВНИМАНИЕ!
 # Скрипт затирает диск dev/sda (First hard disk) в системе. Примечание для начинющих: 'Пожалуйста, не путайте с приоритетом загрузки устройств, и их последовательного отображения в Bios'. (Пожалуйста, не путайте! - это вчера мне было п#здато, а сегодня мне п#здец!). Поэтому если у Вас есть ценные данные на дисках сохраните их. 
@@ -414,7 +480,7 @@ pacman -Sy --noconfirm
 # 8 Parted команд Linux для создания, изменения размера и восстановления разделов диска:
 # http://blog.sedicomm.com/2017/11/15/8-parted-komand-linux-dlya-sozdaniya-izmeneniya-razmera-i-vosstanovleniya-razdelov-diska/
 # ============================================================================
-
+echo ""
 echo -e "${BLUE}:: ${NC}Смотрим, какие диски есть в нашем распоряжении"
 #echo 'Давайте посмотрим, какие диски у нас есть в нашем распоряжении'
 # Let's see what drives we have at our disposal
