@@ -408,15 +408,13 @@ pacman -S dmidecode --noconfirm
 # http://linux-bash.ru/menusistem/106-dmidecode.html
 # ============================================================================
 
-#sleep 01
-clear
-echo ""
+#echo ""
 echo -e "${BLUE}:: ${NC}Смотрим информацию о BIOS"
 #echo 'Смотрим информацию о BIOS'
 # View information about the BIOS
 dmidecode -t bios
 #dmidecode --type BIOS
-
+#------------------------------------------------------------------
 #echo -e "${BLUE}:: ${NC}Смотрим информацию о материнской плате"
 #echo 'Смотрим информацию о материнской плате'
 # View information about the motherboard
@@ -450,7 +448,8 @@ dmidecode -t bios
 # Looking at information about the CPU
 #dmidecode -t processor
 #dmidecode --type processor
-
+# ---------------------------------------------------------------
+#sleep 01
 echo -e "${BLUE}:: ${NC}Просмотреть объём используемой и свободной оперативной памяти, имеющейся в системе"
 #echo 'Просмотреть объём используемой и свободной оперативной памяти, имеющейся в системе'
 # View the amount of used and free RAM available in the system
