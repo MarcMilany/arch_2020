@@ -408,44 +408,47 @@ pacman -S dmidecode --noconfirm
 # http://linux-bash.ru/menusistem/106-dmidecode.html
 # ============================================================================
 
+#sleep 01
+clear
+echo ""
 echo -e "${BLUE}:: ${NC}Смотрим информацию о BIOS"
 #echo 'Смотрим информацию о BIOS'
 # View information about the BIOS
 dmidecode -t bios
 #dmidecode --type BIOS
 
-echo -e "${BLUE}:: ${NC}Смотрим информацию о материнской плате"
+#echo -e "${BLUE}:: ${NC}Смотрим информацию о материнской плате"
 #echo 'Смотрим информацию о материнской плате'
 # View information about the motherboard
-echo " Информация о материнской плате "
-dmidecode -t baseboard
+#echo " Информация о материнской плате "
+#dmidecode -t baseboard
 #dmidecode --type baseboard
 
-echo -e "${BLUE}:: ${NC}Смотрим информацию о разьемах на материнской плате"
+#echo -e "${BLUE}:: ${NC}Смотрим информацию о разьемах на материнской плате"
 #echo 'Смотрим информацию о разьемах на материнской плате'
 # See information about the connectors on the motherboard
-dmidecode -t connector
+#dmidecode -t connector
 #dmidecode --type connector
 
-echo -e "${BLUE}:: ${NC}Информация о установленных модулях памяти и колличестве слотов под нее"
-echo " Смотрим информацию об аппаратном обеспечении " 
+#echo -e "${BLUE}:: ${NC}Информация о установленных модулях памяти и колличестве слотов под нее"
+#echo " Смотрим информацию об аппаратном обеспечении " 
 #echo 'Вывод подробной информации об аппаратном обеспечении'
 # View information about hardware
-echo " Информация об оперативной памяти "
-dmidecode -t memory
+#echo " Информация об оперативной памяти "
+#dmidecode -t memory
 #dmidecode --type memory
 
-echo -e "${BLUE}:: ${NC}Смотрим информацию об аппаратном обеспечении"
+#echo -e "${BLUE}:: ${NC}Смотрим информацию об аппаратном обеспечении"
 #echo 'Вывод подробной информации об аппаратном обеспечении'
 # View information about hardware
-echo " Информация о переключателях системной платы "
-dmidecode -t system
+#echo " Информация о переключателях системной платы "
+#dmidecode -t system
 #dmidecode --type system
 
-echo -e "${BLUE}:: ${NC}Смотрим информацию о центральном процессоре"
+#echo -e "${BLUE}:: ${NC}Смотрим информацию о центральном процессоре"
 #echo 'Смотрим информацию о центральном процессоре'
 # Looking at information about the CPU
-dmidecode -t processor
+#dmidecode -t processor
 #dmidecode --type processor
 
 echo -e "${BLUE}:: ${NC}Просмотреть объём используемой и свободной оперативной памяти, имеющейся в системе"
