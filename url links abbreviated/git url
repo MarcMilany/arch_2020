@@ -206,6 +206,40 @@ Via: 1.1 vegur
 
 https://raw.githubusercontent.com/MarcMilany/arch_2020/master/arch2020.sh
 
+**************************************************************************
+
+Сокращение ссылки для archmy1_1.sh
+
+6. https://raw.githubusercontent.com/MarcMilany/arch_2020/master/archmy1_1.sh
+
+curl -i https://git.io -F "url=https://raw.githubusercontent.com/MarcMilany/arch_2020/master/archmy1_1.sh" -F "code=archmy1_1"
+
+Location: https://git.io/archmy1_1
+
+ Привет, Alex ! Сегодня: Воскресенье 26 июля 2020г. Местное время-22:07
+alex @ Terminator  ~
+└─ $ ▶ curl -i https://git.io -F "url=https://raw.githubusercontent.com/MarcMilany/arch_2020/master/archmy1_1.sh" -F "code=archmy1_1"
+HTTP/1.1 100 Continue
+
+HTTP/1.1 201 Created
+Server: Cowboy
+Connection: keep-alive
+Date: Sun, 26 Jul 2020 19:07:24 GMT
+Status: 201 Created
+Content-Type: text/html;charset=utf-8
+Location: https://git.io/archmy1_1
+Content-Length: 74
+X-Xss-Protection: 1; mode=block
+X-Content-Type-Options: nosniff
+X-Frame-Options: SAMEORIGIN
+X-Runtime: 0.137188
+X-Node: 81dda809-e907-4015-8cae-023a20c33aa1
+X-Revision: 392798d237fc1aa5cd55cada10d2945773e741a8
+Strict-Transport-Security: max-age=31536000; includeSubDomains
+Via: 1.1 vegur
+
+https://raw.githubusercontent.com/MarcMilany/arch_2020/master/archmy1_1.sh
+
 ______________________________________________________________________________
 
 
