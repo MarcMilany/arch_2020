@@ -441,51 +441,54 @@ sgdisk --zap-all /dev/sda
 #man sgdisk
 # ============================================================================
 
-echo -e "${BLUE}:: ${NC}2.4 Создание разделов диска"   
-#echo '2.4 Создание разделов диска'
-# Creating disk partitions
-# Можно вызвать подсказки нажатием на клавишу “m”
-(
-  echo o;
+echo -e "${GREEN}==> ${NC}Создание разделов диска для ArchLinux"
+#echo 'Создание разделов диска для ArchLinux'
+# Creating disk partitions for ArchLinux
+echo -e "${BLUE}:: ${NC}Вам нужна разметка диска?"
+#echo 'Вам нужна разметка диска?'
+# Do you need disk markup?
+read -p " 1 - Да, Приступить к разметке, 0 - Нет, Пропустить разметку: " cfdisk  # файл устройство дискового накопителя;
+if [[ $cfdisk == 1 ]]; then
+   clear
+   echo ""
+ lsblk -f
+  echo ""
+  read -p " Укажите диск (sda/sdb например sda или sdb) : " cfd
+cfdisk /dev/$cfd
+echo ""
+clear
+elif [[ $cfdisk == 0 ]]; then
+   echo ""
+   clear
+   echo 'Разметка пропущена.'   
+fi
 
-  echo n;
-  echo;
-  echo;
-  echo;
-  echo +2G;
-
-  echo n;
-  echo;
-  echo;
-  echo;
-  echo +8G;
-  echo t;
-  echo 2;
-#  echo L;
-  echo 82;
-
-  echo n;
-  echo;
-  echo;
-  echo;
-  echo +35G;
-
-  echo n;
-  echo p;
-  echo;
-  echo;
-  echo a;
-  echo 1;
-
-  echo w;
-) | fdisk /dev/sda
-
+# ------------------------------------------------------------------------
+# Разделы можно менять местами, можно сделать сначала root /, потом home, потом swap - или наоборот ...
+# Один из основных постулатов Unix/Linux - «всё есть файл», и жесткие диски - не исключение.
+# Каждый найденный ядром диск, отображается в виде файла в специальном каталоге устройств «/dev»
+# Например: cfdisk /dev/sdb
+# /dev/sda, /dev/sdb, /dev/sdc и т.д.
+# Разделы могут быть:
+# основными, которых на диске может быть не более 4-х;
+# расширенными (Extended) - логические разделы (обычно только один) с которыми нельзя работать, контейнер для дополнительных разделов;
+# дополнительными - их номера всегда >=5.
+# Кроме номера и размера, каждый раздел имеет свой тип, который обозначен одним байтом:
+# 0b Win95 FAT32
+# 0f Win95 Ext'd (LBA)
+# 07 HPFS/NTFS
+# 82 Linux swap
+# 83 Linux
+# fd linux RAID autodetect
+# Разделами манипулируют следующие программы: fdisk, cfdisk, sfdisk, parted, …
+# ===========================================================================
+ 
 echo -e "${BLUE}:: ${NC}Ваша разметка диска" 
 #echo 'Ваша разметка диска'
 # Your disk markup
 # Команда fdisk –l выведет список существующих разделов, если таковые существуют
-fdisk -l
-#lsblk -f
+#fdisk -l
+lsblk -f
 # Для просмотра разделов одного выбранного диска используйте такой вариант этой же команды:
 #fdisk -l /dev/sda
 
@@ -532,53 +535,116 @@ fdisk -l
 ### https://www.altlinux.org/Fdisk
 # ============================================================================
 
-echo -e "${BLUE}:: ${NC}2.4.2 Форматирование разделов диска"
-#echo '2.4.2 Форматирование разделов диска'
+clear
+echo ""
+echo -e "${BLUE}:: ${NC}Форматирование разделов диска"
+#echo 'Форматирование разделов диска'
 # Formatting disk partitions
 echo -e "${BLUE}:: ${NC}Установка название флага boot,root,swap,home"
 #echo 'Установка название флага boot,root,swap,home'
 # Setting the flag name boot, root,swap, home
-mkfs.ext2  /dev/sda1 -L boot
-mkswap /dev/sda2 -L swap
-mkfs.ext4  /dev/sda3 -L root
-mkfs.ext4  /dev/sda4 -L home
-# Просмотреть все идентификаторы наших разделов можно командой:
-#blkid
-# ---------------------------------------------------------------------------
-# Или так:
-#echo 'Disk formatting'
-#(
-#  echo y;
-#) | mkfs.ext2  /dev/sda1 -L boot
-
-#(
-#  echo y;
-#) | mkswap /dev/sda2 -L swap
-
-#(
-#  echo y;
-#) | mkfs.ext4  /dev/sda3 -L root
-
-#(
-#  echo y;
-#) | mkfs.ext4  /dev/sda4 -L home
-
-# ============================================================================
-echo -e "${BLUE}:: ${NC}2.4.3 Монтирование разделов диска"
-#echo '2.4.3 Монтирование разделов диска'
+echo -e "${BLUE}:: ${NC}Монтирование разделов диска"
+#echo 'Монтирование разделов диска'
 # Mounting disk partitions
-mount /dev/sda3 /mnt
-mkdir /mnt/{boot,home}
-mount /dev/sda1 /mnt/boot
-swapon /dev/sda2
-mount /dev/sda4 /mnt/home
+########## Root  ########
+#clear
+lsblk -f
+echo ""
+echo -e "${BLUE}:: ${NC}Форматируем и монтируем ROOT раздел?"
+#echo 'Форматирование и монтирование корневого раздела (ROOT)'
+# Formatting and mounting a partition (ROOT)
+read -p " Укажите ROOT раздел (sda/sdb 1.2.3.4 (sda5 например)): " root
+echo ""
+mkfs.ext4 /dev/$root -L root
+mount /dev/$root /mnt
+echo ""
+########## Boot  ########
+clear
+echo ""
+lsblk -f
+echo ""
+echo -e "${BLUE}:: ${NC}Форматируем BOOT раздел?"
+#echo 'Форматирование загрузочного раздела (BOOT)'
+# Formatting the BOOT partition
+echo " Если таковой был создан при разметке в cfdisk "
+#Если он был создан во время разметки в cfdisk'
+# If one was created during markup in cfdisk
+echo " 1 - Форматировать и монтировать на отдельный раздел "
+echo " 0 - Пропустить если BOOT раздела нет на отдельном разделе, и он находится в корневом разделе ROOT "
+read -p " 1 - Да Форматировать, 0 - Нет, Пропустить: " boots  # sends right after the keypress; # отправляет сразу после нажатия клавиши
+if [[ $boots == 1 ]]; then
+  read -p " Укажите BOOT раздел (sda/sdb 1.2.3.4 (sda7 например)): " bootd
+  #mkfs.fat -F32 /dev/$bootd
+  #mkfs.ext2  /dev/$bootd
+  mkfs.ext2  /dev/$bootd -L boot
+  mkdir /mnt/boot
+  mount /dev/$bootd /mnt/boot
+elif [[ $boots == 0 ]]; then
+ echo " Форматирование и монтирование не требуется " 
+fi
+########## Swap  ########
+clear
+echo ""
+lsblk -f
+echo ""
+echo -e "${BLUE}:: ${NC}Форматируем Swap раздел?"
+#echo 'Форматирование раздела подкачки (SWAP)'
+# Format the Swap section
+echo " Если таковой был создан при разметке в cfdisk "
+#Если он был создан во время разметки в cfdisk'
+# If one was created during markup in cfdisk
+read -p " 1 - Да, 0 - Нет: " swap  # sends right after the keypress; # отправляет сразу после нажатия клавиши
+if [[ $swap == 1 ]]; then
+  read -p " Укажите swap раздел (sda/sdb 1.2.3.4 (sda7 например)): " swaps
+  mkswap /dev/$swaps -L swap
+  swapon /dev/$swaps
+elif [[ $swap == 0 ]]; then
+   echo 'Добавление Swap раздела пропущено.'   
+fi
+########## Home  ########
+clear
+echo ""
+echo -e "${BLUE}:: ${NC}Добавим HOME раздел?"
+#echo 'Добавление домашнего раздела (HOME)'
+# Adding a HOME section?
+echo " Если таковой был создан при разметке в cfdisk "
+#Если он был создан во время разметки в cfdisk'
+# If one was created during markup in cfdisk
+echo " Можно использовать раздел от предыдущей системы (и его не форматировать),  
+далее в процессе установки можно будет удалить все скрытые файлы и папки в каталоге 
+пользователя. "
+read -p " 1 - Да, 0 - Нет: " homes  # sends right after the keypress; # отправляет сразу после нажатия клавиши
+if [[ $homes == 0 ]]; then
+  echo 'Добавление Home раздела пропущено.'
+elif [[ $homes == 1 ]]; then
+   echo ' Добавим Home раздел. '   
+echo -e "${BLUE}:: ${NC}Форматируем Home раздел?"
+#echo 'Форматирование домашнего раздела (HOME)'
+# Formatting the home partition
+read -p " 1 - Да, 0 - Нет: " homeF  # sends right after the keypress; # отправляет сразу после
+   if [[ $homeF == 1 ]]; then
+   echo ""
+   lsblk -f
+   read -p " Укажите HOME раздел (sda/sdb 1.2.3.4 (sda6 например)): " home
+   mkfs.ext4 /dev/$home -L home
+   mkdir /mnt/home 
+   mount /dev/$home /mnt/home
+   elif [[ $homeF == 0 ]]; then
+ lsblk -f
+ read -p " Укажите HOME раздел (sda/sdb 1.2.3.4 (sda6 например)): " homeV
+ mkdir /mnt/home 
+ mount /dev/$homeV /mnt/home
+fi
+fi
+
+# -----------------------------------------------------------------------
 # Посмотреть что мы намонтировали можно командой:
 #mount | grep sda    
 # - покажет куда был примонтирован sda
 # Посмотрим информацию командой:
 #free -h
-
 # ============================================================================
+
 ### Замена исходного mirrorlist (зеркал для загрузки) на мой список серверов-зеркал
 #echo '3.1 Замена исходного mirrorlist (зеркал для загрузки)'
 #Ставим зеркало от Яндекс
@@ -590,6 +656,7 @@ mount /dev/sda4 /mnt/home
 #mv -f ~/mirrorlist /etc/pacman.d/mirrorlist
 #echo "Обновление баз данных пакетов..."
 #sudo pacman -Sy
+
 # -----------------------------------------------------------------------------
 
 echo -e "${BLUE}:: ${NC}3.1 Выбор серверов-зеркал для загрузки. Ставим зеркало от Яндекс"
