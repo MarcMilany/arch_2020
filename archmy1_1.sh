@@ -399,10 +399,10 @@ pacman -Sy --noconfirm
 echo -e "${BLUE}:: ${NC}Dmidecode. Получаем информацию о железе"
 #echo 'Dmidecode. Получаем информацию о железе'
 # View information about the motherboard
-echo " DMI (Desktop Management Interface) — интерфейс (API), позволяющий программному обеспечению собирать данные о характеристиках компьютера. "
+echo " DMI (Desktop Management Interface) - интерфейс (API), позволяющий программному обеспечению собирать данные о характеристиках компьютера. "
 pacman -S dmidecode --noconfirm 
 # ------------------------------------------------------------------------------
-# DMI (Desktop Management Interface) — интерфейс (API), позволяющий программному обеспечению собирать данные о характеристиках компьютера.
+# DMI (Desktop Management Interface) - интерфейс (API), позволяющий программному обеспечению собирать данные о характеристиках компьютера.
 # Dmidecode - программа для linux, позволяющая работать с DMI. Можно получить информацию о:
 # (bios, system, baseboard, chassis, processor, memory, cache, connector, slot,...)
 # http://linux-bash.ru/menusistem/106-dmidecode.html
