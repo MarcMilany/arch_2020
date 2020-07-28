@@ -400,6 +400,10 @@ pacman-key --refresh-keys
 elif [[ $x_key == 0 ]]; then
   echo 'Обновление ключей пропущено.'
 fi
+
+echo -e "${BLUE}:: ${NC}Обновим базы данных пакетов" 
+#echo 'Обновим базы данных пакетов'
+# Updating the package databases
 #echo "Обновление баз данных пакетов..."
 pacman -Sy --noconfirm
 
