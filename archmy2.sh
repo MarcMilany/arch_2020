@@ -759,7 +759,7 @@ echo -e "${GREEN}==> ${NC}Добавим службу Dhcpcd в автозагр
 echo -e "${YELLOW}==> ${NC}Вы можете пропустить этот шаг, если не уверены в правильности выбора"
 #echo 'Вы можете пропустить этот шаг, если не уверены в правильности выбора'
 # You can skip this step if you are not sure of the correct choice
-read -p "1 - Включить dhcpcd, 0 - Нет: " x_dhcpcd
+read -p " 1 - Включить dhcpcd, 0 - Нет: " x_dhcpcd
 if [[ $x_dhcpcd == 1 ]]; then
 systemctl enable dhcpcd
 echo " Dhcpcd успешно добавлен в автозагрузку "    
