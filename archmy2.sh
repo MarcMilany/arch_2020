@@ -563,18 +563,23 @@ pacman -S os-prober mtools fuse
 # Для двойной загрузки Arch Linux с другой системой Linux, установить другой Linux без загрузчика, вам необходимо установить os-prober — утилиту, необходимую для обнаружения других операционных систем. И обновить загрузчик Arch Linux, чтобы иметь возможность загружать новую ОС.
 # ============================================================================
 
-echo -e "${BLUE}:: ${NC}Ставим программу для Wi-fi"
+echo -e "${BLUE}:: ${NC}Ставим программы для Wi-fi"
 #echo 'Ставим программу для Wi-fi'
 # Install the program for Wi-fi
 pacman -S dialog wpa_supplicant iw wireless_tools net-tools --noconfirm 
- 
-#read -p "Установить программу (пакет) для Wi-fi?: 1 - да 2 - нет " wifi
+
+# -----------------------------------------------------------------
+#echo -e "${GREEN}==> ${NC}Установить программы (пакеты) для Wi-fi?"
+#echo 'Установить программы (пакеты) для Wi-fi?'
+# Install programs (packages) for Wi-fi??
+#read -p " 1 - Да, 0 - Нет - пропустить этот шаг: " wifi
 #if [[ $wifi == 1 ]]; then
-#  echo 'Ставим программу для Wi-fi'
-#  pacman -S dialog wpa_supplicant iw wireless_tools net-tools --noconfirm 
-#elif [[ $wifi == 2 ]]; then
-#  echo 'лан'
+#  echo " Устанавливаем программы для Wi-fi "
+# pacman -S dialog wpa_supplicant iw wireless_tools net-tools --noconfirm             
+#elif [[ $wifi == 0 ]]; then
+#  echo 'Установка программ пропущена.'
 #fi
+# ------------------------------------------------------------------
 
 echo -e "${BLUE}:: ${NC}Добавляем пользователя и прописываем права, группы"
 #echo 'Добавляем пользователя и прописываем права, группы'
@@ -634,7 +639,7 @@ sudo pacman -Sy
 echo -e "${RED}==> ${NC}Куда устанавливем Arch Linux на виртуальную машину?"
 #echo "Куда устанавливем Arch Linux на виртуальную машину?"
 # Where do we install Arch Linux on the VM?
-read -p "1 - Да, 0 - Нет: " vm_setting
+read -p " 1 - Да, 0 - Нет: " vm_setting
 if [[ $vm_setting == 0 ]]; then
   gui_install="xorg-server xorg-drivers xorg-xinit"
 elif [[ $vm_setting == 1 ]]; then
