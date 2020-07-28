@@ -414,7 +414,9 @@ echo -e "${BLUE}:: ${NC}Смотрим информацию о BIOS"
 # View information about the BIOS
 dmidecode -t bios
 #dmidecode --type BIOS
+# BIOS – это предпрограмма (код, вшитый в материнскую плату компьютера). 
 #------------------------------------------------------------------
+
 #echo -e "${BLUE}:: ${NC}Смотрим информацию о материнской плате"
 #echo 'Смотрим информацию о материнской плате'
 # View information about the motherboard
@@ -457,6 +459,7 @@ free -m
 #echo 'Просмотреть информацию об использовании памяти в системе'
 # View information about memory usage in the system
 #free -h
+echo ""
 
 echo -e "${BLUE}:: ${NC}Посмотрим список установленных SCSI-устройств"
 #echo 'Посмотрим список установленных SCSI-устройств'
