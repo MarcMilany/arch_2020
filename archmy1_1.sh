@@ -396,27 +396,6 @@ fi
 #echo "Обновление баз данных пакетов..."
 pacman -Sy --noconfirm
 
-echo -e "${YELLOW}==> ${NC}Посмотрим в каком режиме мы произвели загрузку: Legasy BIOS или Uefi"
-#echo 'Посмотрим в каком режиме мы произвели загрузку: Legasy BIOS или Uefi'
-# Let's see in which mode we loaded Legacy BIOS or Uefi
-echo " Режим Legasy только для mbr-таблицы разделов, Uefi для Gpt- таблицы разделов "
-echo ""
-echo "#################################################"
-echo "########  Пример вывода efibootmbr     ##########"
-echo "####                                         ####"
-echo "####     Eсли вы увидите сообщение           ####"       
-echo "####       такого содержания:                ####" 
-echo "####       EFI variables are not             ####"    
-echo "####     supported on this system.           ####"
-echo "####                                         ####"
-echo "#### <<<  Значит у вас legacy    >>>         ####"  
-echo "#################################################"
-echo ""
-efibootmgr
-# Эта команда позволяет вам просмотреть загрузочную запись по умолчанию (BootCurrent), порядок загрузки и все загрузочные записи.
-# BIOS – это предпрограмма (код, вшитый в материнскую плату компьютера). 
-# Утилита командной строки Linux efibootmgr очень удобна для управления меню загрузки UEFI.
-
 echo -e "${BLUE}:: ${NC}Dmidecode. Получаем информацию о железе"
 #echo 'Dmidecode. Получаем информацию о железе'
 # View information about the motherboard
