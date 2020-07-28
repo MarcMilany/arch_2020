@@ -631,7 +631,7 @@ elif [[ $prog_set == 0 ]]; then
   echo ' Установка программ LibreOffice пропущена. '
 fi
 
-echo -e "${GREEN}==> ${NC}Установить рекомендованные программы?"
+echo -e "${GREEN}==> ${BOLD}Установить рекомендованные программы? ${NC}"
 #echo 'Установить рекомендованные программы?'
 # Install the recommended programs
 echo -e "${BLUE}
