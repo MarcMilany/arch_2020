@@ -722,10 +722,12 @@ echo -e "${BLUE}:: ${NC}Просмотреть подключённые диск
 #echo 'Просмотреть подключённые диски с выводом информации о размере и свободном пространстве'
 # View attached disks with information about size and free space
 df -h
+
 echo -e "${BLUE}:: ${NC}Просмотреть все идентификаторы наших разделов"
 #echo 'Просмотреть все идентификаторы наших разделов'
 # View all IDs of our sections
 blkid
+
 echo -e "${BLUE}:: ${NC}Просмотреть информацию об использовании памяти в системе"
 #echo 'Просмотреть информацию об использовании памяти в системе'
 # View information about memory usage in the system
