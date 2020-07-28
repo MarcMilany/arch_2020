@@ -1,4 +1,11 @@
 #!/bin/bash
+#
+apptitle="Arch Linux Fast Install v1.6 LegasyBIOS - Version: 2020.07.16.00.40.38 (GPLv3)"
+baseurl=https://raw.githubusercontent.com/MarcMilany/arch_2020/master/url%20links%20abbreviated/git%20url
+cpl=0
+skipfont="0"
+fspkgs=""
+#
 # ============================================================================
 # Автоматическое обнаружение ошибок
 # Эта команда остановит выполнение сценария после сбоя команды и будет отправлен код ошибки
@@ -7,6 +14,7 @@ set -e
 # Встроенная команда set:
 # https://www.sites.google.com/site/bashhackers/commands/set
 # ============================================================================
+
 # ============================================================================
 ### old_vars.log
 #set > old_vars.log
