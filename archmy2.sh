@@ -575,7 +575,8 @@ pacman -S dialog wpa_supplicant iw wireless_tools net-tools --noconfirm
 #read -p " 1 - Да, 0 - Нет - пропустить этот шаг: " wifi
 #if [[ $wifi == 1 ]]; then
 #  echo " Устанавливаем программы для Wi-fi "
-# pacman -S dialog wpa_supplicant iw wireless_tools net-tools --noconfirm             
+# pacman -S dialog wpa_supplicant iw wireless_tools net-tools --noconfirm
+#  echo " Программы для Wi-fi установлены "             
 #elif [[ $wifi == 0 ]]; then
 #  echo 'Установка программ пропущена.'
 #fi
@@ -619,7 +620,7 @@ sed -i "/\[multilib\]/,/Include/"'s/^#//' /etc/pacman.conf
 #echo '[multilib]' >> /etc/pacman.conf
 #echo 'Include = /etc/pacman.d/mirrorlist' >> /etc/pacman.conf
 #pacman -Syy
-echo 'Multilib репозиторий добавлен'
+echo ' Multilib репозиторий добавлен '
 
 echo -e "${BLUE}:: ${NC}Обновим базы данных пакетов" 
 #echo 'Обновим базы данных пакетов'
