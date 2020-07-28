@@ -512,23 +512,23 @@ echo -e "${BLUE}:: ${NC}Установка Производится в поря�
 echo -e "${GREEN}==> ${NC}Установить UFW (Несложный Брандмауэр) (GTK)?"
 #echo 'Установить UFW (Несложный Брандмауэр) (GTK)?'
 # Install UFW (Uncomplicated Firewall) (GTK)?
-read -p "1 - Да, 0 - Нет: " prog_set
+read -p " 1 - Да, 0 - Нет: " prog_set
 if [[ $prog_set == 1 ]]; then
 sudo pacman -S ufw gufw --noconfirm
 echo " Установка Брандмауэра UFW завершена "
 elif [[ $prog_set == 0 ]]; then
-  echo 'Установка программ пропущена.'
+  echo ' Установка программ пропущена. '
 fi
 
 echo -e "${GREEN}==> ${NC}Установить Clam AntiVirus (GTK)?"
 #echo 'Установить Clam AntiVirus (GTK)?'
 # Install Clam AntiVirus (GTK)?
-read -p "1 - Да, 0 - Нет: " prog_set
+read -p " 1 - Да, 0 - Нет: " prog_set
 if [[ $prog_set == 1 ]]; then
 sudo pacman -S clamav clamtk --noconfirm
 echo " Установка Clam AntiVirus завершена "
 elif [[ $prog_set == 0 ]]; then
-  echo 'Установка программ пропущена.'
+  echo ' Установка программ пропущена. '
 fi
 
 echo -e "${BLUE}:: ${NC}Установка Torrent клиентов - Transmission, qBittorrent, Deluge (GTK)(Qt)(GTK+)" 
@@ -540,7 +540,10 @@ echo -e "${BLUE}:: ${NC}Установка Производится в поря�
 echo -e "${GREEN}==> ${NC}Установить Transmission, qBittorrent, Deluge?"
 #echo 'Установить Transmission, qBittorrent, Deluge?'
 # Install Transmission, qBittorrent, Deluge?
-read -p "1 - Transmission, 2 - qBittorrent, 3 - Deluge, 0 - Нет: " prog_set
+echo -e "${YELLOW}==> ${NC}Вы можете пропустить этот шаг, если не уверены в правильности выбора"
+#echo 'Вы можете пропустить этот шаг, если не уверены в правильности выбора'
+# You can skip this step if you are not sure of the correct choice
+read -p " 1 - Transmission, 2 - qBittorrent, 3 - Deluge, 0 - Нет: " prog_set
 if [[ $prog_set == 1 ]]; then
 sudo pacman -S transmission-gtk transmission-cli --noconfirm
 echo " Установка Transmission завершена "
@@ -551,7 +554,7 @@ elif [[ $prog_set == 3 ]]; then
 sudo pacman -S deluge --noconfirm
 echo " Установка Deluge завершена "
 elif [[ $prog_set == 0 ]]; then
-  echo 'Установка программ пропущена.'
+  echo ' Установка программ пропущена. '
 fi
 
 echo -e "${BLUE}:: ${NC}Установка Офиса (LibreOffice-still, или LibreOffice-fresh)" 
@@ -563,7 +566,10 @@ echo -e "${BLUE}:: ${NC}Установка Производится в поря�
 echo -e "${GREEN}==> ${NC}Установить LibreOffice-still, LibreOffice-fresh?"
 #echo 'Установить LibreOffice-still, LibreOffice-fresh?'
 # Install the LibreOffice-still and LibreOffice-fresh?
-read -p "1 - LibreOffice-still, 2 - LibreOffice-fresh, 0 - Нет: " prog_set
+echo -e "${YELLOW}==> ${NC}Вы можете пропустить этот шаг, если не уверены в правильности выбора"
+#echo 'Вы можете пропустить этот шаг, если не уверены в правильности выбора'
+# You can skip this step if you are not sure of the correct choice
+read -p " 1 - LibreOffice-still, 2 - LibreOffice-fresh, 0 - Нет: " prog_set
 if [[ $prog_set == 1 ]]; then
 sudo pacman -S libreoffice-still libreoffice-still-ru --noconfirm
 echo " Установка LibreOffice-still завершена "
@@ -571,7 +577,7 @@ elif [[ $prog_set == 2 ]]; then
 sudo pacman -S libreoffice libreoffice-fresh-ru --noconfirm
 echo " Установка LibreOffice-fresh завершена "
 elif [[ $prog_set == 0 ]]; then
-  echo 'Установка программ пропущена.'
+  echo ' Установка программ пропущена. '
 fi
 
 echo -e "${GREEN}==> ${NC}Установить рекомендованные программы?"
@@ -581,12 +587,12 @@ echo -e "${BLUE}
 'Список программ рекомендованных к установке:${GREEN}
 bleachbit gparted grub-customizer conky conky-manager dconf-editor doublecmd-gtk2 gnome-system-monitor obs-studio openshot flameshot frei0r-plugins redshift veracrypt onboard clonezilla moc filezilla gnome-calculator nomacs osmo synapse telegram-desktop plank psensor keepass copyq variety grsync numlockx modem-manager-gui uget xarchiver-gtk2 rofi gsmartcontrol testdisk glances tlp tlp-rdw file-roller meld cmake xterm lsof dmidecode'
 ${NC}"
-read -p "1 - Да, 0 - Нет: " prog_set
+read -p " 1 - Да установить, 0 - Нет пропустить: " prog_set
 if [[ $prog_set == 1 ]]; then
 sudo pacman -S bleachbit gparted grub-customizer conky conky-manager dconf-editor doublecmd-gtk2 gnome-system-monitor obs-studio openshot flameshot frei0r-plugins redshift veracrypt onboard clonezilla moc filezilla gnome-calculator nomacs osmo synapse telegram-desktop plank psensor keepass copyq variety grsync numlockx modem-manager-gui uget xarchiver-gtk2 rofi gsmartcontrol testdisk glances tlp tlp-rdw file-roller meld cmake xterm lsof dmidecode --noconfirm
 echo " Установка утилит (пакетов) завершена " 
 elif [[ $prog_set == 0 ]]; then
-  echo 'Установка программ пропущена.'
+  echo ' Установка программ пропущена. '
 fi
 
 echo -e "${BLUE}:: ${NC}Утилиты для форматирования флэш-накопителя с файловой системой exFAT в Linux" 
@@ -597,12 +603,12 @@ sudo pacman -S exfat-utils fuse-exfat --noconfirm
 echo -e "${YELLOW}==> ${NC}Установить ssh(server) для удаленного доступа?"
 #echo 'Установить ssh(клиент) для удаленного доступа?'
 # Install ssh (client) for remote access?
-read -p "1 - Да, 0 - Нет: " prog_set
+read -p " 1 - Да, 0 - Нет: " prog_set
 if [[ $prog_set == 1 ]]; then
 pacman -S openssh --noconfirm
-echo "SSH (клиент) установлен" 
+echo " SSH (клиент) установлен " 
 elif [[ $prog_set == 0 ]]; then
-  echo 'Установка пропущена.'
+  echo ' Установка пропущена. '
 fi
 
 echo -e "${BLUE}:: ${NC}Установка Pacman gui,Octopi (AUR)(GTK)(QT)" 
@@ -614,7 +620,10 @@ echo -e "${BLUE}:: ${NC}Установка Производится в поря�
 echo -e "${GREEN}==> ${NC}Установить pamac-aur, octopi?"
 #echo 'Установить "pamac-aur", "octopi"?'
 # Install "pacman-aur", "octopi"?
-read -p "1 - Pacmac-aur, 2 - Octopi, 0 - Нет: " prog_set
+echo -e "${YELLOW}==> ${NC}Вы можете пропустить этот шаг, если не уверены в правильности выбора"
+#echo 'Вы можете пропустить этот шаг, если не уверены в правильности выбора'
+# You can skip this step if you are not sure of the correct choice
+read -p " 1 - Pacmac-aur, 2 - Octopi, 0 - Нет: " prog_set
 if [[ $prog_set == 1 ]]; then
 yay -S pamac-aur --noconfirm
 echo " Установка Pacmac-aur завершена "
@@ -622,13 +631,13 @@ elif [[ $prog_set == 2 ]]; then
 yay -S octopi --noconfirm
 echo " Установка Octopi завершена "
 elif [[ $prog_set == 0 ]]; then
-  echo 'Установка программ пропущена.'
+  echo ' Установка программ пропущена. '
 fi
 
 echo -e "${BLUE}:: ${NC}Будете ли Вы подключать Android или Iphone к ПК через USB?" 
 #echo 'Будете ли Вы подключать Android или Iphone к ПК через USB?'
 # Will you connect your Android or Iphone to your PC via USB?
-echo 'Установка поддержки устройств на Android или Iphone к ПК через USB'
+echo ' Установка поддержки устройств на Android или Iphone к ПК через USB '
 # Installing support for Android or Iphone devices to a PC via USB
 echo -e "${BLUE}:: ${NC}Установка Производится в порядке перечисления" 
 #echo 'Установка Производится в порядке перечисления'
@@ -636,7 +645,10 @@ echo -e "${BLUE}:: ${NC}Установка Производится в поря�
 echo -e "${GREEN}==> ${NC}Установить утилиты (пакеты) поддержки устройств?"
 #echo 'Установить утилиты (пакеты) поддержки устройств?'
 # To install the utilities (package) support devices?
-read -p "1 - Android, 2 - Iphone, 3 - Оба Варианта, 0 - Пропустить: " prog_set
+echo -e "${YELLOW}==> ${NC}Вы можете пропустить этот шаг, если не уверены в правильности выбора"
+#echo 'Вы можете пропустить этот шаг, если не уверены в правильности выбора'
+# You can skip this step if you are not sure of the correct choice
+read -p " 1 - Android, 2 - Iphone, 3 - Оба Варианта, 0 - Пропустить: " prog_set
 if [[ $prog_set == 1 ]]; then
 sudo pacman -S gvfs-mtp --noconfirm
 echo " Установка поддержки устройств на Android завершена "
@@ -647,7 +659,7 @@ elif [[ $prog_set == 3 ]]; then
 sudo pacman -S gvfs-afc gvfs-mtp --noconfirm
 echo " Установка поддержки устройств на Android и Iphone завершена "
 elif [[ $prog_set == 0 ]]; then
-  echo 'Установка утилит (пакетов) пропущена.'
+  echo ' Установка утилит (пакетов) пропущена. '
 fi
 # -------------------------------------------------------
 # Пример:
@@ -660,11 +672,12 @@ fi
 echo -e "${YELLOW}==> ${NC}Включаем сетевой экран?"
 #echo 'Включаем сетевой экран?'
 # Enabling the network screen?
-read -p "1 - Да, 0 - Нет: " prog_set
+read -p " 1 - Да, 0 - Нет: " prog_set
 if [[ $prog_set == 1 ]]; then
+ echo " Включаем сетевой экран "   
 sudo ufw enable
 elif [[ $prog_set == 0 ]]; then
-  echo 'Установка программ пропущена.'
+  echo ' Запуск программы (пакета) пропущен. '
 fi
 
 #echo 'Включаем сетевой экран'
@@ -677,9 +690,9 @@ echo -e "${YELLOW}==> ${NC}Добавляем в автозагрузку сет
 read -p "1 - Да, 0 - Нет: " prog_set
 if [[ $prog_set == 1 ]]; then
 sudo systemctl enable ufw
-echo "UFW успешно добавлен в автозагрузку" 
+echo " UFW успешно добавлен в автозагрузку " 
 elif [[ $prog_set == 0 ]]; then
-  echo 'Установка программ пропущена.'
+  echo ' UFW не был добавлен в автозагрузку. '
 fi
 
 #echo 'Добавляем в автозагрузку сетевой экран'
