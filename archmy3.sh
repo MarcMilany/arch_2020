@@ -577,7 +577,7 @@ elif [[ $prog_set == 2 ]]; then
 sudo pacman -S libreoffice libreoffice-fresh-ru --noconfirm
 echo " Установка LibreOffice-fresh завершена "
 elif [[ $prog_set == 0 ]]; then
-  echo ' Установка программ пропущена. '
+  echo ' Установка программ LibreOffice пропущена. '
 fi
 
 echo -e "${GREEN}==> ${NC}Установить рекомендованные программы?"
@@ -669,7 +669,7 @@ fi
 # Виден через наутилус как mtp://[usb:002,007]/
 # ============================================================================
 
-echo -e "${YELLOW}==> ${NC}Включаем сетевой экран?"
+echo -e "${YELLOW}==> ${NC}Включаем UFW сетевой экран?"
 #echo 'Включаем сетевой экран?'
 # Enabling the network screen?
 read -p " 1 - Да, 0 - Нет: " prog_set
@@ -690,9 +690,9 @@ echo -e "${YELLOW}==> ${NC}Добавляем в автозагрузку сет
 read -p "1 - Да, 0 - Нет: " prog_set
 if [[ $prog_set == 1 ]]; then
 sudo systemctl enable ufw
-echo " UFW успешно добавлен в автозагрузку " 
+echo " UFW (сетевой экран) успешно добавлен в автозагрузку " 
 elif [[ $prog_set == 0 ]]; then
-  echo ' UFW не был добавлен в автозагрузку. '
+  echo ' UFW (сетевой экран) не был добавлен в автозагрузку. '
 fi
 
 #echo 'Добавляем в автозагрузку сетевой экран'
@@ -711,9 +711,9 @@ echo -e "${YELLOW}==> ${NC}Добавляем в автозагрузку Blueto
 read -p "1 - Да, 0 - Нет: " prog_set
 if [[ $prog_set == 1 ]]; then
 systemctl enable bluetooth.service
-echo 'Bluetooth успешно добавлен в автозагрузку'
+echo ' Bluetooth успешно добавлен в автозагрузку '
 elif [[ $prog_set == 0 ]]; then
-  echo 'Bluetooth.service не включен в автозагрузку, при необходиости это можно будет сделать.'
+  echo ' Bluetooth.service не включен в автозагрузку, при необходиости это можно будет сделать. '
 fi
 
 echo -e "${YELLOW}==> ${NC}Добавляем в автозагрузку ssh(server) для удаленного доступа к этому ПК?"
@@ -722,9 +722,9 @@ echo -e "${YELLOW}==> ${NC}Добавляем в автозагрузку ssh(se
 read -p "1 - Да, 0 - Нет: " prog_set
 if [[ $prog_set == 1 ]]; then
 systemctl enable sshd.service
-echo 'Сервис sshd успешно добавлен в автозагрузку' 
+echo ' Сервис sshd успешно добавлен в автозагрузку ' 
 elif [[ $prog_set == 0 ]]; then
-  echo 'Сервис sshd не включен.'
+  echo ' Сервис sshd не включен. '
 fi
 
 echo -e "${BLUE}:: ${NC}Обновим информацию о шрифтах" 
