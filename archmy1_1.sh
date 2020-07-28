@@ -676,7 +676,7 @@ if [[ $swap == 1 ]]; then
   mkswap /dev/$swaps -L swap
   swapon /dev/$swaps
 elif [[ $swap == 0 ]]; then
-   echo 'Добавление Swap раздела пропущено.'   
+   echo ' Добавление Swap раздела пропущено. '   
 fi
 ########## Home  ########
 clear
