@@ -14,8 +14,44 @@ set -e
 # Встроенная команда set:
 # https://www.sites.google.com/site/bashhackers/commands/set
 # ============================================================================
-
+#echo ""
+#######
+#echo "#################################################################"
+#echo "###### <<<Arch Linux Fast Install LegasyBIOS (arch2020)>>> ######"
+#echo "#### Скрипты 'arch_2020' созданы на основе сценария (скрипта)####"
+#echo "#### 'ordanax/arch2018'. При выполнении скрипта Вы получаете ####"
+#echo "####  возможность быстрой установки ArchLinux с вашими       ####"
+#echo "####  личными настройками (при условии, что Вы его изменили  ####"                                         
+#echo "####  под себя, в противном случае с моими настройками).     ####"       
+#echo "####  В скрипте прописана установка grub для LegasyBIOS, и   ####" 
+#echo "####  с DE - рабочего стола Xfce.                            ####"  
+#echo "#### Этот скрипт находится в процессе 'Внесение поправок в   ####"
+#echo "#### наводку орудий по результатам наблюдений с наблюдате-   ####"
+#echo "#### льных пунктов'.                                         ####"
+#echo "#### Автор не несёт ответственности за любое нанесение вреда ####"
+#echo "#### при использовании скрипта.                              ####"
+#echo "#### Installation guide - Arch Wiki  (referance):            ####"
+#echo "#### https://wiki.archlinux.org/index.php/Installation_guide ####"
+#echo "#### Проект (project): https://github.com/ordanax/arch2018   ####"
+#echo "#### Лицензия (license): LGPL-3.0                            ####" 
+#echo "#### (http://opensource.org/licenses/lgpl-3.0.html           ####"
+#echo "#### В разработке принимали участие (author) :               ####"
+#echo "#### Алексей Бойко https://vk.com/ordanax                    ####"
+#echo "#### Степан Скрябин https://vk.com/zurg3                     ####"
+#echo "#### Михаил Сарвилин https://vk.com/michael170707            ####"
+#echo "#### Данил Антошкин https://vk.com/danil.antoshkin           ####"
+#echo "#### Юрий Порунцов https://vk.com/poruncov                   ####"
+#echo "#### Jeremy Pardo (grm34) https://www.archboot.org/          ####"
+#echo "#### Marc Milany - 'Не ищи меня 'Вконтакте',                 ####"
+#echo "####                в 'Одноклассниках'' нас нету, ...        ####"
+#echo "#### Releases ArchLinux:                                     ####"
+#echo "####    https://www.archlinux.org/releng/releases/           ####"
+#echo "#### <<<       Смотрите пометки в самом скрипте!         >>> ####" 
+#echo "#################################################################"
+#######
+#echo ""
 # ============================================================================
+
 ### old_vars.log
 #set > old_vars.log
 
