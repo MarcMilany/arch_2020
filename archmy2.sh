@@ -541,7 +541,8 @@ grub-install /dev/sda
 #grub-install /dev/$cfd  #sda sdb sdc sdd
 # ============================================================================
 
-#echo -e "${BLUE}:: ${NC}Установить загрузчик GRUB(legacy)?"
+#echo ""
+#echo -e "${GREEN}==> ${NC}Установить загрузчик GRUB(legacy)?"
 #echo 'Установить загрузчик GRUB(legacy)?'
 # Install the boot loader GRUB(legacy)
 #echo -e "${YELLOW}==> ${NC}Вы можете пропустить этот шаг, если у вас уже имеется BOOT раздел от другой (предыдущей) системы gnu-linux, с установленным на нём GRUB."
