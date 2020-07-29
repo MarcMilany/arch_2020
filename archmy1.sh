@@ -808,7 +808,7 @@ echo 'Arch Linux, Base devel (AUR only), Kernel (optional), Firmware'
 # Arch Linux, Base devel (AUR only), Kernel (optional), Firmware
 #pacstrap /mnt base base-devel linux-lts linux-firmware nano dhcpcd netctl vim which inetutils # parted
 pacstrap /mnt base base-devel
-pacstrap /mnt linux-lts linux-firmware linux-headers-$(uname -r)
+pacstrap /mnt linux-lts linux-firmware linux-headers
 pacstrap /mnt nano vim dhcpcd netctl which inetutils 
 # ---------------------------------------------------------------------------
 #pacstrap /mnt base base-devel linux-lts linux-firmware nano dhcpcd netctl vim --noconfirm  # parted
@@ -829,7 +829,7 @@ pacstrap /mnt nano vim dhcpcd netctl which inetutils
 # base-devel - утилиты для разработчиков. Нужны для AUR.
 # linux - ядро.
 # linux-firmware - файлы прошивок для linux.
-# linux-headers-[версия] - заголовочные файлы ядра.
+# linux-headers-[версия] - заголовочные файлы ядра: linux-headers-$(uname -r).
 # linux-image-[версия] – бинарный образ ядра.
 # linux-extra-[версия] – дополнительные внешние модули ядра для расширения функционала.
 # nano - простой консольный текстовый редактор. Если умете работать в vim, то можете поставить его вместо nano.
