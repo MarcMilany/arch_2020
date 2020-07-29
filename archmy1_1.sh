@@ -514,12 +514,14 @@ lsblk -f
 echo -e "${BLUE}:: ${NC}Посмотрим структуру диска созданного установщиком"
 #echo 'Посмотрим структуру диска созданного установщиком'
 # Let's look at the disk structure created by the installer
-sgdisk -p /dev/$sda  #sdb sdc sdd
+read -p " Укажите диск (sda/sdb например sda или sdb) : " cfd
+sgdisk -p-i /dev/$cfd  #sdb sdc sdd
 
 echo -e "${BLUE}:: ${NC}Стираем таблицу разделов на первом диске (sda):"
 #echo 'Стираем таблицу разделов на первом диске (sda):'
 # Erasing the partition table on the first disk (sda)
-sgdisk --zap-all /dev/$sda  #sdb sdc sdd
+read -p " Укажите диск (sda/sdb например sda или sdb) : " cfd
+sgdisk --zap-all /dev/$cfd  #sdb sdc sdd
 
 #echo -e "${BLUE}:: ${NC}Стираем таблицу разделов на втором и третьем диске (sdb, sdc):"
 #echo 'Стираем таблицу разделов на втором и третьем диске (sdb, sdc):'
