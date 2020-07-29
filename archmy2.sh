@@ -554,8 +554,9 @@ grub-install /dev/sda
 #lsblk -f
 # read -p " => Укажите диск (sda/sdb например sda или sdb) : " x_cfd
 # grub-install /dev/$x_cfd  
-#grub-mkconfig -o /boot/grub/grub.cfg
 #  echo " Загрузчик GRUB установлен на выбранный вами диск (раздел). " 
+#grub-mkconfig -o /boot/grub/grub.cfg
+#  echo " Обновлён (сгенерирован) grub.cfg (/boot/grub/grub.cfg). " 
 #elif [[ $x_grub == 0 ]]; then
 #  echo 'Операция пропущена.'
 #fi
