@@ -16,7 +16,6 @@ set -e
 # ===========================================================================
 #### Смотрите пометки (справочки) и доп.иформацию в самом скрипте! #### 
 #echo ""
-#######
 #echo "##################################################################"
 #echo "##### <<<Arch Linux Fast Install LegasyBIOS (arch2020)>>>    #####"
 #echo "#### Скрипты 'arch_2020' созданы на основе сценария (скрипта) ####"
@@ -807,7 +806,11 @@ echo -e "${BLUE}:: ${NC}3.2 Установка основных пакетов (
 # Installing basic packages (base base-devel)
 echo 'Arch Linux, Base devel (AUR only), Kernel (optional), Firmware'
 # Arch Linux, Base devel (AUR only), Kernel (optional), Firmware
-pacstrap /mnt base base-devel linux-lts linux-firmware nano dhcpcd netctl vim which inetutils  # parted
+#pacstrap /mnt base base-devel linux-lts linux-firmware nano dhcpcd netctl vim which inetutils # parted
+pacstrap /mnt base base-devel
+pacstrap /mnt linux-lts linux-firmware
+pacstrap /mnt nano vim dhcpcd netctl which inetutils 
+# ---------------------------------------------------------------------------
 #pacstrap /mnt base base-devel linux-lts linux-firmware nano dhcpcd netctl vim --noconfirm  # parted
 #pacstrap /mnt base base-devel linux-lts linux-firmware nano dhcpcd netctl vim --noconfirm --noprogressbar --quiet
 #pacstrap /mnt base base-devel linux linux-firmware nano dhcpcd netctl vim
