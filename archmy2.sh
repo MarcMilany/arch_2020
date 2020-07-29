@@ -532,11 +532,34 @@ echo -e "${BLUE}:: ${NC}3.5 Устанавливаем загрузчик GRUB(l
 # Install the boot loader GRUB(legacy)
 pacman -Syy
 pacman -S grub --noconfirm 
-#pacman -S grub --noconfirm --noprogressbar --quiet  
+#pacman -S grub --noconfirm --noprogressbar --quiet 
 grub-install /dev/sda
 #grub-install --recheck /dev/sda
 #grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB
+#read -p " => Укажите диск (sda/sdb например sda или sdb) : " cfd
+#grub-install /dev/$cfd  #sda sdb sdc sdd 
 # ============================================================================
+
+echo -e "${BLUE}:: ${NC}Установить загрузчик GRUB(legacy)?"
+#echo 'Установить загрузчик GRUB(legacy)?'
+# Install the boot loader GRUB(legacy)
+echo -e "${YELLOW}==> ${NC}Вы можете пропустить этот шаг, если BOOT раздела нет на отдельном разделе, и он находится в корневом разделе ROOT"
+#echo 'Вы можете пропустить этот шаг, если не уверены в правильности выбора'
+# You can skip this step if you are not sure of the correct choice
+echo -e "${BLUE}:: ${NC}Установка Производится в порядке перечисления" 
+#echo 'Установка Производится в порядке перечисления'
+# Installation Is performed in the order listed
+read -p " 1 - Установить загрузчик GRUB, 0 - Нет пропустить: " x_grub
+if [[ $x_grub == 1 ]]; then
+read -p " => Укажите диск (sda/sdb например sda или sdb) : " cfd
+ pacman -Syy
+ pacman -S grub --noconfirm
+ grub-install /dev/$cfd  #sda sdb sdc sdd
+  echo " Загрузчик GRUB установлен на выбранный вами диск (раздел). " 
+elif [[ $x_grub == 0 ]]; then
+  echo 'Операция пропущена.'
+fi
+
 # Установка boot loader'а (загрузчика grub)
 # Их существует несколько, но grub, наверное самый популярный в Linux.
 # (или grub-install /dev/sdb , или grub-install /dev/sdс в зависимости от маркировки вашего диска, флешки куда будет установлен загрузчик grub (для BIOS))
