@@ -530,9 +530,9 @@ sgdisk -p /dev/$cfd #sda sdb sdc sdd
 # Создание новых записей GPT в памяти.
 # Структуры данных GPT уничтожены! Теперь вы можете разбить диск на разделы с помощью fdisk или других утилит.
 
-echo -e "${GREEN}==> ${NC}Удалить таблицу разделов на выбранном диске (sdX)?"
-#echo 'Удалить таблицу разделов на выбранном диске (sdX)?'
-# Delete the partition table on the selected disk (sdX)?
+echo -e "${GREEN}==> ${NC}Удалить (стереть) таблицу разделов на выбранном диске (sdX)?"
+#echo 'Удалить (стереть) таблицу разделов на выбранном диске (sdX)?'
+# Delete (erase) the partition table on the selected disk (sdX)?
 echo -e "${YELLOW}==> ${NC}Вы можете пропустить этот шаг, если не уверены в правильности выбора"
 #echo 'Вы можете пропустить этот шаг, если не уверены в правильности выбора'
 # You can skip this step if you are not sure of the correct choice
