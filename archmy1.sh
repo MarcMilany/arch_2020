@@ -808,7 +808,7 @@ echo 'Arch Linux, Base devel (AUR only), Kernel (optional), Firmware'
 # Arch Linux, Base devel (AUR only), Kernel (optional), Firmware
 #pacstrap /mnt base base-devel linux-lts linux-firmware nano dhcpcd netctl vim which inetutils # parted
 pacstrap /mnt base base-devel
-pacstrap /mnt linux-lts linux-firmware linux-headers
+pacstrap /mnt linux-lts linux-firmware # linux-headers
 pacstrap /mnt nano vim dhcpcd netctl which inetutils 
 # ---------------------------------------------------------------------------
 # Важно! Если Вы ведёте установку используя pppoe, то вам необходимо установить пакет rp-pppoe:
