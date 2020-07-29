@@ -525,6 +525,7 @@ sgdisk -p /dev/$cfd #sda sdb sdc sdd
 #read -p " => Укажите диск (sda/sdb например sda или sdb) : " cfd
 #sgdisk --zap-all /dev/$cfd  #sda sdb sdc sdd
 #sgdisk --zap-all /dev/sda  #sdb sdc sdd
+# Вывод:
 # Creating new GPT entries in memory.
 # GPT data structures destroyed! You may now partition the disk using fdisk or other utilities.
 # Создание новых записей GPT в памяти.
