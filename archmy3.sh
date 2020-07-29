@@ -655,7 +655,7 @@ echo -e "${YELLOW}==> ${NC}Установить ssh(server) для удален�
 # Install ssh (client) for remote access?
 read -p " 1 - Да, 0 - Нет: " prog_set
 if [[ $prog_set == 1 ]]; then
-pacman -S openssh --noconfirm
+sudo pacman -S openssh --noconfirm
 echo " SSH (клиент) установлен " 
 elif [[ $prog_set == 0 ]]; then
   echo ' Установка пропущена. '
@@ -737,7 +737,7 @@ fi
 echo -e "${YELLOW}==> ${NC}Добавляем в автозагрузку сетевой экран?"
 #echo 'Добавляем в автозагрузку сетевой экран?'
 # Adding the network screen to auto-upload?
-read -p "1 - Да, 0 - Нет: " prog_set
+read -p " 1 - Да, 0 - Нет: " prog_set
 if [[ $prog_set == 1 ]]; then
 sudo systemctl enable ufw
 echo " UFW (сетевой экран) успешно добавлен в автозагрузку " 
@@ -758,9 +758,9 @@ sudo ufw status
 echo -e "${YELLOW}==> ${NC}Добавляем в автозагрузку Bluetooth.service?"
 #echo 'Добавляем в автозагрузку сетевой экран?'
 # Adding the network screen to auto-upload?
-read -p "1 - Да, 0 - Нет: " prog_set
+read -p " 1 - Да, 0 - Нет: " prog_set
 if [[ $prog_set == 1 ]]; then
-systemctl enable bluetooth.service
+sudo systemctl enable bluetooth.service
 echo ' Bluetooth успешно добавлен в автозагрузку '
 elif [[ $prog_set == 0 ]]; then
   echo ' Bluetooth.service не включен в автозагрузку, при необходиости это можно будет сделать. '
@@ -769,9 +769,9 @@ fi
 echo -e "${YELLOW}==> ${NC}Добавляем в автозагрузку ssh(server) для удаленного доступа к этому ПК?"
 #echo 'Добавляем в автозагрузку ssh(server) для удаленного доступа к этому ПК?'
 # Adding ssh(server) to the startup for remote access to this PC?
-read -p "1 - Да, 0 - Нет: " prog_set
+read -p " 1 - Да, 0 - Нет: " prog_set
 if [[ $prog_set == 1 ]]; then
-systemctl enable sshd.service
+sudo systemctl enable sshd.service
 echo ' Сервис sshd успешно добавлен в автозагрузку ' 
 elif [[ $prog_set == 0 ]]; then
   echo ' Сервис sshd не включен. '
