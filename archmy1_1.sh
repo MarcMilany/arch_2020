@@ -517,7 +517,7 @@ echo -e "${BLUE}:: ${NC}Посмотрим структуру диска соз�
 # Let's look at the disk structure created by the installer
 read -p " Укажите диск (sda/sdb например sda или sdb) : " cfd
 sgdisk -i /dev/$cfd  #sdb sdc sdd
-sgdisk -p /dev/$cfd #sdb sdc sdd
+#sgdisk -p /dev/$cfd #sdb sdc sdd
 #sgdisk -i /dev/sda #sdb sdc sdd
 #sgdisk -p /dev/sda #sdb sdc sdd
 
