@@ -927,7 +927,13 @@ echo -e "${BLUE}:: ${NC}3.2 Установка основных пакетов (
 # Installing basic packages (base base-devel)
 echo 'Arch Linux, Base devel (AUR only), Kernel (optional), Firmware'
 # Arch Linux, Base devel (AUR only), Kernel (optional), Firmware
-pacstrap /mnt base base-devel linux-lts linux-firmware nano dhcpcd netctl vim which inetutils  # parted
+#pacstrap /mnt base base-devel linux-lts linux-firmware nano dhcpcd netctl vim which inetutils # parted
+pacstrap /mnt base base-devel
+pacstrap /mnt linux-lts linux-firmware # linux-headers
+pacstrap /mnt nano vim dhcpcd netctl which inetutils 
+# ---------------------------------------------------------------------------
+# Важно! Если Вы ведёте установку используя pppoe, то вам необходимо установить пакет rp-pppoe:
+# pacstrap -i /mnt rp-pppoe
 #pacstrap /mnt base base-devel linux-lts linux-firmware nano dhcpcd netctl vim --noconfirm  # parted
 #pacstrap /mnt base base-devel linux-lts linux-firmware nano dhcpcd netctl vim --noconfirm --noprogressbar --quiet
 #pacstrap /mnt base base-devel linux linux-firmware nano dhcpcd netctl vim
@@ -943,18 +949,23 @@ pacstrap /mnt base base-devel linux-lts linux-firmware nano dhcpcd netctl vim wh
 #pacstrap /mnt base base-devel linux linux-headers linux-firmware lvm2 nano networkmanager bash-completion reflector htop openssh curl wget git rsync unzip unrar p7zip gnu-netcat pv
 # ----------------------------------------------------------------------------
 # base - основные программы.
+# base-devel - утилиты для разработчиков. Нужны для AUR.
 # linux - ядро.
 # linux-firmware - файлы прошивок для linux.
-# base-devel - утилиты для разработчиков. Нужны для AUR.
-# man-db - просмотрщик man-страниц.
-# man-pages - куча man-страниц (руководств).
+# linux-headers-[версия] - заголовочные файлы ядра: linux-headers-$(uname -r).
+# linux-image-[версия] – бинарный образ ядра.
+# linux-extra-[версия] – дополнительные внешние модули ядра для расширения функционала.
 # nano - простой консольный текстовый редактор. Если умете работать в vim, то можете поставить его вместо nano.
+# vim -  - это настраиваемый текстовый редактор.
+###########################
+# grub - загрузчик операционной системы. Без него даже загрузиться в новую систему не сможем.
+# efibootmgr - поможет grub установить себя в загрузку UEFI.
 # sudo - позволяет обычным пользователем совершать действия от лица суперпользователя.
 # git - приложение для работы с репозиториями Git. Нужен для AUR и много чего ещё.
 # networkmanager - сервис для работы интернета. Вместе с собой устанавливает программы для настройки.
-# grub - загрузчик операционной системы. Без него даже загрузиться в новую систему не сможем.
-# efibootmgr - поможет grub установить себя в загрузку UEFI.
-
+#########################
+# man-db - просмотрщик man-страниц.
+# man-pages - куча man-страниц (руководств).
 # ============================================================================
 # В официальном wiki от arch https://wiki.archlinux.org/index.php/Installation_guide ,
 # написано pacstrap /mnt base, советую тут повторить за мной, ибо если Вам нужен доступ к AUR (Arch User Repository) Вам надо будет base-devel (есть возможность поставить когда угодно).
