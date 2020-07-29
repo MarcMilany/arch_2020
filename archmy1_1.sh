@@ -516,14 +516,12 @@ echo -e "${BLUE}:: ${NC}Посмотрим структуру диска соз�
 #echo 'Посмотрим структуру диска созданного установщиком'
 # Let's look at the disk structure created by the installer
 read -p " => Укажите диск (sda/sdb например sda или sdb) : " cfd
-sgdisk -i /dev/$cfd  #sdb sdc sdd
-#sgdisk -p /dev/$cfd #sdb sdc sdd
-#sgdisk -i /dev/sda #sdb sdc sdd
+sgdisk -p /dev/$cfd #sdb sdc sdd
 #sgdisk -p /dev/sda #sdb sdc sdd
 
-echo -e "${BLUE}:: ${NC}Стираем таблицу разделов на первом диске (sda):"
-#echo 'Стираем таблицу разделов на первом диске (sda):'
-# Erasing the partition table on the first disk (sda)
+echo -e "${BLUE}:: ${NC}Стираем таблицу разделов на выбранном диске (sdX):"
+#echo 'Стираем таблицу разделов на выбранном диске (sdX):'
+# Erasing the partition table on the selected disk (sdX)
 read -p " => Укажите диск (sda/sdb например sda или sdb) : " cfd
 sgdisk --zap-all /dev/$cfd  #sdb sdc sdd
 #sgdisk --zap-all /dev/sda  #sdb sdc sdd
