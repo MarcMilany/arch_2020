@@ -541,24 +541,24 @@ grub-install /dev/sda
 #grub-install /dev/$cfd  #sda sdb sdc sdd
 # ============================================================================
 
-echo -e "${BLUE}:: ${NC}Установить загрузчик GRUB(legacy)?"
+#echo -e "${BLUE}:: ${NC}Установить загрузчик GRUB(legacy)?"
 #echo 'Установить загрузчик GRUB(legacy)?'
 # Install the boot loader GRUB(legacy)
-echo -e "${YELLOW}==> ${NC}Вы можете пропустить этот шаг, если у вас уже имеется BOOT раздел от другой (предыдущей) системы gnu-linux, с установленным на нём GRUB."
+#echo -e "${YELLOW}==> ${NC}Вы можете пропустить этот шаг, если у вас уже имеется BOOT раздел от другой (предыдущей) системы gnu-linux, с установленным на нём GRUB."
 #echo 'Вы можете пропустить этот шаг, если не уверены в правильности выбора'
 # You can skip this step if you are not sure of the correct choice
-read -p " 1 - Установить загрузчик GRUB, 0 - Нет пропустить: " x_grub
-if [[ $x_grub == 1 ]]; then
-pacman -Syy
-pacman -S grub --noconfirm
-lsblk -f
- read -p " => Укажите диск (sda/sdb например sda или sdb) : " x_cfd
- grub-install /dev/$x_cfd  
+#read -p " 1 - Установить загрузчик GRUB, 0 - Нет пропустить: " x_grub
+#if [[ $x_grub == 1 ]]; then
+#pacman -Syy
+#pacman -S grub --noconfirm
+#lsblk -f
+# read -p " => Укажите диск (sda/sdb например sda или sdb) : " x_cfd
+# grub-install /dev/$x_cfd  
 #grub-mkconfig -o /boot/grub/grub.cfg
-  echo " Загрузчик GRUB установлен на выбранный вами диск (раздел). " 
-elif [[ $x_grub == 0 ]]; then
-  echo 'Операция пропущена.'
-fi
+#  echo " Загрузчик GRUB установлен на выбранный вами диск (раздел). " 
+#elif [[ $x_grub == 0 ]]; then
+#  echo 'Операция пропущена.'
+#fi
 
 # --------------------------------------------------------
 # Установка boot loader'а (загрузчика grub)
@@ -719,6 +719,12 @@ elif [[ $vm_setting == 1 ]]; then
   gui_install="xorg-server xorg-drivers xorg-xinit virtualbox-guest-utils"
 fi
 
+echo -e "${BLUE}:: ${NC}Ставим иксы и драйвера"
+#echo 'Ставим иксы и драйвера'
+# Put the x's and drivers
+pacman -S $gui_install
+#pacman -Syy
+
 # --------------------------------------------------------------------------
 #echo -e "${BLUE}:: ${NC}Ставим иксы и драйвера"
 #echo 'Ставим иксы и драйвера'
@@ -742,12 +748,6 @@ fi
 #   echo 2;
 #  ) | pacman -S xorg-server xorg-drivers xorg-xinit virtualbox-guest-utils --noconfirm --noprogressbar --quiet 
 #fi
-
-echo -e "${BLUE}:: ${NC}Ставим иксы и драйвера"
-#echo 'Ставим иксы и драйвера'
-# Put the x's and drivers
-pacman -S $gui_install
-#pacman -Syy
 
 #echo "Какая видеокарта?"
 #read -p "1 - nvidia, 2 - Amd, 3 - intel: " videocard
