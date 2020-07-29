@@ -532,12 +532,13 @@ echo -e "${BLUE}:: ${NC}3.5 Устанавливаем загрузчик GRUB(l
 # Install the boot loader GRUB(legacy)
 pacman -Syy
 pacman -S grub --noconfirm 
-#pacman -S grub --noconfirm --noprogressbar --quiet 
 grub-install /dev/sda
+# ------------------------------------------------------------------
+# pacman -S grub --noconfirm --noprogressbar --quiet 
 #grub-install --recheck /dev/sda
 #grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB
-#read -p " => Укажите диск (sda/sdb например sda или sdb) : " x_cfd
-#grub-install /dev/$x_cfd  #sda sdb sdc sdd 
+#read -p " => Укажите диск (sda/sdb например sda или sdb) : " cfd
+#grub-install /dev/$cfd  #sda sdb sdc sdd
 # ============================================================================
 
 echo -e "${BLUE}:: ${NC}Установить загрузчик GRUB(legacy)?"
