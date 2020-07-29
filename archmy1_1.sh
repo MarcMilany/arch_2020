@@ -510,12 +510,16 @@ lsblk -f
 # Самый простой способ увидеть все подключённые диски - это посмотреть содержимое каталога /dev/ и отфильтровать устройства sd:
 #ls -l /dev/
 
+echo ""
 # Ещё раз проверте правильность разбивки на разделы!
 echo -e "${BLUE}:: ${NC}Посмотрим структуру диска созданного установщиком"
 #echo 'Посмотрим структуру диска созданного установщиком'
 # Let's look at the disk structure created by the installer
 read -p " Укажите диск (sda/sdb например sda или sdb) : " cfd
-sgdisk -pi /dev/$cfd  #sdb sdc sdd
+sgdisk -i /dev/$cfd  #sdb sdc sdd
+sgdisk -p /dev/$cfd #sdb sdc sdd
+#sgdisk -i /dev/sda #sdb sdc sdd
+#sgdisk -p /dev/sda #sdb sdc sdd
 
 echo -e "${BLUE}:: ${NC}Стираем таблицу разделов на первом диске (sda):"
 #echo 'Стираем таблицу разделов на первом диске (sda):'
@@ -533,6 +537,7 @@ sgdisk --zap-all /dev/$cfd  #sdb sdc sdd
 #man sgdisk
 # ============================================================================
 
+echo ""
 echo -e "${GREEN}==> ${NC}Создание разделов диска для ArchLinux"
 #echo 'Создание разделов диска для ArchLinux'
 # Creating disk partitions for ArchLinux
