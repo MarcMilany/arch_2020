@@ -543,23 +543,23 @@ grub-install /dev/sda
 echo -e "${BLUE}:: ${NC}Установить загрузчик GRUB(legacy)?"
 #echo 'Установить загрузчик GRUB(legacy)?'
 # Install the boot loader GRUB(legacy)
-echo -e "${YELLOW}==> ${NC}Вы можете пропустить этот шаг, если BOOT раздела нет на отдельном разделе, и он находится в корневом разделе ROOT"
+echo -e "${YELLOW}==> ${NC}Вы можете пропустить этот шаг, если у вас уже имеется BOOT раздел от другой (предыдущей) системы gnu-linux, с установленным на нём GRUB."
 #echo 'Вы можете пропустить этот шаг, если не уверены в правильности выбора'
 # You can skip this step if you are not sure of the correct choice
-echo -e "${BLUE}:: ${NC}Установка Производится в порядке перечисления" 
-#echo 'Установка Производится в порядке перечисления'
-# Installation Is performed in the order listed
 read -p " 1 - Установить загрузчик GRUB, 0 - Нет пропустить: " x_grub
 if [[ $x_grub == 1 ]]; then
-read -p " => Укажите диск (sda/sdb например sda или sdb) : " cfd
- pacman -Syy
- pacman -S grub --noconfirm
- grub-install /dev/$cfd  #sda sdb sdc sdd
+pacman -Syy
+pacman -S grub --noconfirm
+lsblk -f
+ read -p " => Укажите диск (sda/sdb например sda или sdb) : " x_cfd
+ grub-install /dev/$x_cfd  
+#grub-mkconfig -o /boot/grub/grub.cfg
   echo " Загрузчик GRUB установлен на выбранный вами диск (раздел). " 
 elif [[ $x_grub == 0 ]]; then
   echo 'Операция пропущена.'
 fi
 
+# --------------------------------------------------------
 # Установка boot loader'а (загрузчика grub)
 # Их существует несколько, но grub, наверное самый популярный в Linux.
 # (или grub-install /dev/sdb , или grub-install /dev/sdс в зависимости от маркировки вашего диска, флешки куда будет установлен загрузчик grub (для BIOS))
