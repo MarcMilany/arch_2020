@@ -554,7 +554,7 @@ sudo pacman -S firefox firefox-i18n-ru firefox-spell-ru flashplugin pepper-flash
 echo -e "${BLUE}:: ${NC}Установка Брандмауэра UFW и Антивирусного пакета ClamAV (GUI)(GTK+)" 
 #echo 'Установка Брандмауэра UFW и Антивирусного пакета ClamAV (GUI)(GTK+)'
 # Installing the UFW Firewall and clamav Antivirus package (GUI) (GTK+)
-echo -e "${BLUE}:: ${NC}Установка Производится в порядке перечисления" 
+echo -e "${BLUE}:: ${NC}Установка производится в порядке перечисления" 
 #echo 'Установка Производится в порядке перечисления'
 # Installation Is performed in the order listed
 echo -e "${GREEN}==> ${NC}Установить UFW (Несложный Брандмауэр) (GTK)?"
@@ -582,7 +582,7 @@ fi
 echo -e "${BLUE}:: ${NC}Установка Torrent клиентов - Transmission, qBittorrent, Deluge (GTK)(Qt)(GTK+)" 
 #echo 'Установка Torrent клиентов - Transmission, qBittorrent, Deluge (GTK)(Qt)(GTK+)'
 # Installing Torrent clients - Transmission, qBittorrent, Deluge (GTK) (Qt) (GTK+)
-echo -e "${BLUE}:: ${NC}Установка Производится в порядке перечисления" 
+echo -e "${BLUE}:: ${NC}Установка производится в порядке перечисления" 
 #echo 'Установка Производится в порядке перечисления'
 # Installation Is performed in the order listed
 echo -e "${GREEN}==> ${NC}Установить Transmission, qBittorrent, Deluge?"
@@ -608,7 +608,7 @@ fi
 echo -e "${BLUE}:: ${NC}Установка Офиса (LibreOffice-still, или LibreOffice-fresh)" 
 #echo 'Установка Офиса (LibreOffice-still, или LibreOffice-fresh)'
 # Office installation (LibreOffice-still, or LibreOffice-fresh)
-echo -e "${BLUE}:: ${NC}Установка Производится в порядке перечисления" 
+echo -e "${BLUE}:: ${NC}Установка производится в порядке перечисления" 
 #echo 'Установка Производится в порядке перечисления'
 # Installation Is performed in the order listed
 echo -e "${GREEN}==> ${NC}Установить LibreOffice-still, LibreOffice-fresh?"
@@ -662,7 +662,7 @@ fi
 echo -e "${BLUE}:: ${NC}Установка Pacman gui,Octopi (AUR)(GTK)(QT)" 
 #echo 'Установка "Pacman gui","Octopi" (AUR)(GTK)(QT)'
 # Installing "Pacman gui", "Octopi" (AUR)(GTK)(QT)
-echo -e "${BLUE}:: ${NC}Установка Производится в порядке перечисления" 
+echo -e "${BLUE}:: ${NC}Установка производится в порядке перечисления" 
 #echo 'Установка Производится в порядке перечисления'
 # Installation Is performed in the order listed
 echo -e "${GREEN}==> ${NC}Установить pamac-aur, octopi?"
@@ -687,7 +687,7 @@ echo -e "${BLUE}:: ${NC}Будете ли Вы подключать Android ил
 # Will you connect your Android or Iphone to your PC via USB?
 echo ' Установка поддержки устройств на Android или Iphone к ПК через USB '
 # Installing support for Android or Iphone devices to a PC via USB
-echo -e "${BLUE}:: ${NC}Установка Производится в порядке перечисления" 
+echo -e "${BLUE}:: ${NC}Установка производится в порядке перечисления" 
 #echo 'Установка Производится в порядке перечисления'
 # Installation Is performed in the order listed
 echo -e "${GREEN}==> ${NC}Установить утилиты (пакеты) поддержки устройств?"
