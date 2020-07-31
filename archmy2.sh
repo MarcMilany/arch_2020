@@ -527,7 +527,7 @@ mkinitcpio -p linux-lts
 echo -e "${GREEN}==> ${NC}Создаём root пароль"
 #echo 'Создаём root пароль'
 # Creating a root password
-echo "passwd root"
+echo " passwd root "
 passwd
 # --------------------------------------------------------------------------
 # Пример вывода применённой команды >>> $ passwd После чего дважды новый пароль.
@@ -699,6 +699,7 @@ useradd -m -g users -G adm,audio,games,lp,network,optical,power,scanner,storage,
 echo -e "${GREEN}==> ${NC}Устанавливаем пароль пользователя"
 #echo 'Устанавливаем пароль пользователя'
 # Setting the user password
+echo " passwd username "
 passwd $username
 
 echo -e "${BLUE}:: ${NC}Устанавливаем SUDO"
