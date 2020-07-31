@@ -811,13 +811,13 @@ pacstrap /mnt base base-devel
 pacstrap /mnt linux-lts linux-firmware #linux-headers
 pacstrap /mnt nano vim dhcpcd netctl which inetutils #wget
 # ---------------------------------------------------------------------------
-# Важно! Если Вы ведёте установку используя pppoe, то вам необходимо установить пакет rp-pppoe:
-# pacstrap -i /mnt rp-pppoe
 #pacstrap /mnt base base-devel linux-lts linux-firmware nano dhcpcd netctl vim --noconfirm  #wget parted
 #pacstrap /mnt base base-devel linux-lts linux-firmware nano dhcpcd netctl vim --noconfirm --noprogressbar --quiet
 #pacstrap /mnt base base-devel linux linux-firmware nano dhcpcd netctl vim
 #pacstrap /mnt base base-devel linux-hardened linux-firmware nano dhcpcd netctl vim
 #pacstrap /mnt base base-devel linux-zen linux-firmware nano dhcpcd netctl vim
+# Важно! Если Вы ведёте установку используя pppoe, то вам необходимо установить пакет rp-pppoe:
+# pacstrap -i /mnt rp-pppoe
 # ----------------------------------------------------------------------------
 #pacstrap /mnt base base-devel linux-zen linux-firmware nano dhcpcd netctl zsh zsh-autosuggestions zsh-completions zsh-history-substring-search zsh-syntax-highlighting git ccache btrfs-progs wget terminus-font
 # ----------------------------------------------------------------------------
