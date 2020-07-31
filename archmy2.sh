@@ -491,6 +491,7 @@ mkinitcpio -p linux-lts
 #mkinitcpio -p linux
 #mkinitcpio -P linux
 #mkinitcpio -p linux-zen
+#mkinitcpio -p linux-hardened
 #echo 'COMPRESSION="lz4"' >> /etc/mkinitcpio.conf
 # ============================================================================
 # Команда: mkinitcpio -p linux-lts  - применяется, если Вы устанавливаете
