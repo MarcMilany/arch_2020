@@ -493,7 +493,7 @@ echo -e "${BLUE}
 ${NC}"
 read -p "1 - Да, 0 - Нет: " prog_set
 if [[ $prog_set == 1 ]]; then
-yay -S --noconfirm
+yay -S --noconfirm #finger
 elif [[ $prog_set == 0 ]]; then
   echo 'Установка программ пропущена.'
 fi
