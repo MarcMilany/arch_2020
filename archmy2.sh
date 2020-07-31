@@ -341,7 +341,9 @@ echo -e "${BLUE}:: ${NC}Проверим аппаратное время"
 # Check the hardware time
 #hwclock
 hwclock --systohc
+#echo " hwclock --systohc --utc "
 #hwclock --systohc —utc
+#echo " hwclock --systohc --localtime "
 #hwclock --systohc --local
 
 echo -e "${BLUE}:: ${NC}Посмотрим текущее состояние аппаратных и программных часов"
@@ -375,9 +377,11 @@ echo -e "${YELLOW}==> ${NC}Вы можете пропустить этот ша�
 read -p " 1 - UTC, 2 - Localtime, 0 - Пропустить: " prog_set
 if [[ $prog_set == 1 ]]; then
 hwclock --systohc --utc
+  echo " hwclock --systohc --utc "
   echo " UTC - часы дают универсальное время на нулевом часовом поясе " 
 elif [[ $prog_set == 2 ]]; then
 hwclock --systohc --local
+  echo " hwclock --systohc --localtime "
   echo " Localtime - часы идут по времени локального часового пояса " 
 elif [[ $prog_set == 0 ]]; then
   echo 'Настройка пропущена.'
