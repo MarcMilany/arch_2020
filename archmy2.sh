@@ -538,6 +538,7 @@ grub-install /dev/sda
 # ------------------------------------------------------------------
 # pacman -S grub --noconfirm --noprogressbar --quiet 
 #grub-install --recheck /dev/sda
+#grub-install --target=i386-pc /dev/sda   #(для платформ i386-pc)  
 #grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB
 #read -p " => Укажите диск (sda/sdb например sda или sdb) : " cfd
 #grub-install /dev/$cfd  #sda sdb sdc sdd
