@@ -537,7 +537,11 @@ pacman -S grub --noconfirm
 grub-install /dev/sda
 # ------------------------------------------------------------------
 # pacman -S grub --noconfirm --noprogressbar --quiet 
-#grub-install --recheck /dev/sda
+# grub-install /dev/sda 
+# Если Вы получили сообщение об ошибке, то используйте команду:
+# grub-install --recheck /dev/sda
+# Также в некоторых случаях может помочь вариант:
+# grub-install --recheck --no-floppy /dev/sda
 # Записываем загрузчик в MBR (Master Boot Record) нашего внутреннего накопителя.
 #grub-install --target=i386-pc --force --recheck /dev/sda 
 #grub-install --target=i386-pc /dev/sda   #(для платформ i386-pc) 
