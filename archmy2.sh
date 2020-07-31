@@ -306,9 +306,10 @@ echo -e "${BLUE}:: ${NC}Устанавливаем ваш часовой поя�
 #ln -s /usr/share/zoneinfo/Europe/Moscow /etc/localtime
 #ls /usr/share/zoneinfo
 #ls /usr/share/zoneinfo/Europe
+echo " ln -sf /usr/share/zoneinfo/${timezone} /etc/localtime "
+#ln -svf /usr/share/zoneinfo/$timezone /etc/localtime
 ln -svf /usr/share/zoneinfo/Europe/Moscow /etc/localtime
 #timedatectl set-ntp true
-#ln -svf /usr/share/zoneinfo/$timezone /etc/localtime
 #ln -sf /usr/share/zoneinfo/Europe/Moscow /etc/localtime
 #ln -s /usr/share/zoneinfo/Europe/Moscow /etc/localtime
 #ln -svf /usr/share/zoneinfo/Asia/Yekaterinburg /etc/localtime
@@ -317,7 +318,10 @@ ln -svf /usr/share/zoneinfo/Europe/Moscow /etc/localtime
 # Если Вы живите не в московском временной поясе, то Вам нужно выбрать подходящий ваш часовой пояс. Смотрим доступные пояса:
 #ls /usr/share/zoneinfo
 #ls /usr/share/zoneinfo/Нужный_Регион
-
+# -------------------------------------------------------
+# echo "ln -sf /mnt/usr/share/zoneinfo/${timezone} /mnt/etc/localtime"
+# ln -sf /usr/share/zoneinfo/${timezone} /mnt/etc/localtime
+# --------------------------------------------------------
 # Разберём команду для localtime >>>
 # Выбираем часовой пояс:
 #ln -s /usr/share/zoneinfo/Зона/Субзона /etc/localtime
