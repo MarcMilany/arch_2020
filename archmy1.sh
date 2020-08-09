@@ -638,6 +638,7 @@ echo -e "${BLUE}:: ${NC}2.4.3 Монтирование разделов диск
 # Mounting disk partitions
 mount /dev/sda3 /mnt
 mkdir /mnt/{boot,home}
+# mkdir -v /mnt/{boot,home}
 mount /dev/sda1 /mnt/boot
 swapon /dev/sda2
 mount /dev/sda4 /mnt/home
