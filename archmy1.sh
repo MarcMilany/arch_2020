@@ -637,13 +637,15 @@ echo -e "${BLUE}:: ${NC}2.4.3 Монтирование разделов диск
 #echo '2.4.3 Монтирование разделов диска'
 # Mounting disk partitions
 mount /dev/sda3 /mnt
-#mount -v /dev/sda3 /mnt    
-#mount -v /dev/$root /mnt    # -v или --verbose Выводить сообщение о каждой создаваемой директории
+#mount -v /dev/sda3 /mnt  # -v или --verbose Выводить сообщение о каждой создаваемой директории    
 mkdir /mnt/{boot,home}
 #mkdir -v /mnt/{boot,home}
 mount /dev/sda1 /mnt/boot
+#mount -v /dev/sda1 /mnt/boot  # -v или --verbose Выводить сообщение о каждой создаваемой директории  
 swapon /dev/sda2
+#swapon -v /dev/sda2
 mount /dev/sda4 /mnt/home
+#mount -v /dev/sda4 /mnt/home
 # Посмотреть что мы намонтировали можно командой:
 #mount | grep sda    
 # - покажет куда был примонтирован sda
