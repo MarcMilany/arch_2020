@@ -762,7 +762,7 @@ echo -e "${BLUE}:: ${NC}Проверим статус запуска сетев�
 # Check the startup status of the UFW network screen
 sudo ufw status
 # Вы можете проверить статус работы UFW следующей командой:
-#sudo ufw status verbose
+#sudo ufw status verbose  # -v, --verbose    быть вербальным
 # Если нужно выключить, то используйте команду:
 #sudo ufw disable
 
