@@ -83,7 +83,7 @@ echo -e "${BLUE}:: ${NC}Краткая информация о скрипте (a
 echo ""
 echo "###########################################################"
 echo "########  <<< Скрипт по установке Arch Linux >>>  #########"
-echo "#### Скрипт 'archluks.sh' создан на основе различных   ####"
+echo "#### Скрипт 'arch2020.sh' создан на основе различных   ####"
 echo "#### сценариев (скриптов). При работе (выполнении)     ####"
 echo "#### скрипта Вы получаете возможность быстрой установ- ####"
 echo "#### ки ArchLinux с вашими личными настройками (при    ####"                                         
@@ -232,10 +232,13 @@ echo ""
 echo -e "${BLUE}:: ${NC}Посмотрим список установленных SCSI-устройств"
 echo " Список устройств scsi/sata "
 lsscsi
+sleep 02
 
+clear
 echo ""
 echo -e "${BLUE}:: ${NC}Смотрим, какие диски есть в нашем распоряжении"
 lsblk -f
+sleep 01
 
 echo ""
 echo -e "${BLUE}:: ${NC}Посмотрим структуру диска созданного установщиком"
@@ -252,6 +255,7 @@ sgdisk --zap-all /dev/$cfd   #sda; sdb; sdc; sdd
 echo " Создание новых записей GPT в памяти. "
 echo " Структуры данных GPT уничтожены! Теперь вы можете разбить диск на разделы с помощью fdisk или других утилит. " 
 
+echo ""
 echo -e "${BLUE}:: ${NC}Создание разделов диска"
 #echo 'Создание разделов диска'
 # Creating disk partitions
@@ -604,8 +608,12 @@ vm.swappiness=10
 EOF
 
 echo -e "${BLUE}:: ${NC}Перемещаем и переименовываем исходный файл /etc/sysctl.conf в /etc/sysctl.d/99-sysctl.conf"
+echo " Создадим backup sysctl.conf.back "
 cp /etc/sysctl.conf  /etc/sysctl.conf.back  # Для начала сделаем его бэкап
-mv /etc/sysctl.conf /etc/sysctl.d/99-sysctl.conf   # Перемещаем и переименовываем исходный файл
+echo " Копируем sysctl.conf.back в /mnt "
+cp /etc/sysctl.conf.back  /mnt/etc/sysctl.conf.back
+echo " Перемещаем sysctl.conf в /mnt "
+mv /etc/sysctl.conf /mnt/etc/sysctl.d/99-sysctl.conf   # Перемещаем и переименовываем исходный файл
 
 echo -e "${BLUE}:: ${NC}Добавим в файл /etc/arch-release ссылку на сведение о release"
 > /etc/arch-release
@@ -703,7 +711,6 @@ echo ""
 echo " Создадим резервную копию текущего часового пояса: " 
 # cp /etc/localtime /etc/localtime.bak
 cp /etc/localtime /etc/localtime.backup
-echo ""
 echo " Запишем название часового пояса в /etc/timezone: "
 echo $timezone > /etc/timezone
 ls -lh /etc/localtime  # для просмотра символической ссылки, которая указывает на текущий часовой пояс, используемый в системе 
@@ -1019,7 +1026,7 @@ pacman -S xorg-server xorg-drivers xorg-xinit
 #cp /etc/X11/xinit/xinitrc /home/$username/.xinitrc
 #echo -e "\nvboxguest\nvboxsf\nvboxvideo" >> /home/$username/.xinitrc
 #sed -i 's/#!\/bin\/sh/#!\/bin\/sh\n\/usr\/bin\/VBoxClient-all/' /home/$username/.xinitrc
-sleep 01
+sleep 02
 
 clear
 echo ""
@@ -1203,6 +1210,17 @@ echo -e "${BLUE}:: ${NC}Проверим статус пароля для все
 echo -e "${CYAN}:: ${NC}В выведенном списке те записи, которые сопровождены значением (лат.буквой) P - значит на этой учетной записи установлен пароль!"
 echo -e "${CYAN} Пример: ${NC}(root P 10/11/2020 -1 -1 -1 -1; или $username P 10/11/2020 0 99999 7 -1)"
 passwd -Sa  # -S, --status вывести статус пароля
+sleep 02
+
+echo ""
+echo -e "${GREEN}==> ${NC}Информация о пользователе (полное имя пользователя и связанная с ним информация)"
+echo -e "${CYAN}:: ${NC}Пользователь в Linux может хранить большое количество связанной с ним информации, в том числе номера домашних и офисных телефонов, номер кабинета и многое другое."
+echo " Мы обычно пропускаем заполнение этой информации (так как всё это необязательно) - при создании пользователя. "
+echo -e "${CYAN}:: ${NC}На первом этапе достаточно имени пользователя, и подтверждаем - нажмите кнопку 'Ввод'(Enter)." 
+echo " Ввод другой информации (Кабинет, Телефон в кабинете, Домашний телефон) можно пропустить - просто нажмите 'Ввод'(Enter). "
+echo -e "${YELLOW}==> ${NC}Вы можете пропустить этот шаг, если не уверены в правильности выбора"
+echo " Информация о my username : (достаточно имени) "
+chfn $username
 
 clear
 echo ""
@@ -1246,4 +1264,7 @@ echo -e "${BLUE}:: ${BOLD}Теперь вам надо ввести (exit) reboo
 exit
 exit
 umount -Rf /mnt
+
+# umount -a
+# reboot
 
