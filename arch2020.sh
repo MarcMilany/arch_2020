@@ -1,4 +1,20 @@
 #!/bin/bash
+#### Смотрите пометки (справочки) и доп.иформацию в самом скрипте! ####
+
+apptitle="Arch Linux Fast Install v1.6 LegasyBIOS - Version: 2020.07.16.00.40.38 (GPLv3)"
+baseurl=https://raw.githubusercontent.com/MarcMilany/arch_2020/master/url%20links%20abbreviated/git%20url
+cpl=0
+skipfont="0"
+fspkgs=""
+iso_label="ARCH_$(date +%Y%m)"
+iso_version=$(date +%Y.%m.%d)
+gpg_key=
+verbose=""
+EDITOR=nano
+#EDITOR=nano visudo  # Выполните команду с правами суперпользователя
+
+ARCH2020_LANG="russian"  # Installer default language (Язык установки по умолчанию)
+script_path=$(readlink -f ${0%/*})
 
 ### SHARED VARIABLES AND FUNCTIONS (ОБЩИЕ ПЕРЕМЕННЫЕ И ФУНКЦИИ)
 ### Shell color codes (Цветовые коды оболочки)
@@ -6,145 +22,235 @@ RED="\e[1;31m"; GREEN="\e[1;32m"; YELLOW="\e[1;33m"; GREY="\e[3;93m"
 BLUE="\e[1;34m"; CYAN="\e[1;36m"; BOLD="\e[1;37m"; MAGENTA="\e[1;35m"; NC="\e[0m"
 
 # Автоматическое обнаружение ошибок
-# Эта команда остановит выполнение сценария после сбоя команды и будет отправлен код ошибки
-set -e
+set -e  # Эта команда остановит выполнение сценария после сбоя команды и будет отправлен код ошибки
+#set -e "\n${RED}Error: ${YELLOW}${*}${NC}"
 
-# Команды по установке :
-# archiso login: root (automatic login)
+# Команды по установке : - archiso login: root (automatic login)
+echo -e "${RED}=> ${NC}Acceptable limit for the list of arguments..."
+# Допустимый лимит (предел) списка аргументов...'
+getconf ARG_MAX
 
-echo -e "${GREEN}=> ${NC}Make sure that your network interface is specified and enabled" 
-#echo 'Make sure that your network interface is specified and enabled'
-# Убедитесь, что ваш сетевой интерфейс указан и включен
-# Показать все ip адреса и их интерфейсы
-ip a
+echo -e "${BLUE}:: ${NC}The determination of the final access rights"
+# Определение окончательных прав доступа - Для суперпользователя (root) umask по умолчанию равна 0022
+umask     
 
-echo -e "${GREEN}=> ${NC}To check the Internet, you can ping a service" 
-#echo 'To check the Internet, you can ping a service'
-# Для проверки интернета можно пропинговать какой-либо сервис
-ping -c2 archlinux.org
+echo -e "${BLUE}:: ${NC}Install the Terminus font"
+# Установим шрифт Terminus
+pacman -Sy terminus-font --noconfirm  # Моноширинный растровый шрифт (для X11 и консоли)
+#pacman -Syy terminus-font  # Моноширинный растровый шрифт (для X11 и консоли)
+#man vconsole.conf
 
-echo -e "${CYAN}==> ${NC}If the ping goes we go further ..."
-#echo 'If the ping goes we go further ...' 
-# Если пинг идёт едем дальше ...)
-
-echo -e "${BLUE}:: ${NC}Setting up the Russian language, changing the console font to one that supports Cyrillic for ease of use"
-#echo 'Setting up the Russian language, changing the console font to one that supports Cyrillic for ease of use'
- # Настроим русский язык, изменим консольный шрифт на тот, который поддерживает кириллицу для удобства работы
+echo ""
+echo -e "${BLUE}:: ${NC}Setting up the Russian language, changing the console font to one that supports Cyrillic for ease of use" 
+# Настроим русский язык, изменим консольный шрифт на тот, который поддерживает кириллицу для удобства работы
 loadkeys ru
-setfont cyr-sun16
+# loadkeys us
+#setfont ter-v12n
+#setfont ter-v14b
+#setfont cyr-sun16
+setfont ter-v16b ### Установленный setfont
+#setfont ter-v20b  # Шрифт терминус и русская локаль # чтобы шрифт стал побольше
+### setfont ter-v22b
+### setfont ter-v32b
 
 echo -e "${CYAN}==> ${NC}Добавим русскую локаль в систему установки"
-#echo 'Добавим русскую локаль в систему установки'
-# Adding a Russian locale to the installation system
 sed -i 's/#ru_RU.UTF-8 UTF-8/ru_RU.UTF-8 UTF-8/' /etc/locale.gen
 
 echo -e "${BLUE}:: ${NC}Обновим текущую локаль системы"
-#echo 'Обновим текущую локаль системы'
-# Update the current system locale
-locale-gen
-# Мы ввели locale-gen для генерации тех самых локалей.
+locale-gen  # Мы ввели locale-gen для генерации тех самых локалей.
 
-#sleep 01
+sleep 01
 echo -e "${BLUE}:: ${NC}Указываем язык системы"
-#echo 'Указываем язык системы'
-# Specify the system language
-#echo 'LANG="ru_RU.UTF-8"' > /etc/locale.conf
 export LANG=ru_RU.UTF-8
 #export LANG=en_US.UTF-8
-# Эта команда сама пропишет в файлике locale.conf нужные нам параметры
 
-#sleep 01
-echo -e "${BLUE}:: ${NC}Краткая информация о скрипте (arch2020.sh)."
-#echo 'Краткая информация о скрипте (arch2020.sh).'
-# Brief information about the script (arch2020.sh).
+echo -e "${BLUE}:: ${NC}Проверяем, что все заявленные локали были созданы:"
+locale -a
 
-#######
+echo ""
+echo -e "${GREEN}=> ${NC}Убедитесь, что сетевой интерфейс указан и включен" 
+echo " Показать все ip адреса и их интерфейсы "
+ip a  # Смотрим какие у нас есть интернет-интерфейсы
+ 
+echo ""
+echo -e "${GREEN}=> ${NC}Для проверки интернета можно пропинговать какой-либо сервис" 
+ping -c2 archlinux.org
+
+echo -e "${CYAN}==> ${NC}Если пинг идёт едем дальше ... :)"
+
+echo ""
+echo -e "${BLUE}:: ${NC}Краткая информация о скрипте (archluks.sh)."
+echo ""
 echo "###########################################################"
 echo "########  <<< Скрипт по установке Arch Linux >>>  #########"
-echo "#### Скрипт 'arch2020.sh' создан на основе предвари-   ####"
-echo "#### тельного сценария (скрипта)'123.sh' Светозара     ####"
-echo "#### Колесникова. При работе (выполнении) скрипта Вы   ####"
-echo "#### получаете возможность быстрой установки ArchLinux ####"                                         
-echo "#### с вашими личными настройками (при условии, что Вы ####"       
-echo "#### его изменили под себя, в противном случае с моими ####" 
-echo "#### настройками).                                     ####"  
-echo "#### В скрипте прописана установка grub для LegasyBIOS ####"
+echo "#### Скрипт 'archluks.sh' создан на основе различных   ####"
+echo "#### сценариев (скриптов). При работе (выполнении)     ####"
+echo "#### скрипта Вы получаете возможность быстрой установ- ####"
+echo "#### ки ArchLinux с вашими личными настройками (при    ####"                                         
+echo "#### условии, что Вы его изменили под себя, в против-  ####"       
+echo "#### ном случае с моими настройками).                  ####" 
+echo "#### В скрипте прописана установка grub для LegasyBIOS ####"  
 echo "#### и с DE (среда рабочего стола) Xfce.               ####"
 echo "#### Этот скрипт находится в процессе 'Внесение попра- ####"
 echo "#### вок в наводку орудий по результатам наблюдений с  ####"
 echo "#### наблюдательных пунктов'.                          ####"
 echo "#### Автор не несёт ответственности за любое нанесение ####"
 echo "#### вреда при использовании скрипта.                  ####"
+echo "#### Вы используйте его на свой страх и риск, или      ####"
+echo "#### изменяйте скрипт под свои личные нужды.           ####"
+echo "#### Лицензия (license): LGPL-3.0                      ####"
+echo "#### (http://opensource.org/licenses/lgpl-3.0.html     ####" 
+echo "#### В разработке принимали участие (author) :         ####"
+echo "#### Алексей Бойко https://vk.com/ordanax              ####"
+echo "#### Степан Скрябин https://vk.com/zurg3               ####"
+echo "#### Михаил Сарвилин https://vk.com/michael170707      ####"
+echo "#### Данил Антошкин https://vk.com/danil.antoshkin     ####"
+echo "#### Юрий Порунцов https://vk.com/poruncov             ####"
+echo "#### Анфиса Липко https://vc.ru/u/596418-anfisa-lipko  ####"
+echo "#### Alex Creio https://vk.com/creio                   ####"
+echo "#### Jeremy Pardo (grm34) https://www.archboot.org/    ####"
+echo "#### Marc Milany - 'Не ищи меня 'Вконтакте',           ####"
+echo "####                в 'Одноклассниках'' нас нету, ...  ####"
+echo "#### Releases ArchLinux:                               ####"
+echo "####     https://www.archlinux.org/releng/releases/    ####"
 echo "#### Installation guide - Arch Wiki  (referance):      ####"
 echo "# https://wiki.archlinux.org/index.php/Installation_guide #"
-echo "#### Лицензия (license): LGPL-3.0                      ####" 
-echo "#### (http://opensource.org/licenses/lgpl-3.0.html     ####"
-echo "#### В разработке принимали участие (author) :         ####"
-echo "#### <<<   Светозар Колесников, Marc Milany  ...   >>> ####"  
 echo "###########################################################"
-#######
 
-sleep 01
+sleep 05
+clear
 echo -e "${GREEN}
   <<< Начинается установка минимальной системы Arch Linux >>>
 ${NC}"
-#echo 'Начинается установка минимальной системы Arch Linux'
-# The installation of the minimum Arch Linux system starts
 
-echo -e "${BLUE}:: ${NC}Установка и настройка начата в $(date +%T)"
-#echo "Установка и настройка начата в $(date +%T)"
-# Installation and configuration started in $(date +%T)
+echo -e "${BLUE}:: ${NC}Установка и настройка начата в $(date +%T)" 
 
-echo -e "${BLUE}:: ${NC}Синхронизируем наши системные часы, включаем ntp, если надо сменим часовой пояс"
-#echo 'Синхронизируем наши системные часы, включаем ntp, если надо сменим часовой пояс'
-# Sync our system clock, enable ntp, change the time zone if necessary
-# Активации ntp, и проверка статуса
-timedatectl set-ntp true
+echo -e "${BLUE}:: ${NC}Синхронизация системных часов"  
+# timedatectl set-ntp true  # Синхронизируем наши системные часы, включаем ntp, если надо сменим часовой пояс
+# timedatectl set-timezone Europe/Moscow
+echo " Для начала устанавливаем время по Москве, чтобы потом не оказалось, что файловые системы созданы в будущем "
+timedatectl set-ntp true && timedatectl set-timezone Europe/Moscow
+sleep 02
 
 echo -e "${BLUE}:: ${NC}Посмотрим статус службы NTP (NTP service)"
-#echo 'Посмотрим статус службы NTP (NTP service)'
-# Let's see the NTP service status
-timedatectl status
+timedatectl status 
 
 echo -e "${BLUE}:: ${NC}Посмотрим дату и время без характеристик для проверки времени"
-#echo 'Посмотрим дату и время без характеристик для проверки времени'
-# Let's look at the date and time without characteristics to check the time
 date
+sleep 08
 
+echo ""
+echo -e "${BLUE}:: ${NC}Если Вы хотите задействовать (попробовать) LVM в действии "
+echo " LVM - Менеджер логических томов (англ. Logical Volume Manager). В отличие от разделов жёсткого диска, размеры логических томов можно легко менять. "
+# Подгружаем модули:
+echo " Загружаем device mapper - dm-mod модуль ядра, отвечающий за работу с LVM "
+modprobe dm-mod  # Загрузит модуль ядра и любые дополнительные зависимости модуля
+echo " Проверяем - dm-mod модуль ядра "
+cat /proc/modules | grep dm_mod
+echo ""
+echo " Загружаем подсистему прозрачного шифрования диска в ядре Linux ... "
+echo " Он может шифровать целые диски (включая съемные носители), разделы, тома программного RAID, логические тома, а также файлы. "
+modprobe dm-crypt  # Это криптографическая цель (подсистема прозрачного шифрования диска в ядре Linux ...)
+### Если ли надо раскомментируйте нужные вам значения ####
+# echo " Загружаем модуль шифрование AES, отвечающий за алгоритм шифрования "
+# modprobe aes  # (-c aes -s 256) - использует 256-битное шифрование AES (с алгоритмом шифрования "aes256")
+# modprobe sha256  # (-h sha256) - использует 256-битный алгоритм хеширования SHA
+
+###########################################
+### Если ли надо раскомментируйте нужные вам значения ####
+#clear
+#echo ""
 #echo -e "${YELLOW}==> ${NC}Обновить и добавить новые ключи?"
-#echo 'Обновить и добавить новые ключи?'
-# Update and add new keys?
-#echo " Данный этап поможет вам избежать проблем с ключами Pacmаn, если используете не свежий образ ArchLinux для установки! "
-# This step will help you avoid problems with Pacman keys if you are not using a fresh ArchLinux image for installation!
-#read -p "1 - Да, 0 - Нет: " x_key
-#if [[ $x_key == 1 ]]; then      
-#pacman-key --refresh-keys 
-#elif [[ $x_key == 0 ]]; then
-#  echo 'Обновление ключей пропущено.'
-#echo "Обновление баз данных пакетов..."
+#echo " Данный этап поможет вам избежать проблем с ключами Pacmаn, если Вы используете не свежий образ ArchLinux для установки! "
+#echo ""
+#echo " Создаётся генерация мастер-ключа (брелка) pacman "  # gpg –refresh-keys
+#pacman-key --init  # генерация мастер-ключа (брелка) pacman
+#echo " Далее идёт поиск ключей... "
+#pacman-key --populate archlinux  # поиск ключей
+# pacman-key --populate
+#echo ""
+#echo " Обновление ключей... "  
+#pacman-key --refresh-keys --keyserver keys.gnupg.net  # http://pool.sks-keyservers.net/
+#echo ""
+#echo "Обновим базы данных пакетов..."
+###  sudo pacman -Sy
+#pacman -Syy  # обновление баз пакмэна (pacman) 
+# pacman -Syyu  # Обновим вашу систему (базу данных пакетов)
+# pacman -Syyu  --noconfirm
+###################################### 
+echo ""
+echo -e "${BLUE}:: ${NC}Обновим базы данных пакетов"
 pacman -Sy --noconfirm
+sleep 1
 
+clear
+echo ""
+echo -e "${BLUE}:: ${NC}Dmidecode. Получаем информацию о железе"
+echo " DMI (Desktop Management Interface) - интерфейс (API), позволяющий программному обеспечению собирать данные о характеристиках компьютера. "
+pacman -S dmidecode --noconfirm 
+
+echo ""
+echo -e "${BLUE}:: ${NC}Смотрим информацию о BIOS"
+dmidecode -t bios  # BIOS – это предпрограмма (код, вшитый в материнскую плату компьютера)
+#dmidecode --type BIOS
+
+####################################
+### Если ли надо раскомментируйте нужные вам значения ####
+#echo ""
+#echo -e "${BLUE}:: ${NC}Смотрим информацию о материнской плате"
+#dmidecode -t baseboard
+#dmidecode --type baseboard
+
+#echo ""
+#echo -e "${BLUE}:: ${NC}Смотрим информацию о разьемах на материнской плате"
+#dmidecode -t connector
+#dmidecode --type connector
+
+#echo ""
+#echo -e "${BLUE}:: ${NC}Информация о установленных модулях памяти и колличестве слотов под нее"
+#echo " Информация об оперативной памяти "
+#dmidecode -t memory
+#dmidecode --type memory
+
+#echo ""
+#echo -e "${BLUE}:: ${NC}Смотрим информацию об аппаратном обеспечении"
+#echo " Информация о переключателях системной платы "
+#dmidecode -t system
+#dmidecode --type system
+
+#echo ""
+#echo -e "${BLUE}:: ${NC}Смотрим информацию о центральном процессоре (CPU)"
+#dmidecode -t processor
+#dmidecode --type processor
+##############################################################
+
+sleep 01
+echo -e "${BLUE}:: ${NC}Просмотреть объём используемой и свободной оперативной памяти, имеющейся в системе"
+free -m
+
+echo ""
+echo -e "${BLUE}:: ${NC}Посмотрим список установленных SCSI-устройств"
+echo " Список устройств scsi/sata "
+lsscsi
+
+echo ""
 echo -e "${BLUE}:: ${NC}Смотрим, какие диски есть в нашем распоряжении"
-#echo 'Давайте посмотрим, какие диски у нас есть в нашем распоряжении'
-# Let's see what drives we have at our disposal
 lsblk -f
 
-# Ещё раз проверте правильность разбивки на разделы!
+echo ""
 echo -e "${BLUE}:: ${NC}Посмотрим структуру диска созданного установщиком"
-#echo 'Посмотрим структуру диска созданного установщиком'
-# Let's look at the disk structure created by the installer
-sgdisk -p /dev/sda
+echo " Чтобы подтвердить действия ввода, нажмите кнопку 'Ввод' ("Enter") "
+read -p " => Укажите диск (sda/sdb например sda или sdb) : " cfd
+sgdisk -p /dev/$cfd  #sda; sdb; sdc; sdd
 
-echo -e "${BLUE}:: ${NC}Стираем таблицу разделов на первом диске (sda):"
-#echo 'Стираем таблицу разделов на первом диске (sda):'
-# Erasing the partition table on the first disk (sda)
-sgdisk --zap-all /dev/sda
-
-#echo -e "${BLUE}:: ${NC}Стираем таблицу разделов на втором и третьем диске (sdb, sdc):"
-#echo 'Стираем таблицу разделов на втором и третьем диске (sdb, sdc):'
-# Erasing the partition table on the second and third disk (sdb, sdc)
-#sgdisk --zap-all /dev/sdb
-#sgdisk --zap-all /dev/sdc
+echo ""
+echo -e "${RED}==> ${NC}Удалить (стереть) таблицу разделов на выбранном диске (sdX)?"
+echo -e "${YELLOW}==> ${NC}Вы можете пропустить этот шаг, если не уверены в правильности выбора"
+echo " Чтобы подтвердить действия ввода, нажмите кнопку 'Ввод' ("Enter") "    
+read -p " => Укажите диск (sda/sdb например sda или sdb) : " cfd
+sgdisk --zap-all /dev/$cfd   #sda; sdb; sdc; sdd
+echo " Создание новых записей GPT в памяти. "
+echo " Структуры данных GPT уничтожены! Теперь вы можете разбить диск на разделы с помощью fdisk или других утилит. " 
 
 echo -e "${BLUE}:: ${NC}Создание разделов диска"
 #echo 'Создание разделов диска'
@@ -185,25 +291,24 @@ echo -e "${BLUE}:: ${NC}Создание разделов диска"
   echo w;
 ) | fdisk /dev/sda
 
+clear 
+echo "" 
 echo -e "${BLUE}:: ${NC}Ваша разметка диска" 
-#echo 'Ваша разметка диска'
-# Your disk markup
-# Команда fdisk –l выведет список существующих разделов, если таковые существуют
-fdisk -l
-
+fdisk -l  # Ещё раз проверте правильность разбивки на разделы!
+lsblk -f
+#lsblk -lo 
+sleep 07
 # Для просмотра разделов одного выбранного диска используйте такой вариант этой же команды:
 #fdisk -l /dev/sda
 
-###         "Справка команд по работе с утилитой fdisk"
-# ============================================================================
+###   "Справка команд по работе с утилитой fdisk"
+# ================================================
 # Команда (m для справки): m
 # Справка:
-
 #  Работа с разбиением диска в стиле DOS (MBR)
 #   a   переключение флага загрузки
 #   b   редактирование вложенной метки диска BSD
 #   c   переключение флага dos-совместимости 
-
 #  Общие
 #   d   удалить раздел
 #   F   показать свободное неразмеченное пространство
@@ -213,269 +318,222 @@ fdisk -l
 #   t   изменение метки типа раздела
 #   v   проверка таблицы разделов
 #   i   вывести информацию о разделе
-
 #  Разное
 #   m   вывод этого меню
 #   u   изменение единиц измерения экрана/содержимого
 #   x   дополнительная функциональность (только для экспертов)
-
 #  Сценарий
 #   I   загрузить разметку из файла сценария sfdisk
 #   O   записать разметку в файл сценария sfdisk
-
 #  Записать и выйти
 #   w   запись таблицы разделов на диск и выход
 #   q   выход без сохранения изменений
-
 #  Создать новую метку
 #   g   создание новой пустой таблицы разделов GPT
 #   G   создание новой пустой таблицы разделов SGI (IRIX)
 #   o   создание новой пустой таблицы разделов DOS
 #   s   создание новой пустой таблицы разделов Sun
-# ---------------------------------------------------------------------------
+# -------------------------------------------------
 ### https://linux-faq.ru/page/komanda-fdisk
 ### https://www.altlinux.org/Fdisk
-# ============================================================================
+# ================================================
 
-echo -e "${BLUE}:: ${NC}Форматирование разделов диска"
-#echo 'Форматирование разделов диска'
-# Formatting disk partitions
+clear
+echo ""
+echo -e "${GREEN}==> ${NC}Форматирование разделов диска"
 echo -e "${BLUE}:: ${NC}Установка название флага boot,root,swap,home"
-#echo 'Установка название флага boot,root,swap,home'
-# Setting the flag name boot, root,swap, home
 mkfs.ext2  /dev/sda1 -L boot
 mkswap /dev/sda2 -L swap
 mkfs.ext4  /dev/sda3 -L root
 mkfs.ext4  /dev/sda4 -L home
 # Просмотреть все идентификаторы наших разделов можно командой:
 #blkid
-# ---------------------------------------------------------------------------
-# Или так:
-#echo 'Disk formatting'
-#(
-#  echo y;
-#) | mkfs.ext2  /dev/sda1 -L boot
 
-#(
-#  echo y;
-#) | mkswap /dev/sda2 -L swap
-
-#(
-#  echo y;
-#) | mkfs.ext4  /dev/sda3 -L root
-
-#(
-#  echo y;
-#) | mkfs.ext4  /dev/sda4 -L home
-
-# ============================================================================
-
+echo ""
 echo -e "${BLUE}:: ${NC}Монтирование разделов диска"
-#echo 'Монтирование разделов диска'
-# Mounting disk partitions
 mount /dev/sda3 /mnt
 mkdir /mnt/{boot,home}
 mount /dev/sda1 /mnt/boot
 swapon /dev/sda2
 mount /dev/sda4 /mnt/home
 # Посмотреть что мы намонтировали можно командой:
-#mount | grep sda    
-# - покажет куда был примонтирован sda
-# Посмотрим информацию командой:
-#free -h
+#mount | grep sda  # - покажет куда был примонтирован sda    
 
-# ============================================================================
-### Замена исходного mirrorlist (зеркал для загрузки) на мой список серверов-зеркал
-#echo '3.1 Замена исходного mirrorlist (зеркал для загрузки)'
-#Ставим зеркало от Яндекс
-# Удалим старый файл /etc/pacman.d/mirrorlist
-#rm -rf /etc/pacman.d/mirrorlist
-# Загрузка нового файла mirrorlis (список серверов-зеркал)
-#wget https://raw.githubusercontent.com/MarcMilany/arch_2020/master/Mirrorlist/mirrorlist
-# Переместим нового файла mirrorlist в /etc/pacman.d/mirrorlist
-#mv -f ~/mirrorlist /etc/pacman.d/mirrorlist
-#echo "Обновление баз данных пакетов..."
-#sudo pacman -Sy
-# -----------------------------------------------------------------------------
+echo ""
+echo -e "${BLUE}:: ${NC}Просмотреть подключённые диски с выводом информации о размере и свободном пространстве"
+df -h
 
+echo ""
+echo -e "${BLUE}:: ${NC}Просмотреть все идентификаторы наших разделов"
+blkid
+
+echo ""
+echo -e "${BLUE}:: ${NC}Просмотреть информацию об использовании памяти в системе"
+free -h
+sleep 02
+
+echo ""
+echo -e "${BLUE}:: ${NC}Посмотреть содержмое каталога /mnt."
+ls /mnt
+
+echo ""
 echo -e "${BLUE}:: ${NC}Выбор серверов-зеркал для загрузки. Ставим зеркало от Яндекс"
-#echo 'Выбор серверов-зеркал для загрузки. Ставим зеркало от Яндекс'
-# The choice of mirror sites to download. Putting a mirror from Yandex
-#echo "Server = http://mirror.yandex.ru/archlinux/\$repo/os/\$arch" > /etc/pacman.d/mirrorlist
 > /etc/pacman.d/mirrorlist
 cat <<EOF >>/etc/pacman.d/mirrorlist
 
 ##
 ## Arch Linux repository mirrorlist
-## Generated on 2020-07-03
+## Generated on 2021-04-03
 ## HTTP IPv4 HTTPS
+## https://www.archlinux.org/mirrorlist/
+## https://www.archlinux.org/mirrorlist/?country=RU&protocol=http&protocol=https&ip_version=4
 ##
 
 ## Russia
-Server = https://mirror.rol.ru/archlinux/\$repo/os/\$arch
 Server = https://mirror.yandex.ru/archlinux/\$repo/os/\$arch
-#Server = http://mirror.rol.ru/archlinux/\$repo/os/\$arch
-#Server = http://mirror.truenetwork.ru/archlinux/\$repo/os/\$arch
+Server = https://mirror.surf/archlinux/\$repo/os/\$arch
+Server = https://mirror.rol.ru/archlinux/\$repo/os/\$arch
+Server = https://mirror.nw-sys.ru/archlinux/$repo/os/\$arch
+Server = https://mirror.truenetwork.ru/archlinux/\$repo/os/\$arch
 #Server = http://mirror.yandex.ru/archlinux/\$repo/os/\$arch
+#Server = http://mirror.surf/archlinux/\$repo/os/\$arch
+#Server = http://mirror.rol.ru/archlinux/\$repo/os/\$arch
+#Server = http://mirror.nw-sys.ru/archlinux/$repo/os/\$arch
+#Server = http://mirror.truenetwork.ru/archlinux/\$repo/os/\$arch
+#Server = http://mirrors.powernet.com.ru/archlinux/$repo/os/$arch
 #Server = http://archlinux.zepto.cloud/\$repo/os/\$arch
 
 ##
 ## Arch Linux repository mirrorlist
-## Generated on 2020-07-03
+## Generated on 2021-04-03
 ## HTTP IPv6 HTTPS
+## https://www.archlinux.org/mirrorlist/
+## https://www.archlinux.org/mirrorlist/?country=RU&ip_version=6
 ##
 
 ## Russia
 #Server = http://mirror.yandex.ru/archlinux/$repo/os/\$arch
 #Server = https://mirror.yandex.ru/archlinux/$repo/os/\$arch
+#Server = http://mirror.nw-sys.ru/archlinux/$repo/os/\$arch
+#Server = https://mirror.nw-sys.ru/archlinux/$repo/os/\$arch
+#Server = http://mirror.surf/archlinux/$repo/os/\$arch
+#Server = https://mirror.surf/archlinux/$repo/os/\$arch
+#Server = http://mirrors.powernet.com.ru/archlinux/$repo/os/\$arch
 #Server = http://archlinux.zepto.cloud/$repo/os/\$arch
 
 EOF
 
-# ============================================================================
-
 echo -e "${BLUE}:: ${NC}Создание (backup) резервного списка зеркал mirrorlist - (mirrorlist.backup)"
-#echo 'Создание (backup) резервного списка зеркал mirrorlist - (mirrorlist.backup)'
-# Creating a backup list of mirrors mirrorlist - (mirrorlist.backup)
 cp -vf /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.backup
 
 echo -e "${BLUE}:: ${NC}Посмотреть список серверов-зеркал для загрузки в mirrorlist"
-#echo 'Посмотреть список серверов-зеркал для загрузки в mirrorlist'
-# View the list of mirror servers to upload to mirrorlist
 cat /etc/pacman.d/mirrorlist
 
 echo -e "${BLUE}:: ${NC}Обновим базы данных пакетов" 
-#echo 'Обновим базы данных пакетов'
-# Updating the package databases
-#sudo pacman-key --init
-#sudo pacman-key --populate archlinux
-#sudo pacman-key --refresh-keys
 sudo pacman -Sy 
 
-# ============================================================================
-# Знакомьтесь, pacman - лучший пакетный менеджер в мире линукса!
-#pacman -Syy   - обновление баз пакмэна(как apt-get update в дэбианоподбных)
-#pacman -Syyu  - обновление баз плюс обновление пакетов
-# ----------------------------------------------------------------------------
-# Если возникли проблемы с обновлением, или установкой пакетов 
-# Выполните данные рекомендации:
-#echo 'Обновление ключей системы'
-# Updating of keys of a system
-#echo "Создаётся генерация мастер-ключа (брелка) pacman, введите пароль (не отображается)..."
-#sudo pacman-key --init
-#echo "Далее идёт поиск ключей..."
-#sudo pacman-key --populate archlinux
-#echo "Обновление ключей..."
-#sudo pacman-key --refresh-keys
-#echo "Обновление баз данных пакетов..."
-#sudo pacman -Sy
-# Или:
-#sudo pacman-key --init && sudo pacman-key --populate archlinux && sudo pacman-key --refresh-keys && sudo pacman -Sy
-# ============================================================================
+clear
+echo ""  
+echo -e "${GREEN}==> ${NC}Установка основных пакетов (base, base-devel) базовой системы"
+echo -e "${BLUE}:: ${NC}Arch Linux, Base devel (AUR only)"
+echo " Сценарий pacstrap устанавливает (base) базовую систему. Для сборки пакетов из AUR (Arch User Repository) также требуется группа base-devel. "
+echo -e "${MAGENTA}=> ${BOLD}Т.е., Если нужен AUR, ставь base и base-devel, если нет, то ставь только base. ${NC}"
+pacstrap /mnt base base-devel nano dhcpcd netctl which inetutils  #wget vim
+clear
+echo ""
+echo " Установка групп (base + base-devel + packages) выполнена "
 
-echo -e "${BLUE}:: ${NC}Установка основных пакетов (base base-devel)"
-#echo 'Установка основных пакетов (base base-devel)'
-# Installing basic packages (base base-devel)
-echo 'Arch Linux, Base devel (AUR only), Kernel (optional), Firmware'
-# Arch Linux, Base devel (AUR only), Kernel (optional), Firmware
-pacstrap /mnt base base-devel linux-lts linux-firmware nano dhcpcd netctl vim which inetutils  # parted
-#pacstrap /mnt base base-devel linux-lts linux-firmware nano dhcpcd netctl vim # parted
-#pacstrap /mnt base base-devel linux-lts linux-firmware nano dhcpcd netctl vim --noconfirm  # parted 
-#pacstrap /mnt base base-devel linux-lts linux-firmware nano dhcpcd netctl vim --noconfirm --noprogressbar --quiet
-#pacstrap /mnt base base-devel linux linux-firmware nano dhcpcd netctl vim
-#pacstrap /mnt base base-devel linux-hardened linux-firmware nano dhcpcd netctl vim
-#pacstrap /mnt base base-devel linux-zen linux-firmware nano dhcpcd netctl vim
-# ----------------------------------------------------------------------------
-#pacstrap /mnt base base-devel linux-zen linux-firmware nano dhcpcd netctl zsh zsh-autosuggestions zsh-completions zsh-history-substring-search zsh-syntax-highlighting git ccache btrfs-progs wget terminus-font
-# ----------------------------------------------------------------------------
-#pacstrap -i /mnt base base-devel linux linux-firmware nano dhcpcd netctl vim --noconfirm
-# Параметр-I обеспечивает побуждение перед установкой пакета
-# The -i switch ensures prompting before package installation
-#pacstrap /mnt linux base nano dhcpcd netctl sudo wget --noconfirm --noprogressbar --quiet
-#pacstrap /mnt base base-devel linux linux-headers linux-firmware lvm2 nano networkmanager bash-completion reflector htop openssh curl wget git rsync unzip unrar p7zip gnu-netcat pv
-# ----------------------------------------------------------------------------
-# base - основные программы.
-# linux - ядро.
-# linux-firmware - файлы прошивок для linux.
-# base-devel - утилиты для разработчиков. Нужны для AUR.
-# man-db - просмотрщик man-страниц.
-# man-pages - куча man-страниц (руководств).
-# nano - простой консольный текстовый редактор. Если умете работать в vim, то можете поставить его вместо nano.
-# sudo - позволяет обычным пользователем совершать действия от лица суперпользователя.
-# git - приложение для работы с репозиториями Git. Нужен для AUR и много чего ещё.
-# networkmanager - сервис для работы интернета. Вместе с собой устанавливает программы для настройки.
-# grub - загрузчик операционной системы. Без него даже загрузиться в новую систему не сможем.
-# efibootmgr - поможет grub установить себя в загрузку UEFI.
-# ============================================================================
+echo ""
+echo -e "${GREEN}==> ${NC}Какое ядро (Kernel) Вы бы предпочли установить вместе с системой Arch Linux?"
+echo -e "${BLUE}:: ${NC}Kernel (optional), Firmware"
+echo " Будьте осторожны! Если Вы сомневаетесь в своих действиях, можно установить (linux Stable) ядро поставляемое вместе с Rolling Release. "
+### Если ли надо раскомментируйте нужные вам значения ####
+### LINUX (Stable - ядро Linux с модулями и некоторыми патчами, поставляемое вместе с Rolling Release устанавливаемой системы Arch)
+#echo ""
+#echo " Установка выбранного вами ядра (linux) "
+#pacstrap /mnt linux linux-firmware linux-headers #linux-docs
+#clear
+#echo ""
+#echo " Ядро (linux) операционной системы установленно " 
+### LINUX_HARDENED (Ядро Hardened - ориентированная на безопасность версия с набором патчей, защищающих от эксплойтов ядра и пространства пользователя. Внедрение защитных возможностей в этом ядре происходит быстрее, чем в linux)
+#echo ""
+#echo " Установка выбранного вами ядра (linux-hardened) "
+#pacstrap /mnt linux-hardened linux-firmware linux-hardened-headers #linux-hardened-docs
+#clear
+#echo ""
+#echo " Ядро (linux-hardened) операционной системы установленно " 
+### LINUX_LTS (Версия ядра и модулей с долгосрочной поддержкой - Long Term Support, LTS)
+echo ""
+echo " Установка выбранного вами ядра (linux-lts) "
+pacstrap /mnt linux-lts linux-firmware linux-lts-headers linux-lts-docs
+clear
+echo ""
+echo " Ядро (linux-lts) операционной системы установленно " 
+### LINUX_ZEN (Результат коллективных усилий исследователей с целью создать лучшее из возможных ядер Linux для систем общего назначения)
+#echo ""
+#echo " Установка выбранного вами ядра (linux-zen) " 
+#pacstrap /mnt linux-zen linux-firmware linux-zen-headers #linux-zen-docs
+#clear
+#echo ""
+#echo " Ядро (linux-zen) операционной системы установленно " 
 
-echo -e "${BLUE}:: ${NC}Настройка системы, генерируем fstab"
-#echo 'Настройка системы, генерируем fstab'
-# Configuring the system, generating fstab
+echo ""
+echo -e "${GREEN}==> ${NC}Настройка системы, генерируем fstab" 
+echo -e "${MAGENTA}=> ${BOLD}Файл /etc/fstab используется для настройки параметров монтирования различных блочных устройств, разделов на диске и удаленных файловых систем. ${NC}"
+echo " Таким образом, и локальные, и удаленные файловые системы, указанные в /etc/fstab, будут правильно смонтированы без дополнительной настройки. "
+echo ""
+echo " Генерируем fstab методом: "
+echo " UUID - genfstab -U -p /mnt > /mnt/etc/fstab "
 genfstab -pU /mnt >> /mnt/etc/fstab
-#(или genfstab -L /mnt >> /mnt/etc/fstab)
-#genfstab -p -L /mnt > /mnt/etc/fstab
-# Нашёл ещё две команды для генерации fstab при установке:
-#genfstab -U -p /mnt >> /mnt/etc/fstab
-#genfstab /mnt >> /mnt/etc/fstab
+echo " Проверьте полученный /mnt/etc/fstab файл и отредактируйте его в случае ошибок. " 
 
 echo -e "${BLUE}:: ${NC}Просмотреть содержимое файла fstab"
-#echo 'Просмотреть содержимое файла fstab'
-# View the contents of the fstab file
 cat /mnt/etc/fstab
+sleep 02
+echo " Проверяем UUID: "
+blkid /dev/sda*
+sleep 02
 
-echo -e "${BLUE}:: ${NC}Удалим старый файл mirrorlist из /mnt/etc/pacman.d/mirrorlist"
-#echo 'Удалим старый файл mirrorlist из /mnt/etc/pacman.d/mirrorlist'
-# Delete files /etc/pacman.d/mirrorlist
-# Удалим mirrorlist из /mnt/etc/pacman.d/mirrorlist
+clear
+echo ""
+echo -e "${GREEN}==> ${NC}Сменить зеркала для увеличения скорости загрузки пакетов?" 
+echo -e "${BLUE}:: ${NC}Загрузка свежего списка зеркал со страницы Mirror Status, и обновление файла mirrorlist."
+echo " Команда отфильтрует зеркала для Russia по протоколам (https, http), отсортирует их по скорости загрузки и обновит файл mirrorlist "
+echo "" 
+echo " Удалим старый файл mirrorlist из /mnt/etc/pacman.d/mirrorlist "
 rm /mnt/etc/pacman.d/mirrorlist 
-#rm -rf /mnt/etc/pacman.d/mirrorlist
-#Удалите файл /etc/pacman.d/mirrorlist
-#rm -rf /etc/pacman.d/mirrorlist
-# Удаления старой резервной копии (если она есть, если нет, то пропустите этот шаг):
-#rm /etc/pacman.d/mirrorlist.old
+echo " Загрузка свежего списка зеркал со страницы Mirror Status "
+pacman -S reflector --noconfirm  # Модуль и скрипт Python 3 для получения и фильтрации последнего списка зеркал Pacman  - пока присутствует в pkglist.x86_64
+reflector --verbose --country 'Russia' -l 9 -p https -p http -n 9 --save /etc/pacman.d/mirrorlist --sort rate
+echo "" 
+echo " Копируем созданный список зеркал (mirrorlist) в /mnt "
+cp /etc/pacman.d/mirrorlist /mnt/etc/pacman.d/mirrorlist 
+echo " Копируем резервного списка зеркал (mirrorlist.backup) в /mnt "
+cp /etc/pacman.d/mirrorlist.backup /mnt/etc/pacman.d/mirrorlist.backup 
 
-echo -e "${BLUE}:: ${NC}Загрузка свежего списка зеркал со страницы Mirror Status, и обновляем mirrorlist"
-#echo 'Загрузка свежего списка зеркал со страницы Mirror Status, и обновляем mirrorlist'
-# Loading a fresh list of mirrors from the Mirror Status page, and updating the mirrorlist
-# Чтобы увидеть список всех доступных опций, наберите:
-#reflector --help
-# Команда отфильтрует пять зеркал, отсортирует их по скорости и обновит файл mirrorlist:
-#sudo pacman -Sy --noconfirm --noprogressbar --quiet reflector
-reflector --verbose --country 'Russia' -l 7 -p https -p http -n 7 --save /etc/pacman.d/mirrorlist --sort rate  
-#reflector --verbose --country 'Russia' -l 5 -p https -p http -n 5 --sort rate --save /etc/pacman.d/mirrorlist
-
-echo -e "${BLUE}:: ${NC}Копируем созданный список зеркал (mirrorlist) в /mnt"
-#echo 'Копируем созданный список зеркал (mirrorlist) в /mnt'
-# Copying the created list of mirrors (mirrorlist) to /mnt
-cp /etc/pacman.d/mirrorlist /mnt/etc/pacman.d/mirrorlist
-
-echo -e "${BLUE}:: ${NC}Копируем резервного списка зеркал (mirrorlist.backup) в /mnt"
-#echo 'Копируем резервного списка зеркал (mirrorlist.backup) в /mnt'
-# Copying the backup list of mirrors (mirrorlist.backup) in /mnt
-cp /etc/pacman.d/mirrorlist.backup /mnt/etc/pacman.d/mirrorlist.backup
-
+clear
+echo ""
 echo -e "${BLUE}:: ${NC}Посмотреть список серверов-зеркал /mnt/etc/pacman.d/mirrorlist"
-#echo 'Посмотреть список серверов-зеркал /mnt/etc/pacman.d/mirrorlist'
-# View the list of mirror servers /mnt/etc/pacman.d/mirrorlist
+echo ""
 cat /mnt/etc/pacman.d/mirrorlist
 
+echo ""
 echo -e "${BLUE}:: ${NC}Обновим базы данных пакетов" 
-#echo 'Обновим базы данных пакетов'
-# Updating the package databases
-#sudo pacman-key --init
-#sudo pacman-key --refresh-keys
-sudo pacman -Sy 
+sudo pacman -Sy
+sleep 03
 
+echo ""
 echo -e "${GREEN}=> ${BOLD}Создадим конфигурационный файл для установки системных переменных /etc/sysctl.conf ${NC}"
-#echo 'Создадим конфигурационный файл для установки системных переменных /etc/sysctl.conf'
-# Creating a configuration file for setting system variables /etc/sysctl.conf
-> /mnt/etc/sysctl.conf
-cat <<EOF >>/mnt/etc/sysctl.conf
+echo " Sysctl - это инструмент для проверки и изменения параметров ядра во время выполнения (пакет procps-ng в официальных репозиториях ). sysctl реализован в procfs , файловой системе виртуального процесса в /proc/. "
+> /etc/sysctl.conf
+cat <<EOF >>/etc/sysctl.conf
 
 #
 # /etc/sysctl.conf - Configuration file for setting system variables
 # See /etc/sysctl.d/ for additional system variables.
 # See sysctl.conf (5) for information.
+#
+# /etc/sysctl.d/99-sysctl.conf
 #
 
 #kernel.domainname = example.com
@@ -537,16 +595,56 @@ net.ipv4.conf.all.rp_filter=1
 net.ipv4.tcp_max_syn_backlog=1280
 kernel.core_uses_pid=1
 #
+# Fixing the indicator when writing files to a flash drive
+vm.dirty_bytes = 4194304
+vm.dirty_background_bytes = 4194304
+#
 vm.swappiness=10
 
 EOF
 
-###*******************************************************************
+echo -e "${BLUE}:: ${NC}Перемещаем и переименовываем исходный файл /etc/sysctl.conf в /etc/sysctl.d/99-sysctl.conf"
+cp /etc/sysctl.conf  /etc/sysctl.conf.back  # Для начала сделаем его бэкап
+mv /etc/sysctl.conf /etc/sysctl.d/99-sysctl.conf   # Перемещаем и переименовываем исходный файл
+
+echo -e "${BLUE}:: ${NC}Добавим в файл /etc/arch-release ссылку на сведение о release"
+> /etc/arch-release
+cat <<EOF >>/etc/arch-release
+Arch Linux release
+#../usr/lib/os-release
+#Request for release information (Запрос информации о релизе)
+#cat /etc/arch-release
+#cat /etc/*-release
+#cat /etc/issue
+#cat /etc/lsb-release
+#cat /etc/lsb-release | cut -c21-90
+#cat /proc/version
+
+EOF
+
+echo -e "${BLUE}:: ${NC}Создадим файл /etc/lsb-release (информация о релизе)"
+> /etc/lsb-release.old
+cat <<EOF >>/etc/lsb-release.old 
+NAME="Arch Linux"
+PRETTY_NAME="Arch Linux"
+ID=arch
+DISTRIB_RELEASE=rolling
+DISTRIB_CODENAME="Arch"
+DISTRIB_DESCRIPTION="Arch Linux"
+ANSI_COLOR="38;2;23;147;209"
+HOME_URL="https://www.archlinux.org/"
+DOCUMENTATION_URL="https://wiki.archlinux.org/"
+SUPPORT_URL="https://bbs.archlinux.org/"
+BUG_REPORT_URL="https://bugs.archlinux.org/"
+LOGO=archlinux
+
+EOF
+
+###################################################
+clear
+echo ""
 echo " Первый этап установки Arch'a закончен "
 echo -e "${GREEN}=> ${BOLD}Запускаем пользовательский пост-инстал-скрипт (install.sh) для установки первоначально необходимого софта (пакетов), запуск необходимых служб, запись данных в конфиги (hhh.conf) по настройке системы. ${NC}"
-#echo 'Запускаем пользовательский пост-инстал-скрипт (install.sh) для установки первоначально необходимого софта (пакетов), запуск необходимых служб, запись данных в конфиги (hhh.conf) по настройке системы.'
-# Launch a custom post-installation script (install.sh) to install the initially necessary software (packages), launch the necessary services, write data to configs (hhh.conf) for system configuration.
-#post-install-script (install.sh)
 
 cat <<EOF  >> /mnt/opt/install.sh
 #!/bin/bash
@@ -557,405 +655,595 @@ RED="\e[1;31m"; GREEN="\e[1;32m"; YELLOW="\e[1;33m"; GREY="\e[3;93m"
 BLUE="\e[1;34m"; CYAN="\e[1;36m"; BOLD="\e[1;37m"; MAGENTA="\e[1;35m"; NC="\e[0m"
 
 # Автоматическое обнаружение ошибок
-# Эта команда остановит выполнение сценария после сбоя команды и будет отправлен код ошибки
-set -e
+set -e  # Эта команда остановит выполнение сценария после сбоя команды и будет отправлен код ошибки
+#set -e "\n${RED}Error: ${YELLOW}${*}${NC}"
 
-echo -e "${BLUE}:: ${NC}Обновим вашу систему (базу данных пакетов)"
-#echo "Обновим вашу систему (базу данных пакетов)"
-# Update your system (package database)
-echo -e "${YELLOW}:: ${NC}Загружаем базу данных пакетов независимо от того, есть ли какие-либо изменения в версиях или нет."
-#echo 'Загружаем базу данных пакетов независимо от того, есть ли какие-либо изменения в версиях или нет.'
-# Loading the package database regardless of whether there are any changes in the versions or not.
-pacman -Syyu  --noconfirm
-# Полный апдейт системы:
-#pacman -Syyuu  --noconfirm
-# Не рекомендуется использовать sudo pacman -Syyu всё время!
-# ============================================================================
-# Знакомьтесь, pacman - лучший пакетный менеджер в мире линукса!
-#pacman -Syy   - обновление баз пакмэна(как apt-get update в дэбианоподбных)
-#pacman -Syyu  - обновление баз плюс обновление пакетов
-# ----------------------------------------------------------------------------
-#pacman -Syy --noconfirm --noprogressbar --quiet
-# Синхронизация и обновление пакетов (-yy принудительно обновить даже если обновленные)
-# ============================================================================
+echo ""
+echo -e "${GREEN}=> ${NC}Для проверки интернета можно пропинговать какой-либо сервис" 
+ping -c2 archlinux.org
 
-echo -e "${BLUE}:: ${NC}Прописываем имя компьютера"
-#echo 'Прописываем имя компьютера'
-# Entering the computer name
-#echo $hostname > /etc/hostname
-echo Terminator > /etc/hostname
-#echo "имя_компьютера" > /etc/hostname
-#echo HostName > /etc/hostname
+echo -e "${CYAN}==> ${NC}Если пинг идёт едем дальше ... :)"
 
-echo -e "${BLUE}:: ${NC}Устанавливаем ваш часовой пояс"
-#echo 'Устанавливаем ваш часовой пояс'
-# Setting your time zone
-#rm -v /etc/localtime
-#ln -s /usr/share/zoneinfo/Europe/Moscow
-#ln -s /usr/share/zoneinfo/Europe/Moscow /etc/localtime
-#ls /usr/share/zoneinfo
-#ls /usr/share/zoneinfo/Europe
-ln -svf /usr/share/zoneinfo/Europe/Moscow /etc/localtime
-#timedatectl set-ntp true
-#ln -svf /usr/share/zoneinfo/$timezone /etc/localtime
-#ln -sf /usr/share/zoneinfo/Europe/Moscow /etc/localtime
-#ln -s /usr/share/zoneinfo/Europe/Moscow /etc/localtime
-#ln -svf /usr/share/zoneinfo/Asia/Yekaterinburg /etc/localtime
-#ln -svf /usr/share/zoneinfo/Europe/Kiev /etc/localtime
-#read -p "Ведите свою таймзону в формате Example/Example: " timezone
-
-echo -e "${BLUE}:: ${NC}Синхронизация системных часов" 
-#echo 'Синхронизация системных часов'
-# Syncing the system clock
-#echo 'Синхронизируем наши системные часы, включаем ntp, если надо сменим часовой пояс'
-# Sync our system clock, enable ntp, change the time zone if necessary
+echo ""
+echo -e "${BLUE}:: ${NC}Синхронизация системных часов"  
 timedatectl set-ntp true
 
-echo -e "${BLUE}:: ${NC}Проверим аппаратное время"
-#echo 'Проверим аппаратное время' 
-# Check the hardware time
-#hwclock
-hwclock --systohc
+echo -e "${BLUE}:: ${NC}Посмотрим статус службы NTP (NTP service)"
+timedatectl status
 
-echo -e "${BLUE}:: ${NC}Посмотрим текущее состояние аппаратных и программных часов"
-#echo 'Посмотрим текущее состояние аппаратных и программных часов'
-# Let's see the current state of the hardware and software clock
-timedatectl
+echo ""
+echo -e "${BLUE}:: ${NC}Обновим вашу систему (базу данных пакетов)"
+echo -e "${YELLOW}:: ${NC}Загружаем базу данных пакетов независимо от того, есть ли какие-либо изменения в версиях или нет."
+echo ""
+# pacman -Syy  # обновление баз пакмэна (как apt-get update в дэбианоподбных)
+# pacman -Syy --noconfirm --noprogressbar --quiet  # (-yy принудительно обновить даже если обновленные)
+pacman -Syyu --noconfirm  # обновление баз плюс обновление пакетов 
+pacman -Syyuu --noconfirm  # Полный апдейт системы 
+sleep 01
 
-echo -e "${BLUE}:: ${NC}Настроим состояние аппаратных и программных часов"
-#echo 'Настроим состояние аппаратных и программных часов'
-# Setting up the state of the hardware and software clock 
-#echo 'Вы можете пропустить этот шаг, если не уверены в правильности выбора'   
-hwclock --systohc --utc
-##hwclock --systohc --local
+echo ""
+echo -e "${BLUE}:: ${NC}Установим утилиты Logical Volume Manager 2 пакет (lvm2)"
+echo " Если Вы захотите задействовать (попробовать) LVM в действии "
+echo " LVM - Менеджер логических томов (англ. Logical Volume Manager). В отличие от разделов жёсткого диска, размеры логических томов можно легко менять. "
+pacman -S lvm2 --noconfirm  # Утилиты Logical Volume Manager 2 (https://sourceware.org/lvm2/)
 
+echo -e "${BLUE}:: ${NC}Прописываем имя компьютера"
+# echo $hostname > /etc/hostname
+echo Terminator > /etc/hostname
+# echo "имя_компьютера" > /etc/hostname
+
+echo ""
+echo -e "${GREEN}==> ${NC}Устанавливаем ваш часовой пояс (localtime)."
+echo " Всё завязано на времени, поэтому очень важно, чтобы часы шли правильно... :) "
+echo -e "${BLUE}:: ${BOLD}Для начала вот ваши данные по дате, времени и часовому поясу: ${NC}"
+date +'%d/%m/%Y  %H:%M:%S [%:z  %Z]'    # одновременно отображает дату и часовой пояс
+echo ""
+ln -svf /usr/share/zoneinfo/Europe/Moscow /etc/localtime
+echo ""
+echo " Создадим резервную копию текущего часового пояса: " 
+# cp /etc/localtime /etc/localtime.bak
+cp /etc/localtime /etc/localtime.backup
+echo ""
+echo " Запишем название часового пояса в /etc/timezone: "
+echo $timezone > /etc/timezone
+ls -lh /etc/localtime  # для просмотра символической ссылки, которая указывает на текущий часовой пояс, используемый в системе 
+
+echo ""
+echo -e "${GREEN}=> ${BOLD}Это ваш часовой пояс (timezone) - '$timezone' ${NC}"
+echo -e "${BLUE}:: ${BOLD}Ваши данные по дате, времени и часовому поясу: ${NC}"
+date +'%d/%m/%Y  %H:%M:%S [%:z  %Z]'    # одновременно отображает дату и часовой пояс
+
+echo -e "${BLUE}:: ${NC}Синхронизируем аппаратное время с системным"
+echo " Устанавливаются аппаратные часы из системных часов. "
+hwclock --systohc  # Эта команда предполагает, что аппаратные часы настроены в формате UTC.
+# hwclock --adjust  # Порой значение аппаратного времени может сбиваться - выровняем!
+# hwclock -w  # переведёт аппаратные часы
+
+echo ""
+echo -e "${GREEN}==> ${NC}Настроим состояние аппаратных и программных часов."   
+echo -e "${YELLOW}==> ${NC}Вы можете пропустить этот шаг, если сейчас ваш часовой пояс настроен правильно, или Вы не уверены в правильности выбора! "
+### Если ли надо раскомментируйте нужные вам значения ####
+### UTC ###
+#echo ""
+#echo " Вы выбрали hwclock --systohc --utc "
+#echo " UTC - часы дают универсальное время на нулевом часовом поясе "
+#hwclock --systohc --utc
+### Localtime ###
+#echo ""
+#echo " Вы выбрали hwclock --systohc --localtime "
+#echo " Localtime - часы идут по времени локального часового пояса "
+#hwclock --systohc --local
+
+echo ""
 echo -e "${BLUE}:: ${NC}Посмотрим обновление времени (если настройка не была пропущена)"
-#echo 'Посмотрим обновление времени (если настройка не была пропущена)'
-# See the time update (if the setting was not skipped)
 timedatectl show
-#timedatectl | grep Time
+# timedatectl | grep Time
 
+echo ""
 echo -e "${BLUE}:: ${NC}Изменяем имя хоста"
-#echo 'Изменяем имя хоста'
-# Changing the host name
-echo "127.0.0.1	localhost.(none)" > /etc/hosts
-echo "127.0.1.1	$hostname" >> /etc/hosts
-echo "::1	localhost ip6-localhost ip6-loopback" >> /etc/hosts
+echo "127.0.0.1 localhost.(none)" > /etc/hosts
+echo "127.0.1.1 $hostname" >> /etc/hosts
+echo "::1 localhost ip6-localhost ip6-loopback" >> /etc/hosts
 echo "ff02::1 ip6-allnodes" >> /etc/hosts
 echo "ff02::2 ip6-allrouters" >> /etc/hosts
-#echo "127.0.1.1 имя_компьютера" >> /etc/hosts
-# - Можно написать с Заглавной буквы.
+### echo "127.0.1.1 имя_компьютера" >> /etc/hosts
+### hostname - Можно написать с Заглавной буквы
 # Это дейсвие не обязательно! Мы можем это сделаем из установленной ситемы, если данные не пропишутся автоматом.
 
 echo -e "${BLUE}:: ${NC}Добавляем русскую локаль системы"
-#echo 'Добавляем русскую локаль системы'
-# Adding the system's Russian locale
 echo "en_US.UTF-8 UTF-8" > /etc/locale.gen
 echo "ru_RU.UTF-8 UTF-8" >> /etc/locale.gen 
-# Есть ещё команды по добавлению русскую локаль в систему:
-#echo -e "en_US.UTF-8 UTF-8\nru_RU.UTF-8 UTF-8" >> /etc/locale.gen
+### Есть ещё команды по добавлению русскую локаль в систему:
+# echo -e "en_US.UTF-8 UTF-8\nru_RU.UTF-8 UTF-8" >> /etc/locale.gen
 # Можно раскомментирвать нужные локали (и убирать #)
 #sed -i 's/#en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen
 #sed -i 's/#ru_RU.UTF-8 UTF-8/ru_RU.UTF-8 UTF-8/' /etc/locale.gen
 
 echo -e "${BLUE}:: ${NC}Обновим текущую локаль системы"
-#echo 'Обновим текущую локаль системы'
-# Update the current system locale
-locale-gen
-# Мы ввели locale-gen для генерации тех самых локалей.
+locale-gen  # Мы ввели locale-gen для генерации тех самых локалей.
 
 sleep 02
 echo -e "${BLUE}:: ${NC}Указываем язык системы"
-#echo 'Указываем язык системы'
-# Specify the system language
 echo 'LANG="ru_RU.UTF-8"' > /etc/locale.conf
 #echo 'LANG="en_US.UTF-8"' > /etc/locale.conf
-#export LANG=ru_RU.UTF-8
-#export LANG=en_US.UTF-8
-# Эта команда сама пропишет в файлике locale.conf нужные нам параметры.
+### Есть ещё команды : - Эта команда сама пропишет в файлике locale.conf нужные нам параметры
+# export LANG=ru_RU.UTF-8
+# export LANG=en_US.UTF-8
 
-echo -e "${BLUE}:: ${NC}Вписываем KEYMAP=ru FONT=cyr-sun16"
-#echo 'Вписываем KEYMAP=ru FONT=cyr-sun16'
-# Enter KEYMAP=ru FONT=cyr-sun16
+echo -e "${BLUE}:: ${NC}Вписываем KEYMAP=ru FONT=cyr-sun16 FONT=ter-v16n FONT=ter-v16b"
 echo 'KEYMAP=ru' >> /etc/vconsole.conf
+echo '#LOCALE=ru_RU.UTF-8' >> /etc/vconsole.conf
 echo 'FONT=cyr-sun16' >> /etc/vconsole.conf
+echo '#FONT=ter-v16n' >> /etc/vconsole.conf
+echo '#FONT=ter-v16b' >> /etc/vconsole.conf
+echo '#FONT=ter-u16b' >> /etc/vconsole.conf
 echo 'FONT_MAP=' >> /etc/vconsole.conf
-echo 'CONSOLEMAP' >> /etc/vconsole.conf
-echo 'COMPRESSION="lz4"' >> /etc/mkinitcpio.conf
+echo '#CONSOLEFONT="cyr-sun16' >> /etc/vconsole.conf
+echo 'CONSOLEMAP=' >> /etc/vconsole.conf
+echo '#TIMEZONE=Europe/Moscow' >> /etc/vconsole.conf
+echo '#HARDWARECLOCK=UTC' >> /etc/vconsole.conf
+echo '#HARDWARECLOCK=localtime' >> /etc/vconsole.conf
+echo '#USECOLOR=yes' >> /etc/vconsole.conf
+echo 'COMPRESSION="lz4"' >> /etc/mkinitcpio.conf 
+#echo 'COMPRESSION="xz"' >> /etc/mkinitcpio.conf
+echo "vboxdrv" > /etc/modules-load.d/virtualbox.conf
 
-echo -e "${BLUE}:: ${NC}Создадим загрузочный RAM диск (начальный RAM-диск)"
-#echo 'Создадим загрузочный RAM диск (начальный RAM-диск)'
-# Creating a bootable RAM disk (initial RAM disk)
-mkinitcpio -p linux-lts
-#mkinitcpio -p linux
-#mkinitcpio -P linux
-#mkinitcpio -p linux-zen
-#echo 'COMPRESSION="lz4"' >> /etc/mkinitcpio.conf
+clear
+echo ""
+echo -e "${BLUE}:: ${NC}Проверим корректность загрузки установленных микрокодов " 
+echo -e "${MAGENTA}=> ${NC}Если таковые (микрокод-ы: amd-ucode; intel-ucode) были установлены! "
+echo " Если микрокод был успешно загружен, Вы увидите несколько сообщений об этом "
+echo " Будьте внимательны! Вы можете пропустить это действие. "
+echo " Выполним проверку корректности загрузки установленных микрокодов "
+dmesg | grep microcode
+sleep 04
 
-#echo -e "${GREEN}==> ${NC}Создаём root пароль"
-#echo 'Создаём root пароль'
-# Creating a root password
-#passwd
-
-echo -e "${BLUE}:: ${NC}Устанавливаем загрузчик (grub)"
-#echo 'Устанавливаем загрузчик (grub)'
-# Install the boot loader (grub)
-pacman -Syy
-pacman -S grub --noconfirm 
-#pacman -S grub --noconfirm --noprogressbar --quiet  
-grub-install /dev/sda
-#grub-install --recheck /dev/sda
-#grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB
-
+echo ""
 echo -e "${GREEN}==> ${NC}Установить Микрокод для процессора INTEL_CPU, AMD_CPU?"
-#echo 'Установить Микрокод для процессора INTEL_CPU, AMD_CPU?'
-# Install the Microcode for the CPU INTEL_CPU, AMD_CPU?
-#echo 'Вы можете пропустить этот шаг, если не уверены в правильности выбора'
-# Если у Вас процессор Intel, то:
-#pacman -S intel-ucode
-pacman -S intel-ucode --noconfirm
-# Если у Вас процессор AMD, то:
-#pacman -S amd-ucode
-#pacman -S amd-ucode --noconfirm
+echo -e "${BLUE}:: ${BOLD}Обновление Microcode (matching CPU) ${NC}"
+echo " Производители процессоров выпускают обновления стабильности и безопасности 
+        для микрокода процессора "
+echo " Огласите весь список, пожалуйста! :) "
+echo " 1 - Для процессоров AMD установите пакет amd-ucode. "
+echo " 2 - Для процессоров Intel установите пакет intel-ucode. "
+echo " 3 - Если Arch находится на съемном носителе, Вы должны установить микрокод для обоих производителей процессоров. "
+echo " Для Arch Linux на съемном носителе добавьте оба файла initrd в настройки загрузчика. "
+echo " Их порядок не имеет значения, если они оба указаны до реального образа initramfs. "
+### Если ли надо раскомментируйте нужные вам значения ####
+### Для процессоров AMD ###
+echo ""
+echo " Устанавливаем uCode для процессоров - AMD "
+pacman -S amd-ucode --noconfirm  # Образ обновления микрокода для процессоров AMD
+echo " Установлены обновления стабильности и безопасности для микрокода процессора - AMD "
+echo " После завершения установки пакета программного обеспечения нужно перезагрузить компьютер "
+### Для процессоров INTEL ###
+echo ""  
+echo " Устанавливаем uCode для процессоров - INTEL "
+pacman -S intel-ucode --noconfirm  # Образ обновления микрокода для процессоров INTEL
+pacman -S iucode-tool --noconfirm  # Инструмент для управления пакетами микрокода Intel® IA-32 / X86-64
+echo " Установлены обновления стабильности и безопасности для микрокода процессора - INTEL "
+echo " После завершения установки пакета программного обеспечения нужно перезагрузить компьютер "
+### Для процессоров AMD и INTEL ###
+#echo ""  
+#echo " Устанавливаем uCode для процессоров - AMD и INTEL "
+#pacman -S amd-ucode intel-ucode --noconfirm  # Образ обновления микрокода для процессоров AMD и INTEL
+#pacman -S iucode-tool --noconfirm  # Инструмент для управления пакетами микрокода Intel® IA-32 / X86-64
+#echo " Установлены обновления стабильности и безопасности для микрокода процессоров - AMD и INTEL "
+#echo " После завершения установки пакета программного обеспечения нужно перезагрузить компьютер "
+# echo ""
+# echo -e "${BLUE}:: ${NC}Обновляем grub.cfg (Сгенерируем grub.cfg)"
+# grub-mkconfig -o /boot/grub/grub.cfg   # создаём конфигурационный файл 
+sleep 02
 
+clear
+echo ""
+echo -e "${GREEN}==> ${NC}Создадим загрузочный RAM диск (начальный RAM-диск)"
+echo -e "${MAGENTA}:: ${BOLD}Arch Linux имеет mkinitcpio - это Bash скрипт используемый для создания начального загрузочного диска системы. ${NC}"
+echo -e "${YELLOW}:: ${NC}Чтобы избежать ошибки при создании RAM (mkinitcpio -p), вспомните какое именно ядро Вы выбрали ранее. И загрузочный RAM диск (начальный RAM-диск) будет создан именно с таким же ядром, иначе 'ВАЙ ВАЙ'!"
+echo " Будьте внимательными! Здесь представлены варианты создания RAM-диска, с конкретными ядрами. "
+### Если ли надо раскомментируйте нужные вам значения ####
+### для ядра LINUX ###    
+#echo ""
+#echo " Создадим загрузочный RAM диск - для ядра (linux) "
+#mkinitcpio -p linux   # mkinitcpio -P linux  - при ошибке! 
+### для ядра LINUX_HARDENED ###
+#echo ""
+#echo " Создадим загрузочный RAM диск - для ядра (linux-hardened) "
+#mkinitcpio -p linux-hardened 
+### для ядра LINUX_LTS ###
+echo ""
+echo " Создадим загрузочный RAM диск - для ядра (linux-lts) "
+mkinitcpio -p linux-lts
+### для ядра LINUX_ZEN ### 
+#echo ""
+#echo " Создадим загрузочный RAM диск - для ядра (linux-zen) " 
+#mkinitcpio -p linux-zen 
+# echo 'COMPRESSION="lz4"' >> /etc/mkinitcpio.conf
+
+clear
+echo ""
+echo -e "${GREEN}==> ${NC}Установить (bootloader) загрузчик GRUB(legacy)?"
+echo -e "${BLUE}:: ${NC}Установка GRUB2 - полноценной BIOS-версии в Arch Linux"
+echo " Файлы загрузчика будут установлены в каталог /boot. Код GRUB (boot.img) будет встроен в начальный сектор, а загрузочный образ core.img в просвет перед первым разделом MBR, или BIOS boot partition для GPT. "
+echo " Если нужно установить BIOS-версию загрузчика из-под системы, загруженной в режиме UEFI, тогда раскомментируйте вариант (GRUB --target=i386-pc) " 
+echo " В этом варианте требуется принудительно задать программе установки нужную сборку GRUB - "
+echo -e "${CYAN} Пример: ${NC}grub-install --target=i386-pc /dev/sdX  (sda; sdb; sdc; sdd)" 
+echo -e "${YELLOW}:: ${BOLD}В этих вариантах большого отличия нет, кроме команд выполнения.${NC}"
+echo -e "${YELLOW}=> Примечание: ${BOLD}Если вы используете LVM для вашего /boot, вы можете установить GRUB на нескольких физических дисках. ${NC}" 
+echo ""
+echo " Установим GRUB(legacy) пакет (grub) "
+echo ""    
+pacman -Syy  # (-yy принудительно обновить даже если обновленные)
+pacman -S --noconfirm --needed grub
+#pacman -S grub --noconfirm  # Файлы и утилиты для установки GRUB2 содержатся в пакете grub
+uname -rm
+lsblk -f
+### Если ли надо раскомментируйте нужные вам значения ####
+### GRUB(legacy) ###
+echo ""
+echo " Укажем диск куда установить GRUB (sda/sdb например sda или sdb) "
+grub-install /dev/sda
+# grub-install /dev/$x_cfd  # Записываем загрузчик в MBR (Master Boot Record) нашего внутреннего накопителя (sda; sdb; sdc; sdd)
+# grub-install --recheck /dev/sda
+# grub-install --recheck /dev/$x_cfd     # Если Вы получили сообщение об ошибке
+# grub-install --boot-directory=/mnt/boot /dev/$x_cfd  # установить файлы загрузчика в другой каталог
+# grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB
+### GRUB --target=i386-pc ###
+#echo ""
+#echo " Укажем диск куда установить GRUB (sda/sdb например sda или sdb) "
+# Если нужно установить BIOS-версию загрузчика из-под системы, загруженной в режиме UEFI
+#grub-install --target=i386-pc /dev/$x_cfd  # Записываем загрузчик в MBR (Master Boot Record) нашего внутреннего накопителя (sda; sdb; sdc; sdd)
+# grub-install --target=i386-pc --recheck /dev/$x_cfd   # Если Вы получили сообщение об ошибке
+echo " Загрузчик GRUB установлен на выбранный вами диск (раздел). "
+
+echo ""
+echo -e "${GREEN}==> ${NC}Если на компьютере будут несколько ОС (dual_boot), то это также ставим."
+echo -e "${CYAN}:: ${NC}Это утилиты для обнаружения других ОС на наборе дисков, для доступа к дискам MS-DOS, а также библиотека, позволяющая реализовать файловую систему в программе пользовательского пространства."
+echo -e "${YELLOW}=> ${NC}Для двойной загрузки Arch Linux с другой системой Linux, Windows, установить другой Linux без загрузчика, вам необходимо установить утилиту os-prober, необходимую для обнаружения других операционных систем."
+echo " И обновить загрузчик Arch Linux, чтобы иметь возможность загружать новую ОС."
+echo ""    
+echo " Устанавливаем программы (пакеты) для определения другой-(их) OS "    
+pacman -S os-prober mtools fuse --noconfirm  #grub-customizer  # Утилита для обнаружения других ОС на наборе дисков; Сборник утилит для доступа к дискам MS-DOS; 
+echo " Программы (пакеты) установлены " 
+
+echo ""
 echo -e "${BLUE}:: ${NC}Обновляем grub.cfg (Сгенерируем grub.cfg)"
-#echo 'Обновляем grub.cfg (Сгенерируем grub.cfg)'
-# Updating grub.cfg (Generating grub.cfg)
+echo " Настраиваем и конфигурируем grub "
 grub-mkconfig -o /boot/grub/grub.cfg
 
-echo -e "${YELLOW}==> ${NC}Если в системе будут несколько ОС, то это также ставим"
-#echo 'Если в системе будут несколько ОС, то это также ставим'
-# If the system will have several operating systems, then this is also set
-#pacman -S os-prober mtools fuse
-pacman -S os-prober mtools fuse --noconfirm
+echo ""
+echo -e "${GREEN}==> ${NC}Установить программы (пакеты) для Wi-fi?"
+echo -e "${CYAN}:: ${NC}Если у Вас есть Wi-fi модуль и Вы сейчас его не используете, но будете использовать в будущем."
+echo " Или Вы подключены через Wi-fi, то эти (пакеты) обязательно установите. "
+echo ""    
+echo " Устанавливаем программы (пакеты) для Wi-fi "   
+pacman -S dialog wpa_supplicant iw wireless_tools net-tools --noconfirm 
+echo " Программы (пакеты) для Wi-fi установлены "
+sleep 01
 
-echo -e "${BLUE}:: ${NC}Ставим программу для Wi-fi"
-#echo 'Ставим программу для Wi-fi'
-# Install the program for Wi-fi
-pacman -S dialog wpa_supplicant iw wireless_tools net-tools --noconfirm
+clear
+echo ""
+echo -e "${GREEN}==> ${NC}Добавляем пользователя и прописываем права, (присвоение) групп. "
+echo " Давайте рассмотрим варианты (действия), которые будут выполняться. "
+echo " (adm + audio,games,lp,disk,network,optical,power,scanner,storage,video,rfkill,sys,wheel), то вариант - "2" "
+echo -e "${CYAN}:: ${BOLD}Далее, пользователь из установленной системы добавляет себя любимого(ую), в нужную группу /etc/group.${NC}"
+echo -e "${YELLOW}=> Вы НЕ можете пропустить этот шаг (пункт)! ${NC}"
+useradd -m -g users -G adm,audio,games,lp,disk,network,optical,power,scanner,storage,video,rfkill,sys,wheel -s /bin/bash alex
+# useradd -m -g users -G audio,games,lp,disk,network,optical,power,scanner,storage,video,rfkill,sys,wheel -s /bin/bash $username
+# useradd -m -g users -G wheel -s /bin/bash $username
+echo ""
+echo " Пользователь успешно добавлен в группы и права пользователя "
 
-echo -e "${BLUE}:: ${NC}Добавляем пользователя и прописываем права, группы"
-#echo 'Добавляем пользователя и прописываем права, группы'
-# Adding a user and prescribing rights, groups
-#useradd -m -g users -G wheel -s /bin/bash $username
-useradd -m -g users -G adm,audio,games,lp,network,optical,power,scanner,storage,video,rfkill,sys,wheel -s /bin/bash alex
+echo ""
+echo -e "${BLUE}:: ${NC}Устанавливаем (пакет) SUDO."
+echo -e "${CYAN}=> ${NC}Пакет sudo позволяет системному администратору предоставить определенным пользователям (или группам пользователей) возможность запускать некоторые (или все) команды в роли пользователя root или в роли другого пользователя, указываемого в командах или в аргументах."
+pacman -S --noconfirm --needed sudo
+#pacman -S sudo --noconfirm  # Предоставить определенным пользователям возможность запускать некоторые команды от имени пользователя root  - пока присутствует в pkglist.x86_64
 
-#echo -e "${GREEN}==> ${NC}Устанавливаем пароль пользователя"
-#echo 'Устанавливаем пароль пользователя'
-# Setting the user password
-# passwd $username 
-#passwd alex
-
-echo -e "${BLUE}:: ${NC}Устанавливаем SUDO"
-#echo 'Устанавливаем SUDO'
-# Installing SUDO
-pacman -S sudo --noconfirm
-#echo '%wheel ALL=(ALL) ALL' >> /etc/sudoers
+echo ""
+echo -e "${GREEN}==> ${NC}Настраиваем запрос пароля "Пользователя" при выполнении команды "sudo". "
+echo " Чтобы начать использовать sudo как непривилегированный пользователь, его нужно настроить должным образом. "
+echo " Огласите весь список, пожалуйста! :) "
+echo " 1 - Пользователям (членам) группы wheel доступ к sudo С запросом пароля "
+echo " 2 - Пользователям (членам) группы wheel доступ к sudo (NOPASSWD) БЕЗ запроса пароля "
+echo -e "${CYAN}:: ${NC}На данном этапе порекомендую вариант - (sudo С запросом пароля) "
+### Если ли надо раскомментируйте нужные вам значения #### 
+### С запросом пароля ###
 sed -i 's/# %wheel ALL=(ALL) ALL/%wheel ALL=(ALL) ALL/' /etc/sudoers
+echo ""
+echo " Sudo с запросом пароля выполнено "
+### БЕЗ запроса пароля ###
 #sed -i 's/# %wheel ALL=(ALL) NOPASSWD: ALL/%wheel ALL=(ALL) NOPASSWD: ALL/' /etc/sudoers
+#echo ""
+#echo " Sudo nopassword (БЕЗ запроса пароля) добавлено  "
 
-echo -e "${BLUE}:: ${NC}Раскомментируем репозиторий multilib Для работы 32-битных приложений в 64-битной системе"
-#echo 'Раскомментируем репозиторий multilib Для работы 32-битных приложений в 64-битной системе.'
-# Uncomment the multilib repository For running 32-bit applications on a 64-bit system
-#echo 'Color = /etc/pacman.d/mirrorlist' >> /etc/pacman.conf
+echo ""
+echo -e "${GREEN}==> ${NC}Добавим репозиторий "Multilib" - Для работы 32-битных приложений в 64-битной системе?"
+echo -e "${BLUE}:: ${NC}Раскомментируем репозиторий [multilib]"
+echo -e "${CYAN}:: ${BOLD}"Multilib" репозиторий может пригодится позже при установке OpenGL (multilib) для драйверов видеокарт, а также для различных библиотек необходимого вам софта. ${NC}"
+echo " Чтобы исключить в дальнейшем ошибки в работе системы, рекомендую (добавить Multilib репозиторий). "
+### Multilib репозиторий ###
 sed -i 's/#Color/Color/' /etc/pacman.conf
+#sed -i '/#Color/ s/^#//' /etc/pacman.conf
+sed -i '/^Co/ aILoveCandy' /etc/pacman.conf
 sed -i "/\[multilib\]/,/Include/"'s/^#//' /etc/pacman.conf
 #echo '[multilib]' >> /etc/pacman.conf
 #echo 'Include = /etc/pacman.d/mirrorlist' >> /etc/pacman.conf
-pacman -Syy
+echo ""
+echo " Multilib репозиторий добавлен (раскомментирован) "
+
+echo ""
+echo -e "${BLUE}:: ${NC}Обновим базы данных пакетов"  
+pacman -Sy   #--noconfirm --noprogressbar --quiet
 #pacman -Syy --noconfirm --noprogressbar --quiet
-# Синхронизация и обновление пакетов (-yy принудительно обновить даже если обновленные)
-echo 'Multilib репозиторий добавлен'
 
-echo -e "${BLUE}:: ${NC}Ставим иксы и драйвера"
-#echo 'Ставим иксы и драйвера'
-# Put the x's and drivers
-pacman -S xorg-server xorg-drivers xorg-xinit   # virtualbox-guest-utils --noconfirm 
-#pacman -S xorg-server xorg-drivers xorg-xinit mesa xorg-apps xorg-twm xterm xorg-xclock xf86-input-synaptics virtualbox-guest-utils --noconfirm  #linux-headers
-#pacman -S xorg-server xorg-drivers xorg-apps xorg-xinit mesa xorg-twm xterm xorg-xclock xf86-input-synaptics virtualbox-guest-utils  #linux-headers
-# ============================================================================
-
-#echo "Какая видеокарта?"
-#read -p "1 - nvidia, 2 - Amd, 3 - intel: " videocard
-#if [[ $videocard == 1 ]]; then
-#  pacman -S nvidia lib32-nvidia-utils nvidia-settings --noconfirm
-#  nvidia-xconfig
-#elif [[ $videocard == 2 ]]; then
-#  pacman -S lib32-mesa xf86-video-amdgpu mesa-vdpau lib32-mesa-vdpau vulkan-radeon lib32-vulkan-radeon libva-mesa-driver lib32-libva-mesa-driver --noconfirm
-#elif [[ $videocard == 3 ]]; then
-#  pacman -S lib32-mesa vulkan-intel libva-intel-driver lib32-libva-intel-driver lib32-vulkan-intel --noconfirm
-#fi
-
-#echo 'Ставим драйвера видеокарты intel'
-#sudo pacman -S xf86-video-intel vdpauinfo libva-utils libva-intel-driver libva lib32-libva-intel-driver libvdpau libvdpau-va-gl lib32-libvdpau --noconfirm
-
-#-------------------------------------------------------------------------------
-# Видео драйверы, без них тоже ничего работать не будет вот список:
-# xf86-video-vesa - как я понял, это универсальный драйвер для ксорга (xorg), должен работать при любых обстоятельствах, но вы знаете как, только для того чтобы поставить подходящий.
-# xf86-video-ati - свободный ATI
-# xf86-video-intel - свободный Intel
-# xf86-video-nouveau - свободный Nvidia
-# Существуют также проприетарные драйверы, то есть разработаны самой Nvidia или AMD, но они часто не поддерживают новое ядро, или ещё какие-нибудь траблы.
-# virtualbox-guest-utils - для виртуалбокса, активируем коммандой:
-#systemctl enable vboxservice - вводим дважды пароль
-# ============================================================================
+clear
+echo ""
+echo -e "${GREEN}==> ${NC}Устанавливаем X.Org Server (иксы) и драйвера."
+echo -e "${YELLOW}:: ${BOLD}X.Org Foundation Open Source Public Implementation of X11 - это свободная открытая реализация оконной системы X11.${NC}"   
+echo " Xorg очень популярен среди пользователей Linux, что привело к тому, что большинство приложений с графическим интерфейсом используют X11, из-за этого Xorg доступен в большинстве дистрибутивов. "
+echo -e "${BLUE}:: ${NC}Сперва определим вашу видеокарту!"
+echo -e "${MAGENTA}=> ${BOLD}Вот данные по вашей видеокарте (даже, если Вы работаете на VM): ${NC}"
+#echo ""
+lspci | grep -e VGA -e 3D
+#lspci | grep -E "VGA|3D"   # узнаем производителя и название видеокарты
+lspci -nn | grep VGA
+#lspci | grep VGA        # узнаем ID шины 
+# После того как вы узнаете PCI-порт видеокарты, например 1с:00.0, можно получить о ней более подробную информацию:
+# sudo lspci -v -s 1с:00.0
+echo ""
+echo -e "${RED}==> ${NC}Куда Вы устанавливаете Arch Linux на PC, или на Виртуальную машину (VBox;VMWare)?"
+echo " Для того, чтобы ускорение видео работало, и часто для того, чтобы разблокировать все режимы, в которых может работать GPU (графический процессор), требуется правильный видеодрайвер. "
+echo -e "${MAGENTA}=> ${BOLD}Есть три варианта установки Xorg (иксов): ${NC}"
+echo " Давайте проанализируем действия, которые будут выполняться. "
+echo " 1 - Если Вы устанавливаете Arch Linux на PC "
+echo " 2 - Если Вы устанавливаете Arch Linux на Виртуальную машину (VBox;VMWare) "
+echo " 3(0) - Вы можете пропустить установку Xorg (иксов), если используете VDS (Virtual Dedicated Server), или VPS (Virtual Private Server), тогда выбирайте вариант - "0" "
+### Если ли надо раскомментируйте нужные вам значения ####
+pacman -Syy --noconfirm --noprogressbar --quiet
+### Устанавливаем на PC или (ноутбук) ###
+echo " Выберите свой вариант (от 1-...), или по умолчанию нажмите кнопку 'Ввод' ("Enter") "
+echo " Далее после своего сделанного выбора, нажмите "Y или n" для подтверждения установки. "
+pacman -S xorg-server xorg-drivers xorg-xinit
+# pacman -S xorg-server xorg-drivers xorg-xinit --noconfirm 
+### Устанавливаем на VirtualBox(VMWare) ###
+#echo " Выберите свой вариант (от 1-...), или по умолчанию нажмите кнопку 'Ввод' ("Enter") "
+#echo " Далее после своего сделанного выбора, нажмите "Y или n" для подтверждения установки. "
+#pacman -S xorg-server xorg-drivers xorg-xinit virtualbox-guest-utils 
+# pacman -S xorg-server xorg-drivers xorg-xinit virtualbox-guest-utils --noconfirm
+### Дополнительно : ###
+# pacman -S mesa xorg-apps xorg-twm xterm xorg-xclock xf86-input-synaptics --noconfirm  
 
 #echo -e "${BLUE}:: ${NC}Установка гостевых дополнений vbox"
-#echo 'Установка гостевых дополнений vbox'
-#Install the Guest Additions vbox
 #modprobe -a vboxguest vboxsf vboxvideo
 #cp /etc/X11/xinit/xinitrc /home/$username/.xinitrc
 #echo -e "\nvboxguest\nvboxsf\nvboxvideo" >> /home/$username/.xinitrc
 #sed -i 's/#!\/bin\/sh/#!\/bin\/sh\n\/usr\/bin\/VBoxClient-all/' /home/$username/.xinitrc
+sleep 01
 
-# ------------------------------------------------------------------------
-
-echo -e "${BLUE}:: ${NC}Ставим DE (от англ. desktop environment — среда рабочего стола) Xfce"
-#echo 'Ставим DE (от англ. desktop environment — среда рабочего стола) Xfce'
-# Put DE (from the English desktop environment-desktop environment) Xfce
+clear
+echo ""
+echo -e "${GREEN}==> ${NC}Ставим DE (графическое окружение) среда рабочего стола."
+echo " DE (от англ. desktop environment - среда рабочего стола), это обёртка для ядра Linux, предоставляющая основные функции дистрибутива в удобном для конечного пользователя наглядном виде (окна, кнопочки, стрелочки и пр.). "
+### Xfce воплощает традиционную философию UNIX ###
+echo ""    
+echo " Установка Xfce + Goodies for Xfce "     
 pacman -S xfce4 xfce4-goodies --noconfirm
-#pacman -S xorg-xinit --noconfirm
-cp /etc/X11/xinit/xinitrc /home/alex/.xinitrc
-chown $username:users /home/alex/.xinitrc
-chmod +x /home/alex/.xinitrc
-sed -i 52,55d /home/alex/.xinitrc
-echo "exec startxfce4 " >> /home/alex/.xinitrc
-mkdir /etc/systemd/system/getty@tty1.service.d/
-echo " [Service] " > /etc/systemd/system/getty@tty1.service.d/override.conf
-echo " ExecStart=" >> /etc/systemd/system/getty@tty1.service.d/override.conf
-echo   ExecStart=-/usr/bin/agetty --autologin alex --noclear %I 38400 linux >> /etc/systemd/system/getty@tty1.service.d/override.conf
-echo ' [[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && exec startx ' >> /etc/profile
+echo ""
 echo " DE (среда рабочего стола) Xfce успешно установлено "
 
-echo -e "${BLUE}:: ${NC}Ставим DM (Display manager) менеджера входа"
-#echo 'Ставим DM (Display manager) менеджера входа'
-# Install the DM (Display manager) of the login Manager
-pacman -S lightdm lightdm-gtk-greeter lightdm-gtk-greeter-settings --noconfir
+echo ""
+echo -e "${GREEN}==> ${NC}Настройка автовхода без DM (Display manager) менеджера входа в Xfce"
+echo -e "${MAGENTA}=> ${BOLD}Файл ~/.xinitrc представляет собой шелл-скрипт передаваемый xinit посредством команды startx. ${NC}"
+echo -e "${MAGENTA}:: ${NC}Он используется для запуска Среды рабочего стола, Оконного менеджера и других программ запускаемых с X сервером (например запуска демонов, и установки переменных окружений."
+echo -e "${CYAN}:: ${NC}Программа xinit запускает Xorg сервер и работает в качестве программы первого клиента на системах не использующих Экранный менеджер."
+### Автовход без DM (Display manager) ###
+echo ""  
+  echo " Действия по настройке автовхода без DM (Display manager) "  
+  echo " Поскольку реализация автозагрузки окружения реализована через startx - (иксы), то если Вы установили X.Org Server возможно пакет (xorg-xinit) - уже установлен " 
+pacman -S --noconfirm --needed xorg-xinit       
+# pacman -S xorg-xinit --noconfirm   # Программа инициализации X.Org
+# Если файл .xinitrc не существует, то копируем его из /etc/X11/xinit/xinitrc
+# в папку пользователя cp /etc/X11/xinit/xinitrc ~/.xinitrc
+cp /etc/X11/xinit/xinitrc /home/$username/.xinitrc # копируем файл .xinitrc в каталог пользователя
+chown $username:users /home/$username/.xinitrc  # даем доступ пользователю к файлу
+chmod +x /home/$username/.xinitrc   # получаем права на исполнения скрипта
+sed -i 52,55d /home/$username/.xinitrc  # редактируем файл -> и прописываем команду на запуск
+# # Данные блоки нужны для того, чтобы StartX автоматически запускал нужное окружение, соответственно в секции Window Manager of your choice раскомментируйте нужную сессию
+echo "exec startxfce4 " >> /home/$username/.xinitrc  
+mkdir /etc/systemd/system/getty@tty1.service.d/  # создаём папку
+echo " [Service] " > /etc/systemd/system/getty@tty1.service.d/override.conf
+echo " ExecStart=" >> /etc/systemd/system/getty@tty1.service.d/override.conf
+echo   ExecStart=-/usr/bin/agetty --autologin $username --noclear %I 38400 linux >> /etc/systemd/system/getty@tty1.service.d/override.conf
+# Делаем автоматический запуск Иксов в нужной виртуальной консоли после залогинивания нашего пользователя
+echo ' [[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && exec startx ' >> /etc/profile 
+echo ""
+echo " Действия по настройке автовхода без DM (Display manager) выполнены "
+
+clear 
+echo ""
+echo -e "${GREEN}==> ${NC}Ставим DM (Display manager) менеджера входа."
+echo " DM - Менеджер дисплеев, или Логин менеджер, обычно представляет собой графический пользовательский интерфейс, который отображается в конце процесса загрузки вместо оболочки по умолчанию. "
+### LightDM ###
+  echo ""  
+  echo " Установка LightDM (менеджера входа) "
+pacman -S lightdm lightdm-gtk-greeter lightdm-gtk-greeter-settings --noconfirm
+pacman -S light-locker --noconfirm  # Простой шкафчик сессий для LightDM
 echo " Установка DM (менеджера входа) завершена "
-
-echo -e "${BLUE}:: ${NC}Ставим сетевые утилиты Networkmanager"
-#echo 'Ставим сетевые утилиты "Networkmanager"'
-# Put the network utilities "Networkmanager"
-pacman -S networkmanager networkmanager-openvpn network-manager-applet ppp --noconfirm
-# networkmanager - сервис для работы интернета. Вместе с собой устанавливает программы для настройки.
-# Если вам нужна поддержка OpenVPN в Network Manager, то выполните команду:
-#sudo pacman -S networkmanager-openvpn
-
-echo -e "${BLUE}:: ${NC}Ставим шрифты"
-#echo 'Ставим шрифты'
-# Put the fonts
-pacman -S ttf-liberation ttf-dejavu opendesktop-fonts ttf-arphic-ukai ttf-arphic-uming ttf-hanazono --noconfirm 
-pacman -S ttf-fireflysung ttf-sazanami --noconfirm  #китайские иероглифы 
-
-echo -e "${BLUE}:: ${NC}Подключаем автозагрузку менеджера входа и интернет"
-#echo 'Подключаем автозагрузку менеджера входа и интернет'
-# Enabling auto-upload of the login Manager and the Internet
-systemctl enable lightdm.service
+echo ""
+echo " Подключаем автозагрузку менеджера входа "
+#systemctl enable lightdm.service
+systemctl enable lightdm.service -f
 sleep 1 
-systemctl enable NetworkManager
-systemctl enable dhcpcd
 
-#echo -e "${GREEN}==> ${NC}Добавим службу Dhcpcd в автозагрузку (для проводного интернета)?"
-#echo 'Добавим службу Dhcpcd в автозагрузку (для проводного интернета)?'
-# Adding the Dhcpcd service to auto-upload (for wired Internet)?
-#echo -e "${YELLOW}==> ${NC}Вы можете пропустить этот шаг, если не уверены в правильности выбора"
-#echo 'Вы можете пропустить этот шаг, если не уверены в правильности выбора'
-# You can skip this step if you are not sure of the correct choice
-#read -p "1 - Включить dhcpcd, 0 - Нет: " x_dhcpcd
-#if [[ $x_dhcpcd == 1 ]]; then
-#systemctl enable dhcpcd
-#echo " Dhcpcd успешно добавлен в автозагрузку "    
-#elif [[ $x_dhcpcd == 0 ]]; then
-#  echo 'Dhcpcd не включен в автозагрузку, при необходиости это можно будет сделать уже в установленной системе'
-#fi
+clear
+echo ""
+echo -e "${GREEN}==> ${NC}Установить сетевые утилиты Networkmanager?"
+echo -e "${BLUE}:: ${NC}'Networkmanager' - сервис для работы интернета."
+echo " NetworkManager можно установить с пакетом networkmanager, который содержит демон, интерфейс командной строки (nmcli) и интерфейс на основе curses (nmtui). Вместе с собой устанавливает программы (пакеты) для настройки сети. "
+echo -e "${CYAN}=> ${NC}После запуска демона NetworkManager он автоматически подключается к любым доступным системным соединениям, которые уже были настроены. Любые пользовательские подключения или ненастроенные подключения потребуют nmcli или апплета для настройки и подключения."
+echo -e "${CYAN}=> ${NC}Поддержка OpenVPN в Network Manager также внесена в список устанавливаемых программ (пакетов)."
+echo ""
+echo " Ставим сетевые утилиты Networkmanager "    
+pacman -S networkmanager networkmanager-openvpn network-manager-applet ppp --noconfirm
+#pacman -Sy networkmanager networkmanager-openvpn network-manager-applet ppp --noconfirm
+echo ""
+echo -e "${BLUE}:: ${NC}Подключаем Networkmanager в автозагрузку" 
+#systemctl enable NetworkManager
+systemctl enable NetworkManager.service
+echo " NetworkManager успешно добавлен в автозагрузку "
+sleep 02
 
-echo -e "${BLUE}:: ${NC}Монтировании разделов NTFS и создание ссылок"
-#echo 'Монтировании разделов NTFS и создание ссылок'
-# NTFS support (optional)
-sudo pacman -S ntfs-3g --noconfirm
+clear
+echo ""
+echo -e "${GREEN}==> ${NC}Добавим службу Dhcpcd в автозагрузку (для проводного интернета)?"
+echo " Добавим dhcpcd в автозагрузку (для проводного интернета, который получает настройки от роутера). "
+echo -e "${CYAN}:: ${NC}Dhcpcd - свободная реализация клиента DHCP и DHCPv6. Пакет dhcpcd является частью группы base, поэтому, скорее всего он уже установлен в вашей системе."
+echo " Если необходимо добавить службу Dhcpcd в автозагрузку это можно сделать уже в установленной системе Arch'a "
+echo ""    
+#systemctl enable dhcpcd   # для активации проводных соединений
+systemctl enable dhcpcd.service
+echo " Dhcpcd успешно добавлен в автозагрузку "
 
-echo -e "${BLUE}:: ${NC}Создаём нужные директории"
-#echo 'Создаём нужные директории'
-# Creating the necessary directories
-sudo pacman -S xdg-user-dirs --noconfirm
-xdg-user-dirs-update 
+echo ""
+echo -e "${BLUE}:: ${NC}Ставим шрифты"  # https://www.archlinux.org/packages/
+pacman -S ttf-dejavu --noconfirm  # Семейство шрифтов на основе Bitstream Vera Fonts с более широким набором символов
+pacman -S ttf-liberation --noconfirm  # Шрифты Red Hats Liberation
+pacman -S ttf-anonymous-pro --noconfirm  # Семейство из четырех шрифтов фиксированной ширины, разработанных специально с учетом кодирования
+pacman -S terminus-font --noconfirm  # Моноширинный растровый шрифт (для X11 и консоли)
 
+echo ""
+echo -e "${BLUE}:: ${NC}Монтирование разделов NTFS и создание ссылок" 
+pacman -S ntfs-3g --noconfirm  # Драйвер и утилиты файловой системы NTFS; "NTFS file support (Windows Drives)"
+
+echo ""
 echo -e "${BLUE}:: ${NC}Установка базовых программ и пакетов"
-#echo 'Установка базовых программ и пакетов'
-# Installing basic programs and packages
-sudo pacman -S wget --noconfirm
+echo -e " Установка базовых программ (пакетов): wget, curl, git "
+pacman -S wget git --noconfirm  #curl  - пока присутствует в pkglist.x86_64
+
+echo ""
+echo -e "${GREEN}==> ${NC}Установка ZSH (bourne shell) командной оболочки"
+echo -e "${CYAN}:: ${NC}Z shell, zsh - является мощной, одной из современных командных оболочек, которая работает как в интерактивном режиме, так и в качестве интерпретатора языка сценариев (скриптовый интерпретатор)."
+echo " Он совместим с bash (не по умолчанию, только в режиме emulate sh), но имеет преимущества, такие как улучшенное завершение и подстановка. "
+echo " Будьте внимательны! Процесс установки, был прописан полностью автоматическим. В данной опции выбор всегда остаётся за вами. "
+echo -e "${MAGENTA}=> ${BOLD}Вот какая оболочка (shell) используется в данный момент: ${NC}"
+echo $SHELL
+echo "" 
+echo " Установка ZSH (shell) оболочки "
+pacman -S zsh zsh-syntax-highlighting zsh-autosuggestions grml-zsh-config --noconfirm
+pacman -S zsh-completions zsh-history-substring-search  --noconfirm  
+echo 'source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh' >> /etc/zsh/zshrc
+echo 'source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh' >> /etc/zsh/zshrc
+#echo 'prompt adam2' >> /etc/zsh/zshrc
+echo 'prompt fire' >> /etc/zsh/zshrc
+
+echo ""
+echo -e "${BLUE}:: ${NC}Сменим командную оболочку пользователя с Bash на ZSH ?"
+echo -e "${YELLOW}=> Примечание: ${BOLD}Если вы пока не хотите использовать ZSH (shell) оболочку, то команды выполнения нужно закомментировать!${NC}"
+echo " Будьте внимательны! В данной опции выбор всегда остаётся за вами. "
+echo "" 
+chsh -s /bin/zsh
+chsh -s /bin/zsh $username
+echo ""
+echo " Важно! При первом запуске консоли (терминала) - нажмите "0" "
+echo " Пользовательская оболочка ИЗМЕНЕНА (сразу будет), с BASH на на ZSH "
+
+echo ""
+echo -e "${GREEN}==> ${NC}Создаём папки в директории пользователя (Downloads, Music, Pictures, Videos, Documents)."
+echo -e "${BLUE}:: ${NC}Создание полного набора локализованных пользовательских каталогов по умолчанию (Загрузки, Шаблоны, Общедоступные, Документы, Музыка, Изображения, Видео) в пределах "HOME" каталога."
+echo -e "${CYAN}:: ${NC}По умолчанию в системе Arch Linux в каталоге "HOME" НЕ создаются папки (Загрузки, Шаблоны, Общедоступные, Документы, Музыка, Изображения, Видео), кроме папки Рабочий стол (Desktop)."
+echo ""  
+echo " Создание пользовательских каталогов по умолчанию "     
+pacman -S xdg-user-dirs --noconfirm  # Управляйте пользовательскими каталогами, такими как ~ / Desktop и ~ / Music
+# pacman -S xdg-user-dirs-gtk --noconfirm  # Создаёт каталоги пользователей и просит их переместить
+xdg-user-dirs-update 
+# xdg-user-dirs-gtk-update  # Обновить закладки в thunar (левое меню)
+echo "" 
+echo " Создание каталогов успешно выполнено "
 
 #read -p "Введите допольнительные пакеты которые вы хотите установить: " packages 
 #pacman -S $packages --noconfirm
-
-# =======================================================================
 
 #exit
 
 EOF
 
+##########################
 arch-chroot /mnt /bin/bash  /opt/install.sh
 
-###************************************************
-
-echo -e "${GREEN}==> ${NC}Создаём root пароль"
-#echo 'Создаём root пароль'
-# Creating a root password
+echo ""
+echo -e "${GREEN}==> ${NC}Создаём root пароль (Root Password)"
+echo " Пароль должен содержать от 6 до 15 символов, включающих цифры (1-0) и знаки (!'':[@]),     
+        и латинские буквы разного регистра! "
+echo -e "${MAGENTA}=> ${BOLD}По умолчанию, на большинстве систем Linux в консоле не показывается введенный пароль. 
+Это сделано из соображений безопасности, чтобы никто не мог увидеть длину вашего пароля.${NC}"  
+echo " => Root Password (Пароль суперпользователя) - вводим (прописываем) 2 раза "              
 arch-chroot /mnt /bin/bash -x << _EOF_
 passwd
 t@@r00
 t@@r00
 _EOF_
 
-echo -e "${GREEN}==> ${NC}Устанавливаем пароль пользователя"
-#echo 'Устанавливаем пароль пользователя'
-# Setting the user password
-# passwd $username 
+echo ""
+echo -e "${GREEN}==> ${NC}Устанавливаем пароль пользователя (User Password)"
+echo " Пароль должен содержать от 6 до 15 символов, включающих цифры (1-0) и знаки (!'':[@]),    
+        и латинские буквы разного регистра! "
+echo -e "${MAGENTA}=> ${BOLD}По умолчанию, на большинстве систем Linux в консоле не показывается введенный пароль. 
+Это сделано из соображений безопасности, чтобы никто не мог увидеть длину вашего пароля.${NC}"
+echo " => User Password (Пароль пользователя) - вводим (прописываем) 2 раза "
+# passwd $username
 arch-chroot /mnt /bin/bash -x << _EOF_
 passwd alex
 555
 555
 _EOF_
 
-echo -e "${GREEN}
-  <<< Поздравляем! Установка завершена. Перезагрузите систему. >>> ${NC}"
-#echo 'Поздравляем! Установка завершена. Перезагрузите систему.'
-# Congratulations! Installation is complete. Reboot the system.
+echo ""
+echo -e "${BLUE}:: ${NC}Проверим статус пароля для всех учетных записей пользователей в вашей системе"
+echo -e "${CYAN}:: ${NC}В выведенном списке те записи, которые сопровождены значением (лат.буквой) P - значит на этой учетной записи установлен пароль!"
+echo -e "${CYAN} Пример: ${NC}(root P 10/11/2020 -1 -1 -1 -1; или $username P 10/11/2020 0 99999 7 -1)"
+passwd -Sa  # -S, --status вывести статус пароля
 
+clear
+echo ""
+echo -e "${BLUE}:: ${BOLD}Очистка кэша pacman 'pacman -Sc' ${NC}"
+echo -e "${CYAN}=> ${NC}Очистка кэша неустановленных пакетов (оставив последние версии оных), и репозиториев..."
+pacman --noconfirm -Sc  # Очистка кэша неустановленных пакетов (оставив последние версии оных) 
+
+echo "" 
+echo -e "${CYAN}=> ${NC}Удалить кэш ВСЕХ установленных пакетов 'pacman -Scc' (высвобождая место на диске)?"
+echo " Процесс удаления кэша ВСЕХ установленных пакетов - БЫЛ прописан полностью автоматическим! "
+echo -e "${YELLOW}==> ${NC} Будьте внимательны! Если Вы сомневаетесь в своих действиях, ещё раз обдумайте..."
+echo ""
+echo " Удаление кэша ВСЕХ установленных пакетов пропущено "           
+pacman --noconfirm -Scc  # Удалит кеш всех пакетов (можно раз в неделю вручную запускать команду)
+
+clear             
+echo -e "${GREEN}
+  <<< Поздравляем! Установка завершена. Перезагрузите систему. >>> 
+${NC}"
 echo -e "${BLUE}:: ${BOLD}Посмотрим дату и время ... ${NC}"
-#echo 'Посмотрим дату и время'
-# Let's look at the date and time
 date
+date +'%d/%m/%Y  %H:%M:%S [%:z  %Z]'     # одновременно отображает дату и часовой пояс
 
 echo -e "${BLUE}:: ${BOLD}Отобразить время работы системы ... ${NC}"
-#echo 'Отобразить время работы системы'
-# Display the system's operating time 
 uptime
 
 echo -e "${MAGENTA}==> ${BOLD}После перезагрузки и входа в систему проверьте ваши персональные настройки. ${NC}"
-#echo 'После перезагрузки и входа в систему проверьте ваши персональные настройки.'
-# After restarting and logging in, check your personal settings.
-
-echo -e "${MAGENTA}==> ${BOLD}Если у Вас беспроводное соединение, запустите nmtui и подключитесь к сети. ${NC}"
-#echo 'Если у Вас беспроводное соединение, запустите nmtui и подключитесь к сети.'
-# If you have a wireless connection, launch nmtui and connect to the network.
-
+echo -e "${MAGENTA}==> ${BOLD}Если у Вас беспроводное соединение, запустите nmtui (Network Manager Text User Interface) и подключитесь к сети. ${NC}"
 echo -e "${YELLOW}==> ...${NC}"
-echo -e "${BLUE}:: ${NC}Если хотите подключить AUR, установить дополнительный софт (пакеты), установить мои конфиги XFCE, тогда после перезагрузки и входа в систему выполните команду:"
-#echo 'Если хотите подключить AUR, установить дополнительный софт (пакеты), установить мои конфиги XFCE, тогда после перезагрузки и входа в систему выполните команду:'
-# If you want to connect AUR, install additional software (packages), install my Xfce configs, then after restarting and logging in, run the command:
-echo -e "${YELLOW}==> ${CYAN}wget git.io/archmy3 && sh archmy3 ${NC}"
-
+echo -e "${BLUE}:: ${NC}Если хотите подключить AUR, установить дополнительный софт (пакеты), установить мои конфиги для DE/XFCE, тогда после перезагрузки и входа в систему выполните команду:"
+echo -e "${YELLOW}==> ${CYAN}wget git.io/archmy3l && sh archmy3l ${NC}"
+echo -e "${CYAN}:: ${NC}Цель скрипта (archmy3l) - это установка первоначально необходимого софта (пакетов) и запуск необходимых служб."
+echo -e "${CYAN}:: ${NC}Скриптом можно пользоваться как шпаргалкой, открыв его в текстовом редакторе, копируя команды по установке необходимых пакетов, и запуска служб."
+echo -e "${GREEN}
+  <<< Желаю Вам удачи во всех начинаниях, верных и точных решений! >>> ${NC}"
+echo ""
+echo -e "${RED}### ${BLUE}########################################################### ${RED}### ${NC}" 
 echo -e "${RED}==> ${BOLD}Выходим из установленной системы ${NC}"
-#echo 'Выходим из установленной системы'
-# Exiting the installed system
-echo -e "${BLUE}:: ${BOLD}Теперь вам надо ввести reboot, чтобы перезагрузиться ${NC}"
-#echo 'Теперь вам надо ввести reboot, чтобы перезагрузиться'
-#'Now you need to enter 'reboot' to reboot"'
 
-echo -e "${BLUE}:: ${BOLD}После перезагрузки заходим под пользователем ${NC}"
-#echo 'После перезагрузки заходим под пользователем'
-#Перезагрузка.После перезагрузки заходим под пользователем
+echo -e "${BLUE}:: ${BOLD}Теперь вам надо ввести (exit) reboot, чтобы перезагрузиться ${NC}"
 exit
+exit
+umount -Rf /mnt
 
-################################################
