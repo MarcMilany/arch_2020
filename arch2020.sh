@@ -548,11 +548,11 @@ sudo pacman -Sy
 sleep 02
 
 ###################################################
-sed -i 's/ischroot=0/ischroot=1/' ./arch2020.sh
-cp ./arch2020.sh /mnt/arch2020.sh
+sed -i 's/ischroot=0/ischroot=1/' ./arch2020
+cp ./arch2020 /mnt/arch2020
 
 arch-chroot /mnt /bin/bash -x << _EOF_
-sh /arch2020.sh
+sh /arch2020
 _EOF_
 
 fi
