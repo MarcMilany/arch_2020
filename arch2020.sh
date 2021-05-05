@@ -1286,6 +1286,9 @@ umount -a
 reboot
 exit
 exit
-# umount -Rf /mnt
 
+# umount -Rf /mnt
+# umount -R /mnt/boot
+# umount -R /mnt
+# reboot
 
