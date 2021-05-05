@@ -444,9 +444,9 @@ echo -e "${BLUE}:: ${NC}Arch Linux, Base devel (AUR only)"
 echo " Сценарий pacstrap устанавливает (base) базовую систему. Для сборки пакетов из AUR (Arch User Repository) также требуется группа base-devel. "
 echo -e "${MAGENTA}=> ${BOLD}Т.е., Если нужен AUR, ставь base и base-devel, если нет, то ставь только base. ${NC}"
 #pacstrap /mnt base base-devel nano dhcpcd netctl which inetutils  #wget vim
-# pacman -S pkgfile --noconfirm  # Обозреватель метаданных pacman .files
-# pkgfile --update  # Синхронизировать базу данных pkgfile
-# pkgfile pacstrap  # Найти пакет, которому принадлежит файл - pacstrap
+### pacman -S pkgfile --noconfirm  # Обозреватель метаданных pacman .files
+### pkgfile --update  # Синхронизировать базу данных pkgfile
+### pkgfile pacstrap  # Найти пакет, которому принадлежит файл - pacstrap
 # pacman -S extra/arch-install-scripts --noconfirm  # Скрипты для помощи в установке Arch Linux
 pacstrap -i /mnt base base-devel nano dhcpcd netctl which inetutils --noconfirm
 clear
@@ -1227,10 +1227,10 @@ echo ""
 echo -e "${BLUE}:: ${NC}Проверим статус пароля для всех учетных записей пользователей в вашей системе"
 echo -e "${CYAN}:: ${NC}В выведенном списке те записи, которые сопровождены значением (лат.буквой) P - значит на этой учетной записи установлен пароль!"
 echo -e "${CYAN} Пример: ${NC}(root P 10/11/2020 -1 -1 -1 -1; или $username P 10/11/2020 0 99999 7 -1)"
+arch-chroot /mnt /bin/bash -x << _EOF_
 passwd -Sa  # -S, --status вывести статус пароля
+_EOF_
 sleep 02
-
-arch-chroot /mnt /opt/bash  /opt/install.sh
 
 echo ""
 echo -e "${GREEN}==> ${NC}Информация о пользователе (полное имя пользователя и связанная с ним информация)"
@@ -1239,9 +1239,7 @@ echo " Мы обычно пропускаем заполнение этой ин
 echo -e "${CYAN}:: ${NC}На первом этапе достаточно имени пользователя, и подтверждаем - нажмите кнопку 'Ввод'(Enter)." 
 echo ""  
 echo " Информация о my username : (достаточно имени) "
-arch-chroot /mnt /opt/bash -x << _EOF_
 chfn $username
-_EOF_
 
 #sleep 02
 clear
