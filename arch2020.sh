@@ -444,10 +444,10 @@ echo -e "${BLUE}:: ${NC}Arch Linux, Base devel (AUR only)"
 echo " Сценарий pacstrap устанавливает (base) базовую систему. Для сборки пакетов из AUR (Arch User Repository) также требуется группа base-devel. "
 echo -e "${MAGENTA}=> ${BOLD}Т.е., Если нужен AUR, ставь base и base-devel, если нет, то ставь только base. ${NC}"
 #pacstrap /mnt base base-devel nano dhcpcd netctl which inetutils  #wget vim
-pacman -S pkgfile --noconfirm  # Обозреватель метаданных pacman .files
-pkgfile --update  # Синхронизировать базу данных pkgfile
-pkgfile pacstrap  # Найти пакет, которому принадлежит файл - pacstrap
-pacman -S extra/arch-install-scripts --noconfirm  # Скрипты для помощи в установке Arch Linux
+# pacman -S pkgfile --noconfirm  # Обозреватель метаданных pacman .files
+# pkgfile --update  # Синхронизировать базу данных pkgfile
+# pkgfile pacstrap  # Найти пакет, которому принадлежит файл - pacstrap
+# pacman -S extra/arch-install-scripts --noconfirm  # Скрипты для помощи в установке Arch Linux
 pacstrap -i /mnt base base-devel nano dhcpcd netctl which inetutils --noconfirm
 clear
 echo ""
