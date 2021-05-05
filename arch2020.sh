@@ -443,7 +443,12 @@ echo -e "${GREEN}==> ${NC}Установка основных пакетов (ba
 echo -e "${BLUE}:: ${NC}Arch Linux, Base devel (AUR only)"
 echo " Сценарий pacstrap устанавливает (base) базовую систему. Для сборки пакетов из AUR (Arch User Repository) также требуется группа base-devel. "
 echo -e "${MAGENTA}=> ${BOLD}Т.е., Если нужен AUR, ставь base и base-devel, если нет, то ставь только base. ${NC}"
-pacstrap /mnt base base-devel nano dhcpcd netctl which inetutils  #wget vim
+#pacstrap /mnt base base-devel nano dhcpcd netctl which inetutils  #wget vim
+pacman -S pkgfile  # Обозреватель метаданных pacman .files
+pacman -S extra/arch-install-scripts  # Скрипты для помощи в установке Arch Linux
+pkgfile --update  # Синхронизировать базу данных pkgfile
+pkgfile pacstrap  # Найти пакет, которому принадлежит файл - pacstrap
+pacstrap -i /mnt base base-devel nano dhcpcd netctl which inetutils --noconfirm
 clear
 echo ""
 echo " Установка групп (base + base-devel + packages) выполнена "
@@ -470,7 +475,8 @@ echo " Будьте осторожны! Если Вы сомневаетесь �
 ### LINUX_LTS (Версия ядра и модулей с долгосрочной поддержкой - Long Term Support, LTS)
 echo ""
 echo " Установка выбранного вами ядра (linux-lts) "
-pacstrap /mnt linux-lts linux-firmware linux-lts-headers linux-lts-docs
+#pacstrap /mnt linux-lts linux-firmware linux-lts-headers linux-lts-docs
+pacstrap -i /mnt linux-lts linux-firmware linux-lts-headers linux-lts-docs --noconfirm
 clear
 echo ""
 echo " Ядро (linux-lts) операционной системы установленно " 
@@ -481,6 +487,7 @@ echo " Ядро (linux-lts) операционной системы устано
 #clear
 #echo ""
 #echo " Ядро (linux-zen) операционной системы установленно " 
+ 
 
 echo ""
 echo -e "${GREEN}==> ${NC}Настройка системы, генерируем fstab" 
