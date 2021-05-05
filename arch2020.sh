@@ -1216,13 +1216,13 @@ passwd alex
 555
 _EOF_
 
-arch-chroot /mnt  /opt/install.sh
+arch-chroot /mnt /opt/bash  /opt/install.sh
 
 echo ""
 echo -e "${BLUE}:: ${NC}Проверим статус пароля для всех учетных записей пользователей в вашей системе"
 echo -e "${CYAN}:: ${NC}В выведенном списке те записи, которые сопровождены значением (лат.буквой) P - значит на этой учетной записи установлен пароль!"
 echo -e "${CYAN} Пример: ${NC}(root P 10/11/2020 -1 -1 -1 -1; или $username P 10/11/2020 0 99999 7 -1)"
-arch-chroot /mnt -x << _EOF_
+arch-chroot /mnt /opt/bash -x << _EOF_
 passwd -Sa  # -S, --status вывести статус пароля
 _EOF_
 
@@ -1234,7 +1234,7 @@ echo " Мы обычно пропускаем заполнение этой ин
 echo -e "${CYAN}:: ${NC}На первом этапе достаточно имени пользователя, и подтверждаем - нажмите кнопку 'Ввод'(Enter)." 
 echo ""  
 echo " Информация о my username : (достаточно имени) "
-arch-chroot /mnt -x << _EOF_
+arch-chroot /mnt /opt/bash -x << _EOF_
 chfn $username
 _EOF_
 
@@ -1285,4 +1285,4 @@ exit
 exit
 # umount -Rf /mnt
 
-cat <<EOF  >> /mnt/opt/install.sh
+
