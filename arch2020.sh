@@ -117,7 +117,6 @@ echo "###########################################################"
                                                 
 sleep 03
 clear
-
 echo -e "${GREEN}
   <<< Начинается установка минимальной системы Arch Linux >>>
 ${NC}"
@@ -247,25 +246,19 @@ read -p " => Укажите диск (sda/sdb например sda или sdb) :
 sgdisk -p /dev/$cfd  #sda; sdb; sdc; sdd
 
 ### Если ли надо раскомментируйте нужные вам значения ####
-echo ""
-echo -e "${RED}==> ${NC}Удалить (стереть) таблицу разделов на выбранном диске (sdX)?"
-echo -e "${YELLOW}==> ${NC}Вы можете пропустить этот шаг, если не уверены в правильности выбора"
-echo " Чтобы подтвердить действия ввода, нажмите кнопку 'Ввод' ("Enter") "    
-read -p " => Укажите диск (sda/sdb например sda или sdb) : " cfd
-sgdisk --zap-all /dev/$cfd   #sda; sdb; sdc; sdd
-echo " Создание новых записей GPT в памяти. "
-echo " Структуры данных GPT уничтожены! Теперь вы можете разбить диск на разделы с помощью fdisk или других утилит. "
-
-ischroot=0
-##########################
-if [ $ischroot -eq 0 ]
-then
+#echo ""
+#echo -e "${RED}==> ${NC}Удалить (стереть) таблицу разделов на выбранном диске (sdX)?"
+#echo -e "${YELLOW}==> ${NC}Вы можете пропустить этот шаг, если не уверены в правильности выбора"
+#echo " Чтобы подтвердить действия ввода, нажмите кнопку 'Ввод' ("Enter") "    
+#read -p " => Укажите диск (sda/sdb например sda или sdb) : " cfd
+#sgdisk --zap-all /dev/$cfd   #sda; sdb; sdc; sdd
+#echo " Создание новых записей GPT в памяти. "
+#echo " Структуры данных GPT уничтожены! Теперь вы можете разбить диск на разделы с помощью fdisk или других утилит. " 
 
 #clear
 echo ""
 echo -e "${BLUE}:: ${NC}Создание разделов диска"
 # Можно вызвать подсказки нажатием на клавишу “m”
-#cat << _EOF_ > create.disks
 (
   echo o;
 
@@ -300,9 +293,6 @@ echo -e "${BLUE}:: ${NC}Создание разделов диска"
 
   echo w;
 ) | fdisk /dev/sda
-#_EOF_
-
-#     fdisk /dev/sda < create.disks
 
 clear 
 echo "" 
@@ -498,7 +488,6 @@ echo " Ядро (linux-lts) операционной системы устано
 #echo ""
 #echo " Ядро (linux-zen) операционной системы установленно " 
  
-
 echo ""
 echo -e "${GREEN}==> ${NC}Настройка системы, генерируем fstab" 
 echo -e "${MAGENTA}=> ${BOLD}Файл /etc/fstab используется для настройки параметров монтирования различных блочных устройств, разделов на диске и удаленных файловых систем. ${NC}"
@@ -547,18 +536,151 @@ echo -e "${BLUE}:: ${NC}Обновим базы данных пакетов"
 sudo pacman -Sy
 sleep 02
 
+echo ""
+echo -e "${GREEN}=> ${BOLD}Создадим конфигурационный файл для установки системных переменных /etc/sysctl.conf ${NC}"
+echo " Sysctl - это инструмент для проверки и изменения параметров ядра во время выполнения (пакет procps-ng в официальных репозиториях ). sysctl реализован в procfs , файловой системе виртуального процесса в /proc/. "
+> /etc/sysctl.conf
+cat <<EOF >>/etc/sysctl.conf
+
+#
+# /etc/sysctl.conf - Configuration file for setting system variables
+# See /etc/sysctl.d/ for additional system variables.
+# See sysctl.conf (5) for information.
+#
+# /etc/sysctl.d/99-sysctl.conf
+#
+
+#kernel.domainname = example.com
+
+# Uncomment the following to stop low-level messages on console
+#kernel.printk = 3 4 1 3
+
+##############################################################3
+# Functions previously found in netbase
+#
+
+# Uncomment the next two lines to enable Spoof protection (reverse-path filter)
+# Turn on Source Address Verification in all interfaces to
+# prevent some spoofing attacks
+#net.ipv4.conf.default.rp_filter=1
+#net.ipv4.conf.all.rp_filter=1
+
+# Uncomment the next line to enable TCP/IP SYN cookies
+# See http://lwn.net/Articles/277146/
+# Note: This may impact IPv6 TCP sessions too
+net.ipv4.tcp_syncookies=1
+
+# Uncomment the next line to enable packet forwarding for IPv4
+net.ipv4.ip_forward=1
+
+# Uncomment the next line to enable packet forwarding for IPv6
+#  Enabling this option disables Stateless Address Autoconfiguration
+#  based on Router Advertisements for this host
+#net.ipv6.conf.all.forwarding=1
+
+
+###################################################################
+# Additional settings - these settings can improve the network
+# security of the host and prevent against some network attacks
+# including spoofing attacks and man in the middle attacks through
+# redirection. Some network environments, however, require that these
+# settings are disabled so review and enable them as needed.
+#
+# Do not accept ICMP redirects (prevent MITM attacks)
+net.ipv4.conf.all.accept_redirects = 0
+net.ipv6.conf.all.accept_redirects = 0
+# _or_
+# Accept ICMP redirects only for gateways listed in our default
+# gateway list (enabled by default)
+# net.ipv4.conf.all.secure_redirects = 1
+#
+# Do not send ICMP redirects (we are not a router)
+#net.ipv4.conf.all.send_redirects = 0
+#
+# Do not accept IP source route packets (we are not a router)
+#net.ipv4.conf.all.accept_source_route = 0
+#net.ipv6.conf.all.accept_source_route = 0
+#
+# Log Martian Packets
+#net.ipv4.conf.all.log_martians = 1
+#
+net.ipv4.tcp_timestamps=0
+net.ipv4.conf.all.rp_filter=1
+net.ipv4.tcp_max_syn_backlog=1280
+kernel.core_uses_pid=1
+#
+# Fixing the indicator when writing files to a flash drive
+vm.dirty_bytes = 4194304
+vm.dirty_background_bytes = 4194304
+#
+vm.swappiness=10
+
+EOF
+
+echo -e "${BLUE}:: ${NC}Перемещаем и переименовываем исходный файл /etc/sysctl.conf в /etc/sysctl.d/99-sysctl.conf"
+echo " Создадим backup sysctl.conf.back "
+cp /etc/sysctl.conf  /etc/sysctl.conf.back  # Для начала сделаем его бэкап
+echo " Копируем sysctl.conf.back в /mnt "
+cp /etc/sysctl.conf.back  /mnt/etc/sysctl.conf.back
+echo " Перемещаем sysctl.conf в /mnt "
+mv /etc/sysctl.conf /mnt/etc/sysctl.d/99-sysctl.conf   # Перемещаем и переименовываем исходный файл
+
+echo -e "${BLUE}:: ${NC}Добавим в файл /etc/arch-release ссылку на сведение о release"
+> /etc/arch-release
+cat <<EOF >>/etc/arch-release
+Arch Linux release
+#../usr/lib/os-release
+#Request for release information (Запрос информации о релизе)
+#cat /etc/arch-release
+#cat /etc/*-release
+#cat /etc/issue
+#cat /etc/lsb-release
+#cat /etc/lsb-release | cut -c21-90
+#cat /proc/version
+
+EOF
+
+echo " Копируем arch-release в /mnt "
+cp /etc/arch-release  /mnt/etc/arch-release
+
+echo -e "${BLUE}:: ${NC}Создадим файл /etc/lsb-release (информация о релизе)"
+> /etc/lsb-release.old
+cat <<EOF >>/etc/lsb-release.old 
+NAME="Arch Linux"
+PRETTY_NAME="Arch Linux"
+ID=arch
+DISTRIB_RELEASE=rolling
+DISTRIB_CODENAME="Arch"
+DISTRIB_DESCRIPTION="Arch Linux"
+ANSI_COLOR="38;2;23;147;209"
+HOME_URL="https://www.archlinux.org/"
+DOCUMENTATION_URL="https://wiki.archlinux.org/"
+SUPPORT_URL="https://bbs.archlinux.org/"
+BUG_REPORT_URL="https://bugs.archlinux.org/"
+LOGO=archlinux
+
+EOF
+
+echo " Копируем arch-release в /mnt "
+cp /etc/lsb-release.old  /mnt/etc/lsb-release.old
+
 ###################################################
-sed -i 's/ischroot=0/ischroot=1/' ./arch2020
-cp ./arch2020 /mnt/arch2020
+clear
+echo ""
+echo " Первый этап установки Arch'a закончен "
+echo -e "${GREEN}=> ${BOLD}Запускаем пользовательский пост-инстал-скрипт (install.sh) для установки первоначально необходимого софта (пакетов), запуск необходимых служб, запись данных в конфиги (hhh.conf) по настройке системы. ${NC}"
 
-arch-chroot /mnt /bin/bash -x << _EOF_
-sh /arch2020
-_EOF_
+cat <<EOF  >> /mnt/opt/install.sh
+#!/bin/bash
 
-fi
+### SHARED VARIABLES AND FUNCTIONS (ОБЩИЕ ПЕРЕМЕННЫЕ И ФУНКЦИИ)
+### Shell color codes (Цветовые коды оболочки)
+RED="\e[1;31m"; GREEN="\e[1;32m"; YELLOW="\e[1;33m"; GREY="\e[3;93m"
+BLUE="\e[1;34m"; CYAN="\e[1;36m"; BOLD="\e[1;37m"; MAGENTA="\e[1;35m"; NC="\e[0m"
 
-if [ $ischroot -eq 1 ]
-then
+# Автоматическое обнаружение ошибок
+set -e  # Эта команда остановит выполнение сценария после сбоя команды и будет отправлен код ошибки
+#set -e "\n${RED}Error: ${YELLOW}${*}${NC}"
 
 echo ""
 echo -e "${GREEN}=> ${NC}Для проверки интернета можно пропинговать какой-либо сервис" 
@@ -838,15 +960,6 @@ echo ""
 echo " Пользователь успешно добавлен в группы и права пользователя "
 
 echo ""
-echo -e "${GREEN}==> ${NC}Информация о пользователе (полное имя пользователя и связанная с ним информация)"
-echo -e "${CYAN}:: ${NC}Пользователь в Linux может хранить большое количество связанной с ним информации, в том числе номера домашних и офисных телефонов, номер кабинета и многое другое."
-echo " Мы обычно пропускаем заполнение этой информации (так как всё это необязательно) - при создании пользователя. "
-echo -e "${CYAN}:: ${NC}На первом этапе достаточно имени пользователя, и подтверждаем - нажмите кнопку 'Ввод'(Enter)." 
-echo ""  
-echo " Информация о my username : (достаточно имени) "
-chfn $username
-
-echo ""
 echo -e "${BLUE}:: ${NC}Устанавливаем (пакет) SUDO."
 echo -e "${CYAN}=> ${NC}Пакет sudo позволяет системному администратору предоставить определенным пользователям (или группам пользователей) возможность запускать некоторые (или все) команды в роли пользователя root или в роли другого пользователя, указываемого в командах или в аргументах."
 pacman -S --noconfirm --needed sudo
@@ -1078,135 +1191,10 @@ echo " Создание каталогов успешно выполнено "
 
 #exit
 
-echo ""
-echo -e "${GREEN}=> ${BOLD}Создадим конфигурационный файл для установки системных переменных /etc/sysctl.conf ${NC}"
-echo " Sysctl - это инструмент для проверки и изменения параметров ядра во время выполнения (пакет procps-ng в официальных репозиториях ). sysctl реализован в procfs , файловой системе виртуального процесса в /proc/. "
-> /etc/sysctl.conf
-cat <<EOF >>/etc/sysctl.conf
-
-#
-# /etc/sysctl.conf - Configuration file for setting system variables
-# See /etc/sysctl.d/ for additional system variables.
-# See sysctl.conf (5) for information.
-#
-# /etc/sysctl.d/99-sysctl.conf
-#
-
-#kernel.domainname = example.com
-
-# Uncomment the following to stop low-level messages on console
-#kernel.printk = 3 4 1 3
-
-##############################################################3
-# Functions previously found in netbase
-#
-
-# Uncomment the next two lines to enable Spoof protection (reverse-path filter)
-# Turn on Source Address Verification in all interfaces to
-# prevent some spoofing attacks
-#net.ipv4.conf.default.rp_filter=1
-#net.ipv4.conf.all.rp_filter=1
-
-# Uncomment the next line to enable TCP/IP SYN cookies
-# See http://lwn.net/Articles/277146/
-# Note: This may impact IPv6 TCP sessions too
-net.ipv4.tcp_syncookies=1
-
-# Uncomment the next line to enable packet forwarding for IPv4
-net.ipv4.ip_forward=1
-
-# Uncomment the next line to enable packet forwarding for IPv6
-#  Enabling this option disables Stateless Address Autoconfiguration
-#  based on Router Advertisements for this host
-#net.ipv6.conf.all.forwarding=1
-
-
-###################################################################
-# Additional settings - these settings can improve the network
-# security of the host and prevent against some network attacks
-# including spoofing attacks and man in the middle attacks through
-# redirection. Some network environments, however, require that these
-# settings are disabled so review and enable them as needed.
-#
-# Do not accept ICMP redirects (prevent MITM attacks)
-net.ipv4.conf.all.accept_redirects = 0
-net.ipv6.conf.all.accept_redirects = 0
-# _or_
-# Accept ICMP redirects only for gateways listed in our default
-# gateway list (enabled by default)
-# net.ipv4.conf.all.secure_redirects = 1
-#
-# Do not send ICMP redirects (we are not a router)
-#net.ipv4.conf.all.send_redirects = 0
-#
-# Do not accept IP source route packets (we are not a router)
-#net.ipv4.conf.all.accept_source_route = 0
-#net.ipv6.conf.all.accept_source_route = 0
-#
-# Log Martian Packets
-#net.ipv4.conf.all.log_martians = 1
-#
-net.ipv4.tcp_timestamps=0
-net.ipv4.conf.all.rp_filter=1
-net.ipv4.tcp_max_syn_backlog=1280
-kernel.core_uses_pid=1
-#
-# Fixing the indicator when writing files to a flash drive
-vm.dirty_bytes = 4194304
-vm.dirty_background_bytes = 4194304
-#
-vm.swappiness=10
-
 EOF
 
-echo -e "${BLUE}:: ${NC}Перемещаем и переименовываем исходный файл /etc/sysctl.conf в /etc/sysctl.d/99-sysctl.conf"
-echo " Создадим backup sysctl.conf.back "
-cp /etc/sysctl.conf  /etc/sysctl.conf.back  # Для начала сделаем его бэкап
-echo " Копируем sysctl.conf.back в /mnt "
-cp /etc/sysctl.conf.back  /mnt/etc/sysctl.conf.back
-echo " Перемещаем sysctl.conf в /mnt "
-mv /etc/sysctl.conf /mnt/etc/sysctl.d/99-sysctl.conf   # Перемещаем и переименовываем исходный файл
-
-echo -e "${BLUE}:: ${NC}Добавим в файл /etc/arch-release ссылку на сведение о release"
-> /etc/arch-release
-cat <<EOF >>/etc/arch-release
-Arch Linux release
-#../usr/lib/os-release
-#Request for release information (Запрос информации о релизе)
-#cat /etc/arch-release
-#cat /etc/*-release
-#cat /etc/issue
-#cat /etc/lsb-release
-#cat /etc/lsb-release | cut -c21-90
-#cat /proc/version
-
-EOF
-
-echo " Копируем arch-release в /mnt "
-cp /etc/arch-release  /mnt/etc/arch-release
-
-echo -e "${BLUE}:: ${NC}Создадим файл /etc/lsb-release (информация о релизе)"
-> /etc/lsb-release.old
-cat <<EOF >>/etc/lsb-release.old 
-NAME="Arch Linux"
-PRETTY_NAME="Arch Linux"
-ID=arch
-DISTRIB_RELEASE=rolling
-DISTRIB_CODENAME="Arch"
-DISTRIB_DESCRIPTION="Arch Linux"
-ANSI_COLOR="38;2;23;147;209"
-HOME_URL="https://www.archlinux.org/"
-DOCUMENTATION_URL="https://wiki.archlinux.org/"
-SUPPORT_URL="https://bbs.archlinux.org/"
-BUG_REPORT_URL="https://bugs.archlinux.org/"
-LOGO=archlinux
-
-EOF
-
-echo " Копируем arch-release в /mnt "
-cp /etc/lsb-release.old  /mnt/etc/lsb-release.old
-
-fi
+##########################
+arch-chroot /mnt /bin/bash  /opt/install.sh
 
 echo ""
 echo -e "${GREEN}==> ${NC}Создаём root пароль (Root Password)"
@@ -1244,14 +1232,14 @@ passwd -Sa  # -S, --status вывести статус пароля
 _EOF_
 sleep 02
 
-#echo ""
-#echo -e "${GREEN}==> ${NC}Информация о пользователе (полное имя пользователя и связанная с ним информация)"
-#echo -e "${CYAN}:: ${NC}Пользователь в Linux может хранить большое количество связанной с ним информации, в том числе номера домашних и офисных телефонов, номер кабинета и многое другое."
-#echo " Мы обычно пропускаем заполнение этой информации (так как всё это необязательно) - при создании пользователя. "
-#echo -e "${CYAN}:: ${NC}На первом этапе достаточно имени пользователя, и подтверждаем - нажмите кнопку 'Ввод'(Enter)." 
-#echo ""  
-#echo " Информация о my username : (достаточно имени) "
-#chfn $username
+echo ""
+echo -e "${GREEN}==> ${NC}Информация о пользователе (полное имя пользователя и связанная с ним информация)"
+echo -e "${CYAN}:: ${NC}Пользователь в Linux может хранить большое количество связанной с ним информации, в том числе номера домашних и офисных телефонов, номер кабинета и многое другое."
+echo " Мы обычно пропускаем заполнение этой информации (так как всё это необязательно) - при создании пользователя. "
+echo -e "${CYAN}:: ${NC}На первом этапе достаточно имени пользователя, и подтверждаем - нажмите кнопку 'Ввод'(Enter)." 
+echo ""  
+echo " Информация о my username : (достаточно имени) "
+chfn $username
 
 #sleep 02
 clear
@@ -1298,6 +1286,7 @@ umount -a
 reboot
 exit
 exit
+
 # umount -Rf /mnt
 # umount -R /mnt/boot
 # umount -R /mnt
