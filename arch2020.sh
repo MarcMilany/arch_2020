@@ -265,7 +265,7 @@ then
 echo ""
 echo -e "${BLUE}:: ${NC}Создание разделов диска"
 # Можно вызвать подсказки нажатием на клавишу “m”
-cat << _EOF_ > create.disks
+#cat << _EOF_ > create.disks
 (
   echo o;
 
@@ -300,9 +300,9 @@ cat << _EOF_ > create.disks
 
   echo w;
 ) | fdisk /dev/sda
-_EOF_
+#_EOF_
 
-     fdisk /dev/sda < create.disks
+#     fdisk /dev/sda < create.disks
 
 clear 
 echo "" 
