@@ -81,7 +81,7 @@ then
 
 # sgdisk --zap-all /dev/$cfd   # sda; sdb; sdc; sdd  # Удалить (стереть) таблицу разделов на выбранном диске (sdX)
 
-cat << _EOF_ > create.disks
+#cat << _EOF_ > create.disks
 (
   echo o;
 
@@ -116,9 +116,9 @@ cat << _EOF_ > create.disks
 
   echo w;
 ) | fdisk /dev/sda
-_EOF_
+#_EOF_
 
-   fdisk /dev/sda < create.disks
+#   fdisk /dev/sda < create.disks
 
   fdisk -l  # Ещё раз проверте правильность разбивки на разделы!
   lsblk -f
