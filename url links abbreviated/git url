@@ -210,7 +210,46 @@ https://raw.githubusercontent.com/MarcMilany/arch_2020/master/arch2020.sh
 
 **************************************************************************
 
+Сокращение ссылки для install_arch.sh
 
+6. https://raw.githubusercontent.com/MarcMilany/arch_2020/master/install_arch.sh
+
+curl -i https://git.io -F "url=https://raw.githubusercontent.com/MarcMilany/arch_2020/master/install_arch.sh" -F "code=install_arch.sh"
+
+Location: https://git.io/install_arch.sh
+
+ Привет, Alex ! Сегодня: Четверг 6 мая 2021г. Местное время-03:23
+alex @ Terminator  ~
+└─ $ ▶ curl -i https://git.io -F "url=https://raw.githubusercontent.com/MarcMilany/arch_2020/master/install_arch.sh" -F "code=install_arch.sh"
+HTTP/1.1 100 Continue
+
+HTTP/1.1 201 Created
+Server: Cowboy
+Connection: keep-alive
+Date: Thu, 06 May 2021 00:23:56 GMT
+Status: 201 Created
+Content-Type: text/html;charset=utf-8
+Location: https://git.io/install_arch.sh
+Content-Length: 77
+X-Xss-Protection: 1; mode=block
+X-Content-Type-Options: nosniff
+X-Frame-Options: SAMEORIGIN
+X-Runtime: 0.144492
+X-Node: ba6058ce-03ae-4cd3-b65c-a2b6f5fe32c6
+X-Revision: 392798d237fc1aa5cd55cada10d2945773e741a8
+Strict-Transport-Security: max-age=31536000; includeSubDomains
+Via: 1.1 vegur
+
+https://raw.githubusercontent.com/MarcMilany/arch_2020/master/install_arch.shale
+
+**************************************************************************
+
+______________________________________________________________________________
+
+
+МОЁ Ответвление от ordanaxa/arch2018
+
+https://github.com/MarcMilany/arch2018.git
 ______________________________________________________________________________
 
 
