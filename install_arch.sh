@@ -346,40 +346,10 @@ then
 # echo " Важно! При первом запуске консоли (терминала) - нажмите "0" "
 # echo " Пользовательская оболочка ИЗМЕНЕНА (сразу будет), с BASH на на ZSH "
 
-       pacman -S xdg-user-dirs --noconfirm  # Управляйте пользовательскими каталогами, такими как ~ / Desktop и ~ / Music
-#      pacman -S xdg-user-dirs-gtk --noconfirm  # Создаёт каталоги пользователей и просит их переместить
-       xdg-user-dirs-update 
-#      xdg-user-dirs-gtk-update  # Обновить закладки в thunar (левое меню)
-
-### AUR Helper - (yay) ### 
-  pacman -Syu    
-# pacman -S --noconfirm --needed wget curl git
-  cd /home/$username
-  git clone https://aur.archlinux.org/yay-bin.git
-  chown -R $username:users /home/$username/yay-bin   #-R, --recursive - рекурсивная обработка всех подкаталогов;
-  chown -R $username:users /home/$username/yay-bin/PKGBUILD  #-R, --recursive - рекурсивная обработка всех подкаталогов;
-  cd /home/$username/yay-bin  
-# sudo -u $username  makepkg -si --noconfirm   #-Не спрашивать каких-либо подтверждений  
-# sudo -u $username  makepkg -si --skipinteg   #-Не проверять целостность исходных файлов
-# sudo -u $username  makepkg -si
-  makepkg -si   
-  rm -Rf /home/$username/yay-bin    # удаляем директорию сборки
-
-  yay -Syy  # Обновление баз данных пакетов через - AUR (Yay)
-  yay -Syu  # Обновление баз данных пакетов, и системы через - AUR (Yay)
-
-##### pamac-aur ###### 
-  cd /home/$username
-  git clone https://aur.archlinux.org/pamac-aur.git
-  chown -R $username:users /home/$username/pamac-aur
-  chown -R $username:users /home/$username/pamac-aur/PKGBUILD 
-  cd /home/$username/pamac-aur
-# sudo -u $username  makepkg -si --noconfirm   #-Не спрашивать каких-либо подтверждений 
-# sudo -u $username  makepkg -si --skipinteg   #-Не проверять целостность исходных файлов 
-# sudo -u $username  makepkg -si 
-  makepkg -si 
-# makepkg --noconfirm --needed -sic 
-  rm -Rf /home/$username/pamac-aur 
+pacman -S xdg-user-dirs --noconfirm  # Управляйте пользовательскими каталогами, такими как ~ / Desktop и ~ / Music
+# pacman -S xdg-user-dirs-gtk --noconfirm  # Создаёт каталоги пользователей и просит их переместить
+xdg-user-dirs-update 
+# xdg-user-dirs-gtk-update  # Обновить закладки в thunar (левое меню)
  
 fi
 
@@ -399,6 +369,34 @@ _EOF_
 arch-chroot /mnt /bin/bash -x << _EOF_
 passwd -Sa  # -S, --status вывести статус пароля
 _EOF_
+
+### AUR Helper - (yay) ### 
+pacman -Syu    
+# pacman -S --noconfirm --needed wget curl git
+cd /home/$username
+git clone https://aur.archlinux.org/yay-bin.git
+chown -R $username:users /home/$username/yay-bin   #-R, --recursive - рекурсивная обработка всех подкаталогов;
+chown -R $username:users /home/$username/yay-bin/PKGBUILD  #-R, --recursive - рекурсивная обработка всех подкаталогов;
+cd /home/$username/yay-bin  
+# sudo -u $username  makepkg -si --noconfirm   #-Не спрашивать каких-либо подтверждений  
+# sudo -u $username  makepkg -si --skipinteg   #-Не проверять целостность исходных файлов
+sudo -u $username  makepkg -si   
+rm -Rf /home/$username/yay-bin    # удаляем директорию сборки
+
+yay -Syy  # Обновление баз данных пакетов через - AUR (Yay)
+yay -Syu  # Обновление баз данных пакетов, и системы через - AUR (Yay)
+
+##### pamac-aur ###### 
+cd /home/$username
+git clone https://aur.archlinux.org/pamac-aur.git
+chown -R $username:users /home/$username/pamac-aur
+chown -R $username:users /home/$username/pamac-aur/PKGBUILD 
+cd /home/$username/pamac-aur
+# sudo -u $username  makepkg -si --noconfirm   #-Не спрашивать каких-либо подтверждений 
+# sudo -u $username  makepkg -si --skipinteg   #-Не проверять целостность исходных файлов 
+sudo -u $username  makepkg -si 
+# makepkg --noconfirm --needed -sic 
+rm -Rf /home/$username/pamac-aur 
 
 date +'%d/%m/%Y  %H:%M:%S [%:z  %Z]'     # одновременно отображает дату и часовой пояс
 
