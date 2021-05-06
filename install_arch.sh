@@ -1,5 +1,5 @@
 #!/bin/bash
-set -e  # Эта команда остановит выполнение сценария после сбоя команды и будет отправлен код ошибки
+# set -e  # Эта команда остановит выполнение сценария после сбоя команды и будет отправлен код ошибки
 apptitle="Arch Linux Fast Install v1.6 LegasyBIOS - Version: 2020.07.16.00.40.38 (GPLv3)"
 baseurl=https://raw.githubusercontent.com/MarcMilany/arch_2020/master/url%20links%20abbreviated/git%20url
 cpl=0
@@ -20,14 +20,18 @@ ischroot=0
 if [ $ischroot -eq 0 ]
 then
 
+  echo " Acceptable limit for the list of arguments... "
   getconf ARG_MAX  # Допустимый лимит (предел) списка аргументов...'
-
+  
+  echo " The determination of the final access rights "
   umask  # Определение окончательных прав доступа - Для суперпользователя (root) umask по умолчанию равна 0022 
-
+  
+  echo " Install the Terminus font "
   pacman -Sy terminus-font --noconfirm  # Моноширинный растровый шрифт (для X11 и консоли)
 # pacman -Syy terminus-font  # Моноширинный растровый шрифт (для X11 и консоли)
 # man vconsole.conf
-
+  
+  echo " Setting up the Russian language, changing the console font to one that supports Cyrillic for ease of use "
   loadkeys ru  # Настроим русский язык, изменим консольный шрифт на тот, который поддерживает кириллицу для удобства работы
 # loadkeys us
 # setfont ter-v12n
@@ -41,7 +45,8 @@ then
   sed -i 's/#ru_RU.UTF-8 UTF-8/ru_RU.UTF-8 UTF-8/' /etc/locale.gen
 
   locale-gen  # Мы ввели locale-gen для генерации тех самых локалей.
-
+  sleep 01
+  
   export LANG=ru_RU.UTF-8  # Указываем язык системы
 # export LANG=en_US.UTF-8
 
@@ -50,6 +55,8 @@ then
   ip a  # Смотрим какие у нас есть интернет-интерфейсы
 
   ping -c2 archlinux.org  # Для проверки интернета можно пропинговать какой-либо сервис
+
+  echo " Если пинг идёт едем дальше ... :) "
 
   echo " Установка и настройка начата в $(date +%T) "
 
@@ -61,6 +68,7 @@ then
   cat /proc/modules | grep dm_mod  # Проверяем - dm-mod модуль ядра
   modprobe dm-crypt  # Это криптографическая цель (подсистема прозрачного шифрования диска в ядре Linux ...)
 
+# echo " Обновить и добавить новые ключи? "
 # pacman-key --init  # генерация мастер-ключа (брелка) pacman
 # pacman-key --populate archlinux  # поиск ключей
 # pacman-key --refresh-keys --keyserver keys.gnupg.net  # http://pool.sks-keyservers.net/
