@@ -1,5 +1,5 @@
 #!/bin/bash
-# set -e  # Эта команда остановит выполнение сценария после сбоя команды и будет отправлен код ошибки
+set -e  # Эта команда остановит выполнение сценария после сбоя команды и будет отправлен код ошибки
 apptitle="Arch Linux Fast Install v1.6 LegasyBIOS - Version: 2020.07.16.00.40.38 (GPLv3)"
 baseurl=https://raw.githubusercontent.com/MarcMilany/arch_2020/master/url%20links%20abbreviated/git%20url
 cpl=0
@@ -20,9 +20,9 @@ ischroot=0
 if [ $ischroot -eq 0 ]
 then
 
-  getconf ARG_MAX
+  getconf ARG_MAX  # Допустимый лимит (предел) списка аргументов...'
 
-  umask 
+  umask  # Определение окончательных прав доступа - Для суперпользователя (root) umask по умолчанию равна 0022 
 
   pacman -Sy terminus-font --noconfirm  # Моноширинный растровый шрифт (для X11 и консоли)
 # pacman -Syy terminus-font  # Моноширинный растровый шрифт (для X11 и консоли)
@@ -51,9 +51,11 @@ then
 
   ping -c2 archlinux.org  # Для проверки интернета можно пропинговать какой-либо сервис
 
-  timedatectl set-ntp true && timedatectl set-timezone Europe/Moscow
+  echo " Установка и настройка начата в $(date +%T) "
+
+  timedatectl set-ntp true && timedatectl set-timezone Europe/Moscow  # Для начала устанавливаем время по Москве, чтобы потом не оказалось, что файловые системы созданы в будущем
   
-  timedatectl status
+  timedatectl status  # Посмотрим статус службы NTP (NTP service)
 
   modprobe dm-mod  # Загрузит модуль ядра и любые дополнительные зависимости модуля
   cat /proc/modules | grep dm_mod  # Проверяем - dm-mod модуль ядра
@@ -230,17 +232,17 @@ then
 
   dmesg | grep microcode
 
-  pacman -S amd-ucode --noconfirm
+  pacman -S amd-ucode --noconfirm  # Образ обновления микрокода для процессоров AMD
 
-  pacman -S intel-ucode --noconfirm
+  pacman -S intel-ucode --noconfirm  # Файлы обновления микрокода для процессоров Intel
 
-  pacman -S iucode-tool --noconfirm
+  pacman -S iucode-tool --noconfirm  # Инструмент для управления пакетами микрокода Intel® IA-32 / X86-64
 
   mkinitcpio -p linux-lts
   
   pacman -Syy
 
-  pacman -S --noconfirm --needed grub
+  pacman -S --noconfirm --needed grub  # GNU GR и унифицированный загрузчик (2)
 
   uname -rm
   lsblk -f
@@ -257,7 +259,7 @@ then
 # useradd -m -g users -G audio,games,lp,disk,network,optical,power,scanner,storage,video,rfkill,sys,wheel -s /bin/bash $username
 # useradd -m -g users -G wheel -s /bin/bash $username
 
-  pacman -S --noconfirm --needed sudo
+  pacman -S --noconfirm --needed sudo  # Предоставьте определенным пользователям возможность запускать некоторые команды от имени пользователя root
 # pacman -S sudo --noconfirm 
 
   sed -i 's/# %wheel ALL=(ALL) ALL/%wheel ALL=(ALL) ALL/' /etc/sudoers
@@ -291,7 +293,7 @@ then
 
   pacman -S xfce4 xfce4-goodies --noconfirm
 
-  pacman -S --noconfirm --needed xorg-xinit
+  pacman -S --noconfirm --needed xorg-xinit  # Программа инициализации X.Org
 
   cp /etc/X11/xinit/xinitrc /home/$username/.xinitrc # копируем файл .xinitrc в каталог пользователя
   chown $username:users /home/$username/.xinitrc  # даем доступ пользователю к файлу
@@ -307,7 +309,7 @@ then
   echo ' [[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && exec startx ' >> /etc/profile 
 
   pacman -S lightdm lightdm-gtk-greeter lightdm-gtk-greeter-settings --noconfirm
-  pacman -S light-locker --noconfirm
+  pacman -S light-locker --noconfirm  # Простой шкафчик сессий для LightDM
 
 # systemctl enable lightdm.service
   systemctl enable lightdm.service -f
