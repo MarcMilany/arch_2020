@@ -249,17 +249,17 @@ then
 #  grub-install /dev/sda
   grub-install --recheck /dev/sda
 
-  pacman -S os-prober mtools fuse --noconfirm
+  pacman -S os-prober mtools fuse --noconfirm  #grub-customizer  # Утилита для обнаружения других ОС на наборе дисков; Сборник утилит для доступа к дискам MS-DOS; 
 
-  grub-mkconfig -o /boot/grub/grub.cfg
+  grub-mkconfig -o /boot/grub/grub.cfg  # Обновляем grub.cfg (Сгенерируем grub.cfg)
 
-  pacman -S dialog wpa_supplicant iw wireless_tools net-tools --noconfirm
+  pacman -S dialog wpa_supplicant iw wireless_tools net-tools --noconfirm  # программы (пакеты) для Wi-fi
 
   useradd -m -g users -G adm,audio,games,lp,disk,network,optical,power,scanner,storage,video,rfkill,sys,wheel -s /bin/bash alex
 # useradd -m -g users -G audio,games,lp,disk,network,optical,power,scanner,storage,video,rfkill,sys,wheel -s /bin/bash $username
 # useradd -m -g users -G wheel -s /bin/bash $username
 
-  pacman -S --noconfirm --needed sudo  # Предоставьте определенным пользователям возможность запускать некоторые команды от имени пользователя root
+  pacman -S --noconfirm --needed sudo  # Предоставьте определенным пользователям возможность запускать некоторые команды от имени пользователя root  - пока присутствует в pkglist.x86_64
 # pacman -S sudo --noconfirm 
 
   sed -i 's/# %wheel ALL=(ALL) ALL/%wheel ALL=(ALL) ALL/' /etc/sudoers
@@ -280,7 +280,7 @@ then
 
   pacman -Syy --noconfirm --noprogressbar --quiet
 
-  pacman -S xorg-server xorg-drivers xorg-xinit --noconfirm
+  pacman -S xorg-server xorg-drivers xorg-xinit --noconfirm  # X.Org Server (иксы) и драйвера
 
 # pacman -S xorg-server xorg-drivers xorg-xinit virtualbox-guest-utils --noconfirm 
 
@@ -291,7 +291,7 @@ then
 # echo -e "\nvboxguest\nvboxsf\nvboxvideo" >> /home/$username/.xinitrc
 # sed -i 's/#!\/bin\/sh/#!\/bin\/sh\n\/usr\/bin\/VBoxClient-all/' /home/$username/.xinitrc
 
-  pacman -S xfce4 xfce4-goodies --noconfirm
+  pacman -S xfce4 xfce4-goodies --noconfirm  # Xfce воплощает традиционную философию UNIX
 
   pacman -S --noconfirm --needed xorg-xinit  # Программа инициализации X.Org
 
