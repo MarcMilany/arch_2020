@@ -14,6 +14,7 @@ EDITOR=nano
 
 INSTALLARCH_LANG="russian"  # Installer default language (Язык установки по умолчанию)
 script_path=$(readlink -f ${0%/*})
+
 ischroot=0
 
 if [ $ischroot -eq 0 ]
@@ -138,7 +139,7 @@ then
   swapon /dev/sda2
   mount /dev/sda4 /mnt/home
 
-  pacman -S --noconfirm --needed reflector
+  pacman -S --noconfirm --needed reflector  # Модуль и сценарий Python 3 для получения и фильтрации последнего списка зеркал Pacman
 
   reflector --verbose --country 'Russia' -l 9 -p https -p http -n 9 --save /etc/pacman.d/mirrorlist --sort rate
 
@@ -343,13 +344,19 @@ then
        
        chsh -s /bin/zsh
        chsh -s /bin/zsh $username
-# echo " Важно! При первом запуске консоли (терминала) - нажмите "0" "
-# echo " Пользовательская оболочка ИЗМЕНЕНА (сразу будет), с BASH на на ZSH "
+       echo " Важно! При первом запуске консоли (терминала) - нажмите "0" "
+       echo " Пользовательская оболочка ИЗМЕНЕНА (сразу будет), с BASH на на ZSH "
 
-pacman -S xdg-user-dirs --noconfirm  # Управляйте пользовательскими каталогами, такими как ~ / Desktop и ~ / Music
-# pacman -S xdg-user-dirs-gtk --noconfirm  # Создаёт каталоги пользователей и просит их переместить
-xdg-user-dirs-update 
-# xdg-user-dirs-gtk-update  # Обновить закладки в thunar (левое меню)
+       pacman -S xdg-user-dirs --noconfirm  # Управляйте пользовательскими каталогами, такими как ~ / Desktop и ~ / Music
+#      pacman -S xdg-user-dirs-gtk --noconfirm  # Создаёт каталоги пользователей и просит их переместить
+       xdg-user-dirs-update 
+#      xdg-user-dirs-gtk-update  # Обновить закладки в thunar (левое меню)
+
+echo " Посмотрим дату и время ... "
+date +'%d/%m/%Y  %H:%M:%S [%:z  %Z]'     # одновременно отображает дату и часовой пояс
+
+echo " Отобразить время работы системы ... "
+uptime  # Отобразить время работы системы ...
  
 fi
 
@@ -370,40 +377,6 @@ arch-chroot /mnt /bin/bash -x << _EOF_
 passwd -Sa  # -S, --status вывести статус пароля
 _EOF_
 
-### AUR Helper - (yay) ### 
-pacman -Syu    
-pacman -S --noconfirm --needed wget curl git
-pacman -S cmake --noconfirm  # Кросс-платформенная система сборки с открытым исходным кодом
-cd /home/$username
-git clone https://aur.archlinux.org/yay-bin.git
-chown -R $username:users /home/$username/yay-bin   #-R, --recursive - рекурсивная обработка всех подкаталогов;
-chown -R $username:users /home/$username/yay-bin/PKGBUILD  #-R, --recursive - рекурсивная обработка всех подкаталогов;
-cd /home/$username/yay-bin  
-# sudo -u $username  makepkg -si --noconfirm   #-Не спрашивать каких-либо подтверждений  
-# sudo -u $username  makepkg -si --skipinteg   #-Не проверять целостность исходных файлов
-sudo -u $username  makepkg -s
-sudo -u $username  makepkg -i   
-rm -Rf /home/$username/yay-bin    # удаляем директорию сборки
-
-yay -Syy  # Обновление баз данных пакетов через - AUR (Yay)
-yay -Syu  # Обновление баз данных пакетов, и системы через - AUR (Yay)
-
-##### pamac-aur ###### 
-cd /home/$username
-git clone https://aur.archlinux.org/pamac-aur.git
-chown -R $username:users /home/$username/pamac-aur
-chown -R $username:users /home/$username/pamac-aur/PKGBUILD 
-cd /home/$username/pamac-aur
-# sudo -u $username  makepkg -si --noconfirm   #-Не спрашивать каких-либо подтверждений 
-# sudo -u $username  makepkg -si --skipinteg   #-Не проверять целостность исходных файлов 
-sudo -u $username  makepkg -s
-sudo -u $username  makepkg -i 
-# makepkg --noconfirm --needed -sic 
-rm -Rf /home/$username/pamac-aur 
-
-date +'%d/%m/%Y  %H:%M:%S [%:z  %Z]'     # одновременно отображает дату и часовой пояс
-
-uptime  # Отобразить время работы системы ...
 
 umount -R /mnt/boot
 umount -R /mnt
