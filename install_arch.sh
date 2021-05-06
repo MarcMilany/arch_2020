@@ -372,7 +372,8 @@ _EOF_
 
 ### AUR Helper - (yay) ### 
 pacman -Syu    
-# pacman -S --noconfirm --needed wget curl git
+pacman -S --noconfirm --needed wget curl git
+pacman -S cmake --noconfirm  # Кросс-платформенная система сборки с открытым исходным кодом
 cd /home/$username
 git clone https://aur.archlinux.org/yay-bin.git
 chown -R $username:users /home/$username/yay-bin   #-R, --recursive - рекурсивная обработка всех подкаталогов;
@@ -380,7 +381,8 @@ chown -R $username:users /home/$username/yay-bin/PKGBUILD  #-R, --recursive - р
 cd /home/$username/yay-bin  
 # sudo -u $username  makepkg -si --noconfirm   #-Не спрашивать каких-либо подтверждений  
 # sudo -u $username  makepkg -si --skipinteg   #-Не проверять целостность исходных файлов
-sudo -u $username  makepkg -si   
+sudo -u $username  makepkg -s
+sudo -u $username  makepkg -i   
 rm -Rf /home/$username/yay-bin    # удаляем директорию сборки
 
 yay -Syy  # Обновление баз данных пакетов через - AUR (Yay)
@@ -394,7 +396,8 @@ chown -R $username:users /home/$username/pamac-aur/PKGBUILD
 cd /home/$username/pamac-aur
 # sudo -u $username  makepkg -si --noconfirm   #-Не спрашивать каких-либо подтверждений 
 # sudo -u $username  makepkg -si --skipinteg   #-Не проверять целостность исходных файлов 
-sudo -u $username  makepkg -si 
+sudo -u $username  makepkg -s
+sudo -u $username  makepkg -i 
 # makepkg --noconfirm --needed -sic 
 rm -Rf /home/$username/pamac-aur 
 
