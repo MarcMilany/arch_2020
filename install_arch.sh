@@ -1,7 +1,7 @@
 #!/bin/bash
 # set -e  # Эта команда остановит выполнение сценария после сбоя команды и будет отправлен код ошибки
-apptitle=""
-baseurl=
+apptitle="Arch Linux Fast Install v1.6 LegasyBIOS - Version: 2020.07.16.00.40.38 (GPLv3)"
+baseurl=https://raw.githubusercontent.com/MarcMilany/arch_2020/master/url%20links%20abbreviated/git%20url
 cpl=0
 skipfont="0"
 fspkgs=""
@@ -349,7 +349,8 @@ then
   chown -R $username:users /home/$username/yay-bin/PKGBUILD  #-R, --recursive - рекурсивная обработка всех подкаталогов;
   cd /home/$username/yay-bin  
 # sudo -u $username  makepkg -si --noconfirm   #-Не спрашивать каких-либо подтверждений  
-  sudo -u $username  makepkg -si --skipinteg   #-Не проверять целостность исходных файлов   
+# sudo -u $username  makepkg -si --skipinteg   #-Не проверять целостность исходных файлов
+  sudo -u $username  makepkg -si   
   rm -Rf /home/$username/yay-bin    # удаляем директорию сборки
 
   yay -Syy  # Обновление баз данных пакетов через - AUR (Yay)
@@ -361,8 +362,9 @@ then
   chown -R $username:users /home/$username/pamac-aur
   chown -R $username:users /home/$username/pamac-aur/PKGBUILD 
   cd /home/$username/pamac-aur
-  sudo -u $username  makepkg -si --noconfirm   #-Не спрашивать каких-либо подтверждений 
-# sudo -u $username  makepkg -si --skipinteg   #-Не проверять целостность исходных файлов   
+# sudo -u $username  makepkg -si --noconfirm   #-Не спрашивать каких-либо подтверждений 
+# sudo -u $username  makepkg -si --skipinteg   #-Не проверять целостность исходных файлов 
+  sudo -u $username  makepkg -si  
 # makepkg --noconfirm --needed -sic 
   rm -Rf /home/$username/pamac-aur 
 
@@ -738,12 +740,10 @@ sudo pacman -S vulkan-radeon lib32-vulkan-radeon --noconfirm  # Драйвер R
        pacman -S --noconfirm --needed cronie  # Демон, который запускает указанные программы в запланированное время и связанные инструменты
        systemctl enable cronie.service  # Добавляем в автозагрузку планировщик заданий (cronie.service)
 
-#      pacman -S alacarte --noconfirm  # Редактор меню для gnome
+       pacman -S alacarte --noconfirm  # Редактор меню для gnome
 
 pacman --noconfirm -Sc  # Очистка кэша неустановленных пакетов (оставив последние версии оных)
-
-pacman --noconfirm -Scc  # Удалит кеш всех пакетов (можно раз в неделю вручную запускать команду) 
-
+ 
 fi
 
 
