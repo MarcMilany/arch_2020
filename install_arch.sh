@@ -153,8 +153,6 @@ then
 
   reflector --verbose --country 'Russia' -l 9 -p https -p http -n 9 --save /etc/pacman.d/mirrorlist --sort rate
 
-  cat /mnt/etc/pacman.d/mirrorlist
-
   pacman -Sy
 
   pacstrap -i /mnt base base-devel nano dhcpcd netctl which inetutils --noconfirm
@@ -166,6 +164,9 @@ then
   cat /mnt/etc/fstab
 
   blkid /dev/sd*
+
+  echo " Первый этап установки Arch'a закончен "
+  echo " Запускаем пользовательский пост-инстал-скрипт (install_arch.sh) для установки первоначально необходимого софта (пакетов), запуск необходимых служб "
 
   sed -i 's/ischroot=0/ischroot=1/' ./install_arch.sh
   cp ./install_arch.sh /mnt/install_arch.sh
