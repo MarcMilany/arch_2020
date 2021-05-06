@@ -766,9 +766,15 @@ _EOF_
 date +'%d/%m/%Y  %H:%M:%S [%:z  %Z]'     # одновременно отображает дату и часовой пояс
 uptime  # Отобразить время работы системы ...
 
-umount -R /mnt/boot
-umount -R /mnt
+umount -a
 reboot
+exit
+exit
+
+# umount -R /mnt/boot
+# umount -R /mnt
+# reboot
+
 
 
 
