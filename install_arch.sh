@@ -341,10 +341,15 @@ then
 #      echo 'prompt adam2' >> /etc/zsh/zshrc
        echo 'prompt fire' >> /etc/zsh/zshrc 
        
-#       chsh -s /bin/zsh
-#       chsh -s /bin/zsh $username
+       chsh -s /bin/zsh
+       chsh -s /bin/zsh $username
 # echo " Важно! При первом запуске консоли (терминала) - нажмите "0" "
 # echo " Пользовательская оболочка ИЗМЕНЕНА (сразу будет), с BASH на на ZSH "
+
+       pacman -S xdg-user-dirs --noconfirm  # Управляйте пользовательскими каталогами, такими как ~ / Desktop и ~ / Music
+#      pacman -S xdg-user-dirs-gtk --noconfirm  # Создаёт каталоги пользователей и просит их переместить
+       xdg-user-dirs-update 
+#      xdg-user-dirs-gtk-update  # Обновить закладки в thunar (левое меню)
 
 ### AUR Helper - (yay) ### 
   pacman -Syu    
@@ -356,7 +361,8 @@ then
   cd /home/$username/yay-bin  
 # sudo -u $username  makepkg -si --noconfirm   #-Не спрашивать каких-либо подтверждений  
 # sudo -u $username  makepkg -si --skipinteg   #-Не проверять целостность исходных файлов
-  sudo -u $username  makepkg -si   
+# sudo -u $username  makepkg -si
+  makepkg -si   
   rm -Rf /home/$username/yay-bin    # удаляем директорию сборки
 
   yay -Syy  # Обновление баз данных пакетов через - AUR (Yay)
@@ -370,18 +376,10 @@ then
   cd /home/$username/pamac-aur
 # sudo -u $username  makepkg -si --noconfirm   #-Не спрашивать каких-либо подтверждений 
 # sudo -u $username  makepkg -si --skipinteg   #-Не проверять целостность исходных файлов 
-  sudo -u $username  makepkg -si  
+# sudo -u $username  makepkg -si 
+  makepkg -si 
 # makepkg --noconfirm --needed -sic 
   rm -Rf /home/$username/pamac-aur 
-
-       pacman -S xdg-user-dirs --noconfirm  # Управляйте пользовательскими каталогами, такими как ~ / Desktop и ~ / Music
-#      pacman -S xdg-user-dirs-gtk --noconfirm  # Создаёт каталоги пользователей и просит их переместить
-       xdg-user-dirs-update 
-#      xdg-user-dirs-gtk-update  # Обновить закладки в thunar (левое меню)
-
-  pacman -Sy   #--noconfirm --noprogressbar --quiet
-
-pacman --noconfirm -Sc  # Очистка кэша неустановленных пакетов (оставив последние версии оных)
  
 fi
 
@@ -406,14 +404,11 @@ date +'%d/%m/%Y  %H:%M:%S [%:z  %Z]'     # одновременно отобра
 
 uptime  # Отобразить время работы системы ...
 
-umount -a
+umount -R /mnt/boot
+umount -R /mnt
 reboot
-exit
-exit
 
-# umount -R /mnt/boot
-# umount -R /mnt
-# reboot
+
 
 
 
