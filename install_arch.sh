@@ -323,8 +323,6 @@ then
 # systemctl enable lightdm.service
   systemctl enable lightdm.service -f
 
-  mv /usr/share/xsessions/xfce.desktop ~/
-
   pacman -S networkmanager networkmanager-openvpn network-manager-applet ppp --noconfirm
 # pacman -Sy networkmanager networkmanager-openvpn network-manager-applet ppp --noconfirm
 
