@@ -622,6 +622,10 @@ vm.swappiness=10
 
 EOF
 ###
+echo -e "${BLUE}:: ${NC}Перемещаем и переименовываем исходный файл /etc/sysctl.conf в /etc/sysctl.d/99-sysctl.conf"
+cp /etc/sysctl.conf  /etc/sysctl.conf.back  # Для начала сделаем его бэкап
+mv /etc/sysctl.conf /etc/sysctl.d/99-sysctl.conf   # Перемещаем и переименовываем исходный файл
+###
 echo ""
 echo -e "${GREEN}=> ${BOLD}Создадим конфигурационный файл для обновления списка зеркал pacman /etc/pacman.d/hooks/mirrorlist.hook ${NC}"
 echo " Привязка для обновления списка зеркал pacman с помощью reflector (отражателя) после каждого обновления списка зеркал pacman. "
@@ -642,12 +646,9 @@ Description = Updating pacman-mirrorlist with reflector and removing pacnew...
 When = PostTransaction
 Depends = reflector
 Exec = /usr/bin/bash -c "reflector --country 'Russia' --latest 9 -p https -p http -n 9 --sort rate --save /etc/pacman.d/mirrorlist && rm -f /etc/pacman.d/mirrorlist.pacnew || true"
+# Exec = /usr/bin/reflector -c ru,by,ua,pl -p https,http --sort rate -a 12 -l 10 --save /etc/pacman.d/mirrorlist
 
 EOF
-###
-echo -e "${BLUE}:: ${NC}Перемещаем и переименовываем исходный файл /etc/sysctl.conf в /etc/sysctl.d/99-sysctl.conf"
-cp /etc/sysctl.conf  /etc/sysctl.conf.back  # Для начала сделаем его бэкап
-mv /etc/sysctl.conf /etc/sysctl.d/99-sysctl.conf   # Перемещаем и переименовываем исходный файл
 ###
 echo -e "${BLUE}:: ${NC}Добавим в файл /etc/arch-release ссылку на сведение о release"
 > /etc/arch-release
