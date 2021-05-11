@@ -622,6 +622,25 @@ vm.swappiness=10
 
 EOF
 ###
+echo ""
+echo -e "${GREEN}=> ${BOLD}Создадим конфигурационный файл для установки системных переменных /etc/sysctl.conf ${NC}"
+echo " Sysctl - это инструмент для проверки и изменения параметров ядра во время выполнения (пакет procps-ng в официальных репозиториях ). sysctl реализован в procfs , файловой системе виртуального процесса в /proc/. "
+> /etc/pacman.d/hooks/mirrorlist.hook
+cat <<EOF >>/etc/pacman.d/hooks/mirrorlist.hook
+
+[Trigger]
+Operation = Upgrade
+Type = Package
+Target = pacman-mirrorlist
+
+[Action]
+Description = Updating pacman-mirrorlist with reflector and removing pacnew...
+When = PostTransaction
+Depends = reflector
+Exec = /usr/bin/bash -c "reflector --country 'Russia' --latest 9 -p https -p http -n 9 --sort rate --save /etc/pacman.d/mirrorlist && rm -f /etc/pacman.d/mirrorlist.pacnew || true"
+
+EOF
+###
 echo -e "${BLUE}:: ${NC}Перемещаем и переименовываем исходный файл /etc/sysctl.conf в /etc/sysctl.d/99-sysctl.conf"
 cp /etc/sysctl.conf  /etc/sysctl.conf.back  # Для начала сделаем его бэкап
 mv /etc/sysctl.conf /etc/sysctl.d/99-sysctl.conf   # Перемещаем и переименовываем исходный файл
