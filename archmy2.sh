@@ -627,7 +627,7 @@ echo -e "${GREEN}=> ${BOLD}Создадим конфигурационный ф�
 echo " Привязка для обновления списка зеркал pacman с помощью reflector (отражателя) после каждого обновления списка зеркал pacman. "
 > /etc/pacman.d/hooks/mirrorlist.hook
 cat <<EOF >>/etc/pacman.d/hooks/mirrorlist.hook
-
+# Hook to update pacman mirrorlist using reflector after each upgrade of pacman-mirrorlist
 [Trigger]
 Operation = Upgrade
 Type = Package
