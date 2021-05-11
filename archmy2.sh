@@ -715,8 +715,6 @@ echo -e "${GREEN}==> ${NC}Установка AUR Helper (yay) или (pikaur)"
 echo -e "${MAGENTA}:: ${NC} AUR - Пользовательский репозиторий, поддерживаемое сообществом хранилище ПО, в который пользователи загружают скрипты для установки программного обеспечения."
 echo " В AUR - есть практически всё, что можно установить на Linux. В том числе и программы, которые для других дистробутивов пришлось бы собирать из исходников. "
 echo -e "${CYAN}=> ${BOLD}В сценарии скрипта присутствуют следующий вариант: ${NC}"
-
-
 echo " 'AUR'-'yay-bin' (версия в разработке) - Еще один йогурт. Обертка Pacman и помощник AUR, написанные на языке go.  Предварительно скомпилирован. "
 echo -e "${CYAN}:: ${NC}Установка 'AUR'-'yay-bin' проходит через сборку из исходников AUR. То есть установка производиться с помощью git clone (https://aur.archlinux.org/yay-bin.git), PKGBUILD, makepkg - скачивается с сайта 'Arch Linux' (https://aur.archlinux.org/packages/yay-bin/), собирается и устанавливается."
 echo " Будьте внимательны! В этом действии выбор остаётся за вами. "
@@ -732,18 +730,40 @@ chown -R $username:users /home/$username/yay-bin/PKGBUILD  #-R, --recursive - р
 cd /home/$username/yay-bin  
 sudo -u $username  makepkg -si --noconfirm  
 rm -Rf /home/$username/yay-bin
-clear
 echo ""
 echo " Установка AUR Helper (yay-bin) завершена "
 #####################
-
-
-
-
-
-
-
+clear
+echo ""
+echo -e "${BLUE}:: ${NC}Обновим всю систему включая AUR пакеты" 
+echo ""    
+echo " Обновление баз данных пакетов, и системы через - AUR (Yay) "
+yay -Syy
+yay -Syu
+sleep 01
 #####################
+clear
+echo ""
+echo -e "${GREEN}==> ${NC}Установить  менеджер пакетов для Archlinux?"
+echo -e "${BLUE}:: ${NC}Установка Pacman gui (pamac-aur) (AUR)(GTK)" 
+echo " Давайте проанализируем действия, которые выполняются "
+echo " Pacman gui (pamac-aur) - Графический менеджер пакетов (интерфейс Gtk3 для libalpm) "
+echo " Графический менеджер пакетов для Arch, Manjaro Linux с поддержкой Alpm, AUR, и Snap. "
+echo -e "${CYAN}:: ${NC}Установка Pacman gui (pamac-aur) проходит через сборку из исходников AUR. То есть установка производиться с помощью git clone (https://aur.archlinux.org/pamac-aur.git), PKGBUILD, makepkg - скачивается с сайта 'Arch Linux' (https://aur.archlinux.org/packages/pamac-aur/), собирается и устанавливается."
+echo " Будьте внимательны! В этом действии выбор остаётся за вами. "
+echo ""  
+echo " Установка Графического менеджера Pacman gui (pamac-aur) " 
+cd /home/$username
+git clone https://aur.archlinux.org/pamac-aur.git
+chown -R $username:users /home/$username/pamac-aur
+chown -R $username:users /home/$username/pamac-aur/PKGBUILD 
+cd /home/$username/pamac-aur
+sudo -u $username  makepkg -si --noconfirm  
+# makepkg --noconfirm --needed -sic 
+rm -Rf /home/$username/pamac-aur
+echo ""
+echo " Графический менеджер Pamac-aur успешно установлен! "
+########################
 clear
 echo ""
 echo -e "${BLUE}:: ${BOLD}Очистка кэша pacman 'pacman -Sc' ${NC}"
