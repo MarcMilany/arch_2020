@@ -324,7 +324,7 @@ echo " Первый этап установки Arch'a закончен "
 echo 'Установка продолжится в ARCH-LINUX chroot' 
 echo ""   
 # pacman -S curl --noconfirm --noprogressbar --quiet  # Утилита и библиотека для поиска URL
-arch-chroot /mnt sh -c "$(curl -fsSL git.io/arch2)"  # sh вызывает программу sh как интерпретатор и флаг -c означает выполнение 
+arch-chroot /mnt sh -c "$(curl -fsSL git.io/archmy2)"  # sh вызывает программу sh как интерпретатор и флаг -c означает выполнение 
 echo " ############################################### "
 echo -e "${BLUE}       ARCH LINUX FAST INSTALL ${RED}1.6 Update${NC}"
 echo " ############################################### "
