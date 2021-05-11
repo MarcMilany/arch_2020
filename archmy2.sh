@@ -707,6 +707,54 @@ echo " Важно! При первом запуске консоли (терми
 echo " Пользовательская оболочка ИЗМЕНЕНА (сразу будет), с BASH на на ZSH "
 #####################
 clear
+echo -e "${MAGENTA}
+  <<< Установка AUR (Arch User Repository) >>> ${NC}"   
+echo -e "${YELLOW}==> Внимание! ${NC}Во время установки "AUR", Вас попросят ввести (Пароль пользователя) для $username."
+echo ""
+echo -e "${GREEN}==> ${NC}Установка AUR Helper (yay) или (pikaur)"
+echo -e "${MAGENTA}:: ${NC} AUR - Пользовательский репозиторий, поддерживаемое сообществом хранилище ПО, в который пользователи загружают скрипты для установки программного обеспечения."
+echo " В AUR - есть практически всё, что можно установить на Linux. В том числе и программы, которые для других дистробутивов пришлось бы собирать из исходников. "
+echo -e "${CYAN}=> ${BOLD}В сценарии скрипта присутствуют следующий вариант: ${NC}"
+
+
+echo " 'AUR'-'yay-bin' (версия в разработке) - Еще один йогурт. Обертка Pacman и помощник AUR, написанные на языке go.  Предварительно скомпилирован. "
+echo -e "${CYAN}:: ${NC}Установка 'AUR'-'yay-bin' проходит через сборку из исходников AUR. То есть установка производиться с помощью git clone (https://aur.archlinux.org/yay-bin.git), PKGBUILD, makepkg - скачивается с сайта 'Arch Linux' (https://aur.archlinux.org/packages/yay-bin/), собирается и устанавливается."
+echo " Будьте внимательны! В этом действии выбор остаётся за вами. "
+
+
+
+
+
+  pacman -Syu  # Обновим вашу систему (базу данных пакетов)    
+  echo ""
+  echo " Установка AUR Helper - (yay-bin) "
+  cd /home/$username
+  git clone https://aur.archlinux.org/yay-bin.git
+  chown -R $username:users /home/$username/yay-bin   #-R, --recursive - рекурсивная обработка всех подкаталогов;
+  chown -R $username:users /home/$username/yay-bin/PKGBUILD  #-R, --recursive - рекурсивная обработка всех подкаталогов;
+  cd /home/$username/yay-bin  
+  sudo -u $username  makepkg -si --noconfirm  
+  rm -Rf /home/$username/yay-bin
+  clear
+  echo ""
+  echo " Установка AUR Helper (yay-bin) завершена "
+
+
+
+
+
+
+
+#####################
+
+
+
+
+
+
+
+#####################
+clear
 echo ""
 echo -e "${BLUE}:: ${BOLD}Очистка кэша pacman 'pacman -Sc' ${NC}"
 echo -e "${CYAN}=> ${NC}Очистка кэша неустановленных пакетов (оставив последние версии оных), и репозиториев..."
