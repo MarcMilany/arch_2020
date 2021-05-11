@@ -95,14 +95,14 @@ echo -e "${BLUE}:: ${NC}Загрузка свежего списка зерка�
 echo " Команда отфильтрует зеркала для Russia по протоколам (https, http), отсортирует их по скорости загрузки и обновит файл mirrorlist "
 echo "" 
 echo " Проверим присутствует ли пакет (reflector) "
-pacman -Sy --noconfirm --noprogressbar --quiet reflector  # Модуль и скрипт Python 3 для получения и фильтрации последнего списка зеркал Pacman  - пока присутствует в pkglist.x86_64
-pacman -S --noconfirm --needed --noprogressbar --quiet reflector
+sudo pacman -Sy --noconfirm --noprogressbar --quiet reflector  # Модуль и скрипт Python 3 для получения и фильтрации последнего списка зеркал Pacman  - пока присутствует в pkglist.x86_64
+sudo pacman -S --noconfirm --needed --noprogressbar --quiet reflector
 echo ""
 echo " Создание резервной копии файла /etc/pacman.d/mirrorlist "
 sudo cp -vf /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.old
 echo ""
 echo " Загрузка свежего списка зеркал со страницы Mirror Status "
-reflector --verbose --country 'Russia' -l 9 -p https -p http -n 9 --save /etc/pacman.d/mirrorlist --sort rate
+sudo reflector --verbose --country 'Russia' -l 9 -p https -p http -n 9 --save /etc/pacman.d/mirrorlist --sort rate
 ###
 echo ""
 echo -e "${CYAN}:: ${NC}Уведомление о загрузке и обновлении свежего списка зеркал"
@@ -120,7 +120,7 @@ echo ""
 cat /etc/pacman.d/mirrorlist  # cat читает данные из файла или стандартного ввода и выводит их на экран
 echo ""
 echo -e "${BLUE}:: ${NC}Обновим базы данных пакетов" 
-pacman -Sy --noconfirm  # обновить списки пакетов из репозиториев
+sudo pacman -Sy --noconfirm  # обновить списки пакетов из репозиториев
 sleep 01
 ##########################
 clear
