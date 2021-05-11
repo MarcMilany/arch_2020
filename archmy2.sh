@@ -623,8 +623,8 @@ vm.swappiness=10
 EOF
 ###
 echo ""
-echo -e "${GREEN}=> ${BOLD}Создадим конфигурационный файл для установки системных переменных /etc/sysctl.conf ${NC}"
-echo " Sysctl - это инструмент для проверки и изменения параметров ядра во время выполнения (пакет procps-ng в официальных репозиториях ). sysctl реализован в procfs , файловой системе виртуального процесса в /proc/. "
+echo -e "${GREEN}=> ${BOLD}Создадим конфигурационный файл для обновления списка зеркал pacman /etc/pacman.d/hooks/mirrorlist.hook ${NC}"
+echo " Привязка для обновления списка зеркал pacman с помощью reflector (отражателя) после каждого обновления списка зеркал pacman. "
 > /etc/pacman.d/hooks/mirrorlist.hook
 cat <<EOF >>/etc/pacman.d/hooks/mirrorlist.hook
 
