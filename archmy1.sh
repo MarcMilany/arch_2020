@@ -50,7 +50,7 @@ echo -e "${CYAN}==> ${NC}If the ping goes we go further ..."  # Если пин�
 echo ""
 echo -e "${GREEN}=> ${NC}Make sure that your network interface is specified and enabled" 
 ip a  # Смотрим какие у нас есть интернет-интерфейсы
-###############
+################
 echo ""
 echo -e "${BLUE}:: ${NC}Install the Terminus font"  # Установим шрифт Terminus
 pacman -Sy terminus-font --noconfirm  # Моноширинный растровый шрифт (для X11 и консоли)
