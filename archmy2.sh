@@ -720,31 +720,21 @@ echo -e "${CYAN}=> ${BOLD}В сценарии скрипта присутств�
 echo " 'AUR'-'yay-bin' (версия в разработке) - Еще один йогурт. Обертка Pacman и помощник AUR, написанные на языке go.  Предварительно скомпилирован. "
 echo -e "${CYAN}:: ${NC}Установка 'AUR'-'yay-bin' проходит через сборку из исходников AUR. То есть установка производиться с помощью git clone (https://aur.archlinux.org/yay-bin.git), PKGBUILD, makepkg - скачивается с сайта 'Arch Linux' (https://aur.archlinux.org/packages/yay-bin/), собирается и устанавливается."
 echo " Будьте внимательны! В этом действии выбор остаётся за вами. "
-
-
-
-
-
-  pacman -Syu  # Обновим вашу систему (базу данных пакетов)    
-  echo ""
-  echo " Установка AUR Helper - (yay-bin) "
-  cd /home/$username
-  git clone https://aur.archlinux.org/yay-bin.git
-  chown -R $username:users /home/$username/yay-bin   #-R, --recursive - рекурсивная обработка всех подкаталогов;
-  chown -R $username:users /home/$username/yay-bin/PKGBUILD  #-R, --recursive - рекурсивная обработка всех подкаталогов;
-  cd /home/$username/yay-bin  
-  sudo -u $username  makepkg -si --noconfirm  
-  rm -Rf /home/$username/yay-bin
-  clear
-  echo ""
-  echo " Установка AUR Helper (yay-bin) завершена "
-
-
-
-
-
-
-
+echo ""
+echo " Обновим вашу систему (базу данных пакетов) "
+pacman -Syu  # Обновим вашу систему (базу данных пакетов)    
+echo ""
+echo " Установка AUR Helper - (yay-bin) "
+cd /home/$username
+git clone https://aur.archlinux.org/yay-bin.git
+chown -R $username:users /home/$username/yay-bin   #-R, --recursive - рекурсивная обработка всех подкаталогов;
+chown -R $username:users /home/$username/yay-bin/PKGBUILD  #-R, --recursive - рекурсивная обработка всех подкаталогов;
+cd /home/$username/yay-bin  
+sudo -u $username  makepkg -si --noconfirm  
+rm -Rf /home/$username/yay-bin
+clear
+echo ""
+echo " Установка AUR Helper (yay-bin) завершена "
 #####################
 
 
