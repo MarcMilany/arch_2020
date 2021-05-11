@@ -540,148 +540,6 @@ echo -e "${BLUE}:: ${NC}Установка базовых программ и п
 echo -e " Установка базовых программ (пакетов): wget, curl, git, cmake "
 pacman -S wget git --noconfirm  #curl  - пока присутствует в pkglist.x86_64  # Сетевая утилита для извлечения файлов из Интернета; Быстрая распределенная система контроля версий.
 pacman -S cmake --noconfirm  # Кросс-платформенная система сборки с открытым исходным кодом
-#####################
-echo ""
-echo -e "${GREEN}=> ${BOLD}Создадим конфигурационный файл для установки системных переменных /etc/sysctl.conf ${NC}"
-echo " Sysctl - это инструмент для проверки и изменения параметров ядра во время выполнения (пакет procps-ng в официальных репозиториях ). sysctl реализован в procfs , файловой системе виртуального процесса в /proc/. "
-> /etc/sysctl.conf
-cat <<EOF >>/etc/sysctl.conf
-
-#
-# /etc/sysctl.conf - Configuration file for setting system variables
-# See /etc/sysctl.d/ for additional system variables.
-# See sysctl.conf (5) for information.
-#
-# /etc/sysctl.d/99-sysctl.conf
-#
-
-#kernel.domainname = example.com
-
-# Uncomment the following to stop low-level messages on console
-#kernel.printk = 3 4 1 3
-
-##############################################################3
-# Functions previously found in netbase
-#
-
-# Uncomment the next two lines to enable Spoof protection (reverse-path filter)
-# Turn on Source Address Verification in all interfaces to
-# prevent some spoofing attacks
-#net.ipv4.conf.default.rp_filter=1
-#net.ipv4.conf.all.rp_filter=1
-
-# Uncomment the next line to enable TCP/IP SYN cookies
-# See http://lwn.net/Articles/277146/
-# Note: This may impact IPv6 TCP sessions too
-net.ipv4.tcp_syncookies=1
-
-# Uncomment the next line to enable packet forwarding for IPv4
-net.ipv4.ip_forward=1
-
-# Uncomment the next line to enable packet forwarding for IPv6
-#  Enabling this option disables Stateless Address Autoconfiguration
-#  based on Router Advertisements for this host
-#net.ipv6.conf.all.forwarding=1
-
-
-###################################################################
-# Additional settings - these settings can improve the network
-# security of the host and prevent against some network attacks
-# including spoofing attacks and man in the middle attacks through
-# redirection. Some network environments, however, require that these
-# settings are disabled so review and enable them as needed.
-#
-# Do not accept ICMP redirects (prevent MITM attacks)
-net.ipv4.conf.all.accept_redirects = 0
-net.ipv6.conf.all.accept_redirects = 0
-# _or_
-# Accept ICMP redirects only for gateways listed in our default
-# gateway list (enabled by default)
-# net.ipv4.conf.all.secure_redirects = 1
-#
-# Do not send ICMP redirects (we are not a router)
-#net.ipv4.conf.all.send_redirects = 0
-#
-# Do not accept IP source route packets (we are not a router)
-#net.ipv4.conf.all.accept_source_route = 0
-#net.ipv6.conf.all.accept_source_route = 0
-#
-# Log Martian Packets
-#net.ipv4.conf.all.log_martians = 1
-#
-net.ipv4.tcp_timestamps=0
-net.ipv4.conf.all.rp_filter=1
-net.ipv4.tcp_max_syn_backlog=1280
-kernel.core_uses_pid=1
-#
-# Fixing the indicator when writing files to a flash drive
-vm.dirty_bytes = 4194304
-vm.dirty_background_bytes = 4194304
-#
-vm.swappiness=10
-
-EOF
-###
-echo -e "${BLUE}:: ${NC}Перемещаем и переименовываем исходный файл /etc/sysctl.conf в /etc/sysctl.d/99-sysctl.conf"
-cp /etc/sysctl.conf  /etc/sysctl.conf.back  # Для начала сделаем его бэкап
-mv /etc/sysctl.conf /etc/sysctl.d/99-sysctl.conf   # Перемещаем и переименовываем исходный файл
-###
-echo ""
-echo -e "${GREEN}=> ${BOLD}Создадим конфигурационный файл для обновления списка зеркал pacman /etc/pacman.d/hooks/mirrorlist.hook ${NC}"
-echo " Привязка для обновления списка зеркал pacman с помощью reflector (отражателя) после каждого обновления списка зеркал pacman. "
-> /etc/pacman.d/hooks/mirrorlist.hook
-cat <<EOF >>/etc/pacman.d/hooks/mirrorlist.hook
-################################################################################
-################# Arch Linux mirrorlist upgrade by Reflector #################
-################################################################################
-# Hook to update pacman mirrorlist using reflector after each upgrade of pacman-mirrorlist
-
-[Trigger]
-Operation = Upgrade
-Type = Package
-Target = pacman-mirrorlist
-
-[Action]
-Description = Updating pacman-mirrorlist with reflector and removing pacnew...
-When = PostTransaction
-Depends = reflector
-Exec = /usr/bin/bash -c "reflector --country 'Russia' --latest 9 -p https -p http -n 9 --sort rate --save /etc/pacman.d/mirrorlist && rm -f /etc/pacman.d/mirrorlist.pacnew || true"
-# Exec = /usr/bin/reflector -c ru,by,ua,pl -p https,http --sort rate -a 12 -l 10 --save /etc/pacman.d/mirrorlist
-
-EOF
-###
-echo -e "${BLUE}:: ${NC}Добавим в файл /etc/arch-release ссылку на сведение о release"
-> /etc/arch-release
-cat <<EOF >>/etc/arch-release
-Arch Linux release
-#../usr/lib/os-release
-#Request for release information (Запрос информации о релизе)
-#cat /etc/arch-release
-#cat /etc/*-release
-#cat /etc/issue
-#cat /etc/lsb-release
-#cat /etc/lsb-release | cut -c21-90
-#cat /proc/version
-
-EOF
-###
-echo -e "${BLUE}:: ${NC}Создадим файл /etc/lsb-release (информация о релизе)"
-> /etc/lsb-release.old
-cat <<EOF >>/etc/lsb-release.old 
-NAME="Arch Linux"
-PRETTY_NAME="Arch Linux"
-ID=arch
-DISTRIB_RELEASE=rolling
-DISTRIB_CODENAME="Arch"
-DISTRIB_DESCRIPTION="Arch Linux"
-ANSI_COLOR="38;2;23;147;209"
-HOME_URL="https://www.archlinux.org/"
-DOCUMENTATION_URL="https://wiki.archlinux.org/"
-SUPPORT_URL="https://bbs.archlinux.org/"
-BUG_REPORT_URL="https://bugs.archlinux.org/"
-LOGO=archlinux
-
-EOF
 ####################
 clear
 echo ""
@@ -784,7 +642,125 @@ sudo -u $username  makepkg -si --noconfirm
 rm -Rf /home/$username/pamac-aur
 echo ""
 echo " Графический менеджер Pamac-aur успешно установлен! "
-########################
+#####################
+echo ""
+echo -e "${GREEN}=> ${BOLD}Создадим конфигурационный файл для установки системных переменных /etc/sysctl.conf ${NC}"
+echo " Sysctl - это инструмент для проверки и изменения параметров ядра во время выполнения (пакет procps-ng в официальных репозиториях ). sysctl реализован в procfs , файловой системе виртуального процесса в /proc/. "
+> /etc/sysctl.conf
+cat <<EOF >>/etc/sysctl.conf
+
+#
+# /etc/sysctl.conf - Configuration file for setting system variables
+# See /etc/sysctl.d/ for additional system variables.
+# See sysctl.conf (5) for information.
+#
+# /etc/sysctl.d/99-sysctl.conf
+#
+
+#kernel.domainname = example.com
+
+# Uncomment the following to stop low-level messages on console
+#kernel.printk = 3 4 1 3
+
+##############################################################3
+# Functions previously found in netbase
+#
+
+# Uncomment the next two lines to enable Spoof protection (reverse-path filter)
+# Turn on Source Address Verification in all interfaces to
+# prevent some spoofing attacks
+#net.ipv4.conf.default.rp_filter=1
+#net.ipv4.conf.all.rp_filter=1
+
+# Uncomment the next line to enable TCP/IP SYN cookies
+# See http://lwn.net/Articles/277146/
+# Note: This may impact IPv6 TCP sessions too
+net.ipv4.tcp_syncookies=1
+
+# Uncomment the next line to enable packet forwarding for IPv4
+net.ipv4.ip_forward=1
+
+# Uncomment the next line to enable packet forwarding for IPv6
+#  Enabling this option disables Stateless Address Autoconfiguration
+#  based on Router Advertisements for this host
+#net.ipv6.conf.all.forwarding=1
+
+
+###################################################################
+# Additional settings - these settings can improve the network
+# security of the host and prevent against some network attacks
+# including spoofing attacks and man in the middle attacks through
+# redirection. Some network environments, however, require that these
+# settings are disabled so review and enable them as needed.
+#
+# Do not accept ICMP redirects (prevent MITM attacks)
+net.ipv4.conf.all.accept_redirects = 0
+net.ipv6.conf.all.accept_redirects = 0
+# _or_
+# Accept ICMP redirects only for gateways listed in our default
+# gateway list (enabled by default)
+# net.ipv4.conf.all.secure_redirects = 1
+#
+# Do not send ICMP redirects (we are not a router)
+#net.ipv4.conf.all.send_redirects = 0
+#
+# Do not accept IP source route packets (we are not a router)
+#net.ipv4.conf.all.accept_source_route = 0
+#net.ipv6.conf.all.accept_source_route = 0
+#
+# Log Martian Packets
+#net.ipv4.conf.all.log_martians = 1
+#
+net.ipv4.tcp_timestamps=0
+net.ipv4.conf.all.rp_filter=1
+net.ipv4.tcp_max_syn_backlog=1280
+kernel.core_uses_pid=1
+#
+# Fixing the indicator when writing files to a flash drive
+vm.dirty_bytes = 4194304
+vm.dirty_background_bytes = 4194304
+#
+vm.swappiness=10
+
+EOF
+###
+echo -e "${BLUE}:: ${NC}Перемещаем и переименовываем исходный файл /etc/sysctl.conf в /etc/sysctl.d/99-sysctl.conf"
+cp /etc/sysctl.conf  /etc/sysctl.conf.back  # Для начала сделаем его бэкап
+mv /etc/sysctl.conf /etc/sysctl.d/99-sysctl.conf   # Перемещаем и переименовываем исходный файл
+###
+echo -e "${BLUE}:: ${NC}Добавим в файл /etc/arch-release ссылку на сведение о release"
+> /etc/arch-release
+cat <<EOF >>/etc/arch-release
+Arch Linux release
+#../usr/lib/os-release
+#Request for release information (Запрос информации о релизе)
+#cat /etc/arch-release
+#cat /etc/*-release
+#cat /etc/issue
+#cat /etc/lsb-release
+#cat /etc/lsb-release | cut -c21-90
+#cat /proc/version
+
+EOF
+###
+echo -e "${BLUE}:: ${NC}Создадим файл /etc/lsb-release (информация о релизе)"
+> /etc/lsb-release.old
+cat <<EOF >>/etc/lsb-release.old 
+NAME="Arch Linux"
+PRETTY_NAME="Arch Linux"
+ID=arch
+DISTRIB_RELEASE=rolling
+DISTRIB_CODENAME="Arch"
+DISTRIB_DESCRIPTION="Arch Linux"
+ANSI_COLOR="38;2;23;147;209"
+HOME_URL="https://www.archlinux.org/"
+DOCUMENTATION_URL="https://wiki.archlinux.org/"
+SUPPORT_URL="https://bbs.archlinux.org/"
+BUG_REPORT_URL="https://bugs.archlinux.org/"
+LOGO=archlinux
+
+EOF
+######################
 clear
 echo ""
 echo -e "${BLUE}:: ${BOLD}Очистка кэша pacman 'pacman -Sc' ${NC}"
