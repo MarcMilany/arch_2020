@@ -286,8 +286,8 @@ echo -e "${BLUE}:: ${NC}Монтирование разделов диска"
 echo ""
 echo " Создаём Phisical Volume на /dev/mapper/cryptlvm: "
 echo " Теперь мы cможем продолжить с lvm "
-pvcreate /dev/mapper/cryptlvm
-vgcreate lvarch /dev/mapper/cryptlvm
+pvcreate /dev/mapper/cryptlvm  # создаём физический том (create the physical volume)
+vgcreate lvarch /dev/mapper/cryptlvm  # создаём группу томов (create the volume group)
 echo " Ещё раз - Проверяем! "
 ls -l /dev/mapper/cryptlvm
 # ls -l /dev/mapper | grep cryptlvm
