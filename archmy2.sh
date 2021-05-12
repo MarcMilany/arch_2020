@@ -189,7 +189,8 @@ sleep 02
 clear
 echo ""
 echo -e "${BLUE}:: ${NC}Редактируем /etc/mkinitcpio.conf - Добавляем хуки (порядок важен)"
-echo " Модули определяются в файле /etc/mkinitcpio.conf, так как мы используем шифрование и LVM - то в HOOKS перед (порядок имеет значение, смотрите примеры в самом файле) перед modconf добавляем keyboard и keymap, а перед filesystem добавляем encrypt и lvm2 "
+echo -e "${MAGENTA}=> ${BOLD}Модули определяются в файле /etc/mkinitcpio.conf, так как мы используем шифрование и LVM - то в HOOKS перед (порядок имеет значение, смотрите примеры в самом файле) перед modconf добавляем keyboard и keymap, а перед filesystem добавляем encrypt и lvm2 ${NC}"
+
 echo " Не забудьте проверить наличие хука udev или btrfs, если используете btrfs! "
 echo -e "${GREEN}=> ${BOLD}Для LEGACY:${NC}"
    #    usr, fsck and shutdown hooks
