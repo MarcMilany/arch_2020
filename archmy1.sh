@@ -297,66 +297,56 @@ echo " Создаём разделы lvm (Три Logical Volume в группе 
 lvcreate -L 4G -n swap lvarch  # создайте подкачку ОЗУ+2 ГБ, больше, чем ОЗУ для гибернации (создание LV)
 lvcreate -L 35G -n root lvarch  # создайте корневой раздел на xxx ГБ (создание LV)
 lvcreate -l 100%FREE -n home lvarch  # остальное распределите на home (создание LV)
+###
 clear
 echo ""
-echo " Создаём разделы lvm "
-
-
-
-clear
+echo " Посмотрим, что диск может использоваться LMV "
 echo "Вот вывод PVDISPLAY:"
 pvdisplay  # pvdisplay - вывод атрибутов PV 
 # pvdisplay -C
 # pvdisplay -m  # (Отображает карту распределения физического тома)
-read -n 1 -s -r -p "Нажмите любую клавишу, чтобы продолжить"
+read -n 1 -s -r -p "Нажмите любую клавишу, чтобы продолжить"  # (Press any key to continue)
 clear
+echo ""
+echo " Посмотрим информацию о созданных группах "
 echo "Вот вывод VGDISPLAY:"
 vgdisplay  # vgdisplay - вывод атрибутов VG
 # vgdisplay -C
-read -n 1 -s -r -p "Нажмите любую клавишу, чтобы продолжить"
+read -n 1 -s -r -p "Нажмите любую клавишу, чтобы продолжить"  # (Press any key to continue)
 clear
+echo ""
+echo " Посмотрим информацию о созданном томе "
 echo "Вот вывод LVDISPLAY:"
 lvdisplay  # lvdisplay - вывод атрибутов LV
-read -n 1 -s -r -p "Нажмите любую клавишу, чтобы продолжить"
-
-
-
-
-Форматируем и включаем swap.
-Создаём файловые системы:
-
+read -n 1 -s -r -p "Нажмите любую клавишу, чтобы продолжить"  # (Press any key to continue)
+###
+clear
+echo ""
+echo " Форматирование разделов диска "
+echo " Создаём файловые системы и включаем swap: "
 mkfs.ext2 -L boot /dev/sda1  # загрузочный раздел
 mkfs.ext4 -L root /dev/lvarch/root  
 mkfs.ext4 -L home /dev/lvarch/home
 mkswap -L swap /dev/lvarch/swap
-
-
-Теперь это всё можно примонтировать для установки базовой системы. Точкой установки будет /mnt, где будет начинаться корень нашей будущей системы:
-
-Подключаем swap
+echo " Подключаем swap "
 swapon /dev/lvarch/swap
-
-Монтируем и создаем директории.
-# Монтируем разделы — root в корень /mnt:
-# Монтируем разделы в каталог /mnt запущенной системы:
+echo " Монтируем и создаем директории "
+echo " Теперь это всё можно примонтировать для установки базовой системы. Точкой установки будет /mnt, где будет начинаться корень нашей будущей системы. "
+echo " Монтируем разделы в каталог /mnt запущенной системы: "
+## Монтируем раздел root в корень /mnt:
 mount /dev/lvarch/root /mnt
-
-# Для /home — в /mnt создаём каталог home, и монтируем в него:
-# mkdir /mnt/home
-mkdir /mnt/{home,boot}
+## Для /home — в /mnt создаём каталог home, и монтируем в него:
+mkdir /mnt/home
+# mkdir /mnt/{home,boot}
 mount /dev/lvarch/home /mnt/home
-
-# Аналогично для /boot:
-# mkdir /mnt/boot
+## Аналогично для /boot:
+mkdir /mnt/boot
 mount /dev/sda1 /mnt/boot
+###
+
 
 Проверяем:
 ls -l /mnt/
-
-Установка системы
-Устанавливаем саму систему и openssh:
-
-[root@archiso ~]# pacstrap -i /mnt base base-devel openssh
 
 Создаём файл fstab:
 # genfstab -U -p /mnt >> /mnt/etc/fstab
@@ -364,39 +354,7 @@ genfstab -pU /mnt >> /mnt/etc/fstab
 Проверяем его:
 cat /mnt/etc/fstab
 
-Меняем окружение на новую систему:
-arch-chroot /mnt
-# arch-chroot /mnt /bin/bash
 
-clear
-echo ""
-echo -e "${GREEN}==> ${NC}Форматирование разделов диска"
-echo -e "${BLUE}:: ${NC}Установка название флага boot,root,swap,home"
-echo -e "${BLUE}:: ${NC}Монтирование разделов диска"
-#### Root #######
-mkfs.ext4  /dev/sda3 -L root
-mount /dev/sda3 /mnt
-# mkfs.ext4 /dev/$root -L root
-# mount /dev/$root /mnt
-#### Boot #######
-mkfs.ext2  /dev/sda1 -L boot
-mkdir /mnt/boot
-mount /dev/sda1 /mnt/boot
-# mkfs.ext2  /dev/$bootd -L boot
-# mkdir /mnt/boot
-# mount /dev/$bootd /mnt/boot
-#### Swap #######
-mkswap /dev/sda2 -L swap
-swapon /dev/sda2
-# mkswap /dev/$swaps -L swap
-# swapon /dev/$swaps 
-#### Home #######
-mkfs.ext4  /dev/sda4 -L home
-mkdir /mnt/home
-mount /dev/sda4 /mnt/home
-# mkfs.ext4 /dev/$home -L home
-# mkdir /mnt/home
-# mount /dev/$home /mnt/home
 #############################
 clear
 echo ""
@@ -494,6 +452,7 @@ echo ""
 echo " Генерируем fstab методом - По-UUID ("UUID" "genfstab -U")  "
 echo " UUID - genfstab -U -p /mnt > /mnt/etc/fstab "
 genfstab -pU /mnt >> /mnt/etc/fstab
+# genfstab -U -p /mnt >> /mnt/etc/fstab
 echo " Проверьте полученный /mnt/etc/fstab файл и отредактируйте его в случае ошибок. "
 ###
 clear
