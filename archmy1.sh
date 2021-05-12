@@ -329,7 +329,8 @@ mkfs.ext2 -L boot /dev/sda1  # загрузочный раздел
 mkfs.ext4 -L root /dev/lvarch/root  
 mkfs.ext4 -L home /dev/lvarch/home
 mkswap -L swap /dev/lvarch/swap
-echo " Подключаем swap "
+echo ""
+echo -e "${BLUE}:: ${NC}Подключаем swap"
 swapon /dev/lvarch/swap
 echo -e "${BLUE}:: ${NC}Монтируем и создаем директории"
 echo -e "${CYAN}:: ${NC}Теперь это всё можно примонтировать для установки базовой системы. Точкой установки будет /mnt, где будет начинаться корень нашей будущей системы."
