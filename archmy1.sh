@@ -284,9 +284,10 @@ echo -e "${GREEN}==> ${NC}Создание LVM разделов"
 echo -e "${BLUE}:: ${NC}Форматирование разделов диска: boot,root,swap,home"
 echo -e "${BLUE}:: ${NC}Монтирование разделов диска"
 echo ""
-echo " Создаём Phisical Volume на /dev/mapper/cryptlvm: "
-echo " Теперь мы cможем продолжить с lvm "
+echo " Создаём Phisical Volume на /dev/mapper/cryptlvm: Теперь мы cможем продолжить с lvm "
+echo " В начале диска создается дескриптор группы томов "
 pvcreate /dev/mapper/cryptlvm  # создаём физический том (инициализация устройства как PV)
+echo " Создается группа томов из инициализированных на предыдущем этапе дисков " 
 vgcreate lvarch /dev/mapper/cryptlvm  # создаём группу томов (создание VG)
 echo " Ещё раз - Проверяем! "
 ls -l /dev/mapper/cryptlvm
@@ -302,20 +303,21 @@ echo " Создаём разделы lvm "
 
 
 
-
-
 clear
 echo "Вот вывод PVDISPLAY:"
-pvdisplay  # pvdisplay - вывод атрибутов PV
-read -n 1 -s -r -p "Press any key to continue"
+pvdisplay  # pvdisplay - вывод атрибутов PV 
+# pvdisplay -C
+# pvdisplay -m  # (Отображает карту распределения физического тома)
+read -n 1 -s -r -p "Нажмите любую клавишу, чтобы продолжить"
 clear
 echo "Вот вывод VGDISPLAY:"
 vgdisplay  # vgdisplay - вывод атрибутов VG
-read -n 1 -s -r -p "Press any key to continue"
+# vgdisplay -C
+read -n 1 -s -r -p "Нажмите любую клавишу, чтобы продолжить"
 clear
 echo "Вот вывод LVDISPLAY:"
 lvdisplay  # lvdisplay - вывод атрибутов LV
-read -n 1 -s -r -p "Press any key to continue"
+read -n 1 -s -r -p "Нажмите любую клавишу, чтобы продолжить"
 
 
 
