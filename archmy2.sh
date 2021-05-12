@@ -295,7 +295,7 @@ echo " Программы (пакеты) установлены "
 clear
 echo ""
 echo -e "${BLUE}:: ${NC}Редактируем /etc/default/grub - Добавляем UUID нашего зашифрованного раздела root"
-echo -e "${MAGENTA}=> ${BOLD}Сначала взглянем на UUID идентификатор(ы) нашего устройства, запомним, запишем или сфоткаем его, и потом внесём (порядок в хаос) несколько правок /etc/default/grub ${NC}"
+echo -e "${MAGENTA}=> ${BOLD}Сначала взглянем на UUID идентификатор(ы) нашего устройства, Запомним, Запишем или Сфоткаем его, и потом внесём (порядок в хаос) несколько правок /etc/default/grub ${NC}"
 echo -e "${GREEN}=> ${BOLD}Добавляем в /etc/default/grub:${NC}"
 ## Прописываем команду для старта и включаем
 echo -e "${CYAN} Пример: ${NC}GRUB_CMDLINE_LINUX=\"cryptdevice=UUID=c0868972-f314-48e1-9be5-3584826dbd64:cryptlvm root=/dev/lvarch/root\"\n"
