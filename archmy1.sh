@@ -251,8 +251,8 @@ sleep 05
 clear
 echo ""
 echo -e "${GREEN}==> ${NC}Шифруем, открываем раздел. Создаём LUKS-контейнер."
-echo -e "${CYAN}:: ${NC}Есть несколько вариаций, как шифровать логический объем на /dev/sd*. Мы используем luks2 формат, детальный, с запросом пароля, без лишних ключей"
-echo -e "${MAGENTA}:: ${NC}Шифрование LUKS: https://wiki.archlinux.org/title/Dm-crypt/Device_encryption?ref=vc.ru"
+echo -e "${BLUE}:: ${NC}Шифрование LUKS: https://wiki.archlinux.org/title/Dm-crypt/Device_encryption?ref=vc.ru"
+echo -e "${CYAN}:: ${NC}Есть несколько вариаций, как шифровать логический объем на /dev/sd*. Мы используем luks2 формат, детальный, с запросом пароля, без лишних ключей."
 echo -e "${CYAN} Пример команды: ${NC}"cryptsetup -y luksFormat --type luks2 /dev/sdX"; или ещё команда - "cryptsetup -y -v luksFormat --type luks2 /dev/sdX""
 echo -e "${MAGENTA}:: ${BOLD}Эта команда выполнит инициализацию раздела, установит ключ инициализации и пароль. Сначала надо подтвердить создание виртуального шифрованного диска набрав Заглавными: YES ${NC}"
 echo " Затем нужно указать пароль. Указывайте такой пароль, чтобы его потом не забыть! "
