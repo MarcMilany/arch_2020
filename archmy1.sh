@@ -262,7 +262,7 @@ echo -e "${MAGENTA}=> ${BOLD}По умолчанию, на большинств�
 echo ""
 echo " Форматируем партицию через cryptsetup и задаём парольную фразу "
 # cryptsetup -y luksFormat --type luks2 /dev/sda2  # -y: запросить подтверждение пароля; luksFormat: использовать LUKS; --type: тип — plain, luks, luks2, tcrypt  
-cryptsetup -y -v luksFormat --type luks2 /dev/sda2
+cryptsetup -y -v luksFormat --type luks2 /dev/sda2 
 ###
 echo "" 
 echo -e "${BLUE}:: ${NC}Открываем зашифрованный контейнер с именем cryptlvm, который содержит данные из /dev/sdX"
