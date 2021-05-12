@@ -268,48 +268,37 @@ echo ""
 echo -e "${BLUE}:: ${NC}Открываем зашифрованный контейнер с именем cryptlvm, который содержит данные из /dev/sdX"
 echo -e "${MAGENTA}=> ${BOLD}Открываем контейнер указывая ту же парольную фразу, с которой выполнялось шифрование luks linux ${NC}"
 echo ""
-echo " Форматируем партицию через cryptsetup и задаём парольную фразу "
+echo " Открываем LUKS-контейнер, вводим парольную фразу "
 # cryptsetup open /dev/sda2 cryptlvm
 cryptsetup luksOpen /dev/sda2 cryptlvm
-
-
-
-
-
-
-Теперь вы можете увидеть новое виртуальное устройство /dev/mapper/backup2 созданное с помощью команды luksFormat
-
-Проверяем:
-
-ls -l /dev/mapper/cryptlvm
-
-На этом с шифрованием всё — переходим к созданию LVM разделов и установке системы.
-
-
-Создание LVM разделов
-Создаём Phisical Volume на /dev/mapper/cryptlvm:
-
+echo ""
+echo " Проверяем: - Теперь у нас есть открытый контейнер, доступной через device mapper "
+# ls -l /dev/mapper/cryptlvm
+ls -l /dev/mapper | grep cryptlvm
+echo ""
+echo " На этом с шифрованием всё - переходим к созданию LVM разделов и установке системы "
+###
+clear
+echo ""
+echo -e "${GREEN}==> ${NC}Создание LVM разделов"
+echo -e "${BLUE}:: ${NC}Форматирование разделов диска: boot,root,swap,home"
+echo -e "${BLUE}:: ${NC}Монтирование разделов диска"
+echo ""
+echo " Создаём Phisical Volume на /dev/mapper/cryptlvm: "
+echo " Теперь мы cможем продолжить с lvm "
 pvcreate /dev/mapper/cryptlvm
 vgcreate lvarch /dev/mapper/cryptlvm
-
-
+echo " Ещё раз - Проверяем! "
 ls -l /dev/mapper/cryptlvm
-
-
-
-А с помощью следующей команды вы можете сделать резервную копию заголовков LUKS на всякий случай:
-
- cryptsetup luksDump /dev/sda6
-
-
-
-
-
-Создаём разделы lvm.
-
+# ls -l /dev/mapper | grep cryptlvm
+echo ""
+echo " Создаём разделы lvm "
 lvcreate -L 4G -n swap lvarch
 lvcreate -L 35G -n root lvarch
 lvcreate -l 100%FREE -n home lvarch
+clear
+echo ""
+echo " Создаём разделы lvm "
 
 clear
 echo "Вот вывод PVDISPLAY:"
