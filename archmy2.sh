@@ -139,6 +139,12 @@ echo 'COMPRESSION="lz4"' >> /etc/mkinitcpio.conf
 #echo 'COMPRESSION="xz"' >> /etc/mkinitcpio.conf
 echo "vboxdrv" > /etc/modules-load.d/virtualbox.conf
 #######################
+
+
+
+
+
+########################
 clear
 echo ""
 echo -e "${BLUE}:: ${NC}Проверим корректность загрузки установленных микрокодов " 
@@ -237,6 +243,7 @@ echo " Установим GRUB(legacy) пакет (grub) "
 echo ""    
 pacman -Syy  # (-yy принудительно обновить даже если обновленные)
 pacman -S --noconfirm --needed grub
+pacman -S grub-customizer --noconfirm
 #pacman -S grub --noconfirm  # Файлы и утилиты для установки GRUB2 содержатся в пакете grub
 uname -rm  # для определения архитектуры процессора, имени хоста системы и версии ядра, работающего в системе
 lsblk -f # Команда lsblk выводит список всех блочных устройств
