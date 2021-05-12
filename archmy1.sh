@@ -324,6 +324,9 @@ mkfs.ext4 -L root /dev/lvarch/root
 mkfs.ext4 -L home /dev/lvarch/home
 mkswap -L swap /dev/lvarch/swap
 
+
+Теперь это всё можно примонтировать для установки базовой системы. Точкой установки будет /mnt, где будет начинаться корень нашей будущей системы:
+
 Подключаем swap
 swapon /dev/lvarch/swap
 
