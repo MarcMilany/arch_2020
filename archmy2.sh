@@ -192,16 +192,14 @@ echo -e "${BLUE}:: ${NC}Редактируем /etc/mkinitcpio.conf - Добав
 echo " Модули определяются в файле /etc/mkinitcpio.conf, так как мы используем шифрование и LVM - то в HOOKS перед (порядок имеет значение, смотрите примеры в самом файле) перед modconf добавляем keyboard и keymap, а перед filesystem добавляем encrypt и lvm2 "
 echo " Не забудьте проверить наличие хука udev или btrfs, если используете btrfs! "
 echo -e "${GREEN}=> ${BOLD}Для LEGACY:${NC}"
-echo "                                  Добавить keyboard keymap encrypt lvm2 "
    #    usr, fsck and shutdown hooks
 echo -e "${CYAN} Пример: ${NC}HOOKS=\"base udev autodetect keyboard keymap modconf block encrypt lvm2 filesystems fsck\"\n"
 echo ""
-echo -e "${MAGENTA} Вид строки: ${NC}HOOKS=(base udev autodetect keyboard keymap modconf block encrypt lvm2 filesystems fsck)"
 echo -e "${GREEN}=> ${BOLD}Для UEFI-systemd:${NC}"
     #    usr, fsck and shutdown hooks.
 echo -e "${CYAN} Пример: ${NC}HOOKS=\"base systemd autodetect keyboard sd-vconsole modconf block sd-encrypt lvm2 filesystems fsck\"\n"
 echo ""
-read -n 1 -s -r -p "Файл /etc/mkinitcpio.conf откроется в nano! \n Нажмите любую клавишу для открытия:"
+read -n 1 -s -r -p " Файл /etc/mkinitcpio.conf откроется в nano! \n Нажмите любую клавишу для открытия: "
 nano /etc/mkinitcpio.conf
 ## добавить keyboard keymap encrypt lvm2
 # HOOKS=(base udev autodetect keyboard keymap modconf block encrypt lvm2 filesystems fsck)
