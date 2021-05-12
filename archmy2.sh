@@ -299,16 +299,16 @@ echo " Сначала взглянем на UUID идентификатор(ы) 
 echo -e "${GREEN}=> ${BOLD}Добавляем в /etc/default/grub:${NC}"
 ## Прописываем команду для старта и включаем
 echo -e "${CYAN} Пример: ${NC}GRUB_CMDLINE_LINUX=\"cryptdevice=UUID=c0868972-f314-48e1-9be5-3584826dbd64:cryptlvm root=/dev/lvarch/root\"\n"
-echo ""
 echo -e "${CYAN} Ещё одна строка: ${NC}GRUB_ENABLE_CRYPTODISK=y\"\n"
 echo " Эта строка присутствует в /etc/default/grub, её просто раскомментируйте! "
 echo ""
 echo -e "${BLUE}:: ${NC}Взглянем на UUID идентификатор(ы) нашего устройства:"
 read -n 1 -s -r -p "Файл /etc/default/grub откроется в nano! \n Нажмите любую клавишу для продолжения:"
+echo ""
 # blkid
 blkid /dev/sda2
 # blkid /dev/sd*  # Для просмотра UUID (или Universal Unique Identifier) - это универсальный уникальный идентификатор определенного устройства компьютера
-sleep 08
+sleep 20
 nano /etc/default/grub
 ##########################
 echo ""
