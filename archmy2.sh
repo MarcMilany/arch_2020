@@ -310,7 +310,7 @@ blkid /dev/sda2
 # blkid /dev/sd*  # Для просмотра UUID (или Universal Unique Identifier) - это универсальный уникальный идентификатор определенного устройства компьютера
 sleep 20
 nano /etc/default/grub
-##########################
+#########################
 echo ""
 echo -e "${BLUE}:: ${NC}Обновляем grub.cfg (Сгенерируем grub.cfg)"
 echo " Настраиваем и конфигурируем grub "
