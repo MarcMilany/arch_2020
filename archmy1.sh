@@ -263,21 +263,17 @@ echo ""
 echo " Форматируем партицию через cryptsetup и задаём парольную фразу "
 # cryptsetup -y luksFormat --type luks2 /dev/sda2  # -y: запросить подтверждение пароля; luksFormat: использовать LUKS; --type: тип — plain, luks, luks2, tcrypt  
 cryptsetup -y -v luksFormat --type luks2 /dev/sda2
+###
+echo "" 
+echo -e "${BLUE}:: ${NC}Открываем зашифрованный контейнер с именем cryptlvm, который содержит данные из /dev/sdX"
+echo -e "${MAGENTA}=> ${BOLD}Открываем контейнер указывая ту же парольную фразу, с которой выполнялось шифрование luks linux ${NC}"
+echo ""
+echo " Форматируем партицию через cryptsetup и задаём парольную фразу "
 
-
-
-
-
-
-Выполните такую команду чтобы открыть только что созданный раздел с помощью модуля dm-crypt в /dev/mapper, для этого понадобится ввести пароль, с которым выполнялось шифрование luks linux
-
-Открываем контейнер с именем cryptlvm, который содержит данные из /dev/sda2
-Далее открываем контейнер указывая ту же парольную фразу:
-cryptsetup open /dev/sda2 cryptlvm
+# cryptsetup open /dev/sda2 cryptlvm
 cryptsetup luksOpen /dev/sda2 cryptlvm
 
-# Enter passphrase for /dev/sda2:
-# Re-playCopy to ClipboardPauseFull View
+
 
 
 Теперь вы можете увидеть новое виртуальное устройство /dev/mapper/backup2 созданное с помощью команды luksFormat
