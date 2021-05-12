@@ -139,12 +139,6 @@ echo 'COMPRESSION="lz4"' >> /etc/mkinitcpio.conf
 #echo 'COMPRESSION="xz"' >> /etc/mkinitcpio.conf
 echo "vboxdrv" > /etc/modules-load.d/virtualbox.conf
 #######################
-
-
-
-
-
-########################
 clear
 echo ""
 echo -e "${BLUE}:: ${NC}Проверим корректность загрузки установленных микрокодов " 
@@ -191,6 +185,26 @@ echo " После завершения установки пакета прог�
 # echo -e "${BLUE}:: ${NC}Обновляем grub.cfg (Сгенерируем grub.cfg)"
 # grub-mkconfig -o /boot/grub/grub.cfg   # создаём конфигурационный файл 
 sleep 02
+########################
+clear
+echo ""
+echo -e "${BLUE}:: ${NC}Редактируем /etc/mkinitcpio.conf - Добавляем хуки (порядок важен)"
+echo " Модули определяются в файле /etc/mkinitcpio.conf, так как мы используем шифрование и LVM - то в HOOKS перед (порядок имеет значение, смотрите примеры в самом файле) перед modconf добавляем keyboard и keymap, а перед filesystem добавляем encrypt и lvm2 "
+echo " Не забудьте проверить наличие хука udev или btrfs, если используете btrfs! "
+echo -e "${GREEN}=> ${BOLD}Для LEGACY:${NC}"
+echo "                                  Добавить keyboard keymap encrypt lvm2 "
+   #    usr, fsck and shutdown hooks
+echo -e "${CYAN} Пример: ${NC}HOOKS=\"base udev autodetect keyboard keymap modconf block encrypt lvm2 filesystems fsck\"\n"
+echo ""
+echo -e "${MAGENTA} Вид строки: ${NC}HOOKS=(base udev autodetect keyboard keymap modconf block encrypt lvm2 filesystems fsck)"
+echo -e "${GREEN}=> ${BOLD}Для UEFI-systemd:${NC}"
+    #    usr, fsck and shutdown hooks.
+echo -e "${CYAN} Пример: ${NC}HOOKS=\"base systemd autodetect keyboard sd-vconsole modconf block sd-encrypt lvm2 filesystems fsck\"\n"
+echo ""
+read -n 1 -s -r -p "Файл /etc/mkinitcpio.conf откроется в nano! \n Нажмите любую клавишу для открытия:"
+nano /etc/mkinitcpio.conf
+### добавить keyboard keymap encrypt lvm2
+# HOOKS=(base udev autodetect keyboard keymap modconf block encrypt lvm2 filesystems fsck)
 ########################
 clear
 echo ""
@@ -279,7 +293,44 @@ echo " И обновить загрузчик Arch Linux, чтобы иметь 
 echo ""    
 echo " Устанавливаем программы (пакеты) для определения другой-(их) OS "    
 pacman -S os-prober mtools fuse --noconfirm  #grub-customizer  # Утилита для обнаружения других ОС на наборе дисков; Сборник утилит для доступа к дискам MS-DOS; 
-echo " Программы (пакеты) установлены " 
+echo " Программы (пакеты) установлены "
+########################
+
+
+
+
+
+clear
+echo -e "${BLUE}:: ${NC}Взглянем на UUID идентификатор(ы) нашего устройства:"
+echo ""
+# blkid
+blkid /dev/sda2
+# blkid /dev/sd*  # Для просмотра UUID (или Universal Unique Identifier) - это универсальный уникальный идентификатор определенного устройства компьютера
+sleep 05
+###
+
+
+
+
+Добавляем в /etc/default/grub:
+## Прописываем команду для старта и включаем.
+GRUB_CMDLINE_LINUX="cryptdevice=UUID=c0868972-f314-48e1-9be5-3584826dbd64:cryptlvm root=/dev/lvarch/root"
+GRUB_ENABLE_CRYPTODISK=y
+
+
+
+
+nano /etc/default/grub
+
+
+
+
+
+
+
+
+
+
 ###
 echo ""
 echo -e "${BLUE}:: ${NC}Обновляем grub.cfg (Сгенерируем grub.cfg)"
