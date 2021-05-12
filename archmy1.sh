@@ -342,19 +342,6 @@ mount /dev/lvarch/home /mnt/home
 ## Аналогично для /boot:
 mkdir /mnt/boot
 mount /dev/sda1 /mnt/boot
-###
-
-
-Проверяем:
-ls -l /mnt/
-
-Создаём файл fstab:
-# genfstab -U -p /mnt >> /mnt/etc/fstab
-genfstab -pU /mnt >> /mnt/etc/fstab
-Проверяем его:
-cat /mnt/etc/fstab
-
-
 #############################
 clear
 echo ""
@@ -370,7 +357,8 @@ free -h  # Достаточно ли свободной памяти для ус
 sleep 02
 echo ""
 echo -e "${BLUE}:: ${NC}Посмотреть содержмое каталога /mnt."
-ls /mnt  # Посмотреть содержимое той или иной папки
+ls -l /mnt/
+# ls /mnt  # Посмотреть содержимое той или иной папки
 ########################
 ######## Mirrorlist ##########
 clear
