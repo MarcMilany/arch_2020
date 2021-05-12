@@ -335,7 +335,7 @@ echo " Теперь это всё можно примонтировать для
 echo " Монтируем разделы в каталог /mnt запущенной системы: "
 ## Монтируем раздел root в корень /mnt:
 mount /dev/lvarch/root /mnt
-## Для /home — в /mnt создаём каталог home, и монтируем в него:
+## Для /home - в /mnt создаём каталог home, и монтируем в него:
 mkdir /mnt/home
 # mkdir /mnt/{home,boot}
 mount /dev/lvarch/home /mnt/home
