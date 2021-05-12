@@ -24,14 +24,20 @@ echo -e "${BLUE}:: ${NC}Посмотрим статус службы NTP (NTP se
 timedatectl status
 echo -e "${BLUE}:: ${NC}Посмотрим текущее состояние аппаратных и программных часов"
 timedatectl
-###
+#################
 echo ""
 echo -e "${BLUE}:: ${NC}Обновим вашу систему (базу данных пакетов)"
 echo -e "${YELLOW}:: ${NC}Загружаем базу данных пакетов независимо от того, есть ли какие-либо изменения в версиях"
 echo ""
 pacman -Syyu --noconfirm  # Обновим вашу систему (базу данных пакетов)  
 sleep 01
-###
+#################
+echo ""
+echo -e "${BLUE}:: ${NC}Установим утилиты Logical Volume Manager 2 пакет (lvm2)"
+echo " Если Вы захотите задействовать (попробовать) LVM в действии "
+echo " LVM - Менеджер логических томов (англ. Logical Volume Manager). В отличие от разделов жёсткого диска, размеры логических томов можно легко менять. "
+pacman -S lvm2 --noconfirm  # Утилиты Logical Volume Manager 2 (https://sourceware.org/lvm2/)
+#################
 clear
 echo ""
 echo -e "${GREEN}==> ${NC}Вводим название компьютера (host name), и имя пользователя (user name)"
