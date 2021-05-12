@@ -182,36 +182,59 @@ echo -e "${BLUE}:: ${NC}Вы можете изменить разметку ди
   echo o;
 
   echo n;
-  echo;
+  echo p;
   echo;
   echo;
   echo +2G;
-
-  echo n;
-  echo;
-  echo;
-  echo;
-  echo +8G;
-  echo t;
-  echo 2;
-#  echo L;
-  echo 82;
-
-  echo n;
-  echo;
-  echo;
-  echo;
-  echo +35G;
 
   echo n;
   echo p;
   echo;
   echo;
   echo a;
-  echo 1;
+  echo 1;  
 
   echo w;
 ) | fdisk /dev/sda
+#####################################
+# Создаем таблицу на диске MBR(DOS) и 2 первичных раздела.
+# boot 512M, выставляем флаг boot
+# LUKS под root, swap, home
+# Создаём разделы:
+# [root@archiso ~]# fdisk /dev/sda
+# /boot:
+# (fdisk) n // new раздел
+# (fdisk) p // или <Enter>, primary раздел
+# (fdisk) 1 // или <Enter>, первый раздел
+# (fdisk) <Enter> // первый сектор, по умолчанию
+# (fdisk) +256M // последний сектор, под /boot тут хватит 256МБ
+# (fdisk) a // устанавливаем boot флаг на этот раздел
+# LVM:
+# (fdisk) n // new раздел
+# (fdisk) p // или <Enter>, primary раздел
+# (fdisk) 2 // или <Enter>, второй раздел
+# (fdisk) <Enter> // первый сектор, по умолчанию
+# (fdisk) <Enter> // последний сектор, всё оставшееся место
+# Проверяем:
+# ...
+# Command (m for help): p
+# Disk /dev/sda: 20 GiB, 21474836480 bytes, 41943040 sectors
+# Units: sectors of 1 * 512 = 512 bytes
+# Sector size (logical/physical): 512 bytes / 512 bytes
+# I/O size (minimum/optimal): 512 bytes / 512 bytes
+# Disklabel type: dos
+# Disk identifier: 0xc26e076b
+# Device     Boot  Start      End  Sectors  Size Id Type
+# /dev/sda1  *      2048   526335   524288  256M 83 Linux
+# /dev/sda2       526336 41943039 41416704 19.8G 83 Linux
+# Re-playCopy to ClipboardPauseFull View
+# Записываем изменения — w:
+#...
+# Command (m for help): w
+# The partition table has been altered.
+# Calling ioctl() to re-read partition table.
+# Syncing disks
+#####################################
 ###
 clear 
 echo "" 
@@ -221,6 +244,137 @@ lsblk -f  # Команда lsblk выводит список всех блочн
 #lsblk -lo  # Команда lsblk выводит список всех блочных устройств
 sleep 03
 ###
+
+
+
+*** я не стал заморачиваться с выбором шифров, с затиранием рандомом урандомом и прочим, а просто создал контейнер по умолчанию.
+
+Шифруем, открываем раздел. Создаем контейнер.
+Вторая партиция это контейнер, который нужно сначала подготовить. Форматируем партицию через cryptsetup и задаём парольную фразу:
+
+cryptsetup -y luksFormat --type luks2 /dev/sda2
+cryptsetup -y -v luksFormat --type luks2 /dev/sda2
+
+# WARNING!
+# ========
+# This will overwrite data on /dev/sda2 irrevocably.
+# Are you sure? (Type uppercase yes): YES
+# Enter passphrase for /dev/sda2:
+# Verify passphrase:
+# Re-playCopy to ClipboardPauseFull View
+# подтверждаем YES
+
+# Тут:
+# -y: запросить подтверждение пароля
+# luksFormat: использовать LUKS
+# --type: тип — plain, luks, luks2, tcrypt
+
+Эта команда выполнит инициализацию раздела, установит ключ инициализации и пароль. Сначала надо подтвердить создание виртуального шифрованного диска набрав YES, затем нужно указать пароль. Указывайте такой пароль, чтобы его потом не забыть.
+
+
+Выполните такую команду чтобы открыть только что созданный раздел с помощью модуля dm-crypt в /dev/mapper, для этого понадобится ввести пароль, с которым выполнялось шифрование luks linux
+
+Открываем контейнер с именем cryptlvm, который содержит данные из /dev/sda2
+cryptsetup open /dev/sda2 cryptlvm
+cryptsetup luksOpen /dev/sda2 cryptlvm
+
+# Enter passphrase for /dev/sda2:
+# Re-playCopy to ClipboardPauseFull View
+
+
+Теперь вы можете увидеть новое виртуальное устройство /dev/mapper/backup2 созданное с помощью команды luksFormat
+
+Проверяем:
+
+[root@archiso ~]# ls -l /dev/mapper/cryptlvm
+
+На этом с шифрованием всё — переходим к созданию LVM разделов и установке системы.
+
+
+Создание LVM разделов
+Создаём Phisical Volume на /dev/mapper/cryptlvm:
+
+pvcreate /dev/mapper/cryptlvm
+vgcreate lvarch /dev/mapper/cryptlvm
+
+
+ls -l /dev/mapper/cryptlvm
+
+
+
+А с помощью следующей команды вы можете сделать резервную копию заголовков LUKS на всякий случай:
+
+ cryptsetup luksDump /dev/sda6
+
+
+
+
+
+Создаём разделы lvm.
+
+lvcreate -L 4G -n swap lvarch
+lvcreate -L 35G -n root lvarch
+lvcreate -l 100%FREE -n home lvarch
+
+clear
+echo "Вот вывод PVDISPLAY:"
+pvdisplay
+read -n 1 -s -r -p "Press any key to continue"
+clear
+echo "Вот вывод VGDISPLAY:"
+vgdisplay
+read -n 1 -s -r -p "Press any key to continue"
+clear
+echo "Вот вывод LVDISPLAY:"
+lvdisplay
+read -n 1 -s -r -p "Press any key to continue"
+
+
+
+
+Форматируем и включаем swap.
+Создаём файловые системы:
+
+mkfs.ext2 -L boot /dev/sda1
+mkfs.ext4 -L root /dev/lvarch/root
+mkfs.ext4 -L home /dev/lvarch/home
+mkswap -L swap /dev/lvarch/swap
+
+Подключаем swap
+swapon /dev/lvarch/swap
+
+Монтируем и создаем директории.
+# Монтируем разделы — root в корень /mnt:
+# Монтируем разделы в каталог /mnt запущенной системы:
+mount /dev/lvarch/root /mnt
+
+# Для /home — в /mnt создаём каталог home, и монтируем в него:
+# mkdir /mnt/home
+mkdir /mnt/{home,boot}
+mount /dev/lvarch/home /mnt/home
+
+# Аналогично для /boot:
+# mkdir /mnt/boot
+mount /dev/sda1 /mnt/boot
+
+Проверяем:
+ls -l /mnt/
+
+Установка системы
+Устанавливаем саму систему и openssh:
+
+[root@archiso ~]# pacstrap -i /mnt base base-devel openssh
+
+Создаём файл fstab:
+# genfstab -U -p /mnt >> /mnt/etc/fstab
+genfstab -pU /mnt >> /mnt/etc/fstab
+Проверяем его:
+cat /mnt/etc/fstab
+
+Меняем окружение на новую систему:
+arch-chroot /mnt
+# arch-chroot /mnt /bin/bash
+
 clear
 echo ""
 echo -e "${GREEN}==> ${NC}Форматирование разделов диска"
