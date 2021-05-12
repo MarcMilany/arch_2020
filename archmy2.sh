@@ -190,12 +190,10 @@ clear
 echo ""
 echo -e "${BLUE}:: ${NC}Редактируем /etc/mkinitcpio.conf - Добавляем хуки (порядок важен)"
 echo -e "${MAGENTA}=> ${BOLD}Модули определяются в файле /etc/mkinitcpio.conf, так как мы используем шифрование и LVM - то в HOOKS перед (порядок имеет значение, смотрите примеры в самом файле) перед modconf добавляем keyboard и keymap, а перед filesystem добавляем encrypt и lvm2 ${NC}"
-
-echo " Не забудьте проверить наличие хука udev или btrfs, если используете btrfs! "
+echo -e "${YELLOW}=> Важно! ${BOLD}Не забудьте проверить наличие хука udev или btrfs, если используете btrfs! ${NC}"
 echo -e "${GREEN}=> ${BOLD}Для LEGACY:${NC}"
    #    usr, fsck and shutdown hooks
 echo -e "${CYAN} Пример: ${NC}HOOKS=\"base udev autodetect keyboard keymap modconf block encrypt lvm2 filesystems fsck\"\n"
-echo ""
 echo -e "${GREEN}=> ${BOLD}Для UEFI-systemd:${NC}"
     #    usr, fsck and shutdown hooks.
 echo -e "${CYAN} Пример: ${NC}HOOKS=\"base systemd autodetect keyboard sd-vconsole modconf block sd-encrypt lvm2 filesystems fsck\"\n"
