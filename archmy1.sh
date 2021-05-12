@@ -289,11 +289,11 @@ echo " В начале диска создается дескриптор гру
 pvcreate /dev/mapper/cryptlvm  # создаём физический том (инициализация устройства как PV)
 echo " Создается группа томов из инициализированных на предыдущем этапе дисков " 
 vgcreate lvarch /dev/mapper/cryptlvm  # создаём группу томов (создание VG)
-echo " Ещё раз - Проверяем! "
+echo -e "${BLUE}:: ${NC}Ещё раз - Проверяем!"
 ls -l /dev/mapper/cryptlvm
 # ls -l /dev/mapper | grep cryptlvm
 echo ""
-echo " Создаём разделы lvm (Три Logical Volume в группе томов) "
+echo -e "${BLUE}:: ${NC}Создаём разделы lvm (Три Logical Volume в группе томов)"
 lvcreate -L 4G -n swap lvarch  # создайте подкачку ОЗУ+2 ГБ, больше, чем ОЗУ для гибернации (создание LV)
 lvcreate -L 35G -n root lvarch  # создайте корневой раздел на xxx ГБ (создание LV)
 lvcreate -l 100%FREE -n home lvarch  # остальное распределите на home (создание LV)
