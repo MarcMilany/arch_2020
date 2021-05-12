@@ -292,7 +292,7 @@ echo " Ещё раз - Проверяем! "
 ls -l /dev/mapper/cryptlvm
 # ls -l /dev/mapper | grep cryptlvm
 echo ""
-echo " Создаём разделы lvm "
+echo " Создаём разделы lvm (Три Logical Volume в группе томов) "
 lvcreate -L 4G -n swap lvarch
 lvcreate -L 35G -n root lvarch
 lvcreate -l 100%FREE -n home lvarch
