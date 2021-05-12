@@ -53,7 +53,7 @@ read -p " => Введите имя пользователя: " username
 ###
 echo -e "${BLUE}:: ${NC}Прописываем имя компьютера"
 echo $hostname > /etc/hostname 
-###############
+#################
 clear
 echo ""
 echo -e "${GREEN}==> ${NC}Устанавливаем ваш часовой пояс (localtime)."
