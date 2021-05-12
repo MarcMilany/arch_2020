@@ -286,16 +286,16 @@ echo -e "${BLUE}:: ${NC}Монтирование разделов диска"
 echo ""
 echo " Создаём Phisical Volume на /dev/mapper/cryptlvm: "
 echo " Теперь мы cможем продолжить с lvm "
-pvcreate /dev/mapper/cryptlvm  # создаём физический том (create the physical volume)
-vgcreate lvarch /dev/mapper/cryptlvm  # создаём группу томов (create the volume group)
+pvcreate /dev/mapper/cryptlvm  # создаём физический том (инициализация устройства как PV)
+vgcreate lvarch /dev/mapper/cryptlvm  # создаём группу томов (создание VG)
 echo " Ещё раз - Проверяем! "
 ls -l /dev/mapper/cryptlvm
 # ls -l /dev/mapper | grep cryptlvm
 echo ""
 echo " Создаём разделы lvm (Три Logical Volume в группе томов) "
-lvcreate -L 4G -n swap lvarch  # создайте подкачку ОЗУ+2 ГБ, больше, чем ОЗУ для гибернации
-lvcreate -L 35G -n root lvarch  # создайте корневой раздел на xxx ГБ
-lvcreate -l 100%FREE -n home lvarch  # остальное распределите на home
+lvcreate -L 4G -n swap lvarch  # создайте подкачку ОЗУ+2 ГБ, больше, чем ОЗУ для гибернации (создание LV)
+lvcreate -L 35G -n root lvarch  # создайте корневой раздел на xxx ГБ (создание LV)
+lvcreate -l 100%FREE -n home lvarch  # остальное распределите на home (создание LV)
 clear
 echo ""
 echo " Создаём разделы lvm "
@@ -303,17 +303,18 @@ echo " Создаём разделы lvm "
 
 
 
+
 clear
 echo "Вот вывод PVDISPLAY:"
-pvdisplay
+pvdisplay  # pvdisplay - вывод атрибутов PV
 read -n 1 -s -r -p "Press any key to continue"
 clear
 echo "Вот вывод VGDISPLAY:"
-vgdisplay
+vgdisplay  # vgdisplay - вывод атрибутов VG
 read -n 1 -s -r -p "Press any key to continue"
 clear
 echo "Вот вывод LVDISPLAY:"
-lvdisplay
+lvdisplay  # lvdisplay - вывод атрибутов LV
 read -n 1 -s -r -p "Press any key to continue"
 
 
