@@ -293,12 +293,15 @@ ls -l /dev/mapper/cryptlvm
 # ls -l /dev/mapper | grep cryptlvm
 echo ""
 echo " Создаём разделы lvm (Три Logical Volume в группе томов) "
-lvcreate -L 4G -n swap lvarch
-lvcreate -L 35G -n root lvarch
-lvcreate -l 100%FREE -n home lvarch
+lvcreate -L 4G -n swap lvarch  # создайте подкачку ОЗУ+2 ГБ, больше, чем ОЗУ для гибернации
+lvcreate -L 35G -n root lvarch  # создайте корневой раздел на xxx ГБ
+lvcreate -l 100%FREE -n home lvarch  # остальное распределите на home
 clear
 echo ""
 echo " Создаём разделы lvm "
+
+
+
 
 clear
 echo "Вот вывод PVDISPLAY:"
@@ -319,8 +322,8 @@ read -n 1 -s -r -p "Press any key to continue"
 Форматируем и включаем swap.
 Создаём файловые системы:
 
-mkfs.ext2 -L boot /dev/sda1
-mkfs.ext4 -L root /dev/lvarch/root
+mkfs.ext2 -L boot /dev/sda1  # загрузочный раздел
+mkfs.ext4 -L root /dev/lvarch/root  
 mkfs.ext4 -L home /dev/lvarch/home
 mkswap -L swap /dev/lvarch/swap
 
