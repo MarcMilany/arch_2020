@@ -250,7 +250,7 @@ sleep 03
 ###
 clear
 echo ""
-echo -e "${GREEN}==> ${NC}Шифруем, открываем раздел. Создаем контейнер."
+echo -e "${GREEN}==> ${NC}Шифруем, открываем раздел. Создаём LUKS-контейнер."
 echo -e "${BLUE}:: ${NC}Шифрование LUKS: https://wiki.archlinux.org/title/Dm-crypt/Device_encryption?ref=vc.ru"
 echo " Есть несколько вариаций, как шифровать логический объем на /dev/sd*. Мы используем luks2 формат, детальный, с запросом пароля, без лишних ключей "
 echo -e "${CYAN} Пример команды: ${NC}"cryptsetup -y luksFormat --type luks2 /dev/sdX"; или ещё команда - "cryptsetup -y -v luksFormat --type luks2 /dev/sdX""
@@ -271,6 +271,8 @@ echo ""
 echo " Форматируем партицию через cryptsetup и задаём парольную фразу "
 # cryptsetup open /dev/sda2 cryptlvm
 cryptsetup luksOpen /dev/sda2 cryptlvm
+
+
 
 
 
