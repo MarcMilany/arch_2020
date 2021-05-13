@@ -200,6 +200,7 @@ echo -e "${CYAN} Пример: ${NC}HOOKS=\"base systemd autodetect keyboard sd-
 echo ""
 read -n 1 -s -r -p " Файл /etc/mkinitcpio.conf откроется в nano! \n Нажмите любую клавишу для открытия: "
 nano /etc/mkinitcpio.conf
+# nano -m /etc/mkinitcpio.conf  # -m - включить поддержку мыши
 ## добавить keyboard keymap encrypt lvm2
 # HOOKS=(base udev autodetect keyboard keymap modconf block encrypt lvm2 filesystems fsck)
 ########################
@@ -310,6 +311,7 @@ blkid /dev/sda2
 # blkid /dev/sd*  # Для просмотра UUID (или Universal Unique Identifier) - это универсальный уникальный идентификатор определенного устройства компьютера
 sleep 20
 nano /etc/default/grub
+# nano -m /etc/default/grub  # -m - включить поддержку мыши
 #########################
 echo ""
 echo -e "${BLUE}:: ${NC}Обновляем grub.cfg (Сгенерируем grub.cfg)"
