@@ -269,7 +269,8 @@ echo " Форматируем партицию через cryptsetup и зада
 cryptsetup -y luksFormat --type luks2 /dev/sda2  # -y: запросить подтверждение пароля; luksFormat: использовать LUKS; --type: тип — plain, luks, luks2, tcrypt  
 # cryptsetup -y -v luksFormat --type luks2 /dev/sda2 
 # cryptsetup -v luksFormat --type luks2 /dev/sda2 
-# cryptsetup --verbose --cipher aes-xts-plain64 --key-size 512 --hash sha512 --iter-time 5000 --use-urandom luksFormat /dev/sdX
+## cryptsetup luksFormat /dev/sdX -c twofish-xts-plain:wd512 -s 512  # (длина ключа 512 бит...)
+## cryptsetup --verbose --cipher aes-xts-plain64 --key-size 512 --hash sha512 --iter-time 5000 --use-urandom luksFormat /dev/sdX
 ## Варианты шифрования
 ## CBC:# cryptsetup -y --cipher aes-cbc-essiv:sha256 --key-size 256 luksFormat /dev/sdx
 ## LRW:# cryptsetup -y --cipher aes-lrw-benbi --key-size 384 luksFormat /dev/sdx
