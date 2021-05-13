@@ -278,6 +278,7 @@ cryptsetup -y luksFormat --type luks2 /dev/sda2  # -y: запросить под
 echo "" 
 echo -e "${BLUE}:: ${NC}Проверим зашифровался ли раздел /dev/sdX"
 cryptsetup luksDump /dev/sda2 -v
+sleep 03
 ###
 echo "" 
 echo -e "${BLUE}:: ${NC}Открываем зашифрованный контейнер с именем cryptlvm, который содержит данные из /dev/sdX"
