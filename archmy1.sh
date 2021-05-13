@@ -276,6 +276,10 @@ cryptsetup -y luksFormat --type luks2 /dev/sda2  # -y: запросить под
 ## XTS:# cryptsetup -y --cipher aes-xts-plain --key-size 512 luksFormat /dev/sdx
 ###
 echo "" 
+echo -e "${BLUE}:: ${NC}Проверим зашифровался ли раздел /dev/sdX"
+cryptsetup luksDump /dev/sda2 -v
+###
+echo "" 
 echo -e "${BLUE}:: ${NC}Открываем зашифрованный контейнер с именем cryptlvm, который содержит данные из /dev/sdX"
 echo -e "${MAGENTA}=> ${BOLD}Открываем контейнер указывая ту же парольную фразу, с которой выполнялось шифрование luks linux ${NC}"
 echo ""
