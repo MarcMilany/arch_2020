@@ -265,6 +265,7 @@ echo -e "${MAGENTA}=> ${BOLD}По умолчанию, на большинств�
 echo ""
 echo -e "${BLUE}:: ${NC}Установим LVM на LUKS (создадим контейнер LUKS)"  
 echo " Форматируем партицию через cryptsetup и задаём парольную фразу "
+# cryptsetup --help  # Показать текст справки и параметры по умолчанию
 cryptsetup -y luksFormat --type luks2 /dev/sda2  # -y: запросить подтверждение пароля; luksFormat: использовать LUKS; --type: тип — plain, luks, luks2, tcrypt  
 # cryptsetup -y -v luksFormat --type luks2 /dev/sda2 
 # cryptsetup -v luksFormat --type luks2 /dev/sda2 
