@@ -253,16 +253,20 @@ echo ""
 echo -e "${GREEN}==> ${NC}Шифруем, открываем раздел. Создаём LUKS-контейнер."
 echo -e "${BLUE}:: ${NC}Шифрование LUKS: https://wiki.archlinux.org/title/Dm-crypt/Device_encryption?ref=vc.ru"
 echo -e "${CYAN}:: ${NC}Есть несколько вариаций, как шифровать логический объем на /dev/sd*. Мы используем luks2 формат, детальный, с запросом пароля, без лишних ключей."
-echo -e "${CYAN} Пример команды: ${NC}"cryptsetup -y luksFormat --type luks2 /dev/sdX"; или ещё команда - "cryptsetup -y -v luksFormat --type luks2 /dev/sdX""
+echo -e "${YELLOW}=> Примечание: ${BOLD}Для LUKS2 защита от неверных парольных фраз немного лучше, из-за использования Argon2 (который имеет свойство большой памяти и значительно снижает преимущества графических процессоров и FPGA), но это только постепенное улучшение.${NC}" 
+echo -e "${CYAN} Пример команды: ${NC}"cryptsetup -y luksFormat --type luks2 /dev/sdX"; или ещё команда - "cryptsetup -y -v luksFormat --type luks2 /dev/sdX"" 
 echo -e "${MAGENTA}:: ${BOLD}Эта команда выполнит инициализацию раздела, установит ключ инициализации и пароль. Сначала надо подтвердить создание виртуального шифрованного диска набрав Заглавными: YES ${NC}"
 echo " Затем нужно указать пароль. Указывайте такой пароль, чтобы его потом не забыть! "
-echo " Пароль (который будет вводиться при загрузке устройства) должен содержать от 6 до 15... символов, включающих цифры (1-0) и знаки (!'':[@]), и латинские буквы разного регистра! "            
+echo " Пароль (который будет вводиться при загрузке устройства) должен содержать от 6 до 15-20 символов, включающих цифры (1-0) и знаки (!'':[@]), и латинские буквы разного регистра! "            
 echo -e "${MAGENTA}=> ${BOLD}По умолчанию, на большинстве систем Linux в консоле не показывается введенный пароль. 
 Это сделано из соображений безопасности, чтобы никто не мог увидеть длину вашего пароля.${NC}"
 echo ""
+echo -e "${BLUE}:: ${NC}Установим LVM на LUKS (создадим контейнер LUKS)"  
 echo " Форматируем партицию через cryptsetup и задаём парольную фразу "
-# cryptsetup -y luksFormat --type luks2 /dev/sda2  # -y: запросить подтверждение пароля; luksFormat: использовать LUKS; --type: тип — plain, luks, luks2, tcrypt  
-cryptsetup -y -v luksFormat --type luks2 /dev/sda2 
+cryptsetup -y luksFormat --type luks2 /dev/sda2  # -y: запросить подтверждение пароля; luksFormat: использовать LUKS; --type: тип — plain, luks, luks2, tcrypt  
+# cryptsetup -y -v luksFormat --type luks2 /dev/sda2 
+# cryptsetup -v luksFormat --type luks2 /dev/sda2 
+# cryptsetup --verbose --cipher aes-xts-plain64 --key-size 512 --hash sha512 --iter-time 5000 --use-urandom luksFormat /dev/sdX
 ###
 echo "" 
 echo -e "${BLUE}:: ${NC}Открываем зашифрованный контейнер с именем cryptlvm, который содержит данные из /dev/sdX"
@@ -271,10 +275,12 @@ echo ""
 echo " Открываем LUKS-контейнер, вводим парольную фразу "
 # cryptsetup open /dev/sda2 cryptlvm
 cryptsetup luksOpen /dev/sda2 cryptlvm
+# cryptsetup -v open /dev/sda2 cryptlvm
 echo ""
 echo " Проверяем: - Теперь у нас есть открытый контейнер, доступной через device mapper "
 # ls -l /dev/mapper/cryptlvm
 ls -l /dev/mapper | grep cryptlvm
+# cryptsetup -v status cryptlvm  # чтобы увидеть статус сопоставления
 echo ""
 echo " На этом с шифрованием всё - переходим к созданию LVM разделов и установке системы "
 sleep 03
@@ -288,8 +294,11 @@ echo -e "${CYAN}:: ${NC}Создаём Phisical Volume на /dev/mapper/cryptlvm
 echo ""
 echo " В начале диска создается дескриптор группы томов "
 pvcreate /dev/mapper/cryptlvm  # создаём физический том (инициализация устройства как PV)
+sleep 1
 echo " Создается группа томов из инициализированных на предыдущем этапе дисков " 
 vgcreate lvarch /dev/mapper/cryptlvm  # создаём группу томов (создание VG)
+# vgcreate -y lvm /dev/mapper/cryptlvm
+sleep 1
 echo -e "${BLUE}:: ${NC}Ещё раз - Проверяем!"
 ls -l /dev/mapper/cryptlvm
 # ls -l /dev/mapper | grep cryptlvm
