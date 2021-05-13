@@ -158,6 +158,7 @@ echo " Список устройств scsi/sata "
 lsscsi  # маленькая консольная утилита выводящая список подключенных SCSI / SATA устройств
 echo ""
 echo -e "${BLUE}:: ${NC}Смотрим, какие диски есть в нашем распоряжении"
+ls -l /dev/sd*
 lsblk -f  # Команда lsblk выводит список всех блочных устройств
 echo ""
 echo -e "${BLUE}:: ${NC}Посмотрим структуру диска созданного установщиком"
@@ -268,6 +269,10 @@ cryptsetup -y luksFormat --type luks2 /dev/sda2  # -y: запросить под
 # cryptsetup -y -v luksFormat --type luks2 /dev/sda2 
 # cryptsetup -v luksFormat --type luks2 /dev/sda2 
 # cryptsetup --verbose --cipher aes-xts-plain64 --key-size 512 --hash sha512 --iter-time 5000 --use-urandom luksFormat /dev/sdX
+## Варианты шифрования
+## CBC:# cryptsetup -y --cipher aes-cbc-essiv:sha256 --key-size 256 luksFormat /dev/sdx
+## LRW:# cryptsetup -y --cipher aes-lrw-benbi --key-size 384 luksFormat /dev/sdx
+## XTS:# cryptsetup -y --cipher aes-xts-plain --key-size 512 luksFormat /dev/sdx
 ###
 echo "" 
 echo -e "${BLUE}:: ${NC}Открываем зашифрованный контейнер с именем cryptlvm, который содержит данные из /dev/sdX"
