@@ -120,6 +120,21 @@ sleep 02
 echo -e "${BLUE}:: ${NC}Указываем язык системы"
 echo 'LANG="ru_RU.UTF-8"' > /etc/locale.conf
 #echo 'LANG="en_US.UTF-8"' > /etc/locale.conf
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ###
 echo -e "${BLUE}:: ${NC}Вписываем KEYMAP=ru FONT=cyr-sun16 FONT=ter-v16n FONT=ter-v16b"
 echo 'KEYMAP=ru' >> /etc/vconsole.conf
