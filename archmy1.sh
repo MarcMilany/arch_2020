@@ -277,11 +277,13 @@ cryptsetup -y luksFormat --type luks2 /dev/sda2  # -y: запросить под
 ## LRW:# cryptsetup -y --cipher aes-lrw-benbi --key-size 384 luksFormat /dev/sdx
 ## XTS:# cryptsetup -y --cipher aes-xts-plain --key-size 512 luksFormat /dev/sdx
 ###
+clear
 echo "" 
 echo -e "${BLUE}:: ${NC}Проверим зашифровался ли раздел /dev/sdX"
 cryptsetup luksDump /dev/sda2 -v
 sleep 03
 ###
+clear
 echo "" 
 echo -e "${BLUE}:: ${NC}Открываем зашифрованный контейнер с именем cryptlvm, который содержит данные из /dev/sdX"
 echo -e "${MAGENTA}=> ${BOLD}Открываем контейнер указывая ту же парольную фразу, с которой выполнялось шифрование luks linux ${NC}"
@@ -297,7 +299,7 @@ ls -l /dev/mapper | grep cryptlvm
 # cryptsetup -v status cryptlvm  # чтобы увидеть статус сопоставления
 echo ""
 echo " На этом с шифрованием всё - переходим к созданию LVM разделов и установке системы "
-sleep 03
+sleep 04
 ###
 clear
 echo ""
@@ -384,7 +386,7 @@ echo ""
 echo -e "${BLUE}:: ${NC}Посмотреть содержмое каталога /mnt."
 ls -l /mnt/
 # ls /mnt  # Посмотреть содержимое той или иной папки
-sleep 03
+sleep 04
 ########################
 ######## Mirrorlist ##########
 clear
@@ -478,7 +480,7 @@ echo -e "${BLUE}:: ${NC}Взглянем на UUID идентификатор(ы
 echo ""
 blkid
 # blkid /dev/sd*  # Для просмотра UUID (или Universal Unique Identifier) - это универсальный уникальный идентификатор определенного устройства компьютера
-sleep 01
+sleep 03
 #########################
 clear
 echo ""
