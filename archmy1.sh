@@ -270,6 +270,7 @@ cryptsetup -y luksFormat --type luks2 /dev/sda2  # -y: запросить под
 # cryptsetup -y -v luksFormat --type luks2 /dev/sda2 
 # cryptsetup -v luksFormat --type luks2 /dev/sda2 
 ## cryptsetup luksFormat /dev/sdX -c twofish-xts-plain:wd512 -s 512  # (длина ключа 512 бит...)
+## cryptsetup luksFormat /dev/sdX -c aes-xts-plain64 -h sha256 -s 512 
 ## cryptsetup --verbose --cipher aes-xts-plain64 --key-size 512 --hash sha512 --iter-time 5000 --use-urandom luksFormat /dev/sdX
 ## Варианты шифрования
 ## CBC:# cryptsetup -y --cipher aes-cbc-essiv:sha256 --key-size 256 luksFormat /dev/sdx
