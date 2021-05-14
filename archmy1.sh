@@ -328,24 +328,24 @@ lvcreate -l 100%FREE -n home lvarch  # остальное распределит
 clear
 echo ""
 echo -e "${BLUE}:: ${NC}Посмотрим, что диск может использоваться LMV"
-echo "Вот вывод PVDISPLAY:"
+echo " Вот вывод PVDISPLAY: "
 pvdisplay  # pvdisplay - вывод атрибутов PV 
 # pvdisplay -C
 # pvdisplay -m  # (Отображает карту распределения физического тома)
-read -n 1 -s -r -p "Нажмите любую клавишу, чтобы продолжить"  # (Press any key to continue)
+read -n 1 -s -r -p " Нажмите любую клавишу, чтобы продолжить "  # (Press any key to continue)
 clear
 echo ""
 echo -e "${BLUE}:: ${NC}Посмотрим информацию о созданных группах"
-echo "Вот вывод VGDISPLAY:"
+echo " Вот вывод VGDISPLAY: "
 vgdisplay  # vgdisplay - вывод атрибутов VG
 # vgdisplay -C
-read -n 1 -s -r -p "Нажмите любую клавишу, чтобы продолжить"  # (Press any key to continue)
+read -n 1 -s -r -p " Нажмите любую клавишу, чтобы продолжить "  # (Press any key to continue)
 clear
 echo ""
 echo -e "${BLUE}:: ${NC}Посмотрим информацию о созданном томе"
-echo "Вот вывод LVDISPLAY:"
+echo " Вот вывод LVDISPLAY: "
 lvdisplay  # lvdisplay - вывод атрибутов LV
-read -n 1 -s -r -p "Нажмите любую клавишу, чтобы продолжить"  # (Press any key to continue)
+read -n 1 -s -r -p " Нажмите любую клавишу, чтобы продолжить "  # (Press any key to continue)
 ###
 clear
 echo ""
