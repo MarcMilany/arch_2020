@@ -318,7 +318,7 @@ echo ""
 # blkid
 blkid /dev/sda2
 # blkid /dev/sd*  # Для просмотра UUID (или Universal Unique Identifier) - это универсальный уникальный идентификатор определенного устройства компьютера
-sleep 20
+sleep 30
 nano /etc/default/grub
 # nano -m /etc/default/grub  # -m - включить поддержку мыши
 #########################
