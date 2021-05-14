@@ -120,21 +120,15 @@ sleep 02
 echo -e "${BLUE}:: ${NC}Указываем язык системы"
 echo 'LANG="ru_RU.UTF-8"' > /etc/locale.conf
 #echo 'LANG="en_US.UTF-8"' > /etc/locale.conf
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+echo 'LC_ADDRESS="ru_RU.UTF-8"' >> /etc/locale.conf
+echo 'LC_IDENTIFICATION="ru_RU.UTF-8"' >> /etc/locale.conf
+echo 'LC_MEASUREMENT="ru_RU.UTF-8"' >> /etc/locale.conf
+echo 'LC_MONETARY="ru_RU.UTF-8"' >> /etc/locale.conf
+echo 'LC_NAME="ru_RU.UTF-8"' >> /etc/locale.conf
+echo 'LC_NUMERIC="ru_RU.UTF-8"' >> /etc/locale.conf
+echo 'LC_PAPER="ru_RU.UTF-8"' >> /etc/locale.conf
+echo 'LC_TELEPHONE="ru_RU.UTF-8"' >> /etc/locale.conf
+echo 'LC_TIME="ru_RU.UTF-8"' >> /etc/locale.conf
 ###
 echo -e "${BLUE}:: ${NC}Вписываем KEYMAP=ru FONT=cyr-sun16 FONT=ter-v16n FONT=ter-v16b"
 echo 'KEYMAP=ru' >> /etc/vconsole.conf
