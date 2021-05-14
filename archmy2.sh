@@ -313,7 +313,7 @@ echo -e "${CYAN} Ещё одна строка: ${NC}GRUB_ENABLE_CRYPTODISK=y\"\n
 echo " Эта строка присутствует в /etc/default/grub, её просто раскомментируйте! "
 echo ""
 echo -e "${BLUE}:: ${NC}Взглянем на UUID идентификатор(ы) нашего устройства:"
-read -n 1 -s -r -p "Файл /etc/default/grub откроется в nano! \n Нажмите любую клавишу для продолжения:"
+read -n 1 -s -r -p " Файл /etc/default/grub откроется в nano! \n Нажмите любую клавишу для продолжения: "
 echo ""
 # blkid
 blkid /dev/sda2
