@@ -293,7 +293,7 @@ echo " Открываем LUKS-контейнер, вводим парольну
 cryptsetup luksOpen /dev/sda2 cryptlvm
 # cryptsetup -v open /dev/sda2 cryptlvm
 echo ""
-echo " Проверяем: - Теперь у нас есть открытый контейнер, доступной через device mapper "
+echo -e "${CYAN} Проверяем: ${NC}- Теперь у нас есть открытый контейнер, доступный через device mapper"
 # ls -l /dev/mapper/cryptlvm
 ls -l /dev/mapper | grep cryptlvm
 # cryptsetup -v status cryptlvm  # чтобы увидеть статус сопоставления
