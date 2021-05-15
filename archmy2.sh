@@ -39,6 +39,18 @@ echo " LVM - Менеджер логических томов (англ. Logical
 pacman -S lvm2 --noconfirm  # Утилиты Logical Volume Manager 2 (https://sourceware.org/lvm2/)
 #################
 clear
+echo "" 
+echo -e "${BLUE}:: ${NC}Установим утилиту GPM - Сервер мыши для консоли и xterm пакет (gpm)"
+pacman -S gpm --noconfirm  # Сервер мыши для консоли и xterm  
+echo " Установка дополнительных базовых программ (пакетов) выполнена "
+echo ""   
+echo " Запускаем обслуживания gpm сервера мыши для консоли и xterm "
+systemctl start gpm
+echo ""   
+echo " Добавляем службу gpm в автозагрузку "
+systemctl enable gpm
+##################
+clear
 echo ""
 echo -e "${GREEN}==> ${NC}Вводим название компьютера (host name), и имя пользователя (user name)"
 echo -e "${MAGENTA}=> ${BOLD}Используйте в названии (host name) только буквы латинского алфавита (a-zA-Z0-9) (Можно написать с Заглавной буквы). Латиница - это английские буквы. Кириллица - русские. ${NC}"  
