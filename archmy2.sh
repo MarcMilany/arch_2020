@@ -736,6 +736,50 @@ rm -Rf /home/$username/pamac-aur
 echo ""
 echo " Графический менеджер Pamac-aur успешно установлен! "
 #####################
+clear
+echo ""
+echo -e "${GREEN}==> ${NC}Установка редактора шрифтов и дополнительных шрифтов из AUR (через - yay)"
+echo -e "${MAGENTA}=> ${NC}Список утилит (пакетов) для установки: - (ttf-ms-fonts, ttf-tahoma)." 
+echo -e "${CYAN}:: ${NC}Вы МОЖЕТЕ в скрипте закомментировать НЕнужные вам пакеты шрифтов!"
+echo " Будьте внимательны! Процесс установки, был прописан полностью автоматическим. " 
+# https://wiki.archlinux.org/title/Microsoft_fonts_(%D0%A0%D1%83%D1%81%D1%81%D0%BA%D0%B8%D0%B9)
+# https://aur.archlinux.org/packages/ttf-ms-fonts/
+echo ""
+echo " Обновим вашу систему (базу данных пакетов) "
+pacman -Syu  # Обновим вашу систему (базу данных пакетов)    
+echo ""
+echo " Установка Microsoft fonts - (ttf-ms-fonts) "
+cd /home/$username
+git clone https://aur.archlinux.org/ttf-ms-fonts.git
+chown -R $username:users /home/$username/ttf-ms-fonts   #-R, --recursive - рекурсивная обработка всех подкаталогов;
+chown -R $username:users /home/$username/ttf-ms-fonts/PKGBUILD  #-R, --recursive - рекурсивная обработка всех подкаталогов;
+cd /home/$username/ttf-ms-fonts  
+sudo -u $username  makepkg -si --noconfirm  
+rm -Rf /home/$username/ttf-ms-fonts
+echo ""
+echo " Установка Microsoft fonts (ttf-ms-fonts) завершена "
+echo ""
+echo " Обновим информацию о шрифтах "  # Update information about fonts
+fc-cache -f -v
+# https://aur.archlinux.org/packages/ttf-tahoma/
+#echo ""
+#echo " Обновим вашу систему (базу данных пакетов) "
+#pacman -Syu  # Обновим вашу систему (базу данных пакетов)    
+echo ""
+echo " Установка Шрифтов Tahoma и Tahoma Bold из проекта Wine - (ttf-tahoma) "
+cd /home/$username
+git clone https://aur.archlinux.org/ttf-tahoma.git
+chown -R $username:users /home/$username/ttf-tahoma   #-R, --recursive - рекурсивная обработка всех подкаталогов;
+chown -R $username:users /home/$username/ttf-tahoma/PKGBUILD  #-R, --recursive - рекурсивная обработка всех подкаталогов;
+cd /home/$username/ttf-tahoma  
+sudo -u $username  makepkg -si --noconfirm  
+rm -Rf /home/$username/ttf-tahoma
+echo ""
+echo " Установка Шрифтов Tahoma и Tahoma Bold (ttf-tahoma) завершена "
+echo ""
+echo " Обновим информацию о шрифтах "  # Update information about fonts
+fc-cache -f -v
+#######################
 echo ""
 echo -e "${GREEN}=> ${BOLD}Создадим конфигурационный файл для установки системных переменных /etc/sysctl.conf ${NC}"
 echo " Sysctl - это инструмент для проверки и изменения параметров ядра во время выполнения (пакет procps-ng в официальных репозиториях ). sysctl реализован в procfs , файловой системе виртуального процесса в /proc/. "
