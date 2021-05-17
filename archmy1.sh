@@ -301,6 +301,19 @@ echo ""
 echo -e "${CYAN} ! ${BOLD}На этом с шифрованием всё - переходим к созданию LVM разделов и установке системы ${NC}"
 sleep 04
 ###
+echo ""
+echo " Забиваем нулями за исключением буфера "
+## normal)
+echo "dd if=/dev/zero of=/dev/mapper/${sda}"
+# dd if=/dev/zero of=/dev/mapper/sda2 & PID=$! &>/dev/null
+## fast)
+echo "dd if=/dev/zero of=/dev/mapper/${1} bs=60M"
+dd if=/dev/zero of=/dev/mapper/sda2 bs=60M & PID=$! &>/dev/null
+clear
+sleep 1
+kill -USR1 ${PID} &>/dev/null
+sleep 1
+###
 clear
 echo ""
 echo -e "${GREEN}==> ${NC}Создание LVM разделов"
