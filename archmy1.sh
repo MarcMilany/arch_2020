@@ -389,29 +389,61 @@ ls -l /mnt/
 sleep 04
 ########################
 ######## Mirrorlist ##########
-clear
 echo ""
-echo -e "${GREEN}==> ${NC}Сменим зеркала для увеличения скорости загрузки пакетов" 
-echo -e "${BLUE}:: ${NC}Загрузка свежего списка зеркал со страницы Mirror Status, и обновление файла mirrorlist."
-echo " Команда отфильтрует зеркала для Russia по протоколам (https, http), отсортирует их по скорости загрузки и обновит файл mirrorlist "
-echo "" 
-echo " Проверим присутствует ли пакет (reflector) "
-pacman -Sy --noconfirm --noprogressbar --quiet reflector  # Модуль и скрипт Python 3 для получения и фильтрации последнего списка зеркал Pacman  - пока присутствует в pkglist.x86_64
-pacman -S --noconfirm --needed --noprogressbar --quiet reflector
-echo ""
-echo " Загрузка свежего списка зеркал со страницы Mirror Status "
-reflector --verbose --country 'Russia' -l 9 -p https -p http -n 9 --save /etc/pacman.d/mirrorlist --sort rate
+echo -e "${BLUE}:: ${NC}Изменяем серверов-зеркал для загрузки. Ставим зеркало для России от Яндекс"
+> /etc/pacman.d/mirrorlist
+cat <<EOF >>/etc/pacman.d/mirrorlist
+
+##
+## Arch Linux repository mirrorlist
+## Generated on 2021-05-06
+## HTTP IPv4 HTTPS
+## https://www.archlinux.org/mirrorlist/
+## https://www.archlinux.org/mirrorlist/?country=RU&protocol=http&protocol=https&ip_version=4
+
+
+## Russia
+Server = https://mirror.yandex.ru/archlinux/\$repo/os/\$arch
+Server = https://mirror.surf/archlinux/\$repo/os/\$arch
+Server = https://mirror.rol.ru/archlinux/\$repo/os/\$arch
+Server = https://mirror.nw-sys.ru/archlinux/$repo/os/\$arch
+Server = https://mirror.truenetwork.ru/archlinux/\$repo/os/\$arch
+#Server = http://mirror.yandex.ru/archlinux/\$repo/os/\$arch
+#Server = http://mirror.surf/archlinux/\$repo/os/\$arch
+#Server = http://mirror.rol.ru/archlinux/\$repo/os/\$arch
+#Server = http://mirror.nw-sys.ru/archlinux/$repo/os/\$arch
+#Server = http://mirror.truenetwork.ru/archlinux/\$repo/os/\$arch
+#Server = http://mirrors.powernet.com.ru/archlinux/$repo/os/$arch
+#Server = http://archlinux.zepto.cloud/\$repo/os/\$arch
+
+##
+## Arch Linux repository mirrorlist
+## Generated on 2021-05-06
+## HTTP IPv6 HTTPS
+## https://www.archlinux.org/mirrorlist/
+## https://www.archlinux.org/mirrorlist/?country=RU&ip_version=6
+##
+
+## Russia
+#Server = http://mirror.yandex.ru/archlinux/$repo/os/\$arch
+#Server = https://mirror.yandex.ru/archlinux/$repo/os/\$arch
+#Server = http://mirror.nw-sys.ru/archlinux/$repo/os/\$arch
+#Server = https://mirror.nw-sys.ru/archlinux/$repo/os/\$arch
+#Server = http://mirror.surf/archlinux/$repo/os/\$arch
+#Server = https://mirror.surf/archlinux/$repo/os/\$arch
+#Server = http://mirrors.powernet.com.ru/archlinux/$repo/os/\$arch
+#Server = http://archlinux.zepto.cloud/$repo/os/\$arch
+
+EOF
 ###
-clear
-echo ""
-echo -e "${BLUE}:: ${NC}Посмотреть список серверов-зеркал /mnt/etc/pacman.d/mirrorlist"
-echo ""
+echo -e "${BLUE}:: ${NC}Создание (backup) резервного списка зеркал mirrorlist - (mirrorlist.backup)"
+cp -vf /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.backup
+echo -e "${BLUE}:: ${NC}Посмотреть список серверов-зеркал для загрузки в mirrorlist"
 cat /etc/pacman.d/mirrorlist  # cat читает данные из файла или стандартного ввода и выводит их на экран
-echo ""
 echo -e "${BLUE}:: ${NC}Обновим базы данных пакетов" 
 pacman -Sy --noconfirm  # обновить списки пакетов из репозиториев
 sleep 1
-##########################
+################
 clear
 echo ""  
 echo -e "${GREEN}==> ${NC}Установка основных пакетов (base, base-devel) базовой системы"
@@ -467,8 +499,8 @@ echo " Таким образом, и локальные, и удаленные �
 echo ""
 echo " Генерируем fstab методом - По-UUID ("UUID" "genfstab -U")  "
 echo " UUID - genfstab -U -p /mnt > /mnt/etc/fstab "
-genfstab -pU /mnt >> /mnt/etc/fstab
-# genfstab -U -p /mnt >> /mnt/etc/fstab
+# genfstab -pU /mnt >> /mnt/etc/fstab  # Учтите, что когда пишется >> то Вы добавляете в файл, а не переписываешь его с нуля.
+genfstab -U -p /mnt > /mnt/etc/fstab  # С ключом -U генерирует UUID без него раздел будет вида /dev/sda1 или что то в этом роде.
 echo " Проверьте полученный /mnt/etc/fstab файл и отредактируйте его в случае ошибок. "
 ###
 clear
@@ -482,6 +514,37 @@ blkid
 # blkid /dev/sd*  # Для просмотра UUID (или Universal Unique Identifier) - это универсальный уникальный идентификатор определенного устройства компьютера
 sleep 03
 #########################
+clear
+echo ""
+echo -e "${GREEN}==> ${NC}Сменим зеркала для увеличения скорости загрузки пакетов" 
+echo -e "${BLUE}:: ${NC}Загрузка свежего списка зеркал со страницы Mirror Status, и обновление файла mirrorlist."
+echo " Команда отфильтрует зеркала для Russia по протоколам (https, http), отсортирует их по скорости загрузки и обновит файл mirrorlist "
+echo "" 
+echo " Удалим старый файл mirrorlist из /mnt/etc/pacman.d/mirrorlist "
+rm /mnt/etc/pacman.d/mirrorlist
+echo "" 
+echo " Проверим присутствует ли пакет (reflector) "
+pacman -Sy --noconfirm --noprogressbar --quiet reflector  # Модуль и скрипт Python 3 для получения и фильтрации последнего списка зеркал Pacman  - пока присутствует в pkglist.x86_64
+pacman -S --noconfirm --needed --noprogressbar --quiet reflector
+echo ""
+echo " Загрузка свежего списка зеркал со страницы Mirror Status "
+reflector --verbose --country 'Russia' -l 9 -p https -p http -n 9 --save /etc/pacman.d/mirrorlist --sort rate
+echo "" 
+echo " Копируем созданный список зеркал (mirrorlist) в /mnt "
+cp /etc/pacman.d/mirrorlist /mnt/etc/pacman.d/mirrorlist 
+echo " Копируем резервного списка зеркал (mirrorlist.backup) в /mnt "
+cp /etc/pacman.d/mirrorlist.backup /mnt/etc/pacman.d/mirrorlist.backup 
+###
+clear
+echo ""
+echo -e "${BLUE}:: ${NC}Посмотреть список серверов-зеркал /mnt/etc/pacman.d/mirrorlist"
+echo ""
+cat /mnt/etc/pacman.d/mirrorlist  # cat читает данные из файла или стандартного ввода и выводит их на экран
+echo ""
+echo -e "${BLUE}:: ${NC}Обновим базы данных пакетов" 
+pacman -Sy --noconfirm  # обновить списки пакетов из репозиториев
+sleep 1
+##############
 clear
 echo ""
 echo -e "${GREEN}==> ${NC}Меняем корень и переходим в нашу недавно скачанную систему (chroot)" 
