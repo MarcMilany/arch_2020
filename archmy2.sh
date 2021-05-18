@@ -230,6 +230,16 @@ echo -e "${CYAN} Пример: ${NC}HOOKS=\"base systemd autodetect keyboard sd-
 echo " Будьте внимательны! Без внесения этих поправок в файл /etc/mkinitcpio.conf Вы НЕ сможете запустить систему, которую устанавливаете. "
 echo ""
 read -n 1 -s -r -p " Файл /etc/mkinitcpio.conf откроется в nano! \n Нажмите любую клавишу для открытия: "
+echo ""
+echo "sed -i \"s/autodetect modconf/autodetect keyboard keymap modconf/g\" /etc/mkinitcpio.conf"
+sed -i "s/autodetect modconf/autodetect keyboard keymap modconf/g" /etc/mkinitcpio.conf
+echo "sed -i \"s/block filesystems/block encrypt lvm2 filesystems/g\" /etc/mkinitcpio.conf"
+sed -i "s/block filesystems/block encrypt lvm2 filesystems/g" /etc/mkinitcpio.conf
+echo "sed -i \"s/filesystems keyboard fsck/filesystems fsck/g\" /etc/mkinitcpio.conf"
+sed -i "s/block filesystems/block encrypt filesystems/g" /etc/mkinitcpio.conf
+echo "sed -i \"s/#COMPRESSION="lz4"/COMPRESSION="lz4"/g\" /etc/mkinitcpio.conf"
+sed -i "s/#COMPRESSION="lz4"/COMPRESSION="lz4"/g" /etc/mkinitcpio.conf
+sleep 1   
 nano /etc/mkinitcpio.conf
 # nano -m /etc/mkinitcpio.conf  # -m - включить поддержку мыши
 ## добавить keyboard keymap encrypt lvm2
