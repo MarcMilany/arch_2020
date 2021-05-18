@@ -402,10 +402,12 @@ mount /dev/lvarch/home /mnt/home
 mkdir /mnt/boot
 mount /dev/sda1 /mnt/boot
 #############################
-
+echo 'cryptlvm-'$(cryptsetup luksUUID /dev/lvarch/root) > uuid  # > uuid - записываем ключ идентификатора в файл uuid (в текущем каталоге)
 
 cryptsetup luksUUID /dev/lvarch/root
 UUID=$(cryptsetup luksUUID /dev/lvarch/root)
+cat uuid
+
 ##############################
 clear
 echo ""
