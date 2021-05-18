@@ -79,7 +79,9 @@ echo " Всё завязано на времени, поэтому очень в
 echo -e "${BLUE}:: ${BOLD}Для начала вот ваши данные по дате, времени и часовому поясу: ${NC}"
 date +'%d/%m/%Y  %H:%M:%S [%:z  %Z]'    # одновременно отображает дату и часовой пояс
 echo ""
+timedatectl list-timezones | grep Moscow 
 ln -svf /usr/share/zoneinfo/Europe/Moscow /etc/localtime
+# timedatectl set-timezone Europe/Moscow
 echo ""
 echo " Создадим резервную копию текущего часового пояса: " 
 # cp /etc/localtime /etc/localtime.bak
