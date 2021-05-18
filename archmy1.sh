@@ -197,9 +197,14 @@ echo " Перемена местами не имеет значения - про
   echo p;
   echo 2;
   echo;
-  echo;  
+  echo;
+  echo t;
+# echo L;
+  echo 8e;  
+# echo 8e00;  # Тип раздела = Linux LVM
 
-  echo w;
+  echo p;  # Вновь просматриваем таблицу
+  echo w;  # Теперь нужно записать изменения на диск
 ) | fdisk /dev/sda
 #####################################
 # Создаем таблицу на диске MBR(DOS) и 2 первичных раздела.
@@ -306,8 +311,9 @@ echo " Забиваем нулями за исключением буфера "
 ## normal)
 echo "dd if=/dev/zero of=/dev/mapper/${sda}"
 # dd if=/dev/zero of=/dev/mapper/sda2 & PID=$! &>/dev/null
-dd if=/dev/zero of=/dev/mapper/sda2
-sudo dd if=/dev/zero of=/dev/null bs=500M count=1. 
+dd if=/dev/zero of=/dev/mapper/sda2 &>/dev/null
+sudo dd if=/dev/zero of=/dev/null bs=500M count=1
+dd if=/dev/zero of=PhysicalVolume bs=512 count=1 
 ## fast)
 # echo "dd if=/dev/zero of=/dev/mapper/${1} bs=60M"
 # dd if=/dev/zero of=/dev/mapper/sda2 bs=60M & PID=$! &>/dev/null
@@ -329,7 +335,7 @@ pvcreate /dev/mapper/cryptlvm  # создаём физический том (и�
 sleep 1
 echo " Создается группа томов из инициализированных на предыдущем этапе дисков " 
 vgcreate lvarch /dev/mapper/cryptlvm  # создаём группу томов (создание VG)
-# vgcreate -y lvm /dev/mapper/cryptlvm
+# vgcreate -y lvarch /dev/mapper/cryptlvm
 sleep 1
 echo -e "${BLUE}:: ${NC}Ещё раз - Проверяем!"
 ls -l /dev/mapper/cryptlvm
