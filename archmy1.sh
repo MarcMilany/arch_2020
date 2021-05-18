@@ -360,7 +360,8 @@ echo " Видим созданные логические устройства, 
 ###
 clear
 echo ""
-echo -e "${BLUE}:: ${NC}Посмотрим, что диск может использоваться LMV"
+echo -e "${BLUE}:: ${NC}Посмотрим, что диск может использоваться LVM"
+## Проверьте настройку LVM (# pvs; # vgs; # lvs)
 echo " Вот вывод PVDISPLAY: "
 pvdisplay  # pvdisplay - вывод атрибутов PV 
 # pvdisplay -C
@@ -383,7 +384,7 @@ read -n 1 -s -r -p " Нажмите любую клавишу, чтобы про
 clear
 echo ""
 echo -e "${BLUE}:: ${NC}Форматирование разделов диска"
-echo " Создаём файловые системы и включаем swap: "
+echo " Создаём файловые системы для LV и включаем swap: "
 mkfs.ext2 -L boot /dev/sda1  # загрузочный раздел
 mkfs.ext4 -L root /dev/lvarch/root  
 mkfs.ext4 -L home /dev/lvarch/home
