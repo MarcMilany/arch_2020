@@ -199,6 +199,7 @@ echo " Перемена местами не имеет значения - про
   echo;
   echo;
   echo t;
+  echo 2;
 # echo L;
   echo 8e;  
 # echo 8e00;  # Тип раздела = Linux LVM
