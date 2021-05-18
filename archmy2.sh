@@ -379,9 +379,9 @@ sed -i "s/#GRUB_ENABLE_CRYPTODISK=y/GRUB_ENABLE_CRYPTODISK=y/g" /etc/default/gru
 sleep 1 
 
 
-# echo 'cryptlvm-'$(cryptsetup luksUUID /dev/lvarch/root) > uuid  # > uuid - записываем ключ идентификатора в файл uuid (в текущем каталоге)
-# cryptsetup luksUUID /dev/lvarch/root
-# UUID=$(cryptsetup luksUUID /dev/lvarch/root)
+# echo 'cryptlvm-'$(cryptsetup luksUUID /dev/sda2) > uuid  # > uuid - записываем ключ идентификатора в файл uuid (в текущем каталоге)
+# cryptsetup luksUUID /dev/sda2
+# UUID=$(cryptsetup luksUUID /dev/sda2)
 cat uuid
 
 nano /etc/default/grub
