@@ -201,8 +201,7 @@ echo " Перемена местами не имеет значения - про
   echo t;
   echo 2;
 # echo L;
-  echo 8e;  
-# echo 8e00;  # Тип раздела = Linux LVM
+  echo 8e;  # Тип раздела = Linux LVM  
 
   echo p;  # Вновь просматриваем таблицу
   echo w;  # Теперь нужно записать изменения на диск
@@ -306,22 +305,6 @@ ls -l /dev/mapper | grep cryptlvm
 echo ""
 echo -e "${CYAN} ! ${BOLD}На этом с шифрованием всё - переходим к созданию LVM разделов и установке системы ${NC}"
 sleep 04
-###
-echo ""
-echo " Забиваем нулями за исключением буфера "
-## normal)
-echo "dd if=/dev/zero of=/dev/mapper/${sda}"
-# dd if=/dev/zero of=/dev/mapper/sda2 & PID=$! &>/dev/null
-dd if=/dev/zero of=/dev/mapper/sda2 &>/dev/null
-sudo dd if=/dev/zero of=/dev/null bs=500M count=1
-dd if=/dev/zero of=PhysicalVolume bs=512 count=1 
-## fast)
-# echo "dd if=/dev/zero of=/dev/mapper/${1} bs=60M"
-# dd if=/dev/zero of=/dev/mapper/sda2 bs=60M & PID=$! &>/dev/null
-# clear
-# sleep 1
-# kill -USR1 ${PID} &>/dev/null
-# sleep 1
 ###
 clear
 echo ""
