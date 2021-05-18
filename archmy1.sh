@@ -166,9 +166,18 @@ sgdisk -p /dev/sda
 #echo ""
 #echo -e "${BLUE}:: ${NC}Стираем таблицу разделов на первом диске (sda):"
 #echo -e "${RED}=> ${YELLOW}Примечание: ${BOLD}Перед удалением раздела или таблицы разделов сделайте резервную копию своих данных. Все данные автоматически удаляются при удалении. Так как при выполнении данной опции будет деинсталлирован сам системный загрузчик из раздела MBR жесткого диска. ${NC}"
-#sgdisk --zap-all /dev/sda  #sda; sdb; sdc; sdd - sgdisk - это манипулятор таблицы разделов Unix-подобных систем
+sgdisk --zap-all /dev/sda  #sda; sdb; sdc; sdd - sgdisk - это манипулятор таблицы разделов Unix-подобных систем
 #echo " Создание новых записей GPT в памяти. "
 #echo " Структуры данных GPT уничтожены! Теперь вы можете разбить диск на разделы с помощью fdisk или других утилит. "
+shred --verbose --random-source=/dev/urandom --iterations=1 /dev/sda  # перезаписать этот раздел случайными данными
+## /dev/random — генератор случайных чисел;
+## /dev/urandom — генератор псевдослучайных чисел.
+## /dev/random и /dev/urandom — специальные символьные псевдоустройства в некоторых UNIX-подобных системах
+# dd if=/dev/zero of=/dev/mapper/${1} & PID=$! &>/dev/null
+pv -tpreb /dev/zero | dd of=/dev/mapper/cryptlvm bs = 128M
+## Заполняем раздел случайными данными для удаления остаточной информации:
+dd if=/dev/urandom of=/dev/sda2
+kill -USR1 ${PID} &>/dev/null
 ###
 clear
 echo -e "${MAGENTA}
@@ -306,6 +315,9 @@ echo ""
 echo -e "${CYAN} ! ${BOLD}На этом с шифрованием всё - переходим к созданию LVM разделов и установке системы ${NC}"
 sleep 04
 ###
+# dd if=/dev/zero of=/dev/mapper/${1} & PID=$! &>/dev/null
+pv -tpreb /dev/zero | dd of=/dev/mapper/cryptlvm bs = 128M
+###
 clear
 echo ""
 echo -e "${GREEN}==> ${NC}Создание LVM разделов"
@@ -390,6 +402,11 @@ mount /dev/lvarch/home /mnt/home
 mkdir /mnt/boot
 mount /dev/sda1 /mnt/boot
 #############################
+
+
+cryptsetup luksUUID /dev/lvarch/root
+UUID=$(cryptsetup luksUUID /dev/lvarch/root)
+##############################
 clear
 echo ""
 echo -e "${BLUE}:: ${NC}Просмотреть подключённые диски с выводом информации о размере и свободном пространстве"
