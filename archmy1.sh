@@ -306,13 +306,15 @@ echo " Забиваем нулями за исключением буфера "
 ## normal)
 echo "dd if=/dev/zero of=/dev/mapper/${sda}"
 # dd if=/dev/zero of=/dev/mapper/sda2 & PID=$! &>/dev/null
+dd if=/dev/zero of=/dev/mapper/sda2
+sudo dd if=/dev/zero of=/dev/null bs=500M count=1. 
 ## fast)
-echo "dd if=/dev/zero of=/dev/mapper/${1} bs=60M"
-dd if=/dev/zero of=/dev/mapper/sda2 bs=60M & PID=$! &>/dev/null
-clear
-sleep 1
-kill -USR1 ${PID} &>/dev/null
-sleep 1
+# echo "dd if=/dev/zero of=/dev/mapper/${1} bs=60M"
+# dd if=/dev/zero of=/dev/mapper/sda2 bs=60M & PID=$! &>/dev/null
+# clear
+# sleep 1
+# kill -USR1 ${PID} &>/dev/null
+# sleep 1
 ###
 clear
 echo ""
@@ -334,7 +336,8 @@ ls -l /dev/mapper/cryptlvm
 # ls -l /dev/mapper | grep cryptlvm
 echo ""
 echo -e "${BLUE}:: ${NC}Создаём разделы lvm (Три Logical Volume в группе томов)"
-lvcreate -L 4G -n swap lvarch  # создайте подкачку ОЗУ+2 ГБ, больше, чем ОЗУ для гибернации (создание LV)
+lvcreate -L 4G -n swap lvarch  # создайте подкачку ОЗУ+2 ГБ, больше, чем ОЗУ для гибернации (создание LV) 
+# lvcreate -n swap -L 4G -C y lvarch # -C = непрерывные блоки данных)
 lvcreate -L 35G -n root lvarch  # создайте корневой раздел на xxx ГБ (создание LV)
 lvcreate -l 100%FREE -n home lvarch  # остальное распределите на home (создание LV)
 ###
