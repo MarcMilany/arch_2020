@@ -341,7 +341,7 @@ vgcreate lvarch /dev/mapper/cryptlvm  # создаём группу томов (
 # vgcreate --help  # При необходимости смотрим справку по следующей команде, которую будем использовать
 sleep 1
 echo -e "${BLUE}:: ${NC}Ещё раз - Проверяем!"
-ls -l /dev/mapper/cryptlvm
+ls -l /dev/mapper/cryptlvm   
 # ls -l /dev/mapper | grep cryptlvm
 echo ""
 echo -e "${BLUE}:: ${NC}Создаём разделы lvm (Три Logical Volume в группе томов)"
@@ -351,6 +351,12 @@ lvcreate -L 4G -n swap lvarch  # создайте подкачку ОЗУ+2 ГБ
 # lvcreate -n swap -L 4G -C y lvarch # -C = непрерывные блоки данных)
 lvcreate -L 35G -n root lvarch  # создайте корневой раздел на xxx ГБ (создание LV)
 lvcreate -l 100%FREE -n home lvarch  # остальное распределите на home (создание LV)
+###
+echo ""
+echo " Ещё раз - Проверяем! "
+ls -l /dev/mapper/cryptlvm   
+# ls -l /dev/mapper | grep cryptlvm
+echo " Видим созданные логические устройства, которые видит система и может работать с ними как с отдельными дисками "
 ###
 clear
 echo ""
