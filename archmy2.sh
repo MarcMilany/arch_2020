@@ -353,7 +353,22 @@ echo ""
 # blkid
 blkid /dev/sda2
 # blkid /dev/sd*  # Для просмотра UUID (или Universal Unique Identifier) - это универсальный уникальный идентификатор определенного устройства компьютера
-sleep 50  # приостановка работы потока  
+sleep 50  # приостановка работы потока
+
+
+
+echo "sed -i /GRUB_CMDLINE_LINUX=/c\GRUB_CMDLINE_LINUX=\\\"cryptdevice=/dev/disk/by-uuid/${luksrootuuid}:root\\\" /mnt/etc/default/grub"
+
+sed -i /GRUB_CMDLINE_LINUX=/c\GRUB_CMDLINE_LINUX=\"cryptdevice=/dev/disk/by-uuid/${luksrootuuid}:root\" /mnt/etc/default/grub  
+
+echo "sed -i /GRUB_CMDLINE_LINUX=/c\GRUB_CMDLINE_LINUX=\\\"cryptdevice=${luksrootuuid}:cryptlvm root=/dev/lvarch/root\\\" /etc/default/grub"
+
+sed -i /GRUB_CMDLINE_LINUX=/c\GRUB_CMDLINE_LINUX=\"cryptdevice=/dev/disk/by-uuid/${luksrootuuid}:root\" /mnt/etc/default/grub
+
+echo -e "${CYAN} Пример: ${NC}GRUB_CMDLINE_LINUX=\"cryptdevice=UUID=c0868972-f314-48e1-9be5-3584826dbd64:cryptlvm root=/dev/lvarch/root\"\n"
+echo -e "${CYAN} Ещё одна строка: ${NC}GRUB_ENABLE_CRYPTODISK=y\"\n"
+
+
 nano /etc/default/grub
 # nano -m /etc/default/grub  # -m - включить поддержку мыши
 #########################
