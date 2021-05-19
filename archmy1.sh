@@ -378,12 +378,15 @@ echo ""
 echo " Ещё раз - Проверяем! "
 ls -l /dev/mapper/cryptlvm   
 # ls -l /dev/mapper | grep cryptlvm
+echo " Проверьте настройку LVM (pvs; vgs; lvs) "
+pvs
+vgs
+lvs
 echo " Видим созданные логические устройства, которые видит система и может работать с ними как с отдельными дисками "
 ###
 clear
 echo ""
 echo -e "${BLUE}:: ${NC}Посмотрим, что диск может использоваться LVM"
-## Проверьте настройку LVM (# pvs; # vgs; # lvs)
 echo " Вот вывод PVDISPLAY: "
 pvdisplay  # pvdisplay - вывод атрибутов PV 
 # pvdisplay -C
