@@ -148,6 +148,7 @@ echo 'LC_MEASUREMENT="ru_RU.UTF-8"' >> /etc/locale.conf
 echo 'LC_MONETARY="ru_RU.UTF-8"' >> /etc/locale.conf 
 echo 'LC_MESSAGES="ru_RU.UTF-8"' >> /etc/locale.conf 
 echo 'LC_NAME="ru_RU.UTF-8"' >> /etc/locale.conf
+echo '#LC_CTYPE="ru_RU.UTF-8"' >> /etc/locale.conf
 echo 'LC_NUMERIC="ru_RU.UTF-8"' >> /etc/locale.conf
 echo 'LC_PAPER="ru_RU.UTF-8"' >> /etc/locale.conf
 echo 'LC_TELEPHONE="ru_RU.UTF-8"' >> /etc/locale.conf
