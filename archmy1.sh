@@ -169,6 +169,9 @@ sgdisk -p /dev/sda
 sgdisk --zap-all /dev/sda  #sda; sdb; sdc; sdd - sgdisk - это манипулятор таблицы разделов Unix-подобных систем
 #echo " Создание новых записей GPT в памяти. "
 #echo " Структуры данных GPT уничтожены! Теперь вы можете разбить диск на разделы с помощью fdisk или других утилит. "
+
+
+
 shred --verbose --random-source=/dev/urandom --iterations=1 /dev/sda  # перезаписать этот раздел случайными данными
 ## /dev/random — генератор случайных чисел;
 ## /dev/urandom — генератор псевдослучайных чисел.
@@ -179,6 +182,9 @@ pv -tpreb /dev/zero | dd of=/dev/mapper/cryptlvm bs = 128M
 dd if=/dev/urandom of=/dev/sda2
 kill -USR1 ${PID} &>/dev/null
 ###
+
+
+
 clear
 echo -e "${MAGENTA}
   <<< Вся разметка диска(ов) производится только утилитой - fdisk - (для управления разделами жёсткого диска) >>>
@@ -320,19 +326,16 @@ echo ""
 echo -e "${BLUE}:: ${NC}Отформатируем раздел LUKS - зашифрованный контейнер с именем cryptlvm"
 echo -e "${MAGENTA}=> ${BOLD}Во-первых, нам нужно записать нули на зашифрованное устройство /dev/mapper/cryptlvm. При этом данные блока будут занесены в блоки нули. ${NC}"
 echo " Это гарантирует, что внешний мир будет рассматривать это как случайные данные, то есть защищает от раскрытия шаблонов использования "
+echo -e "${YELLOW}=> Примечание: ${BOLD}Выполнение команды dd может занять много часов. Предлагаю вам использовать команду pv для отслеживания прогресса. ${NC}"
 echo ""
-echo " Открываем LUKS-контейнер, вводим парольную фразу "
-
-Выполнение команды dd может занять много часов. Я предлагаю вам использовать команду pv для отслеживания прогресса:
-
-# dd if = / dev / zero of = / dev / mapper / backup2
-Выполнение команды dd может занять много часов. Я предлагаю вам использовать команду pv для отслеживания прогресса:
-
-# pv -tpreb / ​​dev / zero | dd of = / dev / mapper / backup2 bs = 128M
-
+echo " Забиваем LUKS-контейнер нулями (dd if=/dev/zero) "
 ## dd if=/dev/zero of=/dev/mapper/${1} & PID=$! &>/dev/null
+## dd if=/dev/zero of =/dev/mapper/cryptlvm
+## pv -tpreb /dev/zero | dd of= /dev/mapper/cryptlvm bs = 128M
 # pv -tpreb /dev/zero | dd of=/dev/sda2  # работает долго (27Gib - 40мин)
 pv -tpreb /dev/zero | dd of=/dev/sda2 bs=60M  # Работает быстро
+## kill -USR1 ${PID} &>/dev/null
+sleep 1
 #################
 clear
 echo ""
