@@ -381,6 +381,7 @@ echo ""
 echo " Ещё раз - Проверяем! "
 ls -l /dev/mapper/cryptlvm   
 # ls -l /dev/mapper | grep cryptlvm
+lvscan  # Проверяем
 echo " Проверьте настройку LVM (pvs; vgs; lvs) "
 pvs
 vgs
