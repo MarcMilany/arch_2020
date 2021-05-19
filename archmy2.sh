@@ -354,7 +354,8 @@ read -n 1 -s -r -p " Файл /etc/default/grub откроется в nano! \n �
 echo ""
 blkid | grep sda2
 echo ""
-blkid /dev/sda2
+#blkid /dev/sda2
+blkid /dev/sda2 -sUUID -ovalue
 echo ""
 blkid /dev/sd*  # Для просмотра UUID (или Universal Unique Identifier) - это универсальный уникальный идентификатор определенного устройства компьютера
 sleep 50  # приостановка работы потока
