@@ -314,14 +314,26 @@ ls -l /dev/mapper | grep cryptlvm
 echo ""
 echo -e "${CYAN} ! ${BOLD}На этом с шифрованием всё - переходим к созданию LVM разделов и установке системы ${NC}"
 sleep 04
-###
-# dd if=/dev/zero of=/dev/mapper/${1} & PID=$! &>/dev/null
-pv -tpreb /dev/zero | dd of=/dev/mapper/cryptlvm bs = 128M
-pv -tpreb /dev/zero | dd of=/dev/mapper/cryptlvm bs=128M
-pv -tpreb /dev/zero | dd of=/dev/mapper/cryptlvm bs=60M
-pv -tpreb /dev/zero | dd of=/dev/sda2  # работает долго (27Gib - 40мин)
-pv -tpreb /dev/zero | dd of=/dev/sda2 bs=60M  # проверить
-###
+################
+clear
+echo "" 
+echo -e "${BLUE}:: ${NC}Отформатируем раздел LUKS - зашифрованный контейнер с именем cryptlvm"
+echo -e "${MAGENTA}=> ${BOLD}Во-первых, нам нужно записать нули на зашифрованное устройство /dev/mapper/cryptlvm. При этом данные блока будут занесены в блоки нули. ${NC}"
+echo " Это гарантирует, что внешний мир будет рассматривать это как случайные данные, то есть защищает от раскрытия шаблонов использования "
+echo ""
+echo " Открываем LUKS-контейнер, вводим парольную фразу "
+
+
+
+# dd if = / dev / zero of = / dev / mapper / backup2
+Выполнение команды dd может занять много часов. Я предлагаю вам использовать команду pv для отслеживания прогресса:
+
+# pv -tpreb / ​​dev / zero | dd of = / dev / mapper / backup2 bs = 128M
+
+## dd if=/dev/zero of=/dev/mapper/${1} & PID=$! &>/dev/null
+# pv -tpreb /dev/zero | dd of=/dev/sda2  # работает долго (27Gib - 40мин)
+pv -tpreb /dev/zero | dd of=/dev/sda2 bs=60M  # Работает быстро
+#################
 clear
 echo ""
 echo -e "${GREEN}==> ${NC}Создание LVM разделов"
