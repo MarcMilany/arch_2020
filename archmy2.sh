@@ -772,9 +772,9 @@ echo -e "${CYAN}:: ${NC}Вы МОЖЕТЕ в скрипте закомменти
 echo " Будьте внимательны! Процесс установки, был прописан полностью автоматическим. " 
 # https://wiki.archlinux.org/title/Microsoft_fonts_(%D0%A0%D1%83%D1%81%D1%81%D0%BA%D0%B8%D0%B9)
 # https://aur.archlinux.org/packages/ttf-ms-fonts/
-echo ""
-echo " Обновим вашу систему (базу данных пакетов) "
-pacman -Syu  # Обновим вашу систему (базу данных пакетов)    
+#echo ""
+#echo " Обновим вашу систему (базу данных пакетов) "
+#pacman -Syu  # Обновим вашу систему (базу данных пакетов)    
 echo ""
 echo " Установка Microsoft fonts - (ttf-ms-fonts) "
 cd /home/$username
