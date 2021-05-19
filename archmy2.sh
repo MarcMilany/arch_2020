@@ -364,17 +364,13 @@ echo ""
 blkid /dev/sd*  # Для просмотра UUID (или Universal Unique Identifier) - это универсальный уникальный идентификатор определенного устройства компьютера
 ls -l /dev/disk/by-uuid
 sleep 50  # приостановка работы потока
-###
-    ROOT_UUID=$( blkid -o value -s UUID "${DRIVE}${ORDER[1]}" )
-    export ROOT_UUID
-
-cryptlvm UUID=0a6accdb-9968-403a-b8bd-f9be6d3aaaec none luks
-
-luksrootuuid=$(cryptsetup luksUUID ${2})
-
-crypttab="\n${1}    UUID=$(cryptsetup luksUUID ${2})    none"
-
-
+######
+#ROOT_UUID=$( blkid -o value -s UUID "${DRIVE}${ORDER[1]}" )
+#export ROOT_UUID
+#cryptlvm UUID=0a6accdb-9968-403a-b8bd-f9be6d3aaaec none luks
+#luksrootuuid=$(cryptsetup luksUUID ${2})
+#crypttab="\n${1}    UUID=$(cryptsetup luksUUID ${2})    none"
+#######
 ## Пример: ${NC}GRUB_CMDLINE_LINUX=\"cryptdevice=UUID=c0868972-f314-48e1-9be5-3584826dbd64:cryptlvm root=/dev/lvarch/root\"\n"
 # echo "sed -i /GRUB_CMDLINE_LINUX=/c\GRUB_CMDLINE_LINUX=\\\"cryptdevice=/dev/disk/by-uuid/${luksrootuuid}:root\\\" /etc/default/grub"
 sed -i /GRUB_CMDLINE_LINUX=/c\GRUB_CMDLINE_LINUX=\"cryptdevice=/dev/disk/by-uuid/${luksrootuuid}:root\" /etc/default/grub 
