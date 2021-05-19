@@ -138,12 +138,14 @@ locale-gen  # Мы ввели locale-gen для генерации тех сам
 ###
 sleep 02
 echo -e "${BLUE}:: ${NC}Указываем язык системы"
+### Переменные окружения
 echo 'LANG="ru_RU.UTF-8"' > /etc/locale.conf
 #echo 'LANG="en_US.UTF-8"' > /etc/locale.conf
+echo "LC_COLLATE=C" >> /etc/locale.conf  
 echo 'LC_ADDRESS="ru_RU.UTF-8"' >> /etc/locale.conf
 echo 'LC_IDENTIFICATION="ru_RU.UTF-8"' >> /etc/locale.conf
 echo 'LC_MEASUREMENT="ru_RU.UTF-8"' >> /etc/locale.conf
-echo 'LC_MONETARY="ru_RU.UTF-8"' >> /etc/locale.conf
+echo 'LC_MONETARY="ru_RU.UTF-8"' >> /etc/locale.conf  
 echo 'LC_NAME="ru_RU.UTF-8"' >> /etc/locale.conf
 echo 'LC_NUMERIC="ru_RU.UTF-8"' >> /etc/locale.conf
 echo 'LC_PAPER="ru_RU.UTF-8"' >> /etc/locale.conf
@@ -358,6 +360,7 @@ echo ""
 blkid /dev/sda2 -sUUID -ovalue
 echo ""
 blkid /dev/sd*  # Для просмотра UUID (или Universal Unique Identifier) - это универсальный уникальный идентификатор определенного устройства компьютера
+ls -l /dev/disk/by-uuid
 sleep 50  # приостановка работы потока
 ###
 
