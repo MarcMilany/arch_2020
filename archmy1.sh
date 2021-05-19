@@ -428,14 +428,7 @@ mount /dev/lvarch/home /mnt/home
 ## Аналогично для /boot:
 mkdir /mnt/boot
 mount /dev/sda1 /mnt/boot
-#############################
-echo 'cryptlvm-'$(cryptsetup luksUUID /dev/sda2) > uuid  # > uuid - записываем ключ идентификатора в файл uuid (в текущем каталоге)
-
-cryptsetup luksUUID /dev/sda2
-UUID=$(cryptsetup luksUUID /dev/sda2)
-cat uuid
-
-##############################
+############################
 clear
 echo ""
 echo -e "${BLUE}:: ${NC}Просмотреть подключённые диски с выводом информации о размере и свободном пространстве"
