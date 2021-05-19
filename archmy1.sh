@@ -317,6 +317,10 @@ sleep 04
 ###
 # dd if=/dev/zero of=/dev/mapper/${1} & PID=$! &>/dev/null
 pv -tpreb /dev/zero | dd of=/dev/mapper/cryptlvm bs = 128M
+pv -tpreb /dev/zero | dd of=/dev/mapper/cryptlvm bs=128M
+pv -tpreb /dev/zero | dd of=/dev/mapper/cryptlvm bs=60M
+pv -tpreb /dev/zero | dd of=/dev/sda2  # работает долго (27Gib - 40мин)
+pv -tpreb /dev/zero | dd of=/dev/sda2 bs=60M  # проверить
 ###
 clear
 echo ""
