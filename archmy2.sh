@@ -353,38 +353,18 @@ read -n 1 -s -r -p " Файл /etc/default/grub откроется в nano! \n �
 echo ""
 # blkid
 blkid /dev/sda2
-# blkid /dev/sd*  # Для просмотра UUID (или Universal Unique Identifier) - это универсальный уникальный идентификатор определенного устройства компьютера
+echo ""
+blkid /dev/sd*  # Для просмотра UUID (или Universal Unique Identifier) - это универсальный уникальный идентификатор определенного устройства компьютера
 sleep 50  # приостановка работы потока
-
-
-
-echo "sed -i /GRUB_CMDLINE_LINUX=/c\GRUB_CMDLINE_LINUX=\\\"cryptdevice=/dev/disk/by-uuid/${luksrootuuid}:root\\\" /etc/default/grub"
-
-sed -i /GRUB_CMDLINE_LINUX=/c\GRUB_CMDLINE_LINUX=\"cryptdevice=/dev/disk/by-uuid/${luksrootuuid}:root\" /etc/default/grub  
-
-echo "sed -i /GRUB_CMDLINE_LINUX=/c\GRUB_CMDLINE_LINUX=\\\"cryptdevice=${luksrootuuid}:cryptlvm root=/dev/lvarch/root\\\" /etc/default/grub"
-
-sed -i /GRUB_CMDLINE_LINUX=/c\GRUB_CMDLINE_LINUX=\"cryptdevice=/dev/disk/by-uuid/${luksrootuuid}:root\" /etc/default/grub
-
-
-echo "sed -i /GRUB_CMDLINE_LINUX=/c\GRUB_CMDLINE_LINUX=\\\"cryptdevice=/dev/disk/by-uuid/${luksrootuuid}:root\\\" /etc/default/grub"
-
-sed -i /GRUB_CMDLINE_LINUX=/c\GRUB_CMDLINE_LINUX=\"cryptdevice=/dev/disk/by-uuid/${luksrootuuid}:root\" /etc/default/grub 
-
-echo -e "${CYAN} Пример: ${NC}GRUB_CMDLINE_LINUX=\"cryptdevice=UUID=c0868972-f314-48e1-9be5-3584826dbd64:cryptlvm root=/dev/lvarch/root\"\n"
-echo -e "${CYAN} Ещё одна строка: ${NC}GRUB_ENABLE_CRYPTODISK=y\"\n"
-
-
+## Пример: ${NC}GRUB_CMDLINE_LINUX=\"cryptdevice=UUID=c0868972-f314-48e1-9be5-3584826dbd64:cryptlvm root=/dev/lvarch/root\"\n"
+# echo "sed -i /GRUB_CMDLINE_LINUX=/c\GRUB_CMDLINE_LINUX=\\\"cryptdevice=/dev/disk/by-uuid/${luksrootuuid}:root\\\" /etc/default/grub"
+# sed -i /GRUB_CMDLINE_LINUX=/c\GRUB_CMDLINE_LINUX=\"cryptdevice=/dev/disk/by-uuid/${luksrootuuid}:root\" /etc/default/grub 
 echo "sed -i \"s/#GRUB_ENABLE_CRYPTODISK=y/GRUB_ENABLE_CRYPTODISK=y/g\" /etc/default/grub"
-sed -i "s/#GRUB_ENABLE_CRYPTODISK=y/GRUB_ENABLE_CRYPTODISK=y/g" /etc/default/grub
-sleep 1 
-
-
-# echo 'cryptlvm-'$(cryptsetup luksUUID /dev/sda2) > uuid  # > uuid - записываем ключ идентификатора в файл uuid (в текущем каталоге)
+sed -i "s/#GRUB_ENABLE_CRYPTODISK=y/GRUB_ENABLE_CRYPTODISK=y/" /etc/default/grub
+## echo 'cryptlvm-'$(cryptsetup luksUUID /dev/sda2) > uuid  # > uuid - записываем ключ идентификатора в файл uuid (в текущем каталоге)
 # cryptsetup luksUUID /dev/sda2
 # UUID=$(cryptsetup luksUUID /dev/sda2)
-cat uuid
-
+sleep 1   
 nano /etc/default/grub
 # nano -m /etc/default/grub  # -m - включить поддержку мыши
 #########################
