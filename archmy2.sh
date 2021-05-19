@@ -310,7 +310,9 @@ lsblk -f # Команда lsblk выводит список всех блочн�
 echo ""
 echo " Укажем диск куда установить GRUB (sda/sdb например sda или sdb) "
 echo -e "${YELLOW}=> Примечание: ${BOLD}/dev/sdX - диск (а не раздел ), на котором должен быть установлен GRUB. ${NC}"
-grub-install /dev/sda
+#grub-install /dev/sda
+grub-install --target=i386-pc --recheck /dev/sda
+## grub-install --target=x86_64-efi --efi-directory=/boot --removable --recheck /dev/sda  # efi-directory
 #echo ""
 ### Если вы используете LVM для вашего /boot, вы можете установить GRUB на нескольких физических дисках.
 #echo " Чтобы подтвердить действия ввода, нажмите кнопку 'Ввод' ("Enter") "
@@ -368,8 +370,8 @@ sleep 50  # приостановка работы потока
 #ROOT_UUID=$( blkid -o value -s UUID "${DRIVE}${ORDER[1]}" )
 #export ROOT_UUID
 #cryptlvm UUID=0a6accdb-9968-403a-b8bd-f9be6d3aaaec none luks
-#luksrootuuid=$(cryptsetup luksUUID ${2})
-#crypttab="\n${1}    UUID=$(cryptsetup luksUUID ${2})    none"
+luksrootuuid=$(cryptsetup luksUUID ${2})
+crypttab="\n${1}    UUID=$(cryptsetup luksUUID ${2})    none"
 #######
 ## Пример: ${NC}GRUB_CMDLINE_LINUX=\"cryptdevice=UUID=c0868972-f314-48e1-9be5-3584826dbd64:cryptlvm root=/dev/lvarch/root\"\n"
 # echo "sed -i /GRUB_CMDLINE_LINUX=/c\GRUB_CMDLINE_LINUX=\\\"cryptdevice=/dev/disk/by-uuid/${luksrootuuid}:root\\\" /etc/default/grub"
