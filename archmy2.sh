@@ -239,7 +239,7 @@ sed -i "s/block filesystems/block encrypt lvm2 filesystems/g" /etc/mkinitcpio.co
 echo "sed -i \"s/filesystems keyboard fsck/filesystems fsck/g\" /etc/mkinitcpio.conf"
 sed -i "s/filesystems keyboard fsck/filesystems fsck/g" /etc/mkinitcpio.conf
 echo "sed -i \"s/#COMPRESSION="lz4"/COMPRESSION="lz4"/g\" /etc/mkinitcpio.conf"
-sed -i "s/#COMPRESSION="lz4"/COMPRESSION="lz4"/" /etc/mkinitcpio.conf
+sed -i 's/#COMPRESSION="lz4"/COMPRESSION="lz4"/' /etc/mkinitcpio.conf
 sleep 1   
 nano /etc/mkinitcpio.conf
 # nano -m /etc/mkinitcpio.conf  # -m - включить поддержку мыши
