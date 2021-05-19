@@ -365,7 +365,8 @@ blkid /dev/sd*  # Для просмотра UUID (или Universal Unique Identi
 ls -l /dev/disk/by-uuid
 sleep 50  # приостановка работы потока
 ###
-
+    ROOT_UUID=$( blkid -o value -s UUID "${DRIVE}${ORDER[1]}" )
+    export ROOT_UUID
 
 cryptlvm UUID=0a6accdb-9968-403a-b8bd-f9be6d3aaaec none luks
 ## Пример: ${NC}GRUB_CMDLINE_LINUX=\"cryptdevice=UUID=c0868972-f314-48e1-9be5-3584826dbd64:cryptlvm root=/dev/lvarch/root\"\n"
