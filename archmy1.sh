@@ -191,17 +191,6 @@ echo " Он сказал: - Поехали! И запил водой :))) "
 ## Заполняем раздел случайными данными для удаления остаточной информации:
 ## dd if=/dev/urandom of=/dev/sda
 ## kill -USR1 ${PID} &>/dev/null
-#################
-echo ""
-echo " Установим утилиту pv (это сокращенно от pipeviewer) пакет (pv) - прогресс bar для консольных утилит в Unix/Linux "
-pacman -S pv --noconfirm  # Инструмент на основе терминала для мониторинга прохождения данных по конвейеру (https://www.ivarch.com/programs/pv.shtml)
-echo ""
-echo " Забиваем LUKS-контейнер нулями (dd if=/dev/zero) "
-## dd if=/dev/zero of=/dev/mapper/${1} & PID=$! &>/dev/null
-## dd if=/dev/zero of =/dev/mapper/cryptlvm
-## pv -tpreb /dev/zero | dd of= /dev/mapper/cryptlvm bs = 128M
-# pv -tpreb /dev/zero | dd of=/dev/sda2  # работает долго (27Gib - 40мин)
-pv -tpreb /dev/zero | dd of=/dev/sda2 bs=60M  # Работает быстро
 ###################
 clear
 echo -e "${MAGENTA}
