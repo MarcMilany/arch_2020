@@ -336,7 +336,7 @@ echo " Это гарантирует, что внешний мир будет р
 echo -e "${YELLOW}=> Примечание: ${BOLD}Выполнение команды dd может занять много часов. Предлагаю вам использовать команду pv для отслеживания прогресса. ${NC}"
 echo ""
 echo " Установим утилиту pv (это сокращенно от pipeviewer) пакет (pv) - прогресс bar для консольных утилит в Unix/Linux "
-#pacman -S pv --noconfirm  # Инструмент на основе терминала для мониторинга прохождения данных по конвейеру (https://www.ivarch.com/programs/pv.shtml)
+pacman -S pv --noconfirm  # Инструмент на основе терминала для мониторинга прохождения данных по конвейеру (https://www.ivarch.com/programs/pv.shtml)
 echo ""
 echo " Забиваем LUKS-контейнер нулями (dd if=/dev/zero) "
 ## dd if=/dev/zero of=/dev/mapper/${1} & PID=$! &>/dev/null
@@ -344,6 +344,8 @@ echo " Забиваем LUKS-контейнер нулями (dd if=/dev/zero) "
 ## pv -tpreb /dev/zero | dd of= /dev/mapper/cryptlvm bs = 128M
 # pv -tpreb /dev/zero | dd of=/dev/sda2  # работает долго (27Gib - 40мин)
 #pv -tpreb /dev/zero | dd of=/dev/sda2 bs=60M  # Работает быстро
+pv -tpreb /dev/zero | dd of=/dev/mapper/cryptlvm bs=60M & PID=$! &>/dev/null
+#dd if=/dev/zero of=/dev/mapper/$1 bs=60M & PID=$! &>/dev/null
 ## pv -tpreb  # -t, —timer — Включить таймер; -p, —progress — Включает индикатор выполнения; -r, —rate — Включите счетчик скорости; -e, —eta — Включить таймер ETA; -b, —bytes — Включите счетчик для общего отображения байт.
 ## kill -USR1 ${PID} &>/dev/null
 sleep 1
