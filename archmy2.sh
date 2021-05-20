@@ -139,6 +139,8 @@ locale-gen  # Мы ввели locale-gen для генерации тех сам
 sleep 02
 echo -e "${BLUE}:: ${NC}Указываем язык системы"
 ### Переменные окружения
+## Задаем язык системы:
+# localectl set-locale LANG=en_US.UTF-8
 echo 'LANG="ru_RU.UTF-8"' > /etc/locale.conf
 #echo 'LANG="en_US.UTF-8"' > /etc/locale.conf
 echo "LC_COLLATE=C" >> /etc/locale.conf  
@@ -157,6 +159,7 @@ echo 'LC_TIME="ru_RU.UTF-8"' >> /etc/locale.conf
 echo -e "${BLUE}:: ${NC}Вписываем KEYMAP=ru FONT=cyr-sun16 FONT=ter-v16n FONT=ter-v16b"
 echo 'KEYMAP=ru' >> /etc/vconsole.conf
 echo '#LOCALE=ru_RU.UTF-8' >> /etc/vconsole.conf
+## Шрифт с поддержкой кирилицы
 echo 'FONT=cyr-sun16' >> /etc/vconsole.conf
 echo '#FONT=ter-v16n' >> /etc/vconsole.conf
 echo '#FONT=ter-v16b' >> /etc/vconsole.conf
@@ -171,6 +174,13 @@ echo '#USECOLOR=yes' >> /etc/vconsole.conf
 #echo 'COMPRESSION="lz4"' >> /etc/mkinitcpio.conf 
 #echo 'COMPRESSION="xz"' >> /etc/mkinitcpio.conf
 echo "vboxdrv" > /etc/modules-load.d/virtualbox.conf
+###
+## Список всех доступных русских раскладок клавиатуры
+# ls /usr/share/kbd/keymaps/i386/qwerty/ru*
+## Русская раскладка с переключением по Alt+Shift
+# echo 'KEYMAP="ruwin_alt_sh-UTF-8"' > /etc/vconsole.conf
+## аналогично вызову
+# localectl set-keymap ruwin_alt_sh-UTF-8
 #######################
 clear
 echo ""
@@ -551,6 +561,9 @@ sleep 01
 ###
 ### Дополнительно : ###
 # pacman -S mesa xorg-apps xorg-twm xterm xorg-xclock xf86-input-synaptics --noconfirm  
+echo ""
+echo " Настройка раскладки клавиатуры в X.Org " 
+localectl --no-convert set-x11-keymap us,ru pc105 "" grp:alt_shift_toggle
 ####################
 #echo ""
 #echo -e "${BLUE}:: ${NC}Установка гостевых дополнений vbox"
@@ -678,6 +691,9 @@ pacman -S xdg-user-dirs --noconfirm  # Управляйте пользовате
 # pacman -S xdg-user-dirs-gtk --noconfirm  # Создаёт каталоги пользователей и просит их переместить
 xdg-user-dirs-update 
 # xdg-user-dirs-gtk-update  # Обновить закладки в thunar (левое меню)
+echo "" 
+echo " Создание шаблонов файлов в ~/Templaytes (чтобы в контекстном меню отображался пункт New Document) "
+touch ~/Templates/{Empty\ Document,Text\ Document.txt,README.md,pyfile.py}
 echo "" 
 echo " Создание каталогов успешно выполнено "
 #####################
@@ -931,6 +947,12 @@ LOGO=archlinux
 
 EOF
 ######################
+echo ""
+echo -e "${BLUE}:: ${NC}Блокируем сайты с рекламой через hosts"
+echo " Сохраняем копию оригинального файла /etc/hosts "
+cp /etc/hosts ~/Documents/hosts.bak
+wget -qO- https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts | sudo tee --append /etc/hosts
+########################
 clear
 echo ""
 echo -e "${BLUE}:: ${BOLD}Очистка кэша pacman 'pacman -Sc' ${NC}"
