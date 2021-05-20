@@ -220,10 +220,10 @@ echo " Перемена местами не имеет значения - про
   echo 2;
   echo;
   echo;
-# echo t;
-# echo 2;
+  echo t;
+  echo 2;
 ##echo L;
-# echo 8e;  # Тип раздела = Linux LVM  
+  echo 8e;  # Тип раздела = Linux LVM  
 
   echo p;  # Вновь просматриваем таблицу
   echo w;  # Теперь нужно записать изменения на диск
@@ -336,7 +336,7 @@ echo " Это гарантирует, что внешний мир будет р
 echo -e "${YELLOW}=> Примечание: ${BOLD}Выполнение команды dd может занять много часов. Предлагаю вам использовать команду pv для отслеживания прогресса. ${NC}"
 echo ""
 echo " Установим утилиту pv (это сокращенно от pipeviewer) пакет (pv) - прогресс bar для консольных утилит в Unix/Linux "
-pacman -S pv --noconfirm  # Инструмент на основе терминала для мониторинга прохождения данных по конвейеру (https://www.ivarch.com/programs/pv.shtml)
+#pacman -S pv --noconfirm  # Инструмент на основе терминала для мониторинга прохождения данных по конвейеру (https://www.ivarch.com/programs/pv.shtml)
 echo ""
 echo " Забиваем LUKS-контейнер нулями (dd if=/dev/zero) "
 ## dd if=/dev/zero of=/dev/mapper/${1} & PID=$! &>/dev/null
