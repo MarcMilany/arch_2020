@@ -344,13 +344,13 @@ echo " Забиваем LUKS-контейнер нулями (dd if=/dev/zero) "
 ## pv -tpreb /dev/zero | dd of= /dev/mapper/cryptlvm bs = 128M
 # pv -tpreb /dev/zero | dd of=/dev/sda2  # работает долго (27Gib - 40мин)
 #pv -tpreb /dev/zero | dd of=/dev/sda2 bs=60M  # Работает быстро
-pv -tpreb /dev/zero | dd of=/dev/mapper/cryptlvm bs=60M & PID=$! &>/dev/null
+#pv -tpreb /dev/zero | dd of=/dev/mapper/cryptlvm bs=60M & PID=$! &>/dev/null
 #dd if=/dev/zero of=/dev/mapper/$1 bs=60M & PID=$! &>/dev/null
 ## pv -tpreb  # -t, —timer — Включить таймер; -p, —progress — Включает индикатор выполнения; -r, —rate — Включите счетчик скорости; -e, —eta — Включить таймер ETA; -b, —bytes — Включите счетчик для общего отображения байт.
-clear
-sleep 1
-kill -USR1 ${PID} &>/dev/null
-sleep 1
+#clear
+#sleep 1
+#kill -USR1 ${PID} &>/dev/null
+#sleep 1
 #################    ### Get root UUID
 #ROOT_UUID=$( blkid -o value -s UUID "${sda2}${cryptlvm}" )
 #export ROOT_UUID
