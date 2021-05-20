@@ -351,7 +351,10 @@ clear
 sleep 1
 kill -USR1 ${PID} &>/dev/null
 sleep 1
-#################
+#################    ### Get root UUID
+#ROOT_UUID=$( blkid -o value -s UUID "${sda2}${cryptlvm}" )
+#export ROOT_UUID
+#################    
 clear
 echo ""
 echo -e "${GREEN}==> ${NC}Создание LVM разделов"
