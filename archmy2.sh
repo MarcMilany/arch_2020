@@ -236,12 +236,16 @@ echo " Проверяем! После чего в (nano) - Ctrl-O для сох�
 echo ""
 read -n 1 -s -r -p " Файл /etc/mkinitcpio.conf откроется в nano! \n Нажмите любую клавишу для открытия: "
 echo ""
+### Add kernel parameters to systemd-boot
 echo "sed -i \"s/autodetect modconf/autodetect keyboard keymap modconf/g\" /etc/mkinitcpio.conf"
 sed -i "s/autodetect modconf/autodetect keyboard keymap modconf/g" /etc/mkinitcpio.conf
+### LUKS kernel parameters; LVM kernel parameters
 echo "sed -i \"s/block filesystems/block encrypt lvm2 filesystems/g\" /etc/mkinitcpio.conf"
 sed -i "s/block filesystems/block encrypt lvm2 filesystems/g" /etc/mkinitcpio.conf
+### Removing kernel parameters to systemd-boot
 echo "sed -i \"s/filesystems keyboard fsck/filesystems fsck/g\" /etc/mkinitcpio.conf"
 sed -i "s/filesystems keyboard fsck/filesystems fsck/g" /etc/mkinitcpio.conf
+### Compression format
 echo "sed -i \"s/#COMPRESSION="lz4"/COMPRESSION="lz4"/g\" /etc/mkinitcpio.conf"
 sed -i 's/#COMPRESSION="lz4"/COMPRESSION="lz4"/' /etc/mkinitcpio.conf
 sleep 1   
