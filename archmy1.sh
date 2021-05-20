@@ -347,7 +347,9 @@ echo " Забиваем LUKS-контейнер нулями (dd if=/dev/zero) "
 pv -tpreb /dev/zero | dd of=/dev/mapper/cryptlvm bs=60M & PID=$! &>/dev/null
 #dd if=/dev/zero of=/dev/mapper/$1 bs=60M & PID=$! &>/dev/null
 ## pv -tpreb  # -t, —timer — Включить таймер; -p, —progress — Включает индикатор выполнения; -r, —rate — Включите счетчик скорости; -e, —eta — Включить таймер ETA; -b, —bytes — Включите счетчик для общего отображения байт.
-## kill -USR1 ${PID} &>/dev/null
+clear
+sleep 1
+kill -USR1 ${PID} &>/dev/null
 sleep 1
 #################
 clear
