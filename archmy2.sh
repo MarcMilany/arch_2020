@@ -932,7 +932,7 @@ echo " Сохраняем копию оригинального файла /etc/
 cp /etc/hosts /etc/hosts.bak
 # cp /etc/hosts ~/Documents/hosts.bak
 wget -qO- https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts | sudo tee --append /etc/hosts
-########################
+#######################
 clear
 echo ""
 echo -e "${BLUE}:: ${BOLD}Очистка кэша pacman 'pacman -Sc' ${NC}"
