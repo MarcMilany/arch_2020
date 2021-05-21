@@ -956,13 +956,16 @@ sed -i -e "s|/path/to/gfxtheme|/boot/grub/themes/Vimix/theme.txt|g" \
 rm -Rf /home/$username/grub2-theme-vimix
 ##### Configure Grub
 grub-mkconfig -o /boot/grub/grub.cfg
+sleep 1
 ######################
+clear
 echo ""
 echo -e "${BLUE}:: ${NC}Блокируем сайты с рекламой через hosts"
 echo " Сохраняем копию оригинального файла /etc/hosts "
 cp /etc/hosts /etc/hosts.bak
 # cp /etc/hosts ~/Documents/hosts.bak
 wget -qO- https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts | sudo tee --append /etc/hosts
+sleep 1
 #######################
 clear
 echo ""
