@@ -220,10 +220,10 @@ echo " Перемена местами не имеет значения - про
   echo 2;
   echo;
   echo;
-  echo t;
-  echo 2;
+#  echo t;
+#  echo 2;
 ##echo L;
-  echo 8e;  # Тип раздела = Linux LVM  
+#  echo 8e;  # Тип раздела = Linux LVM  
 
   echo p;  # Вновь просматриваем таблицу
   echo w;  # Теперь нужно записать изменения на диск
