@@ -1052,7 +1052,8 @@ sed -i -e "s/#GRUB_THEME/GRUB_THEME/g" /mnt/etc/default/grub
 sed -i -e "s|/path/to/gfxtheme|/boot/grub/themes/Vimix/theme.txt|g" \
 /mnt/etc/default/grub
 
-echo "desktop-image: \"background.png\"" >> \ /mnt/boot/grub/themes/Archlinux/theme.txt
+        echo "desktop-image: \"background.png\"" >> \
+/mnt/boot/grub/themes/Archlinux/theme.txt
 mv background.png /mnt/boot/grub/themes/Archlinux/background.png
 rm -rf /mnt/grub2-theme-vimix
 
