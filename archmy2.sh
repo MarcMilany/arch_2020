@@ -384,12 +384,12 @@ sleep 50  # приостановка работы потока
 #crypttab="\n${1}    UUID=$(cryptsetup luksUUID ${2})    none"
 #######
 ## Пример: ${NC}GRUB_CMDLINE_LINUX=\"cryptdevice=UUID=c0868972-f314-48e1-9be5-3584826dbd64:cryptlvm root=/dev/lvarch/root\"\n"
-# echo "sed -i /GRUB_CMDLINE_LINUX=/c\GRUB_CMDLINE_LINUX=\\\"cryptdevice=/dev/disk/by-uuid/${luksrootuuid}:root\\\" /etc/default/grub"
-#sed -i /GRUB_CMDLINE_LINUX=/c\GRUB_CMDLINE_LINUX=\"cryptdevice=/dev/disk/by-uuid/${luksrootuuid}:root\" /etc/default/grub 
-echo "sed -i /GRUB_CMDLINE_LINUX=/c\GRUB_CMDLINE_LINUX=\\\"cryptdevice=UUID=${ROOT_UUID}:cryptlvm root=/dev/lvarch/root\\\" /etc/default/grub"
-#ROOT_UUID=$( blkid -o value -s UUID "${DRIVE}${ORDER[1]}" )
-#export ROOT_UUID
-sed -i /GRUB_CMDLINE_LINUX=/c\GRUB_CMDLINE_LINUX=\"cryptdevice=UUID=${ROOT_UUID}:cryptlvm root=/dev/lvarch/root\" /etc/default/grub
+echo "sed -i /GRUB_CMDLINE_LINUX=/c\GRUB_CMDLINE_LINUX=\\\"cryptdevice=/dev/disk/by-uuid/${luksrootuuid}:root\\\" /etc/default/grub"
+sed -i /GRUB_CMDLINE_LINUX=/c\GRUB_CMDLINE_LINUX=\"cryptdevice=/dev/disk/by-uuid/${luksrootuuid}:root\" /etc/default/grub 
+# echo "sed -i /GRUB_CMDLINE_LINUX=/c\GRUB_CMDLINE_LINUX=\\\"cryptdevice=UUID=${ROOT_UUID}:cryptlvm root=/dev/lvarch/root\\\" /etc/default/grub"
+# ROOT_UUID=$( blkid -o value -s UUID "${DRIVE}${ORDER[1]}" )
+# export ROOT_UUID
+# sed -i /GRUB_CMDLINE_LINUX=/c\GRUB_CMDLINE_LINUX=\"cryptdevice=UUID=${ROOT_UUID}:cryptlvm root=/dev/lvarch/root\" /etc/default/grub
 echo "sed -i \"s/#GRUB_ENABLE_CRYPTODISK=y/GRUB_ENABLE_CRYPTODISK=y/g\" /etc/default/grub"
 sed -i "s/#GRUB_ENABLE_CRYPTODISK=y/GRUB_ENABLE_CRYPTODISK=y/" /etc/default/grub
 ## echo 'cryptlvm-'$(cryptsetup luksUUID /dev/sda2) > uuid  # > uuid - записываем ключ идентификатора в файл uuid (в текущем каталоге)
