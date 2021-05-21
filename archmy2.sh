@@ -383,14 +383,10 @@ sleep 50  # приостановка работы потока
 ######
 #ROOT_UUID=$( blkid -o value -s UUID "${DRIVE}${ORDER[1]}" )
 #export ROOT_UUID
-
 # BOOTCONF="/etc/default/grub"       
 # echo "options cryptdevice=UUID=${ROOT_UUID}:cryptlvm \
 # root=/dev/lvarch/root quiet rw" >> "${BOOTCONF}"
 # echo "options root=UUID=${ROOT_UUID} quiet rw" >> "${BOOTCONF}"
-
-
-
 #cryptlvm UUID=0a6accdb-9968-403a-b8bd-f9be6d3aaaec none luks
 #realrootdev=${rootdev}
 #rootdev=/dev/mapper/${1}
