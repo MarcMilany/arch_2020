@@ -947,15 +947,16 @@ git clone https://github.com/Se7endAY/grub2-theme-vimix.git
 cd /home/$username/grub2-theme-vimix 
 cp -r Vimix /boot/grub/themes/
 # cp -r grub2-theme-vimix/{Vimix} /boot/grub/themes/
-sed -i -e "s/GRUB_GFXMODE=auto/GRUB_GFXMODE=1024x768/g" \
+sudo -u $username  sed -i -e "s/GRUB_GFXMODE=auto/GRUB_GFXMODE=1024x768/g" \
 /etc/default/grub
-sed -i -e "s/#GRUB_THEME/GRUB_THEME/g" /etc/default/grub
-sed -i -e "s|/path/to/gfxtheme|/boot/grub/themes/Vimix/theme.txt|g" \
+sudo -u $username  sed -i -e "s/#GRUB_THEME/GRUB_THEME/g" /etc/default/grub
+sudo -u $username  sed -i -e "s|/path/to/gfxtheme|/boot/grub/themes/Vimix/theme.txt|g" \
 /etc/default/grub
 # rm -rf /grub2-theme-vimix
 rm -Rf /home/$username/grub2-theme-vimix
 ##### Configure Grub
-grub-mkconfig -o /boot/grub/grub.cfg
+echo " Настраиваем и конфигурируем grub "
+grub-mkconfig -o /boot/grub/grub.cfg  # создаём конфигурационный файл
 sleep 1
 ######################
 clear
@@ -1011,24 +1012,4 @@ exit
 
 
 
-
-
-
-
-cp -r grub2-theme-vimix/{Vimix} /boot/grub/themes/
-
-sed -i -e "s/GRUB_GFXMODE=auto/GRUB_GFXMODE=1024x768/g" \
-/mnt/etc/default/grub
-
-sed -i -e "s/#GRUB_THEME/GRUB_THEME/g" /mnt/etc/default/grub
-
-sed -i -e "s|/path/to/gfxtheme|/boot/grub/themes/Vimix/theme.txt|g" \
-/mnt/etc/default/grub
-
-        echo "desktop-image: \"background.png\"" >> \
-/mnt/boot/grub/themes/Archlinux/theme.txt
-mv background.png /mnt/boot/grub/themes/Archlinux/background.png
-rm -rf /mnt/grub2-theme-vimix
-
-grub-mkconfig -o /boot/grub/grub.cfg
 
