@@ -689,9 +689,6 @@ pacman -S xdg-user-dirs --noconfirm  # Управляйте пользовате
 xdg-user-dirs-update 
 # xdg-user-dirs-gtk-update  # Обновить закладки в thunar (левое меню)
 echo "" 
-echo " Создание шаблонов файлов в ~/Templaytes (чтобы в контекстном меню отображался пункт New Document) "
-touch ~/Templates/{Empty\ Document,Text\ Document.txt,README.md,pyfile.py}
-echo "" 
 echo " Создание каталогов успешно выполнено "
 #####################
 clear
@@ -718,8 +715,8 @@ echo -e "${YELLOW}=> Примечание: ${BOLD}Если вы пока не х
 echo -e "${YELLOW}=> Важно! ${BOLD}Если Вы сменили пользовательскую оболочку, то при первом запуске консоли (терминала) - нажмите 0 (ноль), и пользовательская оболочка (сразу будет) ИЗМЕНЕНА, с BASH на ZSH. ${NC}"
 echo " Будьте внимательны! В данной опции выбор всегда остаётся за вами. "
 echo "" 
-chsh -s /bin/zsh
-chsh -s /bin/zsh $username
+#chsh -s /bin/zsh
+#chsh -s /bin/zsh $username
 echo ""
 echo " Важно! При первом запуске консоли (терминала) - нажмите "0" "
 echo " Пользовательская оболочка ИЗМЕНЕНА (сразу будет), с BASH на на ZSH "
