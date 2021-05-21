@@ -309,12 +309,37 @@ echo ""
 echo " Установка дополнительных базовых программ (пакетов) выполнена "
 ################
 
+
+
+
+###############
 echo ""
 echo " Настройка раскладки клавиатуры в X.Org " 
 localectl --no-convert set-x11-keymap us,ru pc105 "" grp:alt_shift_toggle
+###################
 
-
-
+#####################
 echo "" 
 echo " Создание шаблонов файлов в ~/Templaytes (чтобы в контекстном меню отображался пункт New Document) "
 touch ~/Templates/{Empty\ Document,Text\ Document.txt,README.md,pyfile.py}
+#######################
+
+################
+echo ""
+echo -e "${BLUE}:: ${NC}Установим дополнения для Pacman - пакет (pacman-contrib)"
+echo " Этот репозиторий содержит скрипты, предоставленные pacman "
+echo -e "${YELLOW}=> Примечание: ${BOLD}Раньше это было частью pacman.git, но было перемещено, чтобы упростить обслуживание pacman. ${NC}"
+echo " Скрипты, доступные в этом репозитории: checkupdates, paccache, pacdiff, paclist, paclog-pkglist, pacscripts, pacsearch, rankmirrors, updpkgsums;... "
+pacman -S --noconfirm --needed pacman-contrib  # Предоставленные скрипты и инструменты для систем pacman (https://github.com/kyrias/pacman-contrib)
+pacman -S --noconfirm --needed pcurses  # Инструмент управления пакетами curses с использованием libalpm (https://github.com/schuay/pcurses)
+#################
+echo ""
+echo -e "${BLUE}:: ${NC}Установим Hwdetect - пакет (hwdetect) - Информация о железе"
+echo " Hwdetect - это скрипт (консольная утилита с огромным количеством опций) обнаружения оборудования, который в основном используется для загрузки или вывода списка модулей ядра (для использования в mkinitcpio.conf), и заканчивая возможностью автоматического изменения rc.conf и mkinitcpio.conf ; (https://wiki.archlinux.org/title/Hwdetect) "
+echo -e "${YELLOW}=> Примечание: ${BOLD}Это отличается от многих других инструментов, которые запрашивают только оборудование и показывают необработанную информацию, оставляя пользователю задачу связать эту информацию с необходимыми драйверами. ${NC}"
+echo " Сценарий использует информацию, экспортируемую подсистемой sysfs (https://en.wikipedia.org/wiki/Sysfs), используемой ядром Linux. "
+pacman -S hwdetect --noconfirm  # Скрипт (консольная утилита) просмотр модулей ядра для устройств, обнаружения оборудования с загрузочными модулями и поддержкой mkinitcpio.conf / rc.conf
+#################
+
+
+##################
