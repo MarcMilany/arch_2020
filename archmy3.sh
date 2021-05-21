@@ -312,3 +312,9 @@ echo " Установка дополнительных базовых прогр
 echo ""
 echo " Настройка раскладки клавиатуры в X.Org " 
 localectl --no-convert set-x11-keymap us,ru pc105 "" grp:alt_shift_toggle
+
+
+
+echo "" 
+echo " Создание шаблонов файлов в ~/Templaytes (чтобы в контекстном меню отображался пункт New Document) "
+touch ~/Templates/{Empty\ Document,Text\ Document.txt,README.md,pyfile.py}
