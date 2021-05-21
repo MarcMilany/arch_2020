@@ -936,6 +936,23 @@ LOGO=archlinux
 
 EOF
 ######################
+clear
+echo ""
+echo -e "${BLUE}:: ${NC}Установим Nord-Xfce-Terminal пакет (nord-xfce-terminal) - элегантная цветовая тема терминала XFCE" 
+echo " Арктическая, северо-голубоватая чистая и элегантная цветовая тема терминала XFCE "
+echo " Предназначена для плавного и четкого рабочего процесса, на основе цветовой палитры Nord. "
+echo ""
+echo " Установка Nord-Xfce-Terminal "
+cd /home/$username
+git clone https://aur.archlinux.org/nord-xfce-terminal.git 
+chown -R $username:users /home/$username/nord-xfce-terminal   #-R, --recursive - рекурсивная обработка всех подкаталогов;
+chown -R $username:users /home/$username/nord-xfce-terminal/PKGBUILD  #-R, --recursive - рекурсивная обработка всех подкаталогов;
+cd /home/$username/nord-xfce-terminal 
+sudo -u $username  makepkg -si --noconfirm  
+rm -Rf /home/$username/nord-xfce-terminal
+echo ""
+echo " Установка Nord-Xfce-Terminal (nord-xfce-terminal) завершена "
+##########################
 echo ""
 echo " Установка Grub2-Theme-Vimix - тема размытия для grub "
 cd /home/$username
@@ -946,17 +963,20 @@ git clone https://github.com/Se7endAY/grub2-theme-vimix.git
 cd /home/$username/grub2-theme-vimix 
 cp -r Vimix /boot/grub/themes/
 # cp -r grub2-theme-vimix/{Vimix} /boot/grub/themes/
-sudo -u $username  sed -i -e "s/GRUB_GFXMODE=auto/GRUB_GFXMODE=1024x768/g" \
-/etc/default/grub
-sudo -u $username  sed -i -e "s/#GRUB_THEME/GRUB_THEME/g" /etc/default/grub
-sudo -u $username  sed -i -e "s|/path/to/gfxtheme|/boot/grub/themes/Vimix/theme.txt|g" \
-/etc/default/grub
+echo "sed -i -e \"s/GRUB_GFXMODE=auto/GRUB_GFXMODE=1024x768/g\" /etc/default/grub"
+sed -i -e "s/GRUB_GFXMODE=auto/GRUB_GFXMODE=1024x768/g" /etc/default/grub
+echo "sed -i -e \"s/#GRUB_THEME/GRUB_THEME/g\" /etc/default/grub"
+sed -i -e "s/#GRUB_THEME/GRUB_THEME/g" /etc/default/grub
+echo "sed -i -e \"s|/path/to/gfxtheme|/boot/grub/themes/Vimix/theme.txt|g\" /etc/default/grub"
+sed -i -e "s|/path/to/gfxtheme|/boot/grub/themes/Vimix/theme.txt|g" /etc/default/grub
 # rm -rf /grub2-theme-vimix
 rm -Rf /home/$username/grub2-theme-vimix
 ##### Configure Grub
 echo " Настраиваем и конфигурируем grub "
 grub-mkconfig -o /boot/grub/grub.cfg  # создаём конфигурационный файл
 sleep 1
+## -e - команды, которые надо выполнить для редактирования;
+## -i - сделать резервную копию файла перед редактированием;
 ######################
 clear
 echo ""
