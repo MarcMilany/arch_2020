@@ -132,7 +132,7 @@ pacman-key --refresh-keys --keyserver keys.gnupg.net  # http://pool.sks-keyserve
 #pacman -Syy  # обновление баз пакмэна (pacman) 
 # pacman -Syyu  # Обновим вашу систему (базу данных пакетов)
 # pacman -Syyu  --noconfirm
-###################################### 
+####################################### 
 echo ""
 echo -e "${BLUE}:: ${NC}Обновим базы данных пакетов" 
 pacman -Sy --noconfirm  # обновить списки пакетов из репозиториев
