@@ -178,7 +178,7 @@ echo "vboxdrv" > /etc/modules-load.d/virtualbox.conf
 ## Список всех доступных русских раскладок клавиатуры
 # ls /usr/share/kbd/keymaps/i386/qwerty/ru*
 ## Русская раскладка с переключением по Alt+Shift
-# echo 'KEYMAP="ruwin_alt_sh-UTF-8"' > /etc/vconsole.conf
+#echo 'KEYMAP="ruwin_alt_sh-UTF-8"' > /etc/vconsole.conf
 ## аналогично вызову
 # localectl set-keymap ruwin_alt_sh-UTF-8
 #######################
