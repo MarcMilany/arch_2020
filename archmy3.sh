@@ -308,3 +308,7 @@ sudo systemctl enable gpm
 echo ""   
 echo " Установка дополнительных базовых программ (пакетов) выполнена "
 ################
+
+echo ""
+echo " Настройка раскладки клавиатуры в X.Org " 
+localectl --no-convert set-x11-keymap us,ru pc105 "" grp:alt_shift_toggle
