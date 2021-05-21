@@ -181,7 +181,7 @@ echo "vboxdrv" > /etc/modules-load.d/virtualbox.conf
 #echo 'KEYMAP="ruwin_alt_sh-UTF-8"' > /etc/vconsole.conf
 ## аналогично вызову
 # localectl set-keymap ruwin_alt_sh-UTF-8
-#######################
+######################
 clear
 echo ""
 echo -e "${BLUE}:: ${NC}Проверим корректность загрузки установленных микрокодов " 
