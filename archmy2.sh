@@ -387,10 +387,8 @@ sleep 50  # приостановка работы потока
 # echo "sed -i /GRUB_CMDLINE_LINUX=/c\GRUB_CMDLINE_LINUX=\\\"cryptdevice=/dev/disk/by-uuid/${luksrootuuid}:root\\\" /etc/default/grub"
 #sed -i /GRUB_CMDLINE_LINUX=/c\GRUB_CMDLINE_LINUX=\"cryptdevice=/dev/disk/by-uuid/${luksrootuuid}:root\" /etc/default/grub 
 echo "sed -i /GRUB_CMDLINE_LINUX=/c\GRUB_CMDLINE_LINUX=\\\"cryptdevice=UUID=${ROOT_UUID}:cryptlvm root=/dev/lvarch/root\\\" /etc/default/grub"
-
-ROOT_UUID=$( blkid -o value -s UUID "${DRIVE}${ORDER[1]}" )
-export ROOT_UUID
-
+#ROOT_UUID=$( blkid -o value -s UUID "${DRIVE}${ORDER[1]}" )
+#export ROOT_UUID
 sed -i /GRUB_CMDLINE_LINUX=/c\GRUB_CMDLINE_LINUX=\"cryptdevice=UUID=${ROOT_UUID}:cryptlvm root=/dev/lvarch/root\" /etc/default/grub
 echo "sed -i \"s/#GRUB_ENABLE_CRYPTODISK=y/GRUB_ENABLE_CRYPTODISK=y/g\" /etc/default/grub"
 sed -i "s/#GRUB_ENABLE_CRYPTODISK=y/GRUB_ENABLE_CRYPTODISK=y/" /etc/default/grub
@@ -945,6 +943,21 @@ cp /etc/hosts /etc/hosts.bak
 # cp /etc/hosts ~/Documents/hosts.bak
 wget -qO- https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts | sudo tee --append /etc/hosts
 #######################
+##### Download Themes
+## https://github.com/Generator/Grub2-themes.git
+## https://github.com/Se7endAY/grub2-theme-vimix
+git clone https://github.com/Se7endAY/grub2-theme-vimix.git
+##### Install Themes
+cp -r grub2-theme-vimix/{Vimix} /boot/grub/themes/
+sed -i -e "s/GRUB_GFXMODE=auto/GRUB_GFXMODE=1024x768/g" \
+/etc/default/grub
+sed -i -e "s/#GRUB_THEME/GRUB_THEME/g" /etc/default/grub
+sed -i -e "s|/path/to/gfxtheme|/boot/grub/themes/Vimix/theme.txt|g" \
+/etc/default/grub
+rm -rf /grub2-theme-vimix
+##### Configure Grub
+grub-mkconfig -o /boot/grub/grub.cfg
+######################
 clear
 echo ""
 echo -e "${BLUE}:: ${BOLD}Очистка кэша pacman 'pacman -Sc' ${NC}"
@@ -986,75 +999,12 @@ exit
 
   
 ### end of script
-_install_bootloader() {
-
-    
-        # Add microcode
-        case ${UCODE} in
-            intel|amd) echo "initrd /${UCODE}-ucode.img" >> "${BOOTCONF}"
-        esac
-
-        # Set kernel
-        echo "initrd /initramfs-${KERNEL_NAME,,}.img" >> "${BOOTCONF}"
-
-        # Set options
-
- BOOTCONF="/etc/default/grub"       
-        if [[ ${LUKS} ]]; then
-            echo "options cryptdevice=UUID=${ROOT_UUID}:cryptlvm \
-root=/dev/lvarch/root quiet rw" >> "${BOOTCONF}"
-        else
-            echo "options root=UUID=${ROOT_UUID} quiet rw" >> "${BOOTCONF}"
-        fi
-        echo "-> ${MSG_DONE}"
-
-        # Update systemd-boot
-        _info "${MSG_SYSTEMDBOOT_UPDATE}"
-        _chroot "bootctl --path=/boot update"
-        echo "-> ${MSG_DONE}"
-
-    ### BIOS Firmware > Grub
-    else
-
-        # Install Grub
-        _info "${MSG_INSTALL_GRUB} ${DRIVE}"
-        INSTALL_GRUB=("${GRUB}")
-        if [[ ${NTFS} ]]; then INSTALL_GRUB+=("${GRUB_EXTRAS}"); fi
-        _chroot "pacman --noconfirm --needed -S ${INSTALL_GRUB[*]}"
-        _chroot "grub-install --target=i386-pc ${DRIVE}"
-        echo "-> ${MSG_DONE}"
-
-        # Download Themes
-        _info "${MSG_DL_GRUB_THEME}"
-        _wget "${GHPAGES}/assets/images/background.png" && echo
-        _chroot "git clone https://github.com/Generator/Grub2-themes.git"
-        echo "-> ${MSG_DONE}"
-
-        # Install Themes
-        _info "${MSG_INSTALL_GRUB_THEME}"
-        _chroot "cp -r Grub2-themes/{Archlinux,Archxion} /boot/grub/themes/"
-        sed -i -e "s/GRUB_GFXMODE=auto/GRUB_GFXMODE=1024x768/g" \
-/mnt/etc/default/grub
-        sed -i -e "s/#GRUB_THEME/GRUB_THEME/g" /mnt/etc/default/grub
-sed -i -e "s|/path/to/gfxtheme|/boot/grub/themes/Archlinux/theme.txt|g" \
-/mnt/etc/default/grub
-        echo "desktop-image: \"background.png\"" >> \
-/mnt/boot/grub/themes/Archlinux/theme.txt
-        mv background.png /mnt/boot/grub/themes/Archlinux/background.png
-        rm -rf /mnt/Grub2-themes
-        echo "-> ${MSG_DONE}"
-
-        # Configure Grub
-        _info "${MSG_SET_GRUB}"
-        _chroot "grub-mkconfig -o /boot/grub/grub.cfg"
-    fi
-}
-
-https://github.com/Generator/Grub2-themes.git
-https://github.com/Se7endAY/grub2-theme-vimix
 
 
-git clone https://github.com/Se7endAY/grub2-theme-vimix.git
+
+
+
+
 
 cp -r grub2-theme-vimix/{Vimix} /boot/grub/themes/
 
@@ -1073,11 +1023,3 @@ rm -rf /mnt/grub2-theme-vimix
 
 grub-mkconfig -o /boot/grub/grub.cfg
 
-
-Arch Linux
-установить пакеты из AUR:
-$ yaourt -S grub2-theme-vimix-git
-Отредактируйте / etc / default / grub:
-GRUB_THEME = " /boot/grub/themes/Vimix/theme.txt "
-Обновить grub:
-$ grub-mkconfig -o /boot/grub/grub.cfg
