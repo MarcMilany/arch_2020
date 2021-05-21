@@ -561,9 +561,6 @@ sleep 01
 ###
 ### Дополнительно : ###
 # pacman -S mesa xorg-apps xorg-twm xterm xorg-xclock xf86-input-synaptics --noconfirm  
-echo ""
-echo " Настройка раскладки клавиатуры в X.Org " 
-localectl --no-convert set-x11-keymap us,ru pc105 "" grp:alt_shift_toggle
 ####################
 #echo ""
 #echo -e "${BLUE}:: ${NC}Установка гостевых дополнений vbox"
