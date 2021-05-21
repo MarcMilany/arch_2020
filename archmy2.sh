@@ -940,7 +940,6 @@ echo ""
 echo " Установка Grub2-Theme-Vimix - тема размытия для grub "
 cd /home/$username
 ##### Download Themes
-## https://github.com/Generator/Grub2-themes.git
 ## https://github.com/Se7endAY/grub2-theme-vimix
 git clone https://github.com/Se7endAY/grub2-theme-vimix.git
 ##### Install Themes
