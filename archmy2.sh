@@ -368,6 +368,14 @@ sleep 50  # приостановка работы потока
 ######
 #ROOT_UUID=$( blkid -o value -s UUID "${DRIVE}${ORDER[1]}" )
 #export ROOT_UUID
+
+# BOOTCONF="/etc/default/grub"       
+# echo "options cryptdevice=UUID=${ROOT_UUID}:cryptlvm \
+# root=/dev/lvarch/root quiet rw" >> "${BOOTCONF}"
+# echo "options root=UUID=${ROOT_UUID} quiet rw" >> "${BOOTCONF}"
+
+
+
 #cryptlvm UUID=0a6accdb-9968-403a-b8bd-f9be6d3aaaec none luks
 #realrootdev=${rootdev}
 #rootdev=/dev/mapper/${1}
@@ -377,9 +385,13 @@ sleep 50  # приостановка работы потока
 #######
 ## Пример: ${NC}GRUB_CMDLINE_LINUX=\"cryptdevice=UUID=c0868972-f314-48e1-9be5-3584826dbd64:cryptlvm root=/dev/lvarch/root\"\n"
 # echo "sed -i /GRUB_CMDLINE_LINUX=/c\GRUB_CMDLINE_LINUX=\\\"cryptdevice=/dev/disk/by-uuid/${luksrootuuid}:root\\\" /etc/default/grub"
-sed -i /GRUB_CMDLINE_LINUX=/c\GRUB_CMDLINE_LINUX=\"cryptdevice=/dev/disk/by-uuid/${luksrootuuid}:root\" /etc/default/grub 
-## echo "sed -i /GRUB_CMDLINE_LINUX=/c\GRUB_CMDLINE_LINUX=\\\"cryptdevice=UUID=xxxx:cryptlvm root=/dev/lvarch/root\\\" /etc/default/grub"
-## sed -i /GRUB_CMDLINE_LINUX=/c\GRUB_CMDLINE_LINUX=\"cryptdevice=UUID=c:cryptlvm root=/dev/lvarch/root\" /etc/default/grub
+#sed -i /GRUB_CMDLINE_LINUX=/c\GRUB_CMDLINE_LINUX=\"cryptdevice=/dev/disk/by-uuid/${luksrootuuid}:root\" /etc/default/grub 
+echo "sed -i /GRUB_CMDLINE_LINUX=/c\GRUB_CMDLINE_LINUX=\\\"cryptdevice=UUID=${ROOT_UUID}:cryptlvm root=/dev/lvarch/root\\\" /etc/default/grub"
+
+ROOT_UUID=$( blkid -o value -s UUID "${DRIVE}${ORDER[1]}" )
+export ROOT_UUID
+
+sed -i /GRUB_CMDLINE_LINUX=/c\GRUB_CMDLINE_LINUX=\"cryptdevice=UUID=${ROOT_UUID}:cryptlvm root=/dev/lvarch/root\" /etc/default/grub
 echo "sed -i \"s/#GRUB_ENABLE_CRYPTODISK=y/GRUB_ENABLE_CRYPTODISK=y/g\" /etc/default/grub"
 sed -i "s/#GRUB_ENABLE_CRYPTODISK=y/GRUB_ENABLE_CRYPTODISK=y/" /etc/default/grub
 ## echo 'cryptlvm-'$(cryptsetup luksUUID /dev/sda2) > uuid  # > uuid - записываем ключ идентификатора в файл uuid (в текущем каталоге)
@@ -986,9 +998,11 @@ _install_bootloader() {
         echo "initrd /initramfs-${KERNEL_NAME,,}.img" >> "${BOOTCONF}"
 
         # Set options
+
+ BOOTCONF="/etc/default/grub"       
         if [[ ${LUKS} ]]; then
             echo "options cryptdevice=UUID=${ROOT_UUID}:cryptlvm \
-root=/dev/mapper/cryptroot quiet rw" >> "${BOOTCONF}"
+root=/dev/lvarch/root quiet rw" >> "${BOOTCONF}"
         else
             echo "options root=UUID=${ROOT_UUID} quiet rw" >> "${BOOTCONF}"
         fi
