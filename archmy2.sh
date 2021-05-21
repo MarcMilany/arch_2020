@@ -937,27 +937,33 @@ LOGO=archlinux
 EOF
 ######################
 echo ""
+echo " Установка Grub2-Theme-Vimix - тема размытия для grub "
+cd /home/$username
+##### Download Themes
+## https://github.com/Generator/Grub2-themes.git
+## https://github.com/Se7endAY/grub2-theme-vimix
+git clone https://github.com/Se7endAY/grub2-theme-vimix.git
+##### Install Themes
+cd /home/$username/grub2-theme-vimix 
+cp -r Vimix /boot/grub/themes/
+# cp -r grub2-theme-vimix/{Vimix} /boot/grub/themes/
+sed -i -e "s/GRUB_GFXMODE=auto/GRUB_GFXMODE=1024x768/g" \
+/etc/default/grub
+sed -i -e "s/#GRUB_THEME/GRUB_THEME/g" /etc/default/grub
+sed -i -e "s|/path/to/gfxtheme|/boot/grub/themes/Vimix/theme.txt|g" \
+/etc/default/grub
+# rm -rf /grub2-theme-vimix
+rm -Rf /home/$username/grub2-theme-vimix
+##### Configure Grub
+grub-mkconfig -o /boot/grub/grub.cfg
+######################
+echo ""
 echo -e "${BLUE}:: ${NC}Блокируем сайты с рекламой через hosts"
 echo " Сохраняем копию оригинального файла /etc/hosts "
 cp /etc/hosts /etc/hosts.bak
 # cp /etc/hosts ~/Documents/hosts.bak
 wget -qO- https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts | sudo tee --append /etc/hosts
 #######################
-##### Download Themes
-## https://github.com/Generator/Grub2-themes.git
-## https://github.com/Se7endAY/grub2-theme-vimix
-git clone https://github.com/Se7endAY/grub2-theme-vimix.git
-##### Install Themes
-cp -r grub2-theme-vimix/{Vimix} /boot/grub/themes/
-sed -i -e "s/GRUB_GFXMODE=auto/GRUB_GFXMODE=1024x768/g" \
-/etc/default/grub
-sed -i -e "s/#GRUB_THEME/GRUB_THEME/g" /etc/default/grub
-sed -i -e "s|/path/to/gfxtheme|/boot/grub/themes/Vimix/theme.txt|g" \
-/etc/default/grub
-rm -rf /grub2-theme-vimix
-##### Configure Grub
-grub-mkconfig -o /boot/grub/grub.cfg
-######################
 clear
 echo ""
 echo -e "${BLUE}:: ${BOLD}Очистка кэша pacman 'pacman -Sc' ${NC}"
