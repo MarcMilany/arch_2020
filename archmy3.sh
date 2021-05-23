@@ -319,6 +319,9 @@ echo ""
 echo " Настройка раскладки клавиатуры в X.Org " 
 echo " localectl [--no-convert] set-x11-keymap раскладка [модель [вариант [опции]]] "
 localectl --no-convert set-x11-keymap us,ru pc105 "" grp:alt_shift_toggle
+echo " Чтобы изменения вступили в силу, перезагрузите Xorg командой: "
+sudo systemctl restart display-manager
+
 ###################
 С помощью localectl
 Для удобства можно использовать инструмент localectl вместо ручного редактирования конфигурационных файлов X. Он сохраняет настройки в файл /etc/X11/xorg.conf.d/00-keyboard.conf, который не следует редактировать вручную, потому что localectl перепишет его при следующем запуске.
