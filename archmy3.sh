@@ -313,11 +313,49 @@ echo " Установка дополнительных базовых прогр
 
 ## Список всех доступных русских раскладок клавиатуры
 # ls /usr/share/kbd/keymaps/i386/qwerty/ru*
+## https://wiki.archlinux.org/title/Xorg_(%D0%A0%D1%83%D1%81%D1%81%D0%BA%D0%B8%D0%B9)/Keyboard_configuration_(%D0%A0%D1%83%D1%81%D1%81%D0%BA%D0%B8%D0%B9)
 ###############
 echo ""
 echo " Настройка раскладки клавиатуры в X.Org " 
+echo " localectl [--no-convert] set-x11-keymap раскладка [модель [вариант [опции]]] "
 localectl --no-convert set-x11-keymap us,ru pc105 "" grp:alt_shift_toggle
 ###################
+С помощью localectl
+Для удобства можно использовать инструмент localectl вместо ручного редактирования конфигурационных файлов X. Он сохраняет настройки в файл /etc/X11/xorg.conf.d/00-keyboard.conf, который не следует редактировать вручную, потому что localectl перепишет его при следующем запуске.
+
+Используйте следующим образом:
+
+$ localectl [--no-convert] set-x11-keymap раскладка [модель [вариант [опции]]]
+Чтобы установить модель, вариант или опции, нужно указать все эти поля, но их можно пропустить, передав пустую строку "". Если параметр --no-convert не передан, тогда указанная клавиатура преобразуется в ближайшую соответствующую раскладку для консоли и прописывается в настройках консоли в файле vconsole.conf. Для получения дополнительной информации смотрите localectl(1).
+
+Чтобы создать файл /etc/X11/xorg.conf.d/00-keyboard.conf, как указано выше:
+
+$ localectl --no-convert set-x11-keymap us,ru pc105 dvorak, grp:alt_shift_toggle
+Например, можно установить английскую и русскую раскладки, которые будут переключаться по ctrl+shift:
+
+$ localectl --no-convert set-x11-keymap us,ru "" "" grp:ctrl_shift_toggle
+Чтобы изменения вступили в силу, перезагрузите Xorg командой:
+
+$ systemctl restart display-manager
+
+Через конфигурационные файлы X
+Примечание: xorg.conf анализируется X-сервером при запуске. Чтобы применить изменения, перезапустите X.
+Синтакс конфигурационных файлов X объяснен в Xorg (Русский)#Настройка. Этот способ создает постоянные общесистемные настройки.
+
+Вот пример:
+
+/etc/X11/xorg.conf.d/00-keyboard.conf
+Section "InputClass"
+        Identifier "system-keyboard"
+        MatchIsKeyboard "on"
+        Option "XkbLayout" "us,ru"
+        Option "XkbModel" "pc105"
+        Option "XkbVariant" "dvorak,"
+        Option "XkbOptions" "grp:alt_shift_toggle"
+EndSection
+
+
+
 
 #####################
 echo "" 
