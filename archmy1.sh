@@ -69,11 +69,12 @@ cp -vf /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.old
 # cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.old
 echo " Скачаем новый список серверов-зеркал "
 ## wget -O /etc/pacman.d/mirrorlist archlinux.org/mirrorlist/?country=US 
-wget -O /etc/pacman.d/mirrorlist archlinux.org/mirrorlist/?country=RU
+#wget -O /etc/pacman.d/mirrorlist archlinux.org/mirrorlist/?country=RU
 ## wget -O /etc/pacman.d/mirrorlist archlinux.org/mirrorlist/?country=RU&protocol=https&use_mirror_status=on 
-sed -i 's/^#Server/Server/' /etc/pacman.d/mirrorlist
-rankmirrors -n 6 /etc/pacman.d/mirrorlist
-# curl -s "https://archlinux.org/mirrorlist/?country=RU&protocol=https&use_mirror_status=on" | sed -e 's/^#Server/Server/' -e '/^#/d' | rankmirrors -n 5 -
+wget -O /etc/pacman.d/mirrorlist archlinux.org/mirrorlist/?country=RU&protocol=https&use_mirror_status=on | sed -e 's/^#Server/Server/' -e '/^#/d' | rankmirrors -n 5 -
+#sed -i 's/^#Server/Server/' /etc/pacman.d/mirrorlist
+#rankmirrors -n 6 /etc/pacman.d/mirrorlist
+## curl -s "https://archlinux.org/mirrorlist/?country=RU&protocol=https&use_mirror_status=on" | sed -e 's/^#Server/Server/' -e '/^#/d' | rankmirrors -n 5 -
 ## curl -s "https://archlinux.org/mirrorlist/?country=FR&country=GB&protocol=https&use_mirror_status=on" | sed -e 's/^#Server/Server/' -e '/^#/d' | rankmirrors -n 5 -
 echo " Посмотреть список серверов-зеркал /etc/pacman.d/mirrorlist "
 echo ""
