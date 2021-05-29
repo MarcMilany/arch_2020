@@ -52,16 +52,18 @@ echo -e "${GREEN}=> ${NC}Make sure that your network interface is specified and 
 ip a  # Смотрим какие у нас есть интернет-интерфейсы
 #####################
 echo ""
-echo -e "${BLUE}:: ${NC}Обновим базы данных пакетов" 
-pacman -Sy --print-format "%r"  # Указывает похожий на printf формат для контроля вывода операции --print
+echo -e "${BLUE}:: ${NC}Update the package databases" 
+## Обновим базы данных пакетов
+pacman -Sy --print-format "%r"  # Указывает похожий на printf формат для контроля вывода операции --print; «% r» для репозитория  
 #pacman -Sy --noconfirm  # обновить списки пакетов из репозиториев
 sleep 1
 ################
 echo ""
 echo -e "${BLUE}:: ${NC}Скачаем новый список серверов-зеркал для загрузки (/etc/pacman.d/mirrorlist) с сайта archlinux.org/mirrorlist. Ставим зеркало для России"
-echo " Установка базовых программ (пакетов): wget "
-pacman -Sy --noconfirm --noprogressbar --quiet wget  # Сетевая утилита для извлечения файлов из Интернета 
-pacman -S --noconfirm --needed --noprogressbar --quiet wget
+echo " Установка базовых (дополнительных) программ (пакетов): wget, pacman-contrib "
+pacman -S --noconfirm --noprogressbar --quiet wget  # Сетевая утилита для извлечения файлов из Интернета
+pacman -S --noconfirm --noprogressbar --quiet pacman-contrib  # Предоставленные скрипты и инструменты для систем pacman (https://github.com/kyrias/pacman-contrib) 
+pacman -S --noconfirm --needed --noprogressbar --quiet wget pacman-contrib
 echo " Создание (backup) резервного списка зеркал mirrorlist - (mirrorlist.old) "
 cp -vf /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.old
 # cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.old
