@@ -50,6 +50,12 @@ echo -e "${CYAN}==> ${NC}If the ping goes we go further ..."  # Если пин�
 echo ""
 echo -e "${GREEN}=> ${NC}Make sure that your network interface is specified and enabled" 
 ip a  # Смотрим какие у нас есть интернет-интерфейсы
+#####################
+echo ""
+echo -e "${BLUE}:: ${NC}Обновим базы данных пакетов" 
+pacman -Sy --print-format  # Указывает похожий на printf формат для контроля вывода операции --print
+#pacman -Sy --noconfirm  # обновить списки пакетов из репозиториев
+sleep 1
 ################
 echo ""
 echo -e "${BLUE}:: ${NC}Install the Terminus font"  # Установим шрифт Terminus
