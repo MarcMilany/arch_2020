@@ -75,7 +75,7 @@ rankmirrors -n 6 /etc/pacman.d/mirrorlist
 ## curl -s "https://archlinux.org/mirrorlist/?country=FR&country=GB&protocol=https&use_mirror_status=on" | sed -e 's/^#Server/Server/' -e '/^#/d' | rankmirrors -n 5 -
 echo " Посмотреть список серверов-зеркал /etc/pacman.d/mirrorlist "
 echo ""
-cat /mnt/etc/pacman.d/mirrorlist  # cat читает данные из файла или стандартного ввода и выводит их на экран
+cat /etc/pacman.d/mirrorlist  # cat читает данные из файла или стандартного ввода и выводит их на экран
 sleep 1
 echo ""
 echo " Обновим базы данных пакетов "
