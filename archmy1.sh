@@ -53,10 +53,35 @@ ip a  # Смотрим какие у нас есть интернет-интер
 #####################
 echo ""
 echo -e "${BLUE}:: ${NC}Обновим базы данных пакетов" 
-pacman -Sy --print-format "%l"  # Указывает похожий на printf формат для контроля вывода операции --print
+pacman -Sy --print-format "%r"  # Указывает похожий на printf формат для контроля вывода операции --print
 #pacman -Sy --noconfirm  # обновить списки пакетов из репозиториев
 sleep 1
 ################
+echo ""
+echo -e "${BLUE}:: ${NC}Скачаем новый список серверов-зеркал для загрузки (/etc/pacman.d/mirrorlist) с сайта archlinux.org/mirrorlist. Ставим зеркало для России"
+echo " Установка базовых программ (пакетов): wget "
+pacman -Sy --noconfirm --noprogressbar --quiet wget  # Сетевая утилита для извлечения файлов из Интернета 
+pacman -S --noconfirm --needed --noprogressbar --quiet wget
+echo " Создание (backup) резервного списка зеркал mirrorlist - (mirrorlist.old) "
+cp -vf /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.old
+# cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.old
+echo " Скачаем новый список серверов-зеркал "
+## wget -O /etc/pacman.d/mirrorlist archlinux.org/mirrorlist/?country=US 
+wget -O /etc/pacman.d/mirrorlist archlinux.org/mirrorlist/?country=RU
+## wget -O /etc/pacman.d/mirrorlist archlinux.org/mirrorlist/?country=RU&protocol=https&use_mirror_status=on 
+sed -i 's/^#Server/Server/' /etc/pacman.d/mirrorlist
+rankmirrors -n 6 /etc/pacman.d/mirrorlist
+# curl -s "https://archlinux.org/mirrorlist/?country=RU&protocol=https&use_mirror_status=on" | sed -e 's/^#Server/Server/' -e '/^#/d' | rankmirrors -n 5 -
+## curl -s "https://archlinux.org/mirrorlist/?country=FR&country=GB&protocol=https&use_mirror_status=on" | sed -e 's/^#Server/Server/' -e '/^#/d' | rankmirrors -n 5 -
+echo " Посмотреть список серверов-зеркал /etc/pacman.d/mirrorlist "
+echo ""
+cat /mnt/etc/pacman.d/mirrorlist  # cat читает данные из файла или стандартного ввода и выводит их на экран
+sleep 1
+echo ""
+echo " Обновим базы данных пакетов "
+pacman -Sy --noconfirm  # обновить списки пакетов из репозиториев
+sleep 1
+###################
 echo ""
 echo -e "${BLUE}:: ${NC}Install the Terminus font"  # Установим шрифт Terminus
 pacman -Sy terminus-font --noconfirm  # Моноширинный растровый шрифт (для X11 и консоли)
