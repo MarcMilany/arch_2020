@@ -27,7 +27,7 @@
 ###########################################################
 ###
 umask 0022 # Определение окончательных прав доступа - Для суперпользователя (root) umask по умолчанию равна 0022
-set -e # Эта команда остановит выполнение сценария после сбоя команды и будет отправлен код ошибки
+# set -e # Эта команда остановит выполнение сценария после сбоя команды и будет отправлен код ошибки
 # set -euxo pipefail  # прекращает выполнение скрипта, даже если одна из частей пайпа завершилась ошибкой
 ###
 ### Help and usage (--help or -h) (Справка)
@@ -470,21 +470,51 @@ sleep 04
 ########################
 ######## Mirrorlist ##########
 echo ""
-echo -e "${BLUE}:: ${NC}Скачаем новый список серверов-зеркал для загрузки (/etc/pacman.d/mirrorlist) с сайта archlinux.org/mirrorlist. Ставим зеркало для России"
-echo " Установка базовых (дополнительных) программ (пакетов): wget, pacman-contrib "
-pacman -S --noconfirm --noprogressbar --quiet wget  # Сетевая утилита для извлечения файлов из Интернета
-pacman -S --noconfirm --noprogressbar --quiet pacman-contrib  # Предоставленные скрипты и инструменты для систем pacman (https://github.com/kyrias/pacman-contrib) 
-pacman -S --noconfirm --needed --noprogressbar --quiet wget pacman-contrib
-echo " Создание (backup) резервного списка зеркал mirrorlist - (mirrorlist.old) "
-cp -vf /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.old
-# cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.old
-echo " Скачаем новый список серверов-зеркал "
-## wget -O /etc/pacman.d/mirrorlist archlinux.org/mirrorlist/?country=US 
-wget -O /etc/pacman.d/mirrorlist.old archlinux.org/mirrorlist/?country=RU
-sed -i 's/^#Server/Server/' /etc/pacman.d/mirrorlist.old
-rankmirrors -n 6 /etc/pacman.d/mirrorlist.old > /etc/pacman.d/mirrorlist
-## curl -s "https://archlinux.org/mirrorlist/?country=RU&protocol=https&use_mirror_status=on" | sed -e 's/^#Server/Server/' -e '/^#/d' | rankmirrors -n 5 -
-## curl -s "https://archlinux.org/mirrorlist/?country=FR&country=GB&protocol=https&use_mirror_status=on" | sed -e 's/^#Server/Server/' -e '/^#/d' | rankmirrors -n 5 -
+echo -e "${BLUE}:: ${NC}Изменяем серверов-зеркал для загрузки. Ставим зеркало для России от Яндекс"
+> /etc/pacman.d/mirrorlist
+cat <<EOF >>/etc/pacman.d/mirrorlist
+
+##
+## Arch Linux repository mirrorlist
+## Generated on 2021-05-06
+## HTTP IPv4 HTTPS
+## https://www.archlinux.org/mirrorlist/
+## https://www.archlinux.org/mirrorlist/?country=RU&protocol=http&protocol=https&ip_version=4
+
+
+## Russia
+Server = https://mirror.yandex.ru/archlinux/\$repo/os/\$arch
+Server = https://mirror.surf/archlinux/\$repo/os/\$arch
+Server = https://mirror.rol.ru/archlinux/\$repo/os/\$arch
+Server = https://mirror.nw-sys.ru/archlinux/$repo/os/\$arch
+Server = https://mirror.truenetwork.ru/archlinux/\$repo/os/\$arch
+#Server = http://mirror.yandex.ru/archlinux/\$repo/os/\$arch
+#Server = http://mirror.surf/archlinux/\$repo/os/\$arch
+#Server = http://mirror.rol.ru/archlinux/\$repo/os/\$arch
+#Server = http://mirror.nw-sys.ru/archlinux/$repo/os/\$arch
+#Server = http://mirror.truenetwork.ru/archlinux/\$repo/os/\$arch
+#Server = http://mirrors.powernet.com.ru/archlinux/$repo/os/$arch
+#Server = http://archlinux.zepto.cloud/\$repo/os/\$arch
+
+##
+## Arch Linux repository mirrorlist
+## Generated on 2021-05-06
+## HTTP IPv6 HTTPS
+## https://www.archlinux.org/mirrorlist/
+## https://www.archlinux.org/mirrorlist/?country=RU&ip_version=6
+##
+
+## Russia
+#Server = http://mirror.yandex.ru/archlinux/$repo/os/\$arch
+#Server = https://mirror.yandex.ru/archlinux/$repo/os/\$arch
+#Server = http://mirror.nw-sys.ru/archlinux/$repo/os/\$arch
+#Server = https://mirror.nw-sys.ru/archlinux/$repo/os/\$arch
+#Server = http://mirror.surf/archlinux/$repo/os/\$arch
+#Server = https://mirror.surf/archlinux/$repo/os/\$arch
+#Server = http://mirrors.powernet.com.ru/archlinux/$repo/os/\$arch
+#Server = http://archlinux.zepto.cloud/$repo/os/\$arch
+
+EOF
 ###
 echo -e "${BLUE}:: ${NC}Создание (backup) резервного списка зеркал mirrorlist - (mirrorlist.backup)"
 cp -vf /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.backup
