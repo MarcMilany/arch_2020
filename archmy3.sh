@@ -361,10 +361,7 @@ EndSection
 
 
 #####################
-echo "" 
-echo " Создание шаблонов файлов в ~/Templaytes (чтобы в контекстном меню отображался пункт New Document) "
-touch ~/Templates/{Empty\ Document,Text\ Document.txt,README.md,pyfile.py}
-#######################
+
 
 ################
 echo ""
