@@ -42,15 +42,14 @@ echo -e "${CYAN}=> ${NC}Acceptable limit for the list of arguments..."
 getconf ARG_MAX  # Допустимый лимит (предел) списка аргументов...'
 echo -e "${BLUE}:: ${NC}The determination of the final access rights"
 umask  # Определение окончательных прав доступа - Для суперпользователя (root) umask по умолчанию равна 0022 
-###
-## echo "$(date -u "+%F %H:%M") : Failed to connect to wifi: Exit 1" >> "$log"    
-echo "$(date -u "+%F %H:%M") : Failed to connect to network: Exit 1" >> "$log"
+echo -e "${BLUE}:: ${NC}Current full date"   
+echo "$(date -u "+%F %H:%M")" 
 ## %F - полная дата, то же что и %Y-%m-%d; %H - hour (00..23); %M - minute (00..59) 
 ################
 echo ""
 echo -e "${GREEN}=> ${NC}To check the Internet, you can ping a service"
-ping google.com -W 2 -c 1 &> /dev/null 
-#ping -c2 archlinux.org  # Утилита ping - это очень простой инструмент для диагностики сети
+ping google.com -W 2 -c 1
+#ping -c 2 archlinux.org  # Утилита ping - это очень простой инструмент для диагностики сети
 echo -e "${CYAN}==> ${NC}If the ping goes we go further ..."  # Если пинг идёт едем дальше ... :)
 echo ""
 echo -e "${GREEN}=> ${NC}Make sure that your network interface is specified and enabled" 
