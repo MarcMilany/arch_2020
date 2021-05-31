@@ -183,128 +183,30 @@ sgdisk -p /dev/sda
 echo ""
 echo -e "${BLUE}:: ${NC}Стираем таблицу разделов на первом диске (sda):"
 echo -e "${RED}=> ${YELLOW}Примечание: ${BOLD}Перед удалением раздела или таблицы разделов сделайте резервную копию своих данных. Все данные автоматически удаляются при удалении. Так как при выполнении данной опции будет деинсталлирован сам системный загрузчик из раздела MBR жесткого диска. ${NC}"
-## sgdisk --zap-all /dev/"$part"
-## sgdisk --zap-all /dev/"$DRIVE"
-sgdisk --zap-all /dev/sda  #sda; sdb; sdc; sdd - sgdisk - это манипулятор таблицы разделов Unix-подобных систем
-### Отформатируйте диск (Format the drive)
+########################
+### Выберите диск для использования (Select drive to use)
+lsblk | grep "NAME\|disk" | sed "s/MOUNTPOINT//g"
+sleep 1
+### Введите имя диска (NAME)
+# read -r DRIVE
+read -r " => Введите имя диска (NAME): " DRIVE
+### Проверьте, действителен ли диск (Check if valid drive)
+CHECK=$( partprobe -d -s "/dev/${DRIVE}" )
+### Указываем выбранный диск (Return selected drive)
+export DRIVE="/dev/${DRIVE}"
+### Подготовьте диск (Prepare the drive)
+lsblk "${DRIVE}"
+# Отформатируйте диск (Format the drive)
 dd \
-if=/dev/zero of=/dev/sda bs=512 count=1 conv=notrunc status=progress 
-# wipefs -a /dev/sda  # Стереть подпись с дискового устройства с помощью команды wipefs
-wipefs -fa /dev/sda # Стереть подпись с дискового устройства
-## wipefs -a /dev/"$part"
-## wipefs -a /dev/"$DRIVE"
-# partprobe /dev/sda  # partprobe - информирует ОС об изменениях таблицы разделов
-partprobe -d -s /dev/sda
-echo " Создание новых записей GPT в памяти. "
-echo " Структуры данных GPT уничтожены! Теперь вы можете разбить диск на разделы с помощью fdisk или других утилит. "
+if=/dev/zero of="${DRIVE}" bs=512 count=1 conv=notrunc status=progress
+wipefs -fa "${DRIVE}"
+partprobe "${DRIVE}"
 sleep 1
-################
-clear
-echo ""
-echo -e "${GREEN}==> ${NC}Затирание раздела(ов) диска (/dev/random) и (/dev/urandom), для последующего шифрования диска, раздела(ов) и установки ArchLinux"
-echo -e "${BLUE}:: ${NC}Заполняем диск (раздел) случайными данными для удаления остаточной информации"
-echo -e "${RED}=> ${YELLOW}ПРЕДУПРЕЖДЕНИЕ! ${BOLD}Следующая команда удалит все данные с диска, раздела(ов), или уже в зашифрованном разделе. Вы потеряете всю свою информацию! Поэтому убедитесь, что вы сделали резервную копию своих данных на внешнем источнике, таком как NAS или жесткий диск, прежде чем вводить любую из следующих команд. ${NC}"
-echo " Первой задачей будет 3 раза перезаписать этот раздел случайными данными, этого достаточно, чтобы защитить вас от криминалистического расследования. "
-echo -e "${CYAN} Пример команды: ${NC}(shred --verbose --random-source=/dev/urandom --iterations=3 /dev/sdX)"
-echo -e "${MAGENTA} Справка: ${BOLD}Процесс генерации случайных и псевдослучайных чисел (/dev/random) и (/dev/urandom) - ДОЛГИЙ. (потребовалось около 30 минут, чтобы раздел размером 20 ГБ был перезаписан 3 раза) ${NC}"
-echo -e "${YELLOW}==> ${NC}Вы можете пропустить этот шаг!"
-echo ""
-echo " Он сказал: - Поехали! И запил водой :))) "
-## shred --verbose --random-source=/dev/urandom --iterations=3 /dev/sdX
-### Если ли надо раскомментируйте нужные вам значения ####
-#shred --verbose --random-source=/dev/urandom --iterations=1 /dev/sda  # перезаписать этот раздел случайными данными
-## /dev/random — генератор случайных чисел;
-## /dev/urandom — генератор псевдослучайных чисел.
-## /dev/random и /dev/urandom — специальные символьные псевдоустройства в некоторых UNIX-подобных системах
-## --iterations=3 количество раз перезаписи
-## Заполняем раздел случайными данными для удаления остаточной информации:
-## dd if=/dev/urandom of=/dev/sda
-## kill -USR1 ${PID} &>/dev/null
-###################
-clear
-echo -e "${MAGENTA}
-  <<< Вся разметка диска(ов) производится только утилитой - fdisk - (для управления разделами жёсткого диска) >>>
-${NC}"
-echo -e "${RED}=> ${YELLOW}Предупреждение: ${BOLD}Перед созданием раздела(ов) или удалением таблицы разделов сделайте резервную копию своих данных. Повторю ещё раз - если что-то напутаете при разметке дисков, то можете случайно удалить важные для вас данные. Так как при выполнении данной опции (может) будет деинсталлирован сам системный загрузчик из раздела MBR жесткого диска. ${NC}"
-echo ""
-echo -e "${GREEN}==> ${NC}Создание разделов диска для установки ArchLinux"
-echo -e "${BLUE}:: ${NC}Вы можете изменить разметку диска"
-echo " Создаем таблицу на диске MBR(DOS) и 2 первичных раздела: "
-echo " Раздел boot 512M + -, выставляем флаг boot "
-echo " Раздел LUKS под root, swap, home "
-echo " Перемена местами не имеет значения - просто изменить команды! "
-### Создание новой таблицы разделов (Create new partition table)
-# echo " fdisk --wipe=always "${DRIVE}" "
-#fdisk --wipe=always /dev/sda
-# echo " partprobe "${DRIVE}" "
-#partprobe /dev/sda  # Перечитываем таблицы разделов
-# partprobe -d -s /dev/sda  # partprobe – это программа, которая информирует ядро операционной системы об изменениях таблицы разделов, запрашивая у системы, чтобы она перечитала таблицу разделов.
+# Создать новую таблицу разделов(Create new partition table)
+printf "%s\nw" "${PART_CODE}" | fdisk --wipe=always "${DRIVE}"
+partprobe "${DRIVE}"
 sleep 1
-
-(
-  echo o;
-
-  echo n;
-  echo p;
-  echo 1;
-  echo;
-  echo +2G;
-  echo a;
-
-  echo n;
-  echo p;
-  echo 2;
-  echo;
-  echo;
-#  echo t;
-#  echo 2;
-##echo L;
-#  echo 8e;  # Тип раздела = Linux LVM  
-
-  echo p;  # Вновь просматриваем таблицу
-  echo w;  # Теперь нужно записать изменения на диск
-) | fdisk --wipe=always /dev/sda
-## fdisk /dev/sda
-partprobe /dev/sda
-#####################################
-# Создаем таблицу на диске MBR(DOS) и 2 первичных раздела.
-# boot 512M, выставляем флаг boot
-# LUKS под root, swap, home
-# Создаём разделы:
-# [root@archiso ~]# fdisk /dev/sda
-# /boot:
-# (fdisk) n // new раздел
-# (fdisk) p // или <Enter>, primary раздел
-# (fdisk) 1 // или <Enter>, первый раздел
-# (fdisk) <Enter> // первый сектор, по умолчанию
-# (fdisk) +256M // последний сектор, под /boot тут хватит 256МБ
-# (fdisk) a // устанавливаем boot флаг на этот раздел
-# LVM:
-# (fdisk) n // new раздел
-# (fdisk) p // или <Enter>, primary раздел
-# (fdisk) 2 // или <Enter>, второй раздел
-# (fdisk) <Enter> // первый сектор, по умолчанию
-# (fdisk) <Enter> // последний сектор, всё оставшееся место
-# Проверяем:
-# ...
-# Command (m for help): p
-# Disk /dev/sda: 20 GiB, 21474836480 bytes, 41943040 sectors
-# Units: sectors of 1 * 512 = 512 bytes
-# Sector size (logical/physical): 512 bytes / 512 bytes
-# I/O size (minimum/optimal): 512 bytes / 512 bytes
-# Disklabel type: dos
-# Disk identifier: 0xc26e076b
-# Device     Boot  Start      End  Sectors  Size Id Type
-# /dev/sda1  *      2048   526335   524288  256M 83 Linux
-# /dev/sda2       526336 41943039 41416704 19.8G 83 Linux
-# Re-playCopy to ClipboardPauseFull View
-# Записываем изменения — w:
-#...
-# Command (m for help): w
-# The partition table has been altered.
-# Calling ioctl() to re-read partition table.
-# Syncing disks
-#####################################
+################################
 ###
 clear 
 echo "" 
