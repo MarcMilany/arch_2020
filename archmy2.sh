@@ -299,8 +299,8 @@ echo ""
 echo " Установим GRUB(legacy) пакет (grub) "
 echo ""    
 pacman -Syy  # (-yy принудительно обновить даже если обновленные)
-pacman -S --noconfirm --needed grub
-#pacman -S grub --noconfirm  # Файлы и утилиты для установки GRUB2 содержатся в пакете grub
+# pacman -S --noconfirm --needed grub
+pacman -S grub --noconfirm  # Файлы и утилиты для установки GRUB2 содержатся в пакете grub
 # pacman -S grub-customizer --noconfirm  # Графический менеджер настроек grub2
 uname -rm  # для определения архитектуры процессора, имени хоста системы и версии ядра, работающего в системе
 lsblk -f # Команда lsblk выводит список всех блочных устройств
