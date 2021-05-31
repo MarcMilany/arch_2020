@@ -184,7 +184,7 @@ echo -e "${RED}=> ${YELLOW}Примечание: ${BOLD}Перед удален�
 ## sgdisk --zap-all /dev/"$part"
 ## sgdisk --zap-all /dev/"$DRIVE"
 sgdisk --zap-all /dev/sda  #sda; sdb; sdc; sdd - sgdisk - это манипулятор таблицы разделов Unix-подобных систем
-wipefs -a /dev/sda
+wipefs -a /dev/sda  # Стереть подпись с дискового устройства с помощью команды wipefs
 ## wipefs -a /dev/"$part"
 ## wipefs -a /dev/"$DRIVE"
 echo " Создание новых записей GPT в памяти. "
