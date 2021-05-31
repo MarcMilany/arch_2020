@@ -188,8 +188,8 @@ echo -e "${RED}=> ${YELLOW}Примечание: ${BOLD}Перед удален�
 lsblk | grep "NAME\|disk" | sed "s/MOUNTPOINT//g"
 sleep 1
 ### Введите имя диска (NAME)
-# read -r DRIVE
-read -r -p DRIVE " => Введите имя диска (NAME): " 
+read -r DRIVE
+# read -r -p DRIVE " => Введите имя диска (NAME): " 
 ### Проверьте, действителен ли диск (Check if valid drive)
 CHECK=$( partprobe -d -s "/dev/${DRIVE}" )
 ### Указываем выбранный диск (Return selected drive)
