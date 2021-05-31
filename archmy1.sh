@@ -241,6 +241,7 @@ echo " Раздел boot 512M + -, выставляем флаг boot "
 echo " Раздел LUKS под root, swap, home "
 echo " Перемена местами не имеет значения - просто изменить команды! "
 ### Создание новой таблицы разделов (Create new partition table)
+
 (
   echo o;
 
