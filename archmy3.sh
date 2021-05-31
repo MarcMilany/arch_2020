@@ -357,9 +357,6 @@ Section "InputClass"
         Option "XkbOptions" "grp:alt_shift_toggle"
 EndSection
 
-
-
-
 #####################
 
 
