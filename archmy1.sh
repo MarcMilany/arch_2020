@@ -206,6 +206,7 @@ sleep 1
 printf "%s\nw" "${PART_CODE}" | fdisk --wipe=always "${DRIVE}"
 partprobe "${DRIVE}"
 sleep 1
+*)
 ################################
 ###
 clear 
