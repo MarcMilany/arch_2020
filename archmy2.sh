@@ -248,6 +248,17 @@ nano /etc/mkinitcpio.conf
 # nano -m /etc/mkinitcpio.conf  # -m - включить поддержку мыши
 ## добавить keyboard keymap encrypt lvm2
 # HOOKS=(base udev autodetect keyboard keymap modconf block encrypt lvm2 filesystems fsck)
+##### Ещё способ #####
+### Add kernel parameters to systemd-boot
+#sed -i -e "/^HOOKS=/s/ keyboard//g" /mnt/etc/mkinitcpio.conf
+#sed -i -e "/^HOOKS=/s/filesystems/keyboard keymap filesystems/g" \
+#/mnt/etc/mkinitcpio.conf
+# LUKS kernel parameters
+#sed -i -e \
+#"/^HOOKS=/s/filesystems/encrypt filesystems/g" /mnt/etc/mkinitcpio.conf
+# LVM kernel parameters
+#sed -i -e \
+#"/^HOOKS=/s/filesystems/lvm2 filesystems/g" /mnt/etc/mkinitcpio.conf
 ########################
 clear
 echo ""
