@@ -201,7 +201,7 @@ dd \
 if=/dev/zero of="${DRIVE}" bs=512 count=1 conv=notrunc status=progress
 wipefs -fa "${DRIVE}"
 partprobe "${DRIVE}"  # partprobe – это программа, которая информирует ядро операционной системы об изменениях таблицы разделов, запрашивая у системы, чтобы она перечитала таблицу разделов.
-sgdisk --zap-all /dev/"$DRIVE"
+## sgdisk --zap-all /dev/"$DRIVE"
 echo " Создание новых записей GPT в памяти. "
 echo " Структуры данных GPT уничтожены! Теперь вы можете разбить диск на разделы с помощью fdisk или других утилит. "
 sleep 1
