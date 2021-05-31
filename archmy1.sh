@@ -234,9 +234,9 @@ echo " Раздел LUKS под root, swap, home "
 echo " Перемена местами не имеет значения - просто изменить команды! "
 ### Создание новой таблицы разделов (Create new partition table)
 # echo " fdisk --wipe=always "${DRIVE}" "
-fdisk --wipe=always /dev/sda
+#fdisk --wipe=always /dev/sda
 # echo " partprobe "${DRIVE}" "
-partprobe /dev/sda  # Перечитываем таблицы разделов
+#partprobe /dev/sda  # Перечитываем таблицы разделов
 # partprobe -d -s /dev/sda  # partprobe – это программа, которая информирует ядро операционной системы об изменениях таблицы разделов, запрашивая у системы, чтобы она перечитала таблицу разделов.
 sleep 1
 
@@ -262,7 +262,9 @@ sleep 1
 
   echo p;  # Вновь просматриваем таблицу
   echo w;  # Теперь нужно записать изменения на диск
-) | fdisk /dev/sda
+) | fdisk --wipe=always /dev/sda
+## fdisk /dev/sda
+partprobe /dev/sda
 #####################################
 # Создаем таблицу на диске MBR(DOS) и 2 первичных раздела.
 # boot 512M, выставляем флаг boot
