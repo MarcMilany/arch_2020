@@ -637,6 +637,7 @@ echo -e "${CYAN}=> ${NC}Поддержка OpenVPN в Network Manager также
 echo ""
 echo " Ставим сетевые утилиты Networkmanager "        
 pacman -S networkmanager networkmanager-openvpn network-manager-applet ppp --noconfirm  # Диспетчер сетевых подключений и пользовательские приложения; Плагин NetworkManager VPN для OpenVPN; Апплет для управления сетевыми подключениями; Демон, реализующий протокол точка-точка для коммутируемого доступа в сеть.
+pacman -S nm-connection-editor --noconfirm  # Редактор и виджеты графического интерфейса NetworkManager (https://wiki.gnome.org/Projects/NetworkManager/)
 # pacman -Sy networkmanager networkmanager-openvpn network-manager-applet ppp --noconfirm
 echo ""
 echo -e "${BLUE}:: ${NC}Ставим дополнительные сетевые утилиты"
