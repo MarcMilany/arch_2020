@@ -992,8 +992,10 @@ echo -e "${BLUE}:: ${NC}Блокируем сайты с рекламой чер
 echo " Сохраняем копию оригинального файла /etc/hosts "
 cp /etc/hosts /etc/hosts.bak
 # cp /etc/hosts ~/Documents/hosts.bak
+echo " Загрузка и обновление файла /etc/hosts "
 wget -qO- https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts | sudo tee --append /etc/hosts
 sleep 1
+## https://github.com/StevenBlack/hosts
 #######################
 clear
 echo ""
