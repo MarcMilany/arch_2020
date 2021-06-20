@@ -705,8 +705,9 @@ echo ""
 echo $SHELL
 echo ""  
 echo " Установка ZSH (shell) оболочки "
-pacman -S zsh zsh-syntax-highlighting zsh-autosuggestions grml-zsh-config --noconfirm
-pacman -S zsh-completions zsh-history-substring-search  --noconfirm  
+pacman -S zsh zsh-syntax-highlighting zsh-autosuggestions grml-zsh-config --noconfirm  # Очень продвинутый и программируемый интерпретатор команд (оболочка) для UNIX; Рыбная оболочка как подсветка синтаксиса для Zsh; Рыбоподобные самовнушения для zsh (история команд); Настройка zsh в grml 
+pacman -S zsh-completions zsh-history-substring-search  --noconfirm  # Дополнительные определения завершения для Zsh; ZSH порт поиска рыбной истории (стрелка вверх) 
+pacman -S zsh-theme-powerlevel10k  --noconfirm  # Powerlevel10k - это тема для Zsh. Он подчеркивает скорость, гибкость и готовность к работе. (https://github.com/romkatv/powerlevel10k)
 echo 'source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh' >> /etc/zsh/zshrc
 echo 'source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh' >> /etc/zsh/zshrc
 #echo 'prompt adam2' >> /etc/zsh/zshrc
@@ -723,7 +724,7 @@ chsh -s /bin/zsh $username
 echo ""
 echo " Важно! При первом запуске консоли (терминала) - нажмите "0" "
 echo " Пользовательская оболочка ИЗМЕНЕНА (сразу будет), с BASH на на ZSH "
-####################
+###################
 clear
 echo -e "${MAGENTA}
   <<< Установка AUR (Arch User Repository) >>> ${NC}"   
